@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:14:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/20 18:38:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:47 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 void	env_free2(t_env *env)
 {

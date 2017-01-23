@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:39:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/20 18:38:57 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 void	ft_replace(t_env *env, char *str, int sav, int i)
 {

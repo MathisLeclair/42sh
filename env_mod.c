@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 15:10:15 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/20 18:15:43 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:38 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 int		find_param(char **split, char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 13:36:51 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/20 18:39:00 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:59 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 int		whereis(char *buff)
 {

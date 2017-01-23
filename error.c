@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/22 13:44:08 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 void	error2(int i)
 {

@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/20 17:49:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:44 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 void	ft_child2(t_env *env, char **input, char *pwd, char *tmp)
 {

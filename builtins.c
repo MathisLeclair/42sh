@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/01/20 18:38:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:27 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 void	ft_exit(void)
 {

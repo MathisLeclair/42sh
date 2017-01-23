@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:18:04 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/20 18:26:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:09:29 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "./libft/libft.h"
-# define PROMPT "$\e[0;31mms\e[0m>"
+# define PROMPT "$\e[0;31m42sh\e[0m>"
 # include <signal.h>
 # include <unistd.h>
 # include <dirent.h>

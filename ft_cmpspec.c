@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 14:49:00 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/15 16:10:09 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:49 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 int		ft_cmpspec(char *input, char *tofind)
 {

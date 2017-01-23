@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/01/20 16:41:42 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:08:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
 static int	ft_cnt_parts(const char *s, char c)
 {
