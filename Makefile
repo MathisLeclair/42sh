@@ -30,7 +30,8 @@ FILE =	main \
 		free \
 		builtins \
 		aperture \
-		tilde
+		tilde \
+		verif_quote
 
 OBJ  := $(addsuffix .o, $(FILE))
 

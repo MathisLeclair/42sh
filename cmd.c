@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/31 14:20:21 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/31 18:55:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int		ft_read(t_env *env)
 
 	if (get_next_line(1, &input) == 0)
 		error(-6, NULL, NULL);
+	if (verif_quote(input, 0) == -1)
+		return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
 	i = -1;

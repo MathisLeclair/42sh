@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/30 17:44:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/01/31 18:55:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,12 @@ void			ft_aperture(void);
 ** tilde.c
 */
 void			ft_tilde(t_env *e, int i, char quote);
+
+
+/*
+** verif_quote.c
+*/
+
+int				verif_quote(char *inp, int k);
 
 #endif
