@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/06 18:48:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/06 18:49:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	set_evloc2(t_env *e)
 	struct passwd	*truc;
 	char			*tmp;
 
-	printf("st\n");
 	buf = malloc(sizeof(struct stat));
 	add_var_to_env(e->loc, "HISTFILE=/private/tmp/.42sh_history");
 	add_var_to_env(e->loc, "HISTSIZE=500");
@@ -29,7 +28,6 @@ void	set_evloc2(t_env *e)
 	add_var_to_env(e->loc, tmp);
 	free(tmp);
 	double_array_sort(e->loc->ev);
-	printf("st\n");
 	print_split(e->loc->ev);
 }
 
