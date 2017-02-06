@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:14:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/30 17:44:37 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/06 18:33:09 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ void	env_free(t_env *env)
 	}
 }
 
-int		free_double_array(char **tab)
+int		free_double_array(char **t)
 {
 	int i;
 
 	i = -1;
-	if (tab)
+	if (t)
 	{
-		while (tab[++i])
-			free(tab[i]);
-		free(tab);
+		while (t[++i])
+			free(t[i]);
+		free(t);
 	}
 	return (1);
 }

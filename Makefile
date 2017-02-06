@@ -31,7 +31,8 @@ FILE =	main \
 		builtins \
 		aperture \
 		tilde \
-		verif_quote
+		verif_quote \
+		double_array_sort
 
 OBJ  := $(addsuffix .o, $(FILE))
 
@@ -45,7 +46,7 @@ $(NAME): $(OBJ)
 	@echo "|           sub compilation :          |"
 	@echo "|                libft                 |"
 	@make -C $(PATHTOMAKEFILE)
-	@gcc -Wall -Werror -L./libft/ -lft -o $(NAME) -Wextra $(OBJ)
+	@gcc -Wall -Werror -L./libft/ -lft -o $(NAME) -Wextra $(OBJ) -lncurses
 	@echo "|                 FIN                  |"
 	@echo "----------------------------------------"
 	@echo "               ________"

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/31 18:55:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/06 18:32:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,21 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include <term.h>
 # include <sys/stat.h>
+# include <pwd.h>
 # define INPUT_SIZE 4096
 # define BUFF_SIZE 32
 
 typedef struct	s_env
 {
-	char	*input;
-	char	**ev;
-	char	**savev;
-	char	*dir;
-	char	**path;
-	int		i;
+	char			*input;
+	char			**ev;
+	char			**savev;
+	char			*dir;
+	char			**path;
+	int				i;
+	struct s_env	*loc;
 }				t_env;
 
 /*
@@ -113,14 +116,14 @@ void			getpwd(char *pwd);
 **ft_strsplitquote.c
 */
 
-char			**ft_strsplitquote(char const *s, char c, char tab);
+char			**ft_strsplitquote(char const *s, char c, char t);
 
 /*
 ** free.c
 */
 
 void			env_free(t_env *env);
-int				free_double_array(char **tab);
+int				free_double_array(char **t);
 
 /*
 ** builtin.c
@@ -143,5 +146,11 @@ void			ft_tilde(t_env *e, int i, char quote);
 */
 
 int				verif_quote(char *inp, int k);
+
+/*
+** double_array_sort.c
+*/
+
+void			double_array_sort(char **t);
 
 #endif

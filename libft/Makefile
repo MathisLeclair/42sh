@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/01/13 15:05:07 by mleclair         ###   ########.fr        #
+#    Updated: 2017/02/06 13:54:04 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ FILE =	ft_atoi \
 		ft_tolower \
 		ft_toupper \
 		ft_itoa_base \
+		ft_strjoinfree \
 		addprint \
 		diese \
 		ft_atoi_base \

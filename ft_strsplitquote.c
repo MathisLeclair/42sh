@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/01/30 17:44:42 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/06 17:56:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	ft_wlen(const char *s, char c)
 	return (l);
 }
 
-char		*ft_tab_space(const char *str, char tab)
+char		*ft_tab_space(const char *str, char t)
 {
 	char	*ret;
 	int		i;
@@ -64,7 +64,7 @@ char		*ft_tab_space(const char *str, char tab)
 		return (NULL);
 	i = -1;
 	done = 0;
-	if (tab)
+	if (t)
 		while (ret[++i])
 		{
 			if (done == ret[i])
@@ -77,7 +77,7 @@ char		*ft_tab_space(const char *str, char tab)
 	return (ret);
 }
 
-char		**ft_strsplitquote(char const *s, char c, char tab)
+char		**ft_strsplitquote(char const *s, char c, char t)
 {
 	char	**a;
 	int		nbw;
@@ -88,7 +88,7 @@ char		**ft_strsplitquote(char const *s, char c, char tab)
 	i = -1;
 	if (s == NULL)
 		return (NULL);
-	input = ft_tab_space(s, tab);
+	input = ft_tab_space(s, t);
 	sv = input;
 	nbw = ft_cnt_parts(input, c);
 	a = palloc(sizeof(char *) * nbw + 1);
