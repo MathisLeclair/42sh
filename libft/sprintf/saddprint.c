@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 14:40:26 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/13 12:18:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/08 11:46:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ char	*ft_sprint(char *str, int k, int bool)
 	if (bool == 1)
 	{
 		u = i + k;
-		write(1, buff, u);
-		ft_bzero(buff, u);
 		i = 0;
 		return (buff);
 	}
