@@ -6,11 +6,28 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/30 17:44:24 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/08 16:51:48 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+void	aperture2(void)
+{
+	char	buf[5];
+	int		fd;
+
+	if ((fd = open("stillalive", O_RDONLY)) == -1)
+	{
+		ft_putstr("But why delete it????? you monster\n");
+		return ;
+	}
+	while (read(fd, buf, 1))
+	{
+		write(1, &buf[0], 1);
+		usleep(80000);
+	}
+}
 
 void	ft_aperture(void)
 {
@@ -37,4 +54,5 @@ void	ft_aperture(void)
 	ft_printf("%s\n", "         ,:+$+-,/H#MMMMMMM@= =,");
 	ft_printf("%s\n", "               =++%%%%+/:-.");
 	ft_printf("\033[0m");
+	aperture2();
 }
