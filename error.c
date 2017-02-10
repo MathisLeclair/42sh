@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/31 17:50:44 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/10 14:24:14 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	error2(int i, char *str)
 	if (i == -666)
 	{
 		ft_putstr("Malloc error! ABORT! ABORT!!!!!!!!\n");
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	else if (i == -9)
 		ft_printf("shell: cd: no such file or directory: %s\n", str);
@@ -42,7 +42,7 @@ void	error(int i, char *str, char *str2)
 	else if (i == -6)
 	{
 		ft_putstr("\n");
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	else if (i == -7)
 		ft_putstr("shell: error too many arguments.\n");
@@ -54,7 +54,7 @@ void	error(int i, char *str, char *str2)
 
 void	*palloc(size_t size)
 {
-	void	*ptr;
+	void *ptr;
 
 	ptr = malloc(size);
 	if (ptr == NULL)

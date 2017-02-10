@@ -6,15 +6,20 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/06 18:32:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/10 14:25:20 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 
-# include "./libft/libft.h"
+# define FALSE	0
+# define TRUE	(!FALSE)
 # define PROMPT "$\e[0;31m42sh\e[0m>"
+# define INPUT_SIZE 4096
+# define BUFF_SIZE 32
+
+# include "./libft/libft.h"
 # include <signal.h>
 # include <unistd.h>
 # include <dirent.h>
@@ -23,8 +28,6 @@
 # include <term.h>
 # include <sys/stat.h>
 # include <pwd.h>
-# define INPUT_SIZE 4096
-# define BUFF_SIZE 32
 
 typedef struct	s_env
 {
