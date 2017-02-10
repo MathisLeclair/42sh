@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/10 15:09:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/10 19:13:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	initvar(t_var *var)
 	var->ret = malloc(INPUT_SIZE);
 	var->cpy = malloc(INPUT_SIZE);
 	var->cpy[0] = 0;
-	var->lenligne = 14; // A CHANGER POUR LA TAILLE DU PROMPT EN TPS REEL
+	var->lenprompt = 14; // A CHANGER POUR LA TAILLE DU PROMPT EN TPS REEL
+	var->lenligne = var->lenprompt;
 	var->i = 0;
 	var->sovi = 0;
 	var->del = 0;
@@ -129,6 +130,11 @@ void	delete(t_var *var)
 	rem_car(var);
 }
 
+void	tabu(t_var *var)
+{
+	// auto_possibilities(var->ret, var->i, env());
+}
+
 void	backspace(t_var *var)
 {
 	if (var->i > 0)
@@ -154,8 +160,8 @@ void	desel(t_var *var)
 	var->selmode = 0;
 	var->i = var->sovi;
 	var->sovi = 0;
-	var->selstart = 0;
-	var->selend = 0;
+	var->selstart = -1;
+	var->selend = -1;
 	ft_putstr(tgetstr("rc", NULL)); // RESTORE POS
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
 }
@@ -191,43 +197,47 @@ void	select_mode(t_var *var)
 		ft_putstr(tgetstr("me", NULL)); // STOP VIDEO MODE
 		right_arrow(var);
 		ft_putstr(tgetstr("le", NULL));
-		var->selend = var->selend < var->i ? var->i : var->selend;
+		var->selend = var->i > var->selend ? var->i : var->selend;
 	}
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
 }
 
-void	copy(t_var *var)
+void	copy(t_var *var, int p)
 {
 	int i;
 	int j;
 
-	i = -1;
-	j = -1;
-	while (++i < var->selstart)
-		;
-	while (i++ < var->selend)
-		var->cpy[++j] = var->ret[i];
-	var->cpy[i] = 0;
-	desel(var);
+	i = 0;
+	j = 0;
+	var->cpy[0] = 0;
+	while (i < var->selstart)
+		++i;
+	while (i <= var->selend)
+		var->cpy[j++] = var->ret[i++];
+	var->cpy[i + 1] = 0;
+	if (p != 1)
+		desel(var);
 }
 
 void	cut(t_var *var)
 {
 	int i;
 
+	if (var->selstart == -1 || var->selend == -1)
+		return ;
 	i = var->i;
-	copy(var);
-	while (i-- < var->selstart)
-		ft_putstr(tgetstr("nd", NULL));
-	while (i++ > var->selstart)
-		ft_putstr(tgetstr("le", NULL));
-	while (var->selend - var->selstart > 0)
+	copy(var, 1);
+	while (i != var->selstart && i >= 0)
 	{
-		delete(var);
-		var->selstart++;
+		i < var->selstart ? ft_putstr(tgetstr("le", NULL)) :
+		ft_putstr(tgetstr("nd", NULL));
+		i = i < var->selstart ? i + 1 : i - 1;
 	}
-	var->selstart = 0;
-	var->selend = 0;
+	while (i++ != var->selend)
+		delete(var);
+	desel(var);
+	var->selstart = -1;
+	var->selend = -1;
 	var->selmode = 0;
 }
 
@@ -235,15 +245,17 @@ void	paste(t_var *var)
 {
 	int i;
 
-	i = -1;
+	i = 0;
 	if (ft_strlen(var->cpy) == 0)
 		return ;
 	ft_putstr(var->cpy);
-	while (var->cpy[++i])
-		;
-	while (i--)
+	while (var->cpy[i])
+		++i;
+	while (--i >= 0)
 		add_car(var, 1 , var->cpy[i]);
 	var->i = ft_strlen(var->ret);
+	var->selend = -1;
+	var->selstart = -1;
 }
 
 void	touch(t_var *var)
@@ -259,13 +271,12 @@ void	touch(t_var *var)
 	while (var->buff[0] != 10)
 	{
 		read(0, var->buff, 3);
-
 		if (var->buff[0] == 27 && var->buff[2] == 91)
 			select_mode(var);
 		else if (var->buff[1] == -119) //CTRL + X
 			cut(var);
 		else if (var->buff[1] == -89) //CTRL + C
-			copy(var);
+			copy(var, 0);
 		else if (var->selmode == 1 && var->buff[0] > 0)
 			desel(var);
 		if (var->buff[0] == -30 && var->buff[1] == -120) //CTRL + V
@@ -280,6 +291,8 @@ void	touch(t_var *var)
 			shift_arrow_r(var);
 		if (var->buff[0] == 27 && var->buff[2] == 72) //HOME
 			home(var);
+		if (var->buff[0] == 9 && var->buff[2] == 0) //HOME
+			tabu(var);
 		if (var->buff[0] == 27 && var->buff[2] == 70) //END
 			end(var);
 		if (var->buff[0] == 127 && var->buff[1] == 0) //backspace
