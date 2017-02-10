@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/08 16:51:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/10 15:38:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	aperture2(void)
 	char	buf[5];
 	int		fd;
 
-	if ((fd = open("stillalive", O_RDONLY)) == -1)
+	if ((fd = open("stillalive.txt", O_RDONLY)) == -1)
 	{
 		ft_putstr("But why delete it????? you monster\n");
 		return ;

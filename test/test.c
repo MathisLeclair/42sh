@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/09 18:08:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/10 15:09:06 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void	initvar(t_var *var)
 	var->selend = -1;
 }
 
-void	add_car(t_var *var)
+void	add_car(t_var *var, int boule, char c)
 {
 	char *tmp;
 
 	tmp = malloc(4096);
 	tmp[0] = 0;
 	ft_strcpy(tmp, var->ret + var->i);
-	var->ret[var->i] = var->buff[0];
+	var->ret[var->i] = boule == 1 ? c : var->buff[0];
 	var->ret[var->i + 1] = 0;
 	ft_strcat(var->ret, tmp);
 	free(tmp);
@@ -147,7 +147,7 @@ void	desel(t_var *var)
 	j = var->i;
 	while (j > 0)
 	{
-		ft_putstr(tgetstr("le", NULL));
+		ft_putstr(tgetstr("le", NULL)); // MOVE CUROR TO LEFT
 		--j;
 	}
 	write(1, var->ret, ft_strlen(var->ret));
@@ -203,11 +203,12 @@ void	copy(t_var *var)
 
 	i = -1;
 	j = -1;
-	while (++i < var->selstart - 1)
+	while (++i < var->selstart)
 		;
 	while (i++ < var->selend)
 		var->cpy[++j] = var->ret[i];
 	var->cpy[i] = 0;
+	desel(var);
 }
 
 void	cut(t_var *var)
@@ -232,9 +233,17 @@ void	cut(t_var *var)
 
 void	paste(t_var *var)
 {
+	int i;
+
+	i = -1;
 	if (ft_strlen(var->cpy) == 0)
 		return ;
-	write(1, &var->cpy, ft_strlen(var->cpy));
+	ft_putstr(var->cpy);
+	while (var->cpy[++i])
+		;
+	while (i--)
+		add_car(var, 1 , var->cpy[i]);
+	var->i = ft_strlen(var->ret);
 }
 
 void	touch(t_var *var)
@@ -257,10 +266,10 @@ void	touch(t_var *var)
 			cut(var);
 		else if (var->buff[1] == -89) //CTRL + C
 			copy(var);
-		else if (var->buff[1] == -120) //CTRL + V
-			paste(var);
 		else if (var->selmode == 1 && var->buff[0] > 0)
 			desel(var);
+		if (var->buff[0] == -30 && var->buff[1] == -120) //CTRL + V
+			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
 			left_arrow(var);
 		if (var->buff[0] == 27 && var->buff[2] == 67 && var->i < ft_strlen(var->ret))  //RIGHT ARROW 
@@ -287,7 +296,7 @@ void	touch(t_var *var)
 		else if(var->buff[1] == 0 && var->buff[0] != 10 && var->buff[0] != 127 && var->del != 1) // STANDARD CHAR
 		{
 			write(1, &var->buff[0], 1);
-			add_car(var);
+			add_car(var, 0, 0);
 			++var->i;
 			++var->lenligne;
 		}
