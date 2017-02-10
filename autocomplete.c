@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/10 15:36:02 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/10 17:51:08 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../42sh.h"
+#include "42sh.h"
 
 int        strstr_no_case(char *find, char *search_in_lc)
 {
@@ -53,24 +53,103 @@ char    *to_lowercase(char *str)
     return (str_lc);
 }
 
-char    **ac_cmd(char *find, t_env *env)
+void	add_str_to_dstr(char ***dstr, char *str)
 {
-    char ** = buildins && commandes path
-    return (char ** =    "echo"
-                        "ecarlate")
+	int		i;
+	char	**new_dstr;
+
+	i = 0;
+	while (dstr[i])
+		++i;
+	new_dstr = palloc(sizeof(char *) * i + 2);
+	new_dstr[i + 1] = 0;
+	i = -1;
+	while (dstr[++i])
+		new_dstr[i] = (*dstr)[i];
+	new_dstr[i] = ft_strdup(str);
+	free(dstr);
+	*dstr = new_dstr;
 }
 
-char    **ac_pwd(char *find, t_env *env)
+void	ft_ac_cmd_build(char ***ac, char *find)
+{
+	if (strstr_no_case(find, "echo"))
+		add_str_to_dstr(ac, "echo");
+	if (strstr_no_case(find, "cd"))
+		add_str_to_dstr(ac, "cd");
+	if (strstr_no_case(find, "aperture"))
+		add_str_to_dstr(ac, "aperture");
+	if (strstr_no_case(find, "unsetenv"))
+		add_str_to_dstr(ac, "unsetenv");
+	if (strstr_no_case(find, "setenv"))
+		add_str_to_dstr(ac, "setenv");
+	if (strstr_no_case(find, "exit"))
+		add_str_to_dstr(ac, "exit");
+	if (strstr_no_case(find, "Patate"))
+		add_str_to_dstr(ac, "Patate");
+	if (strstr_no_case(find, "env"))
+		add_str_to_dstr(ac, "env");
+	if (strstr_no_case(find, "local"))
+		add_str_to_dstr(ac, "local");
+	if (strstr_no_case(find, "unset"))
+		add_str_to_dstr(ac, "unset");
+	if (strstr_no_case(find, "export"))
+		add_str_to_dstr(ac, "export");
+	if (strstr_no_case(find, "set"))
+		add_str_to_dstr(ac, "set");
+}
+
+void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
+{
+	DIR			*dir;
+	t_dirent	*dirent;
+	int			i;
+
+	*ac = palloc(sizeof(char *));
+	**ac = 0;
+	i = -1;
+	while (split_path[++i])
+	{
+		if ((dir = opendir(split_path[i])))
+		{
+			while ((dirent = readdir(dir)))
+				if (strstr_no_case(find, to_lowercase(dirent->d_name)))
+					add_str_to_dstr(ac, dirent->d_name);
+			closedir(dir);
+		}
+	}
+}
+
+char    **ac_cmd(char *find, t_env *env)
+{
+	char		**ac;
+	char		**split_path;
+	int			i;
+
+	split_path = NULL;
+	if ((i = find_param(env->ev, "PATH")) == -1)
+	{
+		if ((i = find_param(env->loc->ev, "PATH")) != -1)
+			split_path = ft_strsplitquote(env->loc->ev[i], ':', 0);
+	}
+	else
+		split_path = ft_strsplitquote(env->ev[i], ':', 0);
+	if (split_path)
+		ft_ac_cmd_path(split_path, find, &ac);
+	ft_ac_cmd_build(&ac, find);
+	return (ac);
+}
+
+char    **ac_pwd(char *find, t_env *env, int count, int i)
 {
 	DIR			*dir;
 	t_dirent	*dirent;
 	char		**sug;
-	int			count;
+    char        **new;
     char		pwd[INPUT_SIZE];
 
-	count = 0;
-	sug = (char**)palloc(sizeof(char*));
-	sug[0] = NULL;
+	sug = palloc(sizeof(char *));
+	sug[0] = 0;
     getcwd(pwd, INPUT_SIZE);
 	dir = opendir(pwd);
 	while ((dirent = readdir(dir)))
@@ -78,10 +157,11 @@ char    **ac_pwd(char *find, t_env *env)
 		{
 			++count;
 			new = palloc(sizeof(char *) * count + 1);
-			i = 1;
-			while (i <= count)
-				new[i] = sug[i - 1];
-			new[0] = ft_strdup(dirent->d_name);
+			i = -1;
+			while (sug[++i])
+				new[i] = sug[i];
+			new[i] = ft_strdup(dirent->d_name);
+			new[i + 1] = 0;
 			free(sug);
 			sug = new;
 		}
@@ -98,6 +178,6 @@ char    **auto_possibilities(char *find, char pwd, t_env *env)
     if (pwd == 0)
         ac = ac_cmd(find_lwc, env);
     else
-        ac = ac_pwd(find_lwc, env);
+        ac = ac_pwd(find_lwc, env, 0, 0);
     return (ac);
 }
