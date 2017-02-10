@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/10 15:08:05 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/10 15:44:47 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SHELL_H
 
 # define FALSE	0
-# define TRUE	(!FALSE)
 # define PROMPT "$\e[0;31m42sh\e[0m>"
 # define INPUT_SIZE 4096
 # define BUFF_SIZE 32
