@@ -6,38 +6,39 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/10 17:51:08 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/10 18:37:51 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-int        strstr_no_case(char *find, char *search_in_lc)
+int		strstr_no_case(char *find, char *search_in_lc)
 {
-    int        i;
-    int        j;
-    size_t    f_len;
+	int			i;
+	int			j;
+	size_t	f_len;
 
-    f_len = ft_strlen(find);
-    i = 0;
-    while (search_in_lc[i])
-    {
-        if (search_in_lc[i] == find[0])
-        {
-            j = -1;
-            while (search_in_lc[i] && search_in_lc[i] == find[++j])
-                ++i;
-            if (j == f_len)
-            {
-                free(search_in_lc);
-                return (1);
-            }
-        }
-        else
-            ++i;
-    }
-    free(search_in_lc);
-    return (0);
+	if ((f_len = ft_strlen(find)) == 0)
+		return (1);
+	i = 0;
+	while (search_in_lc[i])
+	{
+		if (search_in_lc[i] == find[0])
+		{
+			j = -1;
+			while (search_in_lc[i] && search_in_lc[i] == find[++j])
+				++i;
+			if (j == f_len)
+			{
+				free(search_in_lc);
+				return (1);
+			}
+		}
+		else
+			++i;
+	}
+	free(search_in_lc);
+	return (0);
 }
 
 char    *to_lowercase(char *str)
@@ -140,18 +141,17 @@ char    **ac_cmd(char *find, t_env *env)
 	return (ac);
 }
 
-char    **ac_pwd(char *find, t_env *env, int count, int i)
+char    **ac_pwd(char *find, t_env *env, int count, char *str)
 {
 	DIR			*dir;
 	t_dirent	*dirent;
 	char		**sug;
-    char        **new;
-    char		pwd[INPUT_SIZE];
+	char		**new;
+	int			i;
 
 	sug = palloc(sizeof(char *));
 	sug[0] = 0;
-    getcwd(pwd, INPUT_SIZE);
-	dir = opendir(pwd);
+	dir = opendir(str);
 	while ((dirent = readdir(dir)))
 		if (strstr_no_case(find, to_lowercase(dirent->d_name)))
 		{
@@ -171,13 +171,32 @@ char    **ac_pwd(char *find, t_env *env, int count, int i)
 
 char    **auto_possibilities(char *find, char pwd, t_env *env)
 {
-    char **ac;
-    char *find_lwc;
+	char	**ac;
+	char	*find_lwc;
+	int		i;
 
-    find_lwc = to_lowercase(find);
-    if (pwd == 0)
-        ac = ac_cmd(find_lwc, env);
-    else
-        ac = ac_pwd(find_lwc, env, 0, 0);
-    return (ac);
+	env->input = find;
+	ft_dollar(env, -1, 0);
+	find_lwc = to_lowercase(env->input);
+	ac = ft_strsplitquote(find_lwc, '/', 1);
+	if (ac)
+	{
+		i = 0;
+		while (ac[i])
+			++i;
+		find_lwc = ac[i - 1];
+	}
+	if (pwd == 0)
+	{
+
+		ac = ac_cmd(find_lwc, env);
+	}
+	else
+		ac = ac_pwd(find_lwc, env, 0, 0);
+	return (ac);
+}
+
+char **autocomplete(char *input, int pos, t_env *env)
+{
+
 }
