@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/11 15:32:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 20:52:57 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,71 @@ char    **auto_possibilities(char *find, char pwd, t_env *env)
 	return (ac);
 }
 
-// char **autocomplete(char *input, int pos, t_env *env)
-// {
+char **autocomplete(char *input, int pos, t_env *env)
+{
+	char	first;
+	int		i;
+	char	*find;
 
-// }
+	i = 0;
+	while (input[i] && (input[i] == ' ' || input[i] == '\t'))
+		++i;
+	while (input[i] && input[i] != ' ')
+		++i;
+	first = pos > i ? 0 : 1;
+	if (input[pos] == ' ')
+	{
+		if (pos == 0 || input[pos - 1] != ' ')
+		{
+			if (premier mot)
+			{
+
+			}
+			else
+			{
+
+			}
+		}
+		else
+		{
+
+		}
+	}
+	else
+	{
+		if ()
+	}
+
+	while (pos != 0 && input[pos] != ' ' && input[pos] != '\t')
+		pos--;
+	i = pos;
+	while (pos > 0 && (input[pos] == ' ' || input[pos] == '\t'))
+		pos--;
+	if (pos == 0)
+		first = 1;
+	pos = i;
+	while (input[i] && input[i] != ' ')
+		++i;
+	find = malloc(i - pos + 1);
+	find[i] = 0;
+	i = pos;
+	pos--;
+	while (input[++pos] && input[pos] != ' ')
+		find[pos - i] = input[pos];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
