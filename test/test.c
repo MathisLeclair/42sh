@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 15:10:46 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 16:01:04 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,8 @@
 #include <curses.h>
 #include <stdlib.h>
 
-#include "test.h"
-// HISTORY
-void	add_history(var)
-{
-	if (env()->history == NULL);
-}
-// FIN HISTORY
+#include "termcaps.h"
+
 t_var	*tvar(void)
 {
 	static t_var	*var = NULL;
@@ -112,6 +107,11 @@ void	shift_arrow_r(t_var *var)
 		right_arrow(var);
 	while (var->i >= 0 && ft_isalpha(var->ret[var->i]))
 		right_arrow(var);
+}
+
+void	up_arrow(t_var *var)
+{
+	
 }
 
 void	home(t_var *var)
@@ -300,6 +300,10 @@ void	touch(t_var *var)
 			shift_arrow_r(var);
 		if (var->buff[0] == 27 && var->buff[2] == 72) //HOME
 			home(var);
+		if (var->buff[0] == 27 && var->buff[2] == 65) // UP ARROW
+			up_arrow(var);
+		if (var->buff[0] == 27 && var->buff[2] == 66) // DOWN ARROW
+			down_arrow(var);
 		if (var->buff[0] == 9 && var->buff[2] == 0) //HOME
 			tabu(var);
 		if (var->buff[0] == 27 && var->buff[2] == 70) //END
@@ -322,13 +326,13 @@ void	touch(t_var *var)
 			++var->i;
 			++var->lenligne;
 		}
-		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
-		// printf("id2 touche = %d\n", var->buff[1]);
-		// printf("id3 touche = %d\n", var->buff[2]);
+		printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
+		printf("id2 touche = %d\n", var->buff[1]);
+		printf("id3 touche = %d\n", var->buff[2]);
 		var->buff[1] = 0;
 		var->buff[2] = 0;
 	}
-	add_history(var);
+	// add_history(var);
 	ft_putchar('\n');
 	printf("finit = %s\n", var->ret);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE

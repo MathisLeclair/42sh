@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/09 13:15:55 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/10 12:47:11 by mleclair         ###   ########.fr       */
+/*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
+/*   Updated: 2017/02/11 16:23:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TERMCAP_H
-# define TERMCAP_H
+#include "42sh.h"
 
-# include "../42sh.h"
-
-
-typedef struct	s_var
+void	history(t_env *env, char **split)
 {
-	char	*buff;
-	char	*cpy;
-	char	*ret;
-	int		lenligne;
-	int		i;
-	int		sovi;
-	int		del;
-	int		selmode;
-	int		lenprompt;
-	int		selstart;
-	int		selend;
-}				t_var;
+	int i;
+	int j;
 
-#endif
+	i = 0;
+	j = 0;
+	while (split[i])
+		if (split[i][0] == '-' && split[i][1] == 'c')
+				env->history = 0;
+	i = 0;
+	while (env->history[i])
+		++i;
+	if (i == 0)
+		ft_putstr("No history to display\n");
+	print_split(env->history);
+}
