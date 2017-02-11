@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/06 17:50:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 16:06:59 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int		ft_reco_cmd2(char *input, t_env *env, char **split)
 	}
 	else if (ft_strcmp(split[0], "env") == 0)
 		reco_env(env, split, 0, 0);
+	else if (ft_strcmp(split[0], "history") == 0)
+		history(env, split);
 	else
 		ft_fork(env, split);
 	if (split)

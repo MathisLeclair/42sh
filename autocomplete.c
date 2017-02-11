@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/10 18:37:51 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/11 15:32:02 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ char    **auto_possibilities(char *find, char pwd, t_env *env)
 	return (ac);
 }
 
-char **autocomplete(char *input, int pos, t_env *env)
-{
+// char **autocomplete(char *input, int pos, t_env *env)
+// {
 
-}
+// }
