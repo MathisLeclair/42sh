@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 21:37:44 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/11 21:47:48 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ void	replace_w(char *word, t_var *var)
 	var->cpy = ft_strdup(word);
 	paste(var);
 	free(var->cpy);
+	var->cpy = NULL;
 }
 
 void	touch(t_var *var)
