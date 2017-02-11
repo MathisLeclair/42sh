@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/06 18:49:28 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 15:11:14 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	set_env(t_env *env, char **ev)
 	env->i = 1;
 	env->input = NULL;
 	env->path = NULL;
+	env->history = NULL;
 	while (ev[i])
 		++i;
 	env->ev = palloc(sizeof(char *) * (i + 1));

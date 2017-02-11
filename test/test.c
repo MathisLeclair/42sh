@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 14:34:43 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/11 15:10:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@
 #include <stdlib.h>
 
 #include "test.h"
-
+// HISTORY
+void	add_history(var)
+{
+	if (env()->history == NULL);
+}
+// FIN HISTORY
 t_var	*tvar(void)
 {
 	static t_var	*var = NULL;
@@ -323,6 +328,7 @@ void	touch(t_var *var)
 		var->buff[1] = 0;
 		var->buff[2] = 0;
 	}
+	add_history(var);
 	ft_putchar('\n');
 	printf("finit = %s\n", var->ret);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
