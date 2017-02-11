@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 19:11:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 21:37:44 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,11 +259,10 @@ void	paste(t_var *var)
 {
 	int i;
 
-	i = 0;
 	ft_putstr(var->cpy);
 	i = ft_strlen(var->cpy);
 	while (--i >= 0)
-		add_car(var, 1 , var->cpy[i]);
+		add_car(var, 1, var->cpy[i]);
 	var->i += ft_strlen(var->cpy);
 	var->selend = -1;
 	var->selstart = -1;
@@ -271,14 +270,13 @@ void	paste(t_var *var)
 
 void	replace_w(char *word, t_var *var)
 {
-	while (var->ret[var->i] != ' ')
-		delete(var);
-	while (var->ret[var->i - 1] && var->ret[var->i - 1] != ' ')
+	while (var->i && var->ret[var->i - 1] != ' ')
 		backspace(var);
+	while (var->ret[var->i] != ' ' && var->ret[var->i])
+		delete(var);
 	var->cpy = ft_strdup(word);
 	paste(var);
 	free(var->cpy);
-	var->cpy = NULL;
 }
 
 void	touch(t_var *var)
@@ -332,7 +330,7 @@ void	touch(t_var *var)
 			delete(var);
 		}
 		///////////////////////////////////////////////////////////////////////
-		if (var->buff[0] == 27 && var->buff[1] == 0)
+		if (var->buff[0] == 56 && var->buff[1] == 0 && var->buff[2] == 0)
 			replace_w("penis", var);
 		///////////////////////////////////////////////////////////////////////
 		if (var->buff[0] == 4)
