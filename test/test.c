@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/10 19:13:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 12:55:48 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,9 +233,15 @@ void	cut(t_var *var)
 		ft_putstr(tgetstr("nd", NULL));
 		i = i < var->selstart ? i + 1 : i - 1;
 	}
-	while (i++ != var->selend)
-		delete(var);
-	desel(var);
+	var->lenligne = var->lenprompt + var->selend - var->selstart + 1;
+	ft_putstr(tgetstr("sc", NULL)); //SAV CURSOR POS
+	while (i < var->selend)
+	{
+		ft_putstr(tgetstr("dc", NULL));
+		rem_car(var);
+		++i;
+		// delete(var);
+	}
 	var->selstart = -1;
 	var->selend = -1;
 	var->selmode = 0;
