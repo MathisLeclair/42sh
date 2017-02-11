@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/10 14:58:27 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/02/11 16:25:27 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ FILE =	main \
 		ft_strsplitquote \
 		free \
 		builtins \
+		builtins2 \
 		aperture \
 		tilde \
 		verif_quote \
