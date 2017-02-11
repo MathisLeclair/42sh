@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 15:20:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 16:25:38 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,7 @@ int				verif_quote(char *inp, int k);
 void			double_array_sort(char **t);
 
 void	add_str_to_dstr(char ***dstr, char *str);
+
+void	history(t_env *env, char **split);
 
 #endif
