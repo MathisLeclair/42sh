@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 16:01:04 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 19:11:15 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,11 @@ void	shift_arrow_r(t_var *var)
 }
 
 void	up_arrow(t_var *var)
+{
+	
+}
+
+void	down_arrow(t_var *var)
 {
 	
 }
@@ -255,16 +260,25 @@ void	paste(t_var *var)
 	int i;
 
 	i = 0;
-	if (ft_strlen(var->cpy) == 0)
-		return ;
 	ft_putstr(var->cpy);
-	while (var->cpy[i])
-		++i;
+	i = ft_strlen(var->cpy);
 	while (--i >= 0)
 		add_car(var, 1 , var->cpy[i]);
-	var->i = ft_strlen(var->ret);
+	var->i += ft_strlen(var->cpy);
 	var->selend = -1;
 	var->selstart = -1;
+}
+
+void	replace_w(char *word, t_var *var)
+{
+	while (var->ret[var->i] != ' ')
+		delete(var);
+	while (var->ret[var->i - 1] && var->ret[var->i - 1] != ' ')
+		backspace(var);
+	var->cpy = ft_strdup(word);
+	paste(var);
+	free(var->cpy);
+	var->cpy = NULL;
 }
 
 void	touch(t_var *var)
@@ -317,6 +331,10 @@ void	touch(t_var *var)
 			var->del = 1;
 			delete(var);
 		}
+		///////////////////////////////////////////////////////////////////////
+		if (var->buff[0] == 27 && var->buff[1] == 0)
+			replace_w("penis", var);
+		///////////////////////////////////////////////////////////////////////
 		if (var->buff[0] == 4)
 			break ;
 		else if(var->buff[1] == 0 && var->buff[0] != 10 && var->buff[0] != 127 && var->del != 1) // STANDARD CHAR
@@ -326,9 +344,9 @@ void	touch(t_var *var)
 			++var->i;
 			++var->lenligne;
 		}
-		printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
-		printf("id2 touche = %d\n", var->buff[1]);
-		printf("id3 touche = %d\n", var->buff[2]);
+		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
+		// printf("id2 touche = %d\n", var->buff[1]);
+		// printf("id3 touche = %d\n", var->buff[2]);
 		var->buff[1] = 0;
 		var->buff[2] = 0;
 	}
