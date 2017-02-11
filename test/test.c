@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 12:55:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/11 14:34:43 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	rem_car(t_var *var)
 	char *tmp;
 
 	tmp = malloc(4096);
-	ft_strcpy(tmp, var->ret + var->i + 2);
+	ft_strcpy(tmp, var->ret + var->i + 1);
 	var->ret[var->i] = 0;
 	ft_strcat(var->ret, tmp);
 	free(tmp);
@@ -126,6 +126,8 @@ void	end(t_var *var)
 
 void	delete(t_var *var)
 {
+	if (var->del == 1)
+		read(0, NULL, 3);
 	ft_putstr(tgetstr("dc", NULL));
 	rem_car(var);
 }
@@ -223,25 +225,21 @@ void	cut(t_var *var)
 {
 	int i;
 
+	copy(var, 1);
 	if (var->selstart == -1 || var->selend == -1)
 		return ;
 	i = var->i;
-	copy(var, 1);
-	while (i != var->selstart && i >= 0)
+	while (var->i != var->selstart)
 	{
-		i < var->selstart ? ft_putstr(tgetstr("le", NULL)) :
-		ft_putstr(tgetstr("nd", NULL));
-		i = i < var->selstart ? i + 1 : i - 1;
+		var->selend--;
+		backspace(var);
 	}
-	var->lenligne = var->lenprompt + var->selend - var->selstart + 1;
-	ft_putstr(tgetstr("sc", NULL)); //SAV CURSOR POS
-	while (i < var->selend)
+	while (var->i != var->selend)
 	{
-		ft_putstr(tgetstr("dc", NULL));
-		rem_car(var);
-		++i;
-		// delete(var);
+		var->selend--;
+		delete(var);
 	}
+	delete(var);
 	var->selstart = -1;
 	var->selend = -1;
 	var->selmode = 0;
