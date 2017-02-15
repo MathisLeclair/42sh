@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/11 20:52:57 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/15 19:42:23 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,15 +169,14 @@ char    **ac_pwd(char *find, t_env *env, int count, char *str)
 	return (sug);
 }
 
-char    **auto_possibilities(char *find, char pwd, t_env *env)
+char    **auto_possibilities(char pwd, t_env *env)
 {
 	char	**ac;
 	char	*find_lwc;
 	int		i;
 
-	env->input = find;
 	ft_dollar(env, -1, 0);
-	find_lwc = to_lowercase(env->input);
+	find_lwc = to_lowercase(env->find);
 	ac = ft_strsplitquote(find_lwc, '/', 1);
 	if (ac)
 	{
@@ -187,80 +186,110 @@ char    **auto_possibilities(char *find, char pwd, t_env *env)
 		find_lwc = ac[i - 1];
 	}
 	if (pwd == 0)
-	{
-
 		ac = ac_cmd(find_lwc, env);
-	}
 	else
 		ac = ac_pwd(find_lwc, env, 0, 0);
 	return (ac);
 }
 
-char **autocomplete(char *input, int pos, t_env *env)
+char	*finder(char *input, int pos)
 {
-	char	first;
-	int		i;
 	char	*find;
-
-	i = 0;
-	while (input[i] && (input[i] == ' ' || input[i] == '\t'))
-		++i;
-	while (input[i] && input[i] != ' ')
-		++i;
-	first = pos > i ? 0 : 1;
-	if (input[pos] == ' ')
-	{
-		if (pos == 0 || input[pos - 1] != ' ')
-		{
-			if (premier mot)
-			{
-
-			}
-			else
-			{
-
-			}
-		}
-		else
-		{
-
-		}
-	}
-	else
-	{
-		if ()
-	}
+	int		i;
 
 	while (pos != 0 && input[pos] != ' ' && input[pos] != '\t')
 		pos--;
-	i = pos;
-	while (pos > 0 && (input[pos] == ' ' || input[pos] == '\t'))
-		pos--;
-	if (pos == 0)
-		first = 1;
-	pos = i;
+	i = 0;
 	while (input[i] && input[i] != ' ')
 		++i;
-	find = malloc(i - pos + 1);
+	find = malloc(i + 1);
 	find[i] = 0;
 	i = pos;
 	pos--;
 	while (input[++pos] && input[pos] != ' ')
 		find[pos - i] = input[pos];
+	return(find);
 }
 
+void	startfind(char **ac, t_env *env, char boolean)
+{
+	int		i;
+	int		j;
 
+	i = -1;
+	if (boolean == 1)
+	{
+		while (ac[++i])
+			if (ft_strstr(env->find, ac[i]) != ac[i])
+			{
+				free(ac[i]);
+				j = i;
+				while (ac[j++])
+					ac[j - 1] = ac[j];
+			}
+	}
+	else
+		while (ac[++i])
+			if (ft_strstr(env->find, ac[i]) == ac[i])
+			{
+				free(ac[i]);
+				j = i;
+				while (ac[j++])
+					ac[j - 1] = ac[j];
+			}
+}
 
+char	**forest(char *input, int pos, t_env *env, char first)
+{
+	char	**ac;
 
+	if (input[pos] == ' ' || input[pos] == '\0' || input[pos + 1] == ' ' || input[pos + 1] == '\0')
+	{
+		if (input[pos - 1] != ' ')
+			ac = auto_possibilities(1, env);
+		else
+		{
+			if (first)
+				ac = auto_possibilities(0, env);
+			else
+				ac = auto_possibilities(1, env);
+			startfind(ac, env, 1);
+		}
+	}
+	else
+	{
+		if (first)
+			ac = auto_possibilities(0, env);
+		else
+			ac = auto_possibilities(1, env);
+		startfind(ac, env, 0);
+	}
+	return (ac);
+}
 
+char	**autocomplete(char *input, int pos, t_env *env)
+{
+	char	first;
+	int		i;
+	char	**ac;
+	char	quote;
 
-
-
-
-
-
-
-
-
-
-
+	quote = 0;
+	i = 0;
+	while (input[i] && (input[i] == ' ' || input[i] == '\t'))
+		++i;
+	if (i > pos || input[i] == '\0')
+		return (NULL);
+	while (input[i] && (input[i] != ' ' || quote != 0))
+	{
+		if (input[i] == '\'' || input[i] == '"')
+			quote = input[i] == quote ? 0 : quote;
+		++i;
+	}
+	first = pos > i ? 0 : 1;
+	env->find = finder(input, pos);
+	ac = forest(input, pos, env, first);
+	free(env->find);
+	env->find = NULL;
+	return (ac);
+}
