@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/15 14:41:18 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/15 15:47:56 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ t_env			*env(void);
 ** redirection.c
 */
 
-void 	rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[])
+void 			rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[]);
+void			rd_output(char *cmd, char *args[], char *filename);
+void			rd_output_apd(char *cmd, char *args[], char *filename);
+void			rd_input(char *cmd, char *args[], char *filename);
 
 /*
 ** getnextline
