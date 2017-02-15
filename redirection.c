@@ -6,13 +6,13 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/15 14:37:52 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/15 14:42:28 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-void 	rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[])
+void	rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[])
 {
 	pid_t		child;
 	int			fds[2];
