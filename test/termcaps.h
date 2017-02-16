@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 13:15:55 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 15:28:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/16 17:38:02 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define TERMCAP_H
 
 # include "../42sh.h"
-
 
 typedef struct	s_var
 {
@@ -29,6 +28,7 @@ typedef struct	s_var
 	int		lenprompt;
 	int		selstart;
 	int		selend;
+	char	**ac;
 }				t_var;
 
 void			add_history(t_var *var);

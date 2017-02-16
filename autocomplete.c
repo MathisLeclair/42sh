@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/15 19:42:23 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/16 19:44:01 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ int		strstr_no_case(char *find, char *search_in_lc)
 	return (0);
 }
 
-char    *to_lowercase(char *str)
+char	*to_lowercase(char *str)
 {
-    int        i;
-    char    *str_lc;
+	int		i;
+	char	*str_lc;
 
-    str_lc = ft_strdup(str);
-    i = -1;
-    while (str_lc[++i])
-        if (str_lc[i] >= 'A' && str_lc[i] <= 'Z')
-            str_lc[i] = str_lc[i] - 'A' + 'a';
-    return (str_lc);
+	str_lc = ft_strdup(str);
+	i = -1;
+	while (str_lc[++i])
+		if (str_lc[i] >= 'A' && str_lc[i] <= 'Z')
+			str_lc[i] = str_lc[i] - 'A' + 'a';
+	return (str_lc);
 }
 
 void	add_str_to_dstr(char ***dstr, char *str)
@@ -151,9 +151,10 @@ char    **ac_pwd(char *find, t_env *env, int count, char *str)
 
 	sug = palloc(sizeof(char *));
 	sug[0] = 0;
+	getcwd(str, INPUT_SIZE);
 	dir = opendir(str);
 	while ((dirent = readdir(dir)))
-		if (strstr_no_case(find, to_lowercase(dirent->d_name)))
+		if (strstr_no_case(find, to_lowercase(dirent->d_name)) && dirent->d_name[0] != '.')
 		{
 			++count;
 			new = palloc(sizeof(char *) * count + 1);
@@ -166,6 +167,7 @@ char    **ac_pwd(char *find, t_env *env, int count, char *str)
 			sug = new;
 		}
 	closedir(dir);
+	free(str);
 	return (sug);
 }
 
@@ -175,10 +177,14 @@ char    **auto_possibilities(char pwd, t_env *env)
 	char	*find_lwc;
 	int		i;
 
+	find_lwc = env->input;
+	env->input = env->find;
 	ft_dollar(env, -1, 0);
+	env->find = env->input;
+	env->input = find_lwc;
 	find_lwc = to_lowercase(env->find);
 	ac = ft_strsplitquote(find_lwc, '/', 1);
-	if (ac)
+	if (ac[0])
 	{
 		i = 0;
 		while (ac[i])
@@ -188,7 +194,7 @@ char    **auto_possibilities(char pwd, t_env *env)
 	if (pwd == 0)
 		ac = ac_cmd(find_lwc, env);
 	else
-		ac = ac_pwd(find_lwc, env, 0, 0);
+		ac = ac_pwd(find_lwc, env, 0, palloc(INPUT_SIZE));
 	return (ac);
 }
 
@@ -196,19 +202,33 @@ char	*finder(char *input, int pos)
 {
 	char	*find;
 	int		i;
+	int		j;
 
 	while (pos != 0 && input[pos] != ' ' && input[pos] != '\t')
 		pos--;
+	i = pos == 0 ? 0 : pos + 1;
+	j = 0;
+	while (input[i] && input[i++] != ' ')
+		++j;
+	find = malloc(j + 1);
+	find[j] = 0;
 	i = 0;
-	while (input[i] && input[i] != ' ')
-		++i;
-	find = malloc(i + 1);
-	find[i] = 0;
-	i = pos;
-	pos--;
+	pos = pos == 0 ? pos - 1 : pos;
 	while (input[++pos] && input[pos] != ' ')
-		find[pos - i] = input[pos];
+		find[i++] = input[pos];
 	return(find);
+}
+
+char	ft_strcmp_beg(char *str1, char *str2)
+{
+	int i;
+
+	i = 0;
+	while (str1[i] && str2[i] && str1[i] == str2[i])
+		++i;
+	if (str1[i] && str2[i])
+		return (0);
+	return (1);
 }
 
 void	startfind(char **ac, t_env *env, char boolean)
@@ -216,27 +236,35 @@ void	startfind(char **ac, t_env *env, char boolean)
 	int		i;
 	int		j;
 
-	i = -1;
-	if (boolean == 1)
+	i = 0;
+	if (boolean)
 	{
-		while (ac[++i])
-			if (ft_strstr(env->find, ac[i]) != ac[i])
+		while (ac[i])
+		{
+			if (!ft_strcmp_beg(ac[i], env->find))
 			{
 				free(ac[i]);
 				j = i;
 				while (ac[j++])
 					ac[j - 1] = ac[j];
 			}
+			else
+				++i;
+		}
 	}
 	else
-		while (ac[++i])
-			if (ft_strstr(env->find, ac[i]) == ac[i])
+		while (ac[i])
+		{
+			if (ft_strcmp_beg(ac[i], env->find))
 			{
 				free(ac[i]);
 				j = i;
 				while (ac[j++])
 					ac[j - 1] = ac[j];
 			}
+			else
+				++i;
+		}
 }
 
 char	**forest(char *input, int pos, t_env *env, char first)
@@ -245,16 +273,12 @@ char	**forest(char *input, int pos, t_env *env, char first)
 
 	if (input[pos] == ' ' || input[pos] == '\0' || input[pos + 1] == ' ' || input[pos + 1] == '\0')
 	{
-		if (input[pos - 1] != ' ')
-			ac = auto_possibilities(1, env);
+		if (first)
+			ac = auto_possibilities(0, env);
 		else
-		{
-			if (first)
-				ac = auto_possibilities(0, env);
-			else
-				ac = auto_possibilities(1, env);
+			ac = auto_possibilities(1, env);
+		if (input[pos - 1] != ' ')
 			startfind(ac, env, 1);
-		}
 	}
 	else
 	{
@@ -287,7 +311,7 @@ char	**autocomplete(char *input, int pos, t_env *env)
 		++i;
 	}
 	first = pos > i ? 0 : 1;
-	env->find = finder(input, pos);
+	env->find = finder(input, input[pos] == ' ' ? pos - 1 : pos);
 	ac = forest(input, pos, env, first);
 	free(env->find);
 	env->find = NULL;
