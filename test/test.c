@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 21:47:48 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/16 18:51:39 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,6 @@ void	delete(t_var *var)
 	rem_car(var);
 }
 
-void	tabu(t_var *var)
-{
-	// auto_possibilities(var->ret, var->i, env());
-}
-
 void	backspace(t_var *var)
 {
 	if (var->i > 0)
@@ -154,6 +149,69 @@ void	backspace(t_var *var)
 		left_arrow(var);
 		ft_putstr(tgetstr("dc", NULL));
 		rem_car(var);
+	}
+}
+
+void	paste(t_var *var)
+{
+	int i;
+
+	ft_putstr(var->cpy);
+	i = ft_strlen(var->cpy);
+	while (--i >= 0)
+		add_car(var, 1, var->cpy[i]);
+	var->i += ft_strlen(var->cpy);
+	var->selend = -1;
+	var->selstart = -1;
+}
+
+char	**autocomplete(char *input, int pos, t_env *env);
+
+void	replace_w(char *word, t_var *var)
+{
+	while (var->i && var->ret[var->i - 1] != ' ')
+		backspace(var);
+	while (var->ret[var->i] != ' ' && var->ret[var->i])
+		delete(var);
+	var->cpy = ft_strdup(word);
+	paste(var);
+	free(var->cpy);
+	var->cpy = NULL;
+}
+
+t_env	*env(void)
+{
+	static t_env	*env = NULL;
+
+	if (env == NULL)
+		env = palloc(sizeof(t_env));
+	return (env);
+}
+
+void	tabu(t_var *var, int j)
+{
+	static int	i;
+
+	if (j == 0)
+	{
+		var->ac = autocomplete(var->ret, var->i, env());
+		if (var->ac == NULL || var->ac[0] == 0)
+			return ;
+		if (var->ac[1] == 0)
+			replace_w(var->ac[0], var);
+		// i = -1;
+		// while (var->ac[++i])
+		// 	printf("ac = %s\n", var->ac[i]);
+		i = 0;
+	}
+	else
+	{
+		if (var->ac == NULL || var->ac[0] == 0)
+			return ;
+		if (var->ac[i] == 0)
+			i = 0;
+		replace_w(var->ac[i], var);
+		++i;
 	}
 }
 
@@ -255,34 +313,10 @@ void	cut(t_var *var)
 	var->selmode = 0;
 }
 
-void	paste(t_var *var)
-{
-	int i;
-
-	ft_putstr(var->cpy);
-	i = ft_strlen(var->cpy);
-	while (--i >= 0)
-		add_car(var, 1, var->cpy[i]);
-	var->i += ft_strlen(var->cpy);
-	var->selend = -1;
-	var->selstart = -1;
-}
-
-void	replace_w(char *word, t_var *var)
-{
-	while (var->i && var->ret[var->i - 1] != ' ')
-		backspace(var);
-	while (var->ret[var->i] != ' ' && var->ret[var->i])
-		delete(var);
-	var->cpy = ft_strdup(word);
-	paste(var);
-	free(var->cpy);
-	var->cpy = NULL;
-}
-
 void	touch(t_var *var)
 {
-	char *test;
+	char		*test;
+	static int	i = 0;
 
 	test = ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', "test", "$\e[0;31m42sh\e[0m>");
 	ft_putstr(test);
@@ -317,8 +351,20 @@ void	touch(t_var *var)
 			up_arrow(var);
 		if (var->buff[0] == 27 && var->buff[2] == 66) // DOWN ARROW
 			down_arrow(var);
-		if (var->buff[0] == 9 && var->buff[2] == 0) //HOME
-			tabu(var);
+		if (var->buff[0] == 9 && var->buff[2] == 0) // AUTOCOMPLETE
+		{
+			tabu(var, i);
+			i = 1;
+		}
+		else
+		{
+			if (var->ac)
+			{
+				// free_double_array(var->ac);
+				var->ac = NULL;
+			}
+			i = 0;
+		}
 		if (var->buff[0] == 27 && var->buff[2] == 70) //END
 			end(var);
 		if (var->buff[0] == 127 && var->buff[1] == 0) //backspace
@@ -331,12 +377,12 @@ void	touch(t_var *var)
 			delete(var);
 		}
 		///////////////////////////////////////////////////////////////////////
-		if (var->buff[0] == 56 && var->buff[1] == 0 && var->buff[2] == 0)
-			replace_w("penis", var);
+		// if (var->buff[0] == 56 && var->buff[1] == 0 && var->buff[2] == 0)
+		// 	replace_w("penis", var);
 		///////////////////////////////////////////////////////////////////////
 		if (var->buff[0] == 4)
 			break ;
-		else if(var->buff[1] == 0 && var->buff[0] != 10 && var->buff[0] != 127 && var->del != 1) // STANDARD CHAR
+		else if (var->buff[1] == 0 && var->buff[0] != 10 && var->buff[0] != 9 && var->buff[0] != 127 && var->del != 1) // STANDARD CHAR
 		{
 			write(1, &var->buff[0], 1);
 			add_car(var, 0, 0);
