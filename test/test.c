@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/16 18:51:39 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/17 17:51:08 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ void	initvar(t_var *var)
 	var->selmode = 0;
 	var->selstart = -1;
 	var->selend = -1;
+	var->inputlen = 0;
 }
 
 void	add_car(t_var *var, int boule, char c)
 {
 	char *tmp;
 
+	++var->inputlen;
 	tmp = malloc(4096);
 	tmp[0] = 0;
 	ft_strcpy(tmp, var->ret + var->i);
@@ -78,15 +80,15 @@ void	left_arrow(t_var *var)
 
 void	right_arrow(t_var *var)
 {
-	if (var->lenligne == tgetnum("co"))
+	if (var->lenligne % tgetnum("co") == 0)
 	{
 		ft_putstr(tgetstr("do", NULL));
 		ft_putstr(tgetstr("cr", NULL));
-		var->lenligne = 15;
 	}
+	else
+		ft_putstr(tgetstr("nd", NULL));
 	++var->i;
 	++var->lenligne;
-	ft_putstr(tgetstr("nd", NULL));
 }
 
 void	shift_arrow_l(t_var *var)
@@ -140,6 +142,7 @@ void	delete(t_var *var)
 		read(0, NULL, 3);
 	ft_putstr(tgetstr("dc", NULL));
 	rem_car(var);
+	--var->inputlen;
 }
 
 void	backspace(t_var *var)
@@ -149,6 +152,7 @@ void	backspace(t_var *var)
 		left_arrow(var);
 		ft_putstr(tgetstr("dc", NULL));
 		rem_car(var);
+		--var->inputlen;
 	}
 }
 
@@ -388,6 +392,9 @@ void	touch(t_var *var)
 			add_car(var, 0, 0);
 			++var->i;
 			++var->lenligne;
+			if (var->inputlen > tgetnum("co"))
+			{
+			}
 		}
 		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
 		// printf("id2 touche = %d\n", var->buff[1]);

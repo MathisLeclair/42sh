@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 13:15:55 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/16 17:38:02 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/17 17:38:22 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_var
 	int		lenprompt;
 	int		selstart;
 	int		selend;
+	size_t	inputlen;
 	char	**ac;
 }				t_var;
 
