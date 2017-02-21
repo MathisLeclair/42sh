@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 16:47:25 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 17:50:40 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,20 @@ void	shift_down(t_var *var)
 
 void	up_arrow(t_var *var)
 {
+<<<<<<< HEAD
 	(void)var;
+=======
+
+>>>>>>> df690a33ba500f3efbacdc10da33e251b56f5bd7
 }
 
 void	down_arrow(t_var *var)
 {
+<<<<<<< HEAD
 	(void)(var);
+=======
+
+>>>>>>> df690a33ba500f3efbacdc10da33e251b56f5bd7
 }
 
 void	home(t_var *var)
@@ -196,6 +204,11 @@ void	paste(t_var *var)
 	var->selstart = -1;
 }
 
+<<<<<<< HEAD
+=======
+char	**autocomplete(char *input, int pos, t_env *env);
+
+>>>>>>> df690a33ba500f3efbacdc10da33e251b56f5bd7
 void	replace_w(char *word, t_var *var)
 {
 	while (var->i && var->ret[var->i - 1] != ' ')
@@ -324,6 +337,7 @@ void	cut(t_var *var)
 		return ;
 	i = var->i;
 	while (var->i != var->selstart)
+<<<<<<< HEAD
 	{
 		var->selend--;
 		backspace(var);
@@ -331,6 +345,15 @@ void	cut(t_var *var)
 	while (var->i != var->selend)
 	{
 		var->selend--;
+=======
+	{
+		var->selend--;
+		backspace(var);
+	}
+	while (var->i != var->selend)
+	{
+		var->selend--;
+>>>>>>> df690a33ba500f3efbacdc10da33e251b56f5bd7
 		delete(var);
 	}
 	delete(var);
@@ -348,7 +371,7 @@ void	touch(t_var *var)
 	ft_putstr(test);
 	var->i = 0;
 	var->ret = malloc(4096);
-	var->ret[0] = 0; 
+	var->ret[0] = 0;
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
 	while (var->buff[0] != 10)
 	{
@@ -365,7 +388,7 @@ void	touch(t_var *var)
 			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
 			left_arrow(var);
-		if (var->buff[0] == 27 && var->buff[2] == 67 && var->i < ft_strlen(var->ret))  //RIGHT ARROW 
+		if (var->buff[0] == 27 && var->buff[2] == 67 && var->i < ft_strlen(var->ret))  //RIGHT ARROW
 			right_arrow(var);
 		if (var->buff[0] == 59 && var->buff[2] == 68) //SHIFT + LEFT ARROW
 			shift_arrow_l(var);
