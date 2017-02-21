@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/15 15:58:02 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/21 15:16:58 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,59 @@ void	rd_input(char *cmd, char *args[], char *filename)
 /*
 ** Here-Document:
 **
-** command << delimiter
-** 		Here you write the input you want for the command.
+** interactive-program << delimiter
+** command 1
+** command 2
+** .........
+** command n
 ** delimiter
+**
+** command <<- delimiter
+** 		here type your
+**		input tabulation
+**		will be ignored
+** delimiter
+**
 */
 
-// void	rd_here_doc(char *cmd, char *args[])
+void	rd_here_doc(char *cmd, char *args[], char *delimiter)
+{
+	pid_t		child;
+	int			fd;
+	int			rsize;
+	char		buff[INPUT_SIZE];
+
+	child = -1;
+	fd = -1;
+	rsize = -1;
+	child = fork();
+	if ((int)child == -1)
+	{
+		close(fd);
+		perror("error");
+	}
+	else if ((int)child == 0)
+	{
+		if ((fd = open("/tmp/42sh-thd-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
+			perror("error");
+		ft_putstr("heredoc> ");
+		while ((rsize = read(0, buff, INPUT_SIZE)) != -1)
+		{
+			buff[rsize] = '\0';
+			if (!ft_strcmp(buff, delimiter))
+				break;
+			write(fd, buff, rsize);
+			ft_putstr("heredoc> ");
+		}
+		close(fd);
+		if ((fd = open("/tmp/42sh-thd-silence", O_RDONLY)) == -1)
+			perror("error");
+		unlink("/tmp/42sh-thd-silence");
+		dup2(fd, STDIN_FILENO);
+		execve(cmd, args, NULL);
+		close(fd);
+		perror("error");
+	}
+	close(fd);
+	wait(NULL);
+}
