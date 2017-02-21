@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 17:00:21 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 20:56:35 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@
 #include <stdlib.h>
 
 #include "termcaps.h"
-
-t_var	*tvar(void)
-{
-	static t_var	*var = NULL;
-
-	if (var == NULL)
-		var = malloc(sizeof(t_var));
-	return (var);
-}
 
 void	initvar(t_var *var)
 {
@@ -44,6 +35,7 @@ void	initvar(t_var *var)
 	var->selstart = -1;
 	var->selend = -1;
 	var->inputlen = 0;
+	var->ac = NULL;
 }
 
 void	add_car(t_var *var, int boule, char c)
@@ -381,7 +373,7 @@ void	touch(t_var *var)
 		{
 			if (var->ac)
 			{
-				// free_double_array(var->ac);
+				free_double_array(var->ac);
 				var->ac = NULL;
 			}
 			i = 0;
@@ -423,11 +415,11 @@ void	touch(t_var *var)
 
 char	*termcaps(void)
 {
-	char *str;
-	struct termios term;
-	t_var	*var;
+	char			*str;
+	struct termios	term;
+	t_var			*var;
 
-	var = tvar();
+	var = malloc(sizeof(t_var));
 	initvar(var);
 	if ((str = getenv("TERM")) == NULL)
 		error(-6, 0, 0);
@@ -448,5 +440,8 @@ term.c_lflag = (ICANON | ECHO);
 	if (tcsetattr(0, 0, &term) == -1)
 		error(-6, 0, 0);
 	free(var->buff);
-	return (var->ret);
+	free(var->cpy);
+	str = var->ret;
+	// free(var);
+	return (str);
 }
