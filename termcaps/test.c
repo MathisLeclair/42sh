@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 16:57:43 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 17:00:21 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,11 +332,11 @@ void	cut(t_var *var)
 
 void	touch(t_var *var)
 {
-	char		*test;
+	// char		*test;
 	static int	i = 0;
 
-	test = ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', "test", "$\e[0;31m42sh\e[0m>");
-	ft_putstr(test);
+	// test = ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', "test", "$\e[0;31m42sh\e[0m>");
+	// ft_putstr(test);
 	var->i = 0;
 	var->ret = malloc(4096);
 	var->ret[0] = 0; 
@@ -417,8 +417,7 @@ void	touch(t_var *var)
 		var->buff[2] = 0;
 	}
 	// add_history(var);
-	ft_putchar('\n');
-	printf("finit = %s\n", var->ret);
+	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
 
