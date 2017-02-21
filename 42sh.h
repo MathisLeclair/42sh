@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 19:08:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:26:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,13 @@ void			double_array_sort(char **t);
 
 void			add_str_to_dstr(char ***dstr, char *str);
 
+/*
+** builtin2.c
+*/
+
 void			history(t_env *env, char **split);
+void			builtin_read(t_env *ev, char **split);
+
 char			*termcaps(void);
 
 #endif

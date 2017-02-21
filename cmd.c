@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:09:30 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:26:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int		ft_reco_cmd2(t_env *env, char **split)
 		reco_env(env, split, 0, 0);
 	else if (ft_strcmp(split[0], "history") == 0)
 		history(env, split);
+	else if (ft_strcmp(split[0], "read") == 0)
+		builtin_read(env, split);
 	else
 		ft_fork(env, split);
 	if (split)
