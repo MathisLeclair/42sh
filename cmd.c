@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 17:51:38 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:28:49 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ char	**ft_split_input(char *input)
 	return (a);
 }
 
-int		ft_reco_cmd2(char *input, t_env *env, char **split)
+int		ft_reco_cmd2(t_env *env, char **split)
 {
-	if (ft_strcmp(input, "Patate") == 0)
+	if (ft_strcmp(split[0], "Patate") == 0)
 	{
 		ft_printf("[1]    %s segmentation fault  ./42sh\n",
 			env->loc->ev[find_param(env->loc->ev, "UID")] + 4);
@@ -67,6 +67,10 @@ int		ft_reco_cmd2(char *input, t_env *env, char **split)
 		reco_env(env, split, 0, 0);
 	else if (ft_strcmp(split[0], "history") == 0)
 		history(env, split);
+	else if (ft_strcmp(split[0], "read") == 0)
+		builtin_read(env, split);
+	else if (ft_strcmp(split[0], "local") == 0)
+		print_split(env->loc->ev);
 	else
 		ft_fork(env, split);
 	if (split)
@@ -97,7 +101,7 @@ int		ft_reco_cmd(t_env *env)
 	else if (ft_strcmp(split[0], "aperture") == 0)
 		ft_aperture();
 	else
-		return (ft_reco_cmd2(env->input, env, split));
+		return (ft_reco_cmd2(env, split));
 	if (split)
 		free_double_array(split);
 	return (save_env(env));

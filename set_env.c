@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/20 16:54:56 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:04:10 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	set_evloc2(t_env *e)
 	add_var_to_env(e->loc, tmp);
 	free(tmp);
 	double_array_sort(e->loc->ev);
+	free(buf);
 }
 
 void	set_evloc(t_env *e)

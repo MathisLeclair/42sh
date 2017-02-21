@@ -6,11 +6,38 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/20 17:25:22 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:32:33 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+void	builtin_read(t_env *ev, char **split)
+{
+	char	*bufe;
+	char	truc[INPUT_SIZE];
+	int		r;
+	int		i;
+
+	r = 0;
+	i = 1;
+	truc[0] = 0;
+	bufe = malloc(INPUT_SIZE);
+	read(0, bufe, INPUT_SIZE);
+	if (split[1] && split[1][0] == '-' && split[1][1] == 'r')
+		r = 1;
+	i = r == 1 ? 2 : 1;
+	while (split[++r])
+	{
+		printf("pOPAWJOHDAW\n");
+		ft_strcat(truc, split[i]);
+		ft_strcat(truc, "=");
+		ft_strcat(truc, bufe);
+		printf("ll=%s\n", truc);
+		add_var_to_env(ev->loc, split[i]);
+		truc[0] = 0;
+	}
+}
 
 void	history(t_env *env, char **split)
 {
