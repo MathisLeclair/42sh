@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 15:11:14 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/20 16:54:56 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	set_evloc2(t_env *e)
 	add_var_to_env(e->loc, tmp);
 	free(tmp);
 	double_array_sort(e->loc->ev);
-	print_split(e->loc->ev);
 }
 
 void	set_evloc(t_env *e)

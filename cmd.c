@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 16:25:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/20 17:07:09 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ char	**ft_split_input(char *input)
 int		ft_reco_cmd2(char *input, t_env *env, char **split)
 {
 	if (ft_strcmp(input, "Patate") == 0)
-		ft_putstr("[1]    35674 segmentation fault  ./minishell\n");
+	{
+		ft_printf("[1]    %s segmentation fault  ./42sh\n",
+			env->loc->ev[find_param(env->loc->ev, "UID")] + 4);
+		exit(0);
+	}
 	else if (ft_strcmp(split[0], "exit") == 0)
 	{
 		free_double_array(split);
