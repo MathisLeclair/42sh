@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
+#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/11 16:25:27 by mleclair         ###   ########.fr        #
+#    Updated: 2017/02/21 16:35:15 by bfrochot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,10 @@ FILE =	main \
 		aperture \
 		tilde \
 		verif_quote \
-		double_array_sort
+		double_array_sort \
+		autocomplete \
+		termcaps/test \
+		termcaps/history
 
 OBJ  := $(addsuffix .o, $(FILE))
 

@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/15 18:06:16 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 16:56:39 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,6 @@ void			double_array_sort(char **t);
 void	add_str_to_dstr(char ***dstr, char *str);
 
 void	history(t_env *env, char **split);
+char	*termcaps(void);
 
 #endif

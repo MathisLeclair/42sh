@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 16:47:25 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 16:57:43 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	left_arrow(t_var *var)
 
 void	right_arrow(t_var *var)
 {
-	if (var->i < ft_strlen(var->ret))
+	if (var->i < (int)ft_strlen(var->ret))
 	{
 		if (var->lenligne % tgetnum("co") == 0)
 		{
@@ -206,15 +206,6 @@ void	replace_w(char *word, t_var *var)
 	paste(var);
 	free(var->cpy);
 	var->cpy = NULL;
-}
-
-t_env	*env(void)
-{
-	static t_env	*env = NULL;
-
-	if (env == NULL)
-		env = palloc(sizeof(t_env));
-	return (env);
 }
 
 void	tabu(t_var *var, int j)
@@ -365,7 +356,7 @@ void	touch(t_var *var)
 			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
 			left_arrow(var);
-		if (var->buff[0] == 27 && var->buff[2] == 67 && var->i < ft_strlen(var->ret))  //RIGHT ARROW 
+		if (var->buff[0] == 27 && var->buff[2] == 67 && var->i < (int)ft_strlen(var->ret))  //RIGHT ARROW 
 			right_arrow(var);
 		if (var->buff[0] == 59 && var->buff[2] == 68) //SHIFT + LEFT ARROW
 			shift_arrow_l(var);
@@ -418,9 +409,6 @@ void	touch(t_var *var)
 			add_car(var, 0, 0);
 			++var->i;
 			++var->lenligne;
-			if (var->inputlen > tgetnum("co"))
-			{
-			}
 		}
 		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
 		// printf("id2 touche = %d\n", var->buff[1]);
@@ -434,7 +422,7 @@ void	touch(t_var *var)
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
 
-int main(void)
+char	*termcaps(void)
 {
 	char *str;
 	struct termios term;
@@ -443,22 +431,23 @@ int main(void)
 	var = tvar();
 	initvar(var);
 	if ((str = getenv("TERM")) == NULL)
-		return (-1);
+		error(-6, 0, 0);
 	tgetent(NULL, str);
 	if (tcgetattr(0, &term) == -1)
-		return (-1);
+		error(-6, 0, 0);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &term) == -1)
-		return (-1);
+		error(-6, 0, 0);
 	touch(var);
 // reset
 	if (tcgetattr(0, &term) == -1)
-		return (-1);
+		error(-6, 0, 0);
 term.c_lflag = (ICANON | ECHO);
 	if (tcsetattr(0, 0, &term) == -1)
-		return (-1);
+		error(-6, 0, 0);
 	free(var->buff);
+	return (var->ret);
 }
