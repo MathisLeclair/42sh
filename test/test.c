@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 14:39:09 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 15:00:38 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	initvar(t_var *var)
 	var->selstart = -1;
 	var->selend = -1;
 	var->inputlen = 0;
+	var->exclamation = 0;
 }
 
 void	add_car(t_var *var, int boule, char c)
@@ -209,9 +210,6 @@ void	tabu(t_var *var, int j)
 			return ;
 		if (var->ac[1] == 0)
 			replace_w(var->ac[0], var);
-		// i = -1;
-		// while (var->ac[++i])
-		// 	printf("ac = %s\n", var->ac[i]);
 		i = 0;
 	}
 	else
