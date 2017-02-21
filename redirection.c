@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/21 15:16:58 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:41:36 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 	child = -1;
 	fd = -1;
 	rsize = -1;
+	if ((fd = open("/tmp/42sh-thd-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
+		perror("error");
 	child = fork();
 	if ((int)child == -1)
 	{
@@ -166,8 +168,6 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 	}
 	else if ((int)child == 0)
 	{
-		if ((fd = open("/tmp/42sh-thd-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
-			perror("error");
 		ft_putstr("heredoc> ");
 		while ((rsize = read(0, buff, INPUT_SIZE)) != -1)
 		{
@@ -183,9 +183,9 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 		unlink("/tmp/42sh-thd-silence");
 		dup2(fd, STDIN_FILENO);
 		execve(cmd, args, NULL);
-		close(fd);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
-	close(fd);
 	wait(NULL);
+	close(fd);
 }
