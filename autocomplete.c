@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/16 19:44:01 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 16:44:26 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		strstr_no_case(char *find, char *search_in_lc)
 {
 	int			i;
 	int			j;
-	size_t	f_len;
+	long int	f_len;
 
 	if ((f_len = ft_strlen(find)) == 0)
 		return (1);
@@ -28,7 +28,7 @@ int		strstr_no_case(char *find, char *search_in_lc)
 			j = -1;
 			while (search_in_lc[i] && search_in_lc[i] == find[++j])
 				++i;
-			if (j == f_len)
+			if (f_len == j)
 			{
 				free(search_in_lc);
 				return (1);
@@ -141,7 +141,7 @@ char    **ac_cmd(char *find, t_env *env)
 	return (ac);
 }
 
-char    **ac_pwd(char *find, t_env *env, int count, char *str)
+char    **ac_pwd(char *find, int count, char *str)
 {
 	DIR			*dir;
 	t_dirent	*dirent;
@@ -194,7 +194,7 @@ char    **auto_possibilities(char pwd, t_env *env)
 	if (pwd == 0)
 		ac = ac_cmd(find_lwc, env);
 	else
-		ac = ac_pwd(find_lwc, env, 0, palloc(INPUT_SIZE));
+		ac = ac_pwd(find_lwc, 0, palloc(INPUT_SIZE));
 	return (ac);
 }
 
