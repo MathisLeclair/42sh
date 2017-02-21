@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 12:05:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 14:39:09 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	shift_arrow_l(t_var *var)
 		left_arrow(var);
 	while ((var->ret[var->i] == ' ' || var->ret[var->i] == '\t') && var->i > 0)
 		left_arrow(var);
-	while (var->i > 0 && ft_isalpha(var->ret[var->i]))
+	while (var->i > 0 && var->ret[var->i] && var->ret[var->i] != ' '
+		&& var->ret[var->i] != '\t')
 		left_arrow(var);
 }
 
@@ -107,7 +108,8 @@ void	shift_arrow_r(t_var *var)
 		return ;
 	while (var->ret[var->i] == ' ' || var->ret[var->i] == '\t')
 		right_arrow(var);
-	while (var->i >= 0 && ft_isalpha(var->ret[var->i]))
+	while (var->i >= 0 && var->ret[var->i] && var->ret[var->i] != ' '
+		&& var->ret[var->i] != '\t')
 		right_arrow(var);
 }
 
