@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 13:15:55 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 14:52:12 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 15:00:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct	s_var
 	int		sovi;
 	int		del;
 	int		selmode;
-	int		exclamation;
 	int		lenprompt;
 	int		selstart;
 	int		selend;
