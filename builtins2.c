@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:21:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:32:33 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	builtin_read(t_env *ev, char **split)
 	i = r == 1 ? 2 : 1;
 	while (split[++r])
 	{
+		printf("pOPAWJOHDAW\n");
 		ft_strcat(truc, split[i]);
 		ft_strcat(truc, "=");
 		ft_strcat(truc, bufe);
+		printf("ll=%s\n", truc);
 		add_var_to_env(ev->loc, split[i]);
 		truc[0] = 0;
 	}

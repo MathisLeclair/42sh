@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:26:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:28:49 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int		ft_reco_cmd2(t_env *env, char **split)
 		history(env, split);
 	else if (ft_strcmp(split[0], "read") == 0)
 		builtin_read(env, split);
+	else if (ft_strcmp(split[0], "local") == 0)
+		print_split(env->loc->ev);
 	else
 		ft_fork(env, split);
 	if (split)
