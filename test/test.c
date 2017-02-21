@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 15:00:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/21 16:08:45 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	initvar(t_var *var)
 	var->selstart = -1;
 	var->selend = -1;
 	var->inputlen = 0;
-	var->exclamation = 0;
 }
 
 void	add_car(t_var *var, int boule, char c)
@@ -81,15 +80,18 @@ void	left_arrow(t_var *var)
 
 void	right_arrow(t_var *var)
 {
-	if (var->lenligne % tgetnum("co") == 0)
+	if (var->i < ft_strlen(var->ret))
 	{
-		ft_putstr(tgetstr("do", NULL));
-		ft_putstr(tgetstr("cr", NULL));
+		if (var->lenligne % tgetnum("co") == 0)
+		{
+			ft_putstr(tgetstr("do", NULL));
+			ft_putstr(tgetstr("cr", NULL));
+		}
+		else
+			ft_putstr(tgetstr("nd", NULL));
+		++var->i;
+		++var->lenligne;
 	}
-	else
-		ft_putstr(tgetstr("nd", NULL));
-	++var->i;
-	++var->lenligne;
 }
 
 void	shift_arrow_l(t_var *var)
@@ -111,6 +113,24 @@ void	shift_arrow_r(t_var *var)
 		right_arrow(var);
 	while (var->i >= 0 && var->ret[var->i] && var->ret[var->i] != ' '
 		&& var->ret[var->i] != '\t')
+		right_arrow(var);
+}
+
+void	shift_up(t_var *var)
+{
+	int i;
+
+	i = -1;
+	while (++i < tgetnum("co") && var->i > 0)
+		left_arrow(var);
+}
+
+void	shift_down(t_var *var)
+{
+	int i;
+
+	i = -1;
+	while (++i < tgetnum("co"))
 		right_arrow(var);
 }
 
@@ -353,6 +373,10 @@ void	touch(t_var *var)
 			shift_arrow_l(var);
 		if (var->buff[0] == 59 && var->buff[2] == 67) //SHIFT + RIGHT ARROW
 			shift_arrow_r(var);
+		if (var->buff[0] == 59 && var->buff[2] == 65) //SHIFT + UP ARROW
+			shift_up(var);
+		if (var->buff[0] == 59 && var->buff[2] == 66) //SHIFT + DOWN ARROW
+			shift_down(var);
 		if (var->buff[0] == 27 && var->buff[2] == 72) //HOME
 			home(var);
 		if (var->buff[0] == 27 && var->buff[2] == 65) // UP ARROW
