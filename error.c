@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/10 14:24:14 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/20 17:22:22 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	error2(int i, char *str)
 		ft_printf("shell: cd: no such file or directory: %s\n", str);
 	else if (i == -10)
 		ft_printf("shell: cd: string not in pwd: %s\n", str);
+	else if (i == -11)
+		ft_putstr("No history to display");
 }
 
 void	error(int i, char *str, char *str2)
