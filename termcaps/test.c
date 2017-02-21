@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 20:56:35 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 21:11:24 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,7 +330,6 @@ void	touch(t_var *var)
 	// test = ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', "test", "$\e[0;31m42sh\e[0m>");
 	// ft_putstr(test);
 	var->i = 0;
-	var->ret = malloc(4096);
 	var->ret[0] = 0; 
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
 	while (var->buff[0] != 10)
