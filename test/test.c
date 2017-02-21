@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/17 17:51:08 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/21 12:05:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,16 @@ void	end(t_var *var)
 
 void	delete(t_var *var)
 {
+	int i;
+
 	if (var->del == 1)
 		read(0, NULL, 3);
-	ft_putstr(tgetstr("dc", NULL));
 	rem_car(var);
+	ft_putstr(tgetstr("cd", NULL));
+	write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
+	i = ft_strlen(var->ret + var->i);
+	while (i-- > 0)
+		ft_putstr(tgetstr("le", NULL));
 	--var->inputlen;
 }
 
@@ -150,9 +156,7 @@ void	backspace(t_var *var)
 	if (var->i > 0)
 	{
 		left_arrow(var);
-		ft_putstr(tgetstr("dc", NULL));
-		rem_car(var);
-		--var->inputlen;
+		delete(var);
 	}
 }
 
