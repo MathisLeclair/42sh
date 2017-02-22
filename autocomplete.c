@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/21 16:44:26 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/22 14:13:10 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,16 @@ int		strstr_no_case(char *find, char *search_in_lc)
 		return (1);
 	i = 0;
 	while (search_in_lc[i])
-	{
 		if (search_in_lc[i] == find[0])
 		{
 			j = -1;
 			while (search_in_lc[i] && search_in_lc[i] == find[++j])
 				++i;
 			if (f_len == j)
-			{
-				free(search_in_lc);
 				return (1);
-			}
 		}
 		else
 			++i;
-	}
-	free(search_in_lc);
 	return (0);
 }
 
@@ -57,19 +51,22 @@ char	*to_lowercase(char *str)
 void	add_str_to_dstr(char ***dstr, char *str)
 {
 	int		i;
-	char	**new_dstr;
+	char	**new_dtr;
 
 	i = 0;
-	while (dstr[i])
+	while ((*dstr)[i])
 		++i;
-	new_dstr = palloc(sizeof(char *) * i + 2);
-	new_dstr[i + 1] = 0;
-	i = -1;
-	while (dstr[++i])
-		new_dstr[i] = (*dstr)[i];
-	new_dstr[i] = ft_strdup(str);
-	free(dstr);
-	*dstr = new_dstr;
+	new_dtr = palloc(sizeof(char *) * (i + 2));
+	i = 0;
+	while ((*dstr)[i])
+	{
+		new_dtr[i] = (*dstr)[i];
+		++i;
+	}
+	new_dtr[i] = ft_strdup(str);
+	new_dtr[i + 1] = 0;
+	free(*dstr);
+	*dstr = new_dtr;
 }
 
 void	ft_ac_cmd_build(char ***ac, char *find)
@@ -106,11 +103,8 @@ void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
 	t_dirent	*dirent;
 	int			i;
 
-	*ac = palloc(sizeof(char *));
-	**ac = 0;
 	i = -1;
 	while (split_path[++i])
-	{
 		if ((dir = opendir(split_path[i])))
 		{
 			while ((dirent = readdir(dir)))
@@ -118,7 +112,6 @@ void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
 					add_str_to_dstr(ac, dirent->d_name);
 			closedir(dir);
 		}
-	}
 }
 
 char    **ac_cmd(char *find, t_env *env)
@@ -127,6 +120,8 @@ char    **ac_cmd(char *find, t_env *env)
 	char		**split_path;
 	int			i;
 
+	ac = palloc(sizeof(char *));
+	ac[0] = NULL;
 	split_path = NULL;
 	if ((i = find_param(env->ev, "PATH")) == -1)
 	{
@@ -171,26 +166,28 @@ char    **ac_pwd(char *find, int count, char *str)
 	return (sug);
 }
 
+char	**ac_target(char *find)
+{
+	char	**ac;
+
+	ac = palloc(sizeof(char *));
+	ac[0] = find;
+	return (ac);
+}
+
 char    **auto_possibilities(char pwd, t_env *env)
 {
 	char	**ac;
 	char	*find_lwc;
-	int		i;
 
 	find_lwc = env->input;
 	env->input = env->find;
 	ft_dollar(env, -1, 0);
 	env->find = env->input;
 	env->input = find_lwc;
+	if (env->find[0] == '/')
+		ac = ac_target(env->find);
 	find_lwc = to_lowercase(env->find);
-	ac = ft_strsplitquote(find_lwc, '/', 1);
-	if (ac[0])
-	{
-		i = 0;
-		while (ac[i])
-			++i;
-		find_lwc = ac[i - 1];
-	}
 	if (pwd == 0)
 		ac = ac_cmd(find_lwc, env);
 	else
