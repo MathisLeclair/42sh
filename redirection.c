@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/22 14:01:24 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:45:15 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,14 +172,14 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 	}
 	else if ((int)child == 0)
 	{
-		ft_putstr("heredoc> ");
+		termcaps(sprintf("heredoc> "));
 		while ((rsize = read(0, buff, INPUT_SIZE)) != -1)
 		{
 			buff[rsize] = '\0';
 			if (!ft_strcmp(buff, delimiter))
 				break;
 			write(fd, buff, rsize);
-			ft_putstr("heredoc> ");
+			termcaps(sprintf("heredoc> "));
 		}
 		close(fd);
 		if ((fd = open("/tmp/42sh-thd-silence", O_RDONLY)) == -1)
