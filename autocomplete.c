@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/22 15:47:13 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/22 17:45:30 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,22 +166,25 @@ char    **ac_pwd(char *find, int count, char *str)
 	return (sug);
 }
 
-void	ac_target2(char *find, t_dirent *dirent, char **new, char ***ac)
+void	ac_target2(char *after_path, t_dirent *dirent, char *find, char ***ac)
 {
-	int i;
-	int len;
+	int		i;
+	int		len;
+	char	**new;
 
 	len = 0;
 	while ((*ac)[len])
 		++len;
-	// ft_putstr("Ici");
-	if (strstr_no_case(find, to_lowercase(dirent->d_name)) && dirent->d_name[0] != '.')
+	if (strstr_no_case(after_path, to_lowercase(dirent->d_name)) && dirent->d_name[0] != '.')
 	{
 		new = palloc(sizeof(char *) * (len + 2));
 		i = -1;
 		while ((*ac)[++i])
 			new[i] = (*ac)[i];
-		new[i] = ft_strdup(dirent->d_name);
+		new[i] = malloc(ft_strlen(find) + ft_strlen(dirent->d_name) + 1);
+		new[i][0] = 0;
+		ft_strcat(new[i], find);
+		ft_strcat(new[i], dirent->d_name);
 		new[i + 1] = 0;
 		free(*ac);
 		(*ac) = new;
@@ -190,14 +193,15 @@ void	ac_target2(char *find, t_dirent *dirent, char **new, char ***ac)
 
 void	ac_target(char *find, char ***ac)
 {
-	char *after_path;
-	int i;
-	int j;
+	char		*after_path;
+	int			i;
+	int			j;
 	DIR			*dir;
 	t_dirent	*dirent;
 
-	*ac = palloc(sizeof(char *));
+	*ac = palloc(sizeof(char *) * 2);
 	(*ac)[0] = 0;
+	(*ac)[1] = 0;
 	i = ft_strlen(find);
 	while (find[i] != '/')
 		--i;
@@ -206,31 +210,43 @@ void	ac_target(char *find, char ***ac)
 	while (find[++i])
 		after_path[++j] = find[i];
 	after_path[j + 1] = 0;
-	i = ft_strlen(find);
-	while (find[i] != '/')
-		--i;
-	find[i + 1] = 0;
+	find[i - j + 2] = 0;
 	if ((dir = opendir(find)))
 		while ((dirent = readdir(dir)))
-			ac_target2(after_path, dirent, 0, ac);
+			ac_target2(after_path, dirent, find, ac);
 	if (dir)
 		closedir(dir);
 }
 
+int		ft_len_arrow(char **t)
+{
+	int i;
+
+	i = 0;
+	while (t[i])
+		++i;
+	return (i);
+}
 char    **auto_possibilities(char pwd, t_env *env)
 {
 	char	**ac;
 	char	*find_lwc;
+	char	*save;
 
 	find_lwc = env->input;
 	env->input = env->find;
 	ft_dollar(env, -1, 0);
 	env->find = env->input;
 	env->input = find_lwc;
+	save = ft_strdup(env->find);
 	if (env->find[0] == '/')
-		ac_target(env->find, &ac);
-	if (env->find[0] == '/')
+	{
+		ac_target(save, &ac);
+		if (ft_len_arrow(ac) == 0 && opendir(ft_strcat(env->find, "/")))
+			ac[0] = ft_strdup(env->find);
 		return (ac);
+	}
+	free(save);
 	find_lwc = to_lowercase(env->find);
 	if (pwd == 0)
 		ac = ac_cmd(find_lwc, env);
@@ -251,8 +267,9 @@ char	*finder(char *input, int pos)
 	j = 0;
 	while (input[i] && input[i++] != ' ')
 		++j;
-	find = malloc(j + 1);
+	find = malloc(j + 2);
 	find[j] = 0;
+	find[j + 1] = 0;
 	i = 0;
 	pos = pos == 0 ? pos - 1 : pos;
 	while (input[++pos] && input[pos] != ' ')
