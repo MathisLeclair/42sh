@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 15:40:18 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 17:54:29 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,13 @@ int		ft_reco_cmd(t_env *env)
 	return (save_env(env));
 }
 
+void	splitredir(char *inputspl)
+{
+	char **splitpipe;
+
+	splitpipe = ft_strsplitquote(inputspl, '|', 0);
+}
+
 int		ft_read(t_env *env)
 {
 	char	*input;
@@ -126,16 +133,13 @@ int		ft_read(t_env *env)
 			ft_dollar(env, -1, 0);
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(env, -1, 0);
-		if (!ft_reco_cmd(env) && (env->input = NULL) == NULL
-		&& free_double_array(inputspl))
-			ft_exit();
+		splitredir(inputspl[i]);
+		// if (!ft_reco_cmd(env) && (env->input = NULL) == NULL
+		// && free_double_array(inputspl))
+		// 	ft_exit();
 		free(env->input);
 		env->input = NULL;
 	}
 	free_double_array(inputspl);
-	// ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT);
 	return (0);
 }
-
-
-//	input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));
