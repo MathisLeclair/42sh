@@ -6,11 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 15:26:16 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 15:27:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 14:07:09 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "termcaps.h"
+#include "../42sh.h"
 
 void	add_history(t_var *var)
 {
