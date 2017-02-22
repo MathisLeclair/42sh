@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/21 17:52:14 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/02/22 13:47:31 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(NAME): $(OBJ)
 	@echo "|           sub compilation :          |"
 	@echo "|                libft                 |"
 	@make -C $(PATHTOMAKEFILE)
-	@gcc -Wall -Werror -L./libft/ -lft -o $(NAME) -Wextra $(OBJ) -lncurses
+	@gcc -Wall -Werror -L./libft/ -lft -o $(NAME) -Wextra $(OBJ) -lncurses -I. -I./termcaps
 	@echo "|                 FIN                  |"
 	@echo "----------------------------------------"
 	@echo "               ________"
