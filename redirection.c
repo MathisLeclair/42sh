@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/21 21:41:36 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/22 14:01:24 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[])
 		close(fds[0]);
 		execve(cmd1, args1, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
@@ -67,6 +68,7 @@ void	rd_output(char *cmd, char *args[], char *filename)
 		dup2(fd, STDOUT_FILENO);
 		execve(cmd, args, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	wait(NULL);
@@ -96,6 +98,7 @@ void	rd_output_apd(char *cmd, char *args[], char *filename)
 		dup2(fd, STDOUT_FILENO);
 		execve(cmd, args, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	wait(NULL);
@@ -125,6 +128,7 @@ void	rd_input(char *cmd, char *args[], char *filename)
 		dup2(fd, STDIN_FILENO);
 		execve(cmd, args, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	wait(NULL);
