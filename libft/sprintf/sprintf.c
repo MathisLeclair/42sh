@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 12:15:45 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/13 12:18:32 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:32:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ const char	*stroncage(const char *str)
 	return (str + i);
 }
 
-char		*ft_sprintf(const char *str, ...)
+t_ssprintf	*ft_sprintf(const char *str, ...)
 {
 	va_list	ap;
 	char	*amod;
@@ -111,6 +111,6 @@ char		*ft_sprintf(const char *str, ...)
 		}
 	}
 	if (i == -1)
-		return ("NULL");
+		return (NULL);
 	return (ft_sprint(0, 0, 1));
 }

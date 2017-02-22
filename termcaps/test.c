@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 14:33:27 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:30:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,11 +440,13 @@ void	touch(t_var *var)
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
 
-char	*termcaps(void)
+char	*termcaps(t_ssprintf *prompt)
 {
 	char			*str;
 	t_var			*var;
 
+	ft_putstr(prompt->buf);
+	ft_bzero(prompt->buf, prompt->ret);
 	var = tvar();
 	initvar(var);
 	if ((str = getenv("TERM")) == NULL)

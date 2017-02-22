@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 14:07:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:01:14 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	ft_sig(int i)
 	}
 	else if (env()->i == 1)
 	{
-		ft_printf("\n\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s",
-		L'✈', env()->dir, PROMPT);
+		// ft_printf("\n\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s",
+		// L'✈', env()->dir, PROMPT);
 		env()->i = 1;
 	}
 }
@@ -68,7 +68,7 @@ int		main(int ac, char **av, char **ev)
 	(void)av;
 	(void)ac;
 	shlvl(env());
-	ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', envi->dir, PROMPT);
+	// ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', envi->dir, PROMPT);
 	while (1)
 	{
 		if ((ft_read(env())) == 0)

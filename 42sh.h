@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 14:12:29 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:30:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void			add_str_to_dstr(char ***dstr, char *str);
 void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
 
-char			*termcaps(void);
+char			*termcaps(t_ssprintf *prompt);
 
 /*
 ** termcaps.c
