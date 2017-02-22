@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:41:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 11:49:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	end(t_var *var)
 		right_arrow(var);
 }
 
-void	delete(t_var *var)
+void	deleteu(t_var *var)
 {
 	int i;
 
@@ -171,7 +171,7 @@ void	backspace(t_var *var)
 	if (var->i > 0)
 	{
 		left_arrow(var);
-		delete(var);
+		deleteu(var);
 	}
 }
 
@@ -193,7 +193,7 @@ void	replace_w(char *word, t_var *var)
 	while (var->i && var->ret[var->i - 1] != ' ')
 		backspace(var);
 	while (var->ret[var->i] != ' ' && var->ret[var->i])
-		delete(var);
+		deleteu(var);
 	var->cpy = ft_strdup(word);
 	paste(var);
 	free(var->cpy);
@@ -314,15 +314,26 @@ void	cut(t_var *var)
 	while (var->i != var->selend)
 	{
 		var->selend--;
-		delete(var);
+		deleteu(var);
 	}
-	delete(var);
+	deleteu(var);
 	var->selstart = -1;
 	var->selend = -1;
 	var->selmode = 0;
 }
 
-void	touch(t_var *var)
+void	reset(struct termios term, t_var *var)
+{
+	if (tcgetattr(0, &term) == -1)
+		error(-6, 0, 0);
+	term.c_lflag = (ICANON | ECHO);
+	if (tcsetattr(0, 0, &term) == -1)
+		error(-6, 0, 0);
+	free(var->buff);
+	free(var->cpy);
+}
+
+void	touch(struct termios term, t_var *var)
 {
 	// char		*test;
 	static int	i = 0;
@@ -343,6 +354,8 @@ void	touch(t_var *var)
 			copy(var, 0);
 		else if (var->selmode == 1 && var->buff[0] > 0)
 			desel(var);
+		if (var->buff[0] == 3 && var->buff[1] == 0) //CTRL + C
+			continue ;
 		if (var->buff[0] == -30 && var->buff[1] == -120) //CTRL + V
 			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
@@ -386,14 +399,17 @@ void	touch(t_var *var)
 		if (var->buff[0] == 27 && var->buff[2] == 51) //DELETE
 		{
 			var->del = 1;
-			delete(var);
+			deleteu(var);
 		}
 		///////////////////////////////////////////////////////////////////////
 		// if (var->buff[0] == 56 && var->buff[1] == 0 && var->buff[2] == 0)
 		// 	replace_w("penis", var);
 		///////////////////////////////////////////////////////////////////////
-		if (var->buff[0] == 4)
-			break ;
+		if (var->buff[0] == 4 && ft_strlen(var->ret) == 0)
+		{
+			reset(term, var);
+			error(-6, NULL, NULL);
+		}
 		else if (var->buff[1] == 0 && var->buff[0] != 10 && var->buff[0] != 9 && var->buff[0] != 127 && var->del != 1) // STANDARD CHAR
 		{
 			write(1, &var->buff[0], 1);
@@ -431,16 +447,9 @@ char	*termcaps(void)
 	term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &term) == -1)
 		error(-6, 0, 0);
-	touch(var);
-// reset
-	if (tcgetattr(0, &term) == -1)
-		error(-6, 0, 0);
-term.c_lflag = (ICANON | ECHO);
-	if (tcsetattr(0, 0, &term) == -1)
-		error(-6, 0, 0);
-	free(var->buff);
-	free(var->cpy);
-	str = var->ret;
+	touch(term, var);
+	reset(term, var);
 	// free(var);
+	str = var->ret;
 	return (str);
 }

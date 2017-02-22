@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 13:15:55 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 16:53:52 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/22 11:49:07 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,28 @@ typedef struct	s_var
 
 void			add_history(t_var *var);
 char			**autocomplete(char *input, int pos, t_env *env);
+
+void			add_car(t_var *var, int boule, char c);
+void			rem_car(t_var *var);
+
+void			left_arrow(t_var *var);
+void			right_arrow(t_var *var);
+void			shift_arrow_r(t_var *var);
+void			shift_arrow_l(t_var *var);
+void			up_arrow(t_var *var);
+void			down_arrow(t_var *var);
+
+void			shift_down(t_var *var);
+void			shift_up(t_var *var);
+
+void			home(t_var *var);
+void			end(t_var *var);
+void			deleteu(t_var *var);
+void			backspace(t_var *var);
+
+void			select_mode(t_var *var);
+void			desel(t_var *var);
+void			copy(t_var *var, int p);
+void			cut(t_var *var);
 
 #endif

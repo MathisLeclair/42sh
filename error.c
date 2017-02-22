@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 16:34:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 11:34:33 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void	error2(int i, char *str)
 		ft_printf("shell: cd: string not in pwd: %s\n", str);
 	else if (i == -11)
 		ft_putstr("No history to display");
+	else if (i == -12)
+	{
+		ft_putstr("\n");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	error(int i, char *str, char *str2)
