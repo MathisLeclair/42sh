@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/06 13:53:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:29:37 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdarg.h>
+# include "./sprintf/sprintf.h"
 # include <wchar.h>
 
 typedef struct	s_list
@@ -123,7 +124,5 @@ int				ft_number(int k, int i, int boul, char **str);
 int				ft_minus(int k, int i, int boul, char **str);
 int				ft_plus(int k, int i, int boul, char **str);
 int				ft_printf(const char *str, ...);
-
-char			*ft_sprintf(const char *str, ...);
 
 #endif

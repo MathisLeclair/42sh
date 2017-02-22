@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:05:37 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:01:14 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,18 @@ t_env	*env(void)
 	return (env);
 }
 
-void	ft_hello(int i)
+void	ft_sig(int i)
 {
 	i = 42;
 	if (env()->i == 0)
+	{
+		reset(tvar());
 		exit(0);
+	}
 	else if (env()->i == 1)
 	{
-		ft_printf("\n\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s",
-		L'✈', env()->dir, PROMPT);
+		// ft_printf("\n\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s",
+		// L'✈', env()->dir, PROMPT);
 		env()->i = 1;
 	}
 }
@@ -60,12 +63,12 @@ int		main(int ac, char **av, char **ev)
 
 	envi = env();
 	set_env(env(), ev);
-	signal(SIGINT, ft_hello);
-	signal(SIGCONT, ft_hello);
+	signal(SIGINT, ft_sig);
+	signal(SIGCONT, ft_sig);
 	(void)av;
 	(void)ac;
 	shlvl(env());
-	ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', envi->dir, PROMPT);
+	// ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', envi->dir, PROMPT);
 	while (1)
 	{
 		if ((ft_read(env())) == 0)

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:26:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:30:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,25 @@ typedef struct	s_env
 	char			*find;
 }				t_env;
 
+typedef struct	s_var
+{
+	char			*buff;
+	char			*cpy;
+	char			*ret;
+	int				lenligne;
+	long int		i;
+	int				sovi;
+	int				del;
+	int				selmode;
+	int				lenprompt;
+	int				selstart;
+	int				selend;
+	size_t			inputlen;
+	char			**ac;
+	struct termios	term;
+	struct termios	termsav;
+}				t_var;
+
 typedef struct dirent	t_dirent;
 
 /*
@@ -48,6 +67,8 @@ typedef struct dirent	t_dirent;
 */
 
 t_env			*env(void);
+void			ft_sig(int i);
+
 
 /*
 ** redirection.c
@@ -177,6 +198,39 @@ void			add_str_to_dstr(char ***dstr, char *str);
 void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
 
-char			*termcaps(void);
+char			*termcaps(t_ssprintf *prompt);
+
+/*
+** termcaps.c
+*/
+
+t_var			*tvar(void);
+
+void			add_history(t_var *var);
+char			**autocomplete(char *input, int pos, t_env *env);
+void			reset(t_var *var);
+
+void			add_car(t_var *var, int boule, char c);
+void			rem_car(t_var *var);
+
+void			left_arrow(t_var *var);
+void			right_arrow(t_var *var);
+void			shift_arrow_r(t_var *var);
+void			shift_arrow_l(t_var *var);
+void			up_arrow(t_var *var);
+void			down_arrow(t_var *var);
+
+void			shift_down(t_var *var);
+void			shift_up(t_var *var);
+
+void			home(t_var *var);
+void			end(t_var *var);
+void			deleteu(t_var *var);
+void			backspace(t_var *var);
+
+void			select_mode(t_var *var);
+void			desel(t_var *var);
+void			copy(t_var *var, int p);
+void			cut(t_var *var);
 
 #endif

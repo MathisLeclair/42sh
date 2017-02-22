@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/21 15:16:58 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:45:15 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[])
 		close(fds[0]);
 		execve(cmd1, args1, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
@@ -67,6 +68,7 @@ void	rd_output(char *cmd, char *args[], char *filename)
 		dup2(fd, STDOUT_FILENO);
 		execve(cmd, args, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	wait(NULL);
@@ -96,6 +98,7 @@ void	rd_output_apd(char *cmd, char *args[], char *filename)
 		dup2(fd, STDOUT_FILENO);
 		execve(cmd, args, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	wait(NULL);
@@ -125,6 +128,7 @@ void	rd_input(char *cmd, char *args[], char *filename)
 		dup2(fd, STDIN_FILENO);
 		execve(cmd, args, NULL);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	wait(NULL);
@@ -158,6 +162,8 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 	child = -1;
 	fd = -1;
 	rsize = -1;
+	if ((fd = open("/tmp/42sh-thd-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
+		perror("error");
 	child = fork();
 	if ((int)child == -1)
 	{
@@ -166,16 +172,14 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 	}
 	else if ((int)child == 0)
 	{
-		if ((fd = open("/tmp/42sh-thd-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
-			perror("error");
-		ft_putstr("heredoc> ");
+		termcaps(sprintf("heredoc> "));
 		while ((rsize = read(0, buff, INPUT_SIZE)) != -1)
 		{
 			buff[rsize] = '\0';
 			if (!ft_strcmp(buff, delimiter))
 				break;
 			write(fd, buff, rsize);
-			ft_putstr("heredoc> ");
+			termcaps(sprintf("heredoc> "));
 		}
 		close(fd);
 		if ((fd = open("/tmp/42sh-thd-silence", O_RDONLY)) == -1)
@@ -183,9 +187,9 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 		unlink("/tmp/42sh-thd-silence");
 		dup2(fd, STDIN_FILENO);
 		execve(cmd, args, NULL);
-		close(fd);
 		perror("error");
+		exit(EXIT_FAILURE);
 	}
-	close(fd);
 	wait(NULL);
+	close(fd);
 }

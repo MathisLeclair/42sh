@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:28:49 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:40:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		ft_read(t_env *env)
 	char	**inputspl;
 	int		i;
 
-	input = termcaps();
+	input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));
 	if (verif_quote(input, 0) == -1)
 		return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);
@@ -133,6 +133,9 @@ int		ft_read(t_env *env)
 		env->input = NULL;
 	}
 	free_double_array(inputspl);
-	ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT);
+	// ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT);
 	return (0);
 }
+
+
+//	input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));

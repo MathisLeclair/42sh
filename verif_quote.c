@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/31 19:04:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:38:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,11 @@ int	verif_quote_return(char *tmp, int i)
 	{
 		free(tmp);
 		ft_putstr("Unmatched \"\n");
-		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s"
-			, L'✈', env()->dir, PROMPT);
 	}
 	else
 	{
 		free(tmp);
 		ft_putstr("Unmatched '\n");
-		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s"
-			, L'✈', env()->dir, PROMPT);
 	}
 	return (-1);
 }

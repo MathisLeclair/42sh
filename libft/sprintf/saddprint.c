@@ -6,13 +6,13 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 14:40:26 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/08 11:46:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:24:23 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sprintf.h"
 
-void	ft_smemlcat(char *dst, const char *src, int start, int end)
+void		ft_smemlcat(char *dst, const char *src, int start, int end)
 {
 	int i;
 
@@ -25,7 +25,7 @@ void	ft_smemlcat(char *dst, const char *src, int start, int end)
 	}
 }
 
-char	*sstrresize(char *s, int len, int k)
+char		*sstrresize(char *s, int len, int k)
 {
 	char	*tmp;
 
@@ -36,7 +36,18 @@ char	*sstrresize(char *s, int len, int k)
 	return (tmp);
 }
 
-char	*ft_sprint(char *str, int k, int bool)
+t_ssprintf	*machin(char *bu, int rt)
+{
+	t_ssprintf *raturn;
+
+	raturn = malloc(sizeof(t_ssprintf));
+	raturn->buf = bu;
+	raturn->ret = rt;
+	return (raturn);
+}
+
+
+t_ssprintf	*ft_sprint(char *str, int k, int bool)
 {
 	static int	i;
 	static char *buff;
@@ -51,7 +62,7 @@ char	*ft_sprint(char *str, int k, int bool)
 	{
 		u = i + k;
 		i = 0;
-		return (buff);
+		return (machin(buff, u));
 	}
 	else
 	{

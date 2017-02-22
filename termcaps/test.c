@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 11:49:09 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:30:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,16 @@
 #include <curses.h>
 #include <stdlib.h>
 
-#include "termcaps.h"
+#include "../42sh.h"
+
+t_var	*tvar(void)
+{
+	static t_var	*var = NULL;
+
+	if (var == NULL)
+		var = malloc(sizeof(t_var));
+	return (var);
+}
 
 void	initvar(t_var *var)
 {
@@ -322,18 +331,21 @@ void	cut(t_var *var)
 	var->selmode = 0;
 }
 
-void	reset(struct termios term, t_var *var)
+void	reset(t_var *var)
 {
-	if (tcgetattr(0, &term) == -1)
+	ft_putstr(tgetstr("rs", NULL));
+	if (tcgetattr(0, &var->term) == -1)
 		error(-6, 0, 0);
-	term.c_lflag = (ICANON | ECHO);
-	if (tcsetattr(0, 0, &term) == -1)
-		error(-6, 0, 0);
+	var->term.c_lflag = (ICANON | ECHO);
+	tcsetattr(0, 0, &var->term);
+	tcsetattr(0, 0, &var->termsav);
 	free(var->buff);
 	free(var->cpy);
+	var->term = var->termsav;
+	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
 
-void	touch(struct termios term, t_var *var)
+void	touch(t_var *var)
 {
 	// char		*test;
 	static int	i = 0;
@@ -348,15 +360,15 @@ void	touch(struct termios term, t_var *var)
 		read(0, var->buff, 3);
 		if (var->buff[0] == 27 && var->buff[2] == 91)
 			select_mode(var);
-		else if (var->buff[1] == -119) //CTRL + X
+		else if (var->buff[1] == -119) //ALT + X
 			cut(var);
-		else if (var->buff[1] == -89) //CTRL + C
+		else if (var->buff[1] == -89) //ALT + C
 			copy(var, 0);
 		else if (var->selmode == 1 && var->buff[0] > 0)
 			desel(var);
 		if (var->buff[0] == 3 && var->buff[1] == 0) //CTRL + C
 			continue ;
-		if (var->buff[0] == -30 && var->buff[1] == -120) //CTRL + V
+		if (var->buff[0] == -30 && var->buff[1] == -120) //ALT + V
 			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
 			left_arrow(var);
@@ -407,10 +419,10 @@ void	touch(struct termios term, t_var *var)
 		///////////////////////////////////////////////////////////////////////
 		if (var->buff[0] == 4 && ft_strlen(var->ret) == 0)
 		{
-			reset(term, var);
+			reset(var);
 			error(-6, NULL, NULL);
 		}
-		else if (var->buff[1] == 0 && var->buff[0] != 10 && var->buff[0] != 9 && var->buff[0] != 127 && var->del != 1) // STANDARD CHAR
+		else if (var->buff[1] == 0 && ft_isprint(var->buff[0])) // STANDARD CHAR
 		{
 			write(1, &var->buff[0], 1);
 			add_car(var, 0, 0);
@@ -428,27 +440,29 @@ void	touch(struct termios term, t_var *var)
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
 
-char	*termcaps(void)
+char	*termcaps(t_ssprintf *prompt)
 {
 	char			*str;
-	struct termios	term;
 	t_var			*var;
 
-	var = malloc(sizeof(t_var));
+	ft_putstr(prompt->buf);
+	ft_bzero(prompt->buf, prompt->ret);
+	var = tvar();
 	initvar(var);
 	if ((str = getenv("TERM")) == NULL)
 		error(-6, 0, 0);
 	tgetent(NULL, str);
-	if (tcgetattr(0, &term) == -1)
+	if (tcgetattr(0, &var->term) == -1)
 		error(-6, 0, 0);
-	term.c_lflag &= ~(ICANON);
-	term.c_lflag &= ~(ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSADRAIN, &term) == -1)
+	var->termsav = var->term;
+	var->term.c_lflag &= ~(ICANON);
+	var->term.c_lflag &= ~(ECHO);
+	var->term.c_cc[VMIN] = 1;
+	var->term.c_cc[VTIME] = 0;
+	if (tcsetattr(0, TCSADRAIN, &var->term) == -1)
 		error(-6, 0, 0);
-	touch(term, var);
-	reset(term, var);
+	touch(var);
+	reset(var);
 	// free(var);
 	str = var->ret;
 	return (str);
