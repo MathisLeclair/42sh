@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 13:15:55 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 11:42:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 11:49:07 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ typedef struct	s_var
 
 void			add_history(t_var *var);
 char			**autocomplete(char *input, int pos, t_env *env);
-void			reset(struct termios term, t_var *var, char *str);
-void			touch(struct termios term, t_var *var, char *str);
 
 void			add_car(t_var *var, int boule, char c);
 void			rem_car(t_var *var);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 11:43:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 11:49:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,7 +322,18 @@ void	cut(t_var *var)
 	var->selmode = 0;
 }
 
-void	touch(struct termios term, t_var *var, char *str)
+void	reset(struct termios term, t_var *var)
+{
+	if (tcgetattr(0, &term) == -1)
+		error(-6, 0, 0);
+	term.c_lflag = (ICANON | ECHO);
+	if (tcsetattr(0, 0, &term) == -1)
+		error(-6, 0, 0);
+	free(var->buff);
+	free(var->cpy);
+}
+
+void	touch(struct termios term, t_var *var)
 {
 	// char		*test;
 	static int	i = 0;
@@ -396,7 +407,7 @@ void	touch(struct termios term, t_var *var, char *str)
 		///////////////////////////////////////////////////////////////////////
 		if (var->buff[0] == 4 && ft_strlen(var->ret) == 0)
 		{
-			reset(term, var, str);
+			reset(term, var);
 			error(-6, NULL, NULL);
 		}
 		else if (var->buff[1] == 0 && var->buff[0] != 10 && var->buff[0] != 9 && var->buff[0] != 127 && var->del != 1) // STANDARD CHAR
@@ -415,18 +426,6 @@ void	touch(struct termios term, t_var *var, char *str)
 	// add_history(var);
 	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
-}
-
-void	reset(struct termios term, t_var *var, char *str)
-{
-	if (tcgetattr(0, &term) == -1)
-		error(-6, 0, 0);
-	term.c_lflag = (ICANON | ECHO);
-	if (tcsetattr(0, 0, &term) == -1)
-		error(-6, 0, 0);
-	free(var->buff);
-	free(var->cpy);
-	str = var->ret;
 }
 
 char	*termcaps(void)
@@ -448,8 +447,9 @@ char	*termcaps(void)
 	term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &term) == -1)
 		error(-6, 0, 0);
-	touch(term, var, str);
-	reset(term, var, str);
+	touch(term, var);
+	reset(term, var);
 	// free(var);
+	str = var->ret;
 	return (str);
 }
