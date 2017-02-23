@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/10 14:27:31 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/02/23 11:49:04 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ PATH = ./sprintf/
 
 FILE =	free_swap \
 		ft_atoi \
+		ft_strcdup \
 		ft_bzero \
 		ft_isalnum \
 		ft_isalpha \
@@ -24,6 +25,7 @@ FILE =	free_swap \
 		ft_isprint \
 		ft_itoa \
 		ft_lstadd \
+		ft_remstr \
 		ft_lstdel \
 		ft_lstdelone \
 		ft_lstiter \

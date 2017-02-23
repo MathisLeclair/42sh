@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 17:54:29 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/23 13:05:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,39 @@ int		ft_reco_cmd(t_env *env)
 	return (save_env(env));
 }
 
-void	splitredir(char *inputspl)
+void	extracredir(t_env *env)
 {
-	char **splitpipe;
+	int		i;
+	int		j;
+	char	**redir;
 
-	splitpipe = ft_strsplitquote(inputspl, '|', 0);
+	i = -1;
+	redir = malloc(sizeof(char *));
+	*redir = 0;
+	while (env->input[++i])
+	{
+		j = i;
+		if (env->input[j++] == '>')
+		{
+			while (env->input[j] && (env->input[j] == ' ' || env->input[j] == '\t'))
+				++j;
+			while (env->input[j] && ((env->input[j] >= 33 && env->input[j] <= 126) || (env->input[j] == ' ' && j > 0 && env->input[j - 1] == '\\')))
+				++j;
+			add_str_to_dstr(&redir, ft_strcdup(env->input + i, j));
+			printf("i= %d#j = %d#\n", i, j);
+			ft_strlcat(env->input, env->input + j, i);
+			i = j;
+		}
+	}
+	printf("test######\n");
+	print_split(redir);
+	printf("fin test######\n");
+}
+
+void	splitredir(t_env *env)
+{
+	extracredir(env);
+	printf("test=#%s#\n", env->input);
 }
 
 int		ft_read(t_env *env)
@@ -133,7 +161,7 @@ int		ft_read(t_env *env)
 			ft_dollar(env, -1, 0);
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(env, -1, 0);
-		splitredir(inputspl[i]);
+		splitredir(env);
 		// if (!ft_reco_cmd(env) && (env->input = NULL) == NULL
 		// && free_double_array(inputspl))
 		// 	ft_exit();
