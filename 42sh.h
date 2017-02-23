@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 17:07:33 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/23 13:09:50 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_env
 	int				i;
 	struct s_env	*loc;
 	char			*find;
+	char			**redir;
 }				t_env;
 
 typedef struct	s_var

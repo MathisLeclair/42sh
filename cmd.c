@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/23 13:05:17 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/23 13:42:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,29 +111,24 @@ void	extracredir(t_env *env)
 {
 	int		i;
 	int		j;
-	char	**redir;
 
 	i = -1;
-	redir = malloc(sizeof(char *));
-	*redir = 0;
 	while (env->input[++i])
 	{
 		j = i;
 		if (env->input[j++] == '>')
 		{
+			if (env->input[j] == '>')
+				++j;
 			while (env->input[j] && (env->input[j] == ' ' || env->input[j] == '\t'))
 				++j;
 			while (env->input[j] && ((env->input[j] >= 33 && env->input[j] <= 126) || (env->input[j] == ' ' && j > 0 && env->input[j - 1] == '\\')))
 				++j;
-			add_str_to_dstr(&redir, ft_strcdup(env->input + i, j));
-			printf("i= %d#j = %d#\n", i, j);
-			ft_strlcat(env->input, env->input + j, i);
+			add_str_to_dstr(&env->redir, ft_strcdup(env->input + i, j - i));
+			ft_remstr(env->input, i, j);
 			i = j;
 		}
 	}
-	printf("test######\n");
-	print_split(redir);
-	printf("fin test######\n");
 }
 
 void	splitredir(t_env *env)
