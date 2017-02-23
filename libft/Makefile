@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/23 11:49:04 by mleclair         ###   ########.fr        #
+#    Updated: 2017/02/23 14:35:04 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ FILE =	free_swap \
 		ft_atoi \
 		ft_strcdup \
 		ft_bzero \
+		ft_chardel								\
 		ft_isalnum \
 		ft_isalpha \
 		ft_isascii \

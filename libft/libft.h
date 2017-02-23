@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/23 11:48:55 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/23 14:34:21 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,7 @@ int				ft_number(int k, int i, int boul, char **str);
 int				ft_minus(int k, int i, int boul, char **str);
 int				ft_plus(int k, int i, int boul, char **str);
 int				ft_printf(const char *str, ...);
+
+void			ft_chardel(char **s, char c);
 
 #endif
