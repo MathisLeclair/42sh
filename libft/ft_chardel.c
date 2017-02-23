@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 13:44:25 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/23 14:31:35 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/23 14:43:02 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	ft_chardel(char **s, char c)
 		return ;
 	del = 0;
 	i = -1;
-	while (s[++i])
-		if (s[i] == c)
+	while (*s[++i])
+		if (*s[i] == c)
 		{
-			s[i] = '\0';
-			size++;
+			*s[i] = '\0';
+			del++;
 		}
 	i = -1;
-	while (del && s[++i])
+	while (del && *s[++i])
 	{
 		tmp = i;
-		while (s[i] == '\0')
+		while (*s[i] == '\0')
 			i++;
-		s[tmp] = s[i];
+		*s[tmp] = *s[i];
 		del--;
 		i = tmp;
 	}
