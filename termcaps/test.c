@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 15:30:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 17:49:39 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,17 +209,20 @@ void	replace_w(char *word, t_var *var)
 	var->cpy = NULL;
 }
 
-void	tabu(t_var *var, int j)
+void	tabu(t_var *var, int *j)
 {
 	static int	i;
 
-	if (j == 0)
+	if (*j == 0)
 	{
+		*j = 1;
 		var->ac = autocomplete(var->ret, var->i, env());
 		if (var->ac == NULL || var->ac[0] == 0)
 			return ;
 		if (var->ac[1] == 0)
 			replace_w(var->ac[0], var);
+		if (var->ac[1] == 0)
+			*j = 0;
 		i = 0;
 	}
 	else
@@ -389,10 +392,7 @@ void	touch(t_var *var)
 		if (var->buff[0] == 27 && var->buff[2] == 66) // DOWN ARROW
 			down_arrow(var);
 		if (var->buff[0] == 9 && var->buff[2] == 0) // AUTOCOMPLETE
-		{
-			tabu(var, i);
-			i = 1;
-		}
+			tabu(var, &i);
 		else
 		{
 			if (var->ac)

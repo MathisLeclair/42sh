@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_remstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 17:23:43 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/23 13:40:50 by mleclair         ###   ########.fr       */
+/*   Created: 2017/02/23 11:43:42 by mleclair          #+#    #+#             */
+/*   Updated: 2017/02/23 13:25:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcat(char *s1, const char *s2)
+void	ft_remstr(char *str, int start, int end)
 {
-	int i;
-	int size_s1;
-	int sizs_s2;
+	char *buf;
 
-	size_s1 = ft_strlen(s1);
-	sizs_s2 = ft_strlen(s2);
-	i = 0;
-	while (i <= sizs_s2)
-	{
-		s1[size_s1 + i] = s2[i];
-		i++;
-	}
-	s1[size_s1 + 1] = 0;
-	return (s1);
+	buf = malloc(ft_strlen(str));
+	ft_strcat(buf, str + end);
+	str[start] = 0;
+	ft_strcat(str + start, buf);
+	free(buf);
 }

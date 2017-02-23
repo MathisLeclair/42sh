@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/22 15:45:15 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/22 17:07:22 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Pipelines: command1 | command2
 */
 
-void	rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[])
+void	rd_pipe(void)
 {
 	pid_t		child;
 	int			fds[2];
@@ -34,21 +34,19 @@ void	rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[])
 	{
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[0]);
-		execve(cmd1, args1, NULL);
-		perror("error");
-		exit(EXIT_FAILURE);
+		ft_reco_cmd(env());
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
 	wait(NULL);
-	execve(cmd2, args2, NULL);
+	ft_reco_cmd(env());
 }
 
 /*
 ** Redirecting Output: command > output.txt
 */
 
-void	rd_output(char *cmd, char *args[], char *filename)
+void	rd_output(char *filename)
 {
 	pid_t		child;
 	int			fd;
@@ -66,9 +64,7 @@ void	rd_output(char *cmd, char *args[], char *filename)
 	else if ((int)child == 0)
 	{
 		dup2(fd, STDOUT_FILENO);
-		execve(cmd, args, NULL);
-		perror("error");
-		exit(EXIT_FAILURE);
+		ft_reco_cmd(env());
 	}
 	close(fd);
 	wait(NULL);
@@ -78,7 +74,7 @@ void	rd_output(char *cmd, char *args[], char *filename)
 ** Appending Redirected Output: command >> output.txt
 */
 
-void	rd_output_apd(char *cmd, char *args[], char *filename)
+void	rd_output_apd(char *filename)
 {
 	pid_t		child;
 	int			fd;
@@ -96,9 +92,7 @@ void	rd_output_apd(char *cmd, char *args[], char *filename)
 	else if ((int)child == 0)
 	{
 		dup2(fd, STDOUT_FILENO);
-		execve(cmd, args, NULL);
-		perror("error");
-		exit(EXIT_FAILURE);
+		ft_reco_cmd(env());
 	}
 	close(fd);
 	wait(NULL);
@@ -108,7 +102,7 @@ void	rd_output_apd(char *cmd, char *args[], char *filename)
 ** Redirecting Input: command < output.txt
 */
 
-void	rd_input(char *cmd, char *args[], char *filename)
+void	rd_input(char *filename)
 {
 	pid_t		child;
 	int			fd;
@@ -126,9 +120,7 @@ void	rd_input(char *cmd, char *args[], char *filename)
 	else if ((int)child == 0)
 	{
 		dup2(fd, STDIN_FILENO);
-		execve(cmd, args, NULL);
-		perror("error");
-		exit(EXIT_FAILURE);
+		ft_reco_cmd(env());
 	}
 	close(fd);
 	wait(NULL);
@@ -152,7 +144,7 @@ void	rd_input(char *cmd, char *args[], char *filename)
 **
 */
 
-void	rd_here_doc(char *cmd, char *args[], char *delimiter)
+void	rd_here_doc(char *delimiter)
 {
 	pid_t		child;
 	int			fd;
@@ -172,23 +164,21 @@ void	rd_here_doc(char *cmd, char *args[], char *delimiter)
 	}
 	else if ((int)child == 0)
 	{
-		termcaps(sprintf("heredoc> "));
+		termcaps(ft_sprintf("heredoc> "));
 		while ((rsize = read(0, buff, INPUT_SIZE)) != -1)
 		{
 			buff[rsize] = '\0';
 			if (!ft_strcmp(buff, delimiter))
 				break;
 			write(fd, buff, rsize);
-			termcaps(sprintf("heredoc> "));
+			termcaps(ft_sprintf("heredoc> "));
 		}
 		close(fd);
 		if ((fd = open("/tmp/42sh-thd-silence", O_RDONLY)) == -1)
 			perror("error");
 		unlink("/tmp/42sh-thd-silence");
 		dup2(fd, STDIN_FILENO);
-		execve(cmd, args, NULL);
-		perror("error");
-		exit(EXIT_FAILURE);
+		ft_reco_cmd(env());
 	}
 	wait(NULL);
 	close(fd);
