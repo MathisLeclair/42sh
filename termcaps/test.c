@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/24 14:06:17 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/24 16:05:17 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	initvar(t_var *var)
 	var->ret = malloc(INPUT_SIZE);
 	var->cpy = malloc(INPUT_SIZE);
 	var->cpy[0] = 0;
-	var->lenprompt = 22; // A CHANGER POUR LA TAILLE DU PROMPT EN TPS REEL
+	var->lenprompt = 10 + ft_strlen(env()->dir); // A CHANGER POUR LA TAILLE DU PROMPT EN TPS REEL
 	var->lenligne = var->lenprompt;
 	var->i = 0;
 	var->sovi = 0;
@@ -78,7 +78,6 @@ void	left_arrow(t_var *var)
 
 	--var->i;
 	--var->lenligne;
-	ft_putstr(tgetstr("le", NULL));
 	if (var->lenligne % tgetnum("co") == 0)
 	{
 		ft_putstr(tgetstr("up", NULL));
@@ -86,6 +85,8 @@ void	left_arrow(t_var *var)
 		while (++i < tgetnum("co"))
 			ft_putstr(tgetstr("nd", NULL));
 	}
+	else
+		ft_putstr(tgetstr("le", NULL));
 }
 
 void	right_arrow(t_var *var)
@@ -379,10 +380,12 @@ void	reset(t_var *var)
 void	touch(t_var *var)
 {
 	// char		*test;
-	static int	i = 0;
+	int	i;
+	int j;
 
 	// test = ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', "test", "$\e[0;31m42sh\e[0m>");
 	// ft_putstr(test);
+	i = 0;
 	var->i = 0;
 	var->ret[0] = 0; 
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
@@ -459,6 +462,11 @@ void	touch(t_var *var)
 			++var->lenligne;
 			if (var->lenligne % tgetnum("co") == 1)
 				ft_putstr(tgetstr("sf", NULL));
+	ft_putstr(tgetstr("cd", NULL));
+	write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
+	j = ft_strlen(var->ret + var->i);
+	while (j-- > 0)
+		ft_putstr(tgetstr("le", NULL));
 		}
 		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
 		// printf("id2 touche = %d\n", var->buff[1]);
