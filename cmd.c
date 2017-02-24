@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/23 13:42:24 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:40:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,36 +107,6 @@ int		ft_reco_cmd(t_env *env)
 	return (save_env(env));
 }
 
-void	extracredir(t_env *env)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (env->input[++i])
-	{
-		j = i;
-		if (env->input[j++] == '>')
-		{
-			if (env->input[j] == '>')
-				++j;
-			while (env->input[j] && (env->input[j] == ' ' || env->input[j] == '\t'))
-				++j;
-			while (env->input[j] && ((env->input[j] >= 33 && env->input[j] <= 126) || (env->input[j] == ' ' && j > 0 && env->input[j - 1] == '\\')))
-				++j;
-			add_str_to_dstr(&env->redir, ft_strcdup(env->input + i, j - i));
-			ft_remstr(env->input, i, j);
-			i = j;
-		}
-	}
-}
-
-void	splitredir(t_env *env)
-{
-	extracredir(env);
-	printf("test=#%s#\n", env->input);
-}
-
 int		ft_read(t_env *env)
 {
 	char	*input;
@@ -156,13 +126,16 @@ int		ft_read(t_env *env)
 			ft_dollar(env, -1, 0);
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(env, -1, 0);
-		splitredir(env);
-		// if (!ft_reco_cmd(env) && (env->input = NULL) == NULL
-		// && free_double_array(inputspl))
-		// 	ft_exit();
+		if (!ft_reco_cmd(env) && (env->input = NULL) == NULL
+		&& free_double_array(inputspl))
+			ft_exit();
 		free(env->input);
 		env->input = NULL;
 	}
 	free_double_array(inputspl);
+	// ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT);
 	return (0);
 }
+
+
+//	input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));

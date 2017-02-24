@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 17:23:43 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/23 13:40:50 by mleclair         ###   ########.fr       */
+/*   Updated: 2016/11/05 11:31:51 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ char	*ft_strcat(char *s1, const char *s2)
 		s1[size_s1 + i] = s2[i];
 		i++;
 	}
-	s1[size_s1 + 1] = 0;
 	return (s1);
 }

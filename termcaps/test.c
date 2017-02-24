@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 17:49:39 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/24 14:06:17 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	initvar(t_var *var)
 	var->ret = malloc(INPUT_SIZE);
 	var->cpy = malloc(INPUT_SIZE);
 	var->cpy[0] = 0;
-	var->lenprompt = 14; // A CHANGER POUR LA TAILLE DU PROMPT EN TPS REEL
+	var->lenprompt = 22; // A CHANGER POUR LA TAILLE DU PROMPT EN TPS REEL
 	var->lenligne = var->lenprompt;
 	var->i = 0;
 	var->sovi = 0;
@@ -74,9 +74,18 @@ void	rem_car(t_var *var)
 
 void	left_arrow(t_var *var)
 {
+	int i;
+
 	--var->i;
 	--var->lenligne;
 	ft_putstr(tgetstr("le", NULL));
+	if (var->lenligne % tgetnum("co") == 0)
+	{
+		ft_putstr(tgetstr("up", NULL));
+		i = -1;
+		while (++i < tgetnum("co"))
+			ft_putstr(tgetstr("nd", NULL));
+	}
 }
 
 void	right_arrow(t_var *var)
@@ -84,10 +93,7 @@ void	right_arrow(t_var *var)
 	if (var->i < (int)ft_strlen(var->ret))
 	{
 		if (var->lenligne % tgetnum("co") == 0)
-		{
-			ft_putstr(tgetstr("do", NULL));
-			ft_putstr(tgetstr("cr", NULL));
-		}
+			ft_putstr(tgetstr("sf", NULL));
 		else
 			ft_putstr(tgetstr("nd", NULL));
 		++var->i;
@@ -209,6 +215,25 @@ void	replace_w(char *word, t_var *var)
 	var->cpy = NULL;
 }
 
+void	put_ac(t_var * var)
+{
+	(void)var;
+	// int i;
+	// int j;
+
+	// i = var->i;
+	// while (var->i != var->inputlen)
+	// 	right_arrow(var);
+	// ft_putstr("bite\nb");
+	// while (var->i != i)
+	// 	left_arrow(var);
+	// j = 0;
+	// while (j++ < 6)
+	// 	left_arrow(var);
+	// var->i += j - 1;
+	// var->lenligne += j - 1;
+}
+
 void	tabu(t_var *var, int *j)
 {
 	static int	i;
@@ -223,6 +248,8 @@ void	tabu(t_var *var, int *j)
 			replace_w(var->ac[0], var);
 		if (var->ac[1] == 0)
 			*j = 0;
+		else
+			put_ac(var);
 		i = 0;
 	}
 	else
@@ -232,6 +259,7 @@ void	tabu(t_var *var, int *j)
 		if (var->ac[i] == 0)
 			i = 0;
 		replace_w(var->ac[i], var);
+		put_ac(var);
 		++i;
 	}
 }
@@ -358,6 +386,7 @@ void	touch(t_var *var)
 	var->i = 0;
 	var->ret[0] = 0; 
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
+	ft_putstr(tgetstr("bw", NULL));
 	while (var->buff[0] != 10)
 	{
 		read(0, var->buff, 3);
@@ -375,7 +404,7 @@ void	touch(t_var *var)
 			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
 			left_arrow(var);
-		if (var->buff[0] == 27 && var->buff[2] == 67 && var->i < (int)ft_strlen(var->ret))  //RIGHT ARROW 
+		if (var->buff[0] == 27 && var->buff[2] == 67)  //RIGHT ARROW 
 			right_arrow(var);
 		if (var->buff[0] == 59 && var->buff[2] == 68) //SHIFT + LEFT ARROW
 			shift_arrow_l(var);
@@ -404,10 +433,10 @@ void	touch(t_var *var)
 		}
 		if (var->buff[0] == 27 && var->buff[2] == 70) //END
 			end(var);
-		if (var->buff[0] == 127 && var->buff[1] == 0) //backspace
-			backspace(var);
 		if (var->del == 1)
 			var->del = 0;
+		if (var->buff[0] == 127 && var->buff[1] == 0) //backspace
+			backspace(var);
 		if (var->buff[0] == 27 && var->buff[2] == 51) //DELETE
 		{
 			var->del = 1;
@@ -428,6 +457,8 @@ void	touch(t_var *var)
 			add_car(var, 0, 0);
 			++var->i;
 			++var->lenligne;
+			if (var->lenligne % tgetnum("co") == 1)
+				ft_putstr(tgetstr("sf", NULL));
 		}
 		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
 		// printf("id2 touche = %d\n", var->buff[1]);
@@ -435,6 +466,8 @@ void	touch(t_var *var)
 		var->buff[1] = 0;
 		var->buff[2] = 0;
 	}
+	while (var->i != var->inputlen)
+		right_arrow(var);
 	// add_history(var);
 	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE

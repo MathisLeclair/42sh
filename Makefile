@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/23 13:27:40 by mleclair         ###   ########.fr        #
+#    Updated: 2017/02/22 13:47:31 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,17 +86,12 @@ $(OBJ): %.o: %.c
 clean:
 	@rm -rf $(OBJ)
 	@make -C $(PATHTOMAKEFILE) clean
-
 fclean: clean
 	@rm -rf $(NAME)
 	@make -C $(PATHTOMAKEFILE) fclean
 
 re: fclean all
 	@make -C $(PATHTOMAKEFILE) re
-
-lib:
-	@make -C $(PATHTOMAKEFILE)
-	@make all
 
 # **************************************************************************** #
 

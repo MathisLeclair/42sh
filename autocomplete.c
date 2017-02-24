@@ -6,13 +6,13 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/22 17:45:30 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/23 15:21:53 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-int		strstr_no_case(char *find, char *search_in_lc)
+int		strstr_bool(char *find, char *search_in_lc)
 {
 	int			i;
 	int			j;
@@ -35,7 +35,7 @@ int		strstr_no_case(char *find, char *search_in_lc)
 	return (0);
 }
 
-char	*to_lowercase(char *str)
+char	*to_lwcase(char *str)
 {
 	int		i;
 	char	*str_lc;
@@ -71,29 +71,29 @@ void	add_str_to_dstr(char ***dstr, char *str)
 
 void	ft_ac_cmd_build(char ***ac, char *find)
 {
-	if (strstr_no_case(find, "echo"))
+	if (strstr_bool(find, "echo"))
 		add_str_to_dstr(ac, "echo");
-	if (strstr_no_case(find, "cd"))
+	if (strstr_bool(find, "cd"))
 		add_str_to_dstr(ac, "cd");
-	if (strstr_no_case(find, "aperture"))
+	if (strstr_bool(find, "aperture"))
 		add_str_to_dstr(ac, "aperture");
-	if (strstr_no_case(find, "unsetenv"))
+	if (strstr_bool(find, "unsetenv"))
 		add_str_to_dstr(ac, "unsetenv");
-	if (strstr_no_case(find, "setenv"))
+	if (strstr_bool(find, "setenv"))
 		add_str_to_dstr(ac, "setenv");
-	if (strstr_no_case(find, "exit"))
+	if (strstr_bool(find, "exit"))
 		add_str_to_dstr(ac, "exit");
-	if (strstr_no_case(find, "Patate"))
+	if (strstr_bool(find, "Patate"))
 		add_str_to_dstr(ac, "Patate");
-	if (strstr_no_case(find, "env"))
+	if (strstr_bool(find, "env"))
 		add_str_to_dstr(ac, "env");
-	if (strstr_no_case(find, "local"))
+	if (strstr_bool(find, "local"))
 		add_str_to_dstr(ac, "local");
-	if (strstr_no_case(find, "unset"))
+	if (strstr_bool(find, "unset"))
 		add_str_to_dstr(ac, "unset");
-	if (strstr_no_case(find, "export"))
+	if (strstr_bool(find, "export"))
 		add_str_to_dstr(ac, "export");
-	if (strstr_no_case(find, "set"))
+	if (strstr_bool(find, "set"))
 		add_str_to_dstr(ac, "set");
 }
 
@@ -108,13 +108,13 @@ void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
 		if ((dir = opendir(split_path[i])))
 		{
 			while ((dirent = readdir(dir)))
-				if (strstr_no_case(find, to_lowercase(dirent->d_name)))
+				if (strstr_bool(find, to_lwcase(dirent->d_name)))
 					add_str_to_dstr(ac, dirent->d_name);
 			closedir(dir);
 		}
 }
 
-char    **ac_cmd(char *find, t_env *env)
+char	**ac_cmd(char *find, t_env *env)
 {
 	char		**ac;
 	char		**split_path;
@@ -136,27 +136,26 @@ char    **ac_cmd(char *find, t_env *env)
 	return (ac);
 }
 
-char    **ac_pwd(char *find, int count, char *str)
+char	**ac_pwd(char *find, int count, char *str, int i)
 {
 	DIR			*dir;
-	t_dirent	*dirent;
+	t_dirent	*td;
 	char		**sug;
 	char		**new;
-	int			i;
 
 	sug = palloc(sizeof(char *));
 	sug[0] = 0;
 	getcwd(str, INPUT_SIZE);
 	dir = opendir(str);
-	while ((dirent = readdir(dir)))
-		if (strstr_no_case(find, to_lowercase(dirent->d_name)) && dirent->d_name[0] != '.')
+	while ((td = readdir(dir)))
+		if (strstr_bool(find, to_lwcase(td->d_name)) && td->d_name[0] != '.')
 		{
 			++count;
 			new = palloc(sizeof(char *) * (count + 1));
 			i = -1;
 			while (sug[++i])
 				new[i] = sug[i];
-			new[i] = ft_strdup(dirent->d_name);
+			new[i] = ft_strdup(td->d_name);
 			new[i + 1] = 0;
 			free(sug);
 			sug = new;
@@ -166,7 +165,7 @@ char    **ac_pwd(char *find, int count, char *str)
 	return (sug);
 }
 
-void	ac_target2(char *after_path, t_dirent *dirent, char *find, char ***ac)
+void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 {
 	int		i;
 	int		len;
@@ -175,16 +174,16 @@ void	ac_target2(char *after_path, t_dirent *dirent, char *find, char ***ac)
 	len = 0;
 	while ((*ac)[len])
 		++len;
-	if (strstr_no_case(after_path, to_lowercase(dirent->d_name)) && dirent->d_name[0] != '.')
+	if (strstr_bool(after_path, to_lwcase(td->d_name)) && td->d_name[0] != '.')
 	{
 		new = palloc(sizeof(char *) * (len + 2));
 		i = -1;
 		while ((*ac)[++i])
 			new[i] = (*ac)[i];
-		new[i] = malloc(ft_strlen(find) + ft_strlen(dirent->d_name) + 1);
+		new[i] = malloc(ft_strlen(find) + ft_strlen(td->d_name) + 1);
 		new[i][0] = 0;
 		ft_strcat(new[i], find);
-		ft_strcat(new[i], dirent->d_name);
+		ft_strcat(new[i], td->d_name);
 		new[i + 1] = 0;
 		free(*ac);
 		(*ac) = new;
@@ -205,12 +204,12 @@ void	ac_target(char *find, char ***ac)
 	i = ft_strlen(find);
 	while (find[i] != '/')
 		--i;
-	after_path = malloc(ft_strlen(find) - i);
+	after_path = palloc(ft_strlen(find) - i);
 	j = -1;
 	while (find[++i])
 		after_path[++j] = find[i];
 	after_path[j + 1] = 0;
-	find[i - j + 2] = 0;
+	find[i - j - 1] = 0;
 	if ((dir = opendir(find)))
 		while ((dirent = readdir(dir)))
 			ac_target2(after_path, dirent, find, ac);
@@ -218,16 +217,7 @@ void	ac_target(char *find, char ***ac)
 		closedir(dir);
 }
 
-int		ft_len_arrow(char **t)
-{
-	int i;
-
-	i = 0;
-	while (t[i])
-		++i;
-	return (i);
-}
-char    **auto_possibilities(char pwd, t_env *env)
+char	**auto_possibilities(char pwd, t_env *env)
 {
 	char	**ac;
 	char	*find_lwc;
@@ -242,16 +232,16 @@ char    **auto_possibilities(char pwd, t_env *env)
 	if (env->find[0] == '/')
 	{
 		ac_target(save, &ac);
-		if (ft_len_arrow(ac) == 0 && opendir(ft_strcat(env->find, "/")))
+		if (ac[0] == 0 && opendir(ft_strcat(env->find, "/")))
 			ac[0] = ft_strdup(env->find);
 		return (ac);
 	}
 	free(save);
-	find_lwc = to_lowercase(env->find);
+	find_lwc = to_lwcase(env->find);
 	if (pwd == 0)
 		ac = ac_cmd(find_lwc, env);
 	else
-		ac = ac_pwd(find_lwc, 0, palloc(INPUT_SIZE));
+		ac = ac_pwd(find_lwc, 0, palloc(INPUT_SIZE), 0);
 	return (ac);
 }
 
@@ -274,7 +264,7 @@ char	*finder(char *input, int pos)
 	pos = pos == 0 ? pos - 1 : pos;
 	while (input[++pos] && input[pos] != ' ')
 		find[i++] = input[pos];
-	return(find);
+	return (find);
 }
 
 char	ft_strcmp_beg(char *str1, char *str2)
@@ -289,54 +279,46 @@ char	ft_strcmp_beg(char *str1, char *str2)
 	return (1);
 }
 
-void	startfind(char **ac, t_env *env, char boolean)
+void	startfind(char **ac, t_env *env, int boolean, int i)
 {
-	int		i;
-	int		j;
-
-	i = 0;
 	if (boolean)
 	{
 		while (ac[i])
-		{
 			if (!ft_strcmp_beg(ac[i], env->find))
 			{
 				free(ac[i]);
-				j = i;
-				while (ac[j++])
-					ac[j - 1] = ac[j];
+				boolean = i;
+				while (ac[boolean++])
+					ac[boolean - 1] = ac[boolean];
 			}
 			else
 				++i;
-		}
 	}
 	else
 		while (ac[i])
-		{
 			if (ft_strcmp_beg(ac[i], env->find))
 			{
 				free(ac[i]);
-				j = i;
-				while (ac[j++])
-					ac[j - 1] = ac[j];
+				boolean = i;
+				while (ac[boolean++])
+					ac[boolean - 1] = ac[boolean];
 			}
 			else
 				++i;
-		}
 }
 
-char	**forest(char *input, int pos, t_env *env, char first)
+char	**forest(char *s, int ps, t_env *env, char first)
 {
 	char	**ac;
 
-	if (input[pos] == ' ' || input[pos] == '\0' || input[pos + 1] == ' ' || input[pos + 1] == '\0')
+	if (s[ps] == ' ' || s[ps] == '\0' || s[ps + 1] == ' ' || s[ps + 1] == '\0')
 	{
 		if (first)
 			ac = auto_possibilities(0, env);
 		else
 			ac = auto_possibilities(1, env);
-		if (input[pos - 1] != ' ' && env->find[0] != '/')
-			startfind(ac, env, 1);
+		if (s[ps - 1] != ' ' && env->find[0] != '/')
+			startfind(ac, env, 1, 0);
 	}
 	else
 	{
@@ -345,7 +327,7 @@ char	**forest(char *input, int pos, t_env *env, char first)
 		else
 			ac = auto_possibilities(1, env);
 		if (env->find[0] != '/')
-			startfind(ac, env, 0);
+			startfind(ac, env, 0, 0);
 	}
 	return (ac);
 }

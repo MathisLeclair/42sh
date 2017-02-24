@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/23 13:09:50 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/23 15:45:28 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct	s_env
 	int				i;
 	struct s_env	*loc;
 	char			*find;
-	char			**redir;
 }				t_env;
 
 typedef struct	s_var
@@ -55,7 +54,7 @@ typedef struct	s_var
 	int				lenprompt;
 	int				selstart;
 	int				selend;
-	size_t			inputlen;
+	long int		inputlen;
 	char			**ac;
 	struct termios	term;
 	struct termios	termsav;
@@ -75,10 +74,10 @@ void			ft_sig(int i);
 ** redirection.c
 */
 
-void 			rd_pipe(void);
-void			rd_output(char *filename);
-void			rd_output_apd(char *filename);
-void			rd_input(char *delimiter);
+void 			rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[]);
+void			rd_output(char *cmd, char *args[], char *filename);
+void			rd_output_apd(char *cmd, char *args[], char *filename);
+void			rd_input(char *cmd, char *args[], char *filename);
 
 /*
 ** getnextline

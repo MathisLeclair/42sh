@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/23 14:34:21 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/22 15:29:37 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ typedef struct	s_list
 typedef int	(*t_fun)(va_list a, int b, char c, char **d);
 
 int				ft_atoi(char const *str);
-char			*ft_strcdup(const char *src, int k);
 void			ft_bzero(void *s, size_t n);
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);
 int				ft_isascii(int c);
-void			ft_remstr(char *str, int start, int end);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
 char			*ft_itoa(int n);
@@ -126,7 +124,5 @@ int				ft_number(int k, int i, int boul, char **str);
 int				ft_minus(int k, int i, int boul, char **str);
 int				ft_plus(int k, int i, int boul, char **str);
 int				ft_printf(const char *str, ...);
-
-void			ft_chardel(char **s, char c);
 
 #endif
