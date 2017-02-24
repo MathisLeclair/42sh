@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 15:40:18 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/24 14:44:00 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,35 @@ int		ft_reco_cmd(t_env *env)
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
+}
+
+void	extracredir(t_env *env)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (env->input[++i])
+	{
+		j = i;
+		if (env->input[j++] == '>')
+		{
+			if (env->input[j] == '>')
+				++j;
+			while (env->input[j] && (env->input[j] == ' ' || env->input[j] == '\t'))
+				++j;
+			while (env->input[j] && ((env->input[j] >= 33 && env->input[j] <= 126) || (env->input[j] == ' ' && j > 0 && env->input[j - 1] == '\\')))
+				++j;
+			add_str_to_dstr(&env->redir, ft_strcdup(env->input + i, j - i));
+			ft_remstr(env->input, i, j);
+			i = j;
+		}
+	}
+}
+
+void	splitredir(t_env *env)
+{
+	extracredir(env);
 }
 
 int		ft_read(t_env *env)

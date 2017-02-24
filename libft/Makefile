@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/10 14:27:31 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/02/24 14:47:45 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,9 @@ FILE =	free_swap \
 		$(PATH)spart2 \
 		$(PATH)spart3 \
 		$(PATH)sprintf \
-		$(PATH)stableaupointeursurfonction
+		$(PATH)stableaupointeursurfonction \
+		ft_remstr \
+		ft_strcdup
 
 OBJ  := $(addsuffix .o, $(FILE))
 
