@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/24 16:05:17 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/25 19:46:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -460,6 +460,7 @@ void	touch(t_var *var)
 			add_car(var, 0, 0);
 			++var->i;
 			++var->lenligne;
+			// printf("%d\n", var->lenligne);
 			if (var->lenligne % tgetnum("co") == 1)
 				ft_putstr(tgetstr("sf", NULL));
 	ft_putstr(tgetstr("cd", NULL));

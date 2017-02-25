@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/22 13:47:31 by mleclair         ###   ########.fr        #
+#    Updated: 2017/02/25 14:36:33 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ FILE =	main \
 		double_array_sort \
 		autocomplete \
 		termcaps/test \
-		termcaps/history
+		termcaps/history \
+		redirection \
+		operator
 
 OBJ  := $(addsuffix .o, $(FILE))
 

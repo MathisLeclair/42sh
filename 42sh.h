@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/24 14:39:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/25 15:10:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct	s_env
 	struct s_env	*loc;
 	char			*find;
 	char 			**redir;
+	char			*inp1;
+	char			*inp2;
 }				t_env;
 
 typedef struct	s_var
@@ -75,10 +77,11 @@ void			ft_sig(int i);
 ** redirection.c
 */
 
-void 			rd_pipe(char *cmd1, char *cmd2, char *args1[], char *args2[]);
-void			rd_output(char *cmd, char *args[], char *filename);
-void			rd_output_apd(char *cmd, char *args[], char *filename);
-void			rd_input(char *cmd, char *args[], char *filename);
+void			rd_pipe(t_env *env);
+void			rd_input(t_env *env);
+void			rd_output(t_env *env, int i);
+void			rd_output_apd(t_env *env, int i);
+void			rd_input(t_env *env);
 
 /*
 ** getnextline
@@ -199,12 +202,25 @@ void			add_str_to_dstr(char ***dstr, char *str);
 void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
 
-char			*termcaps(t_ssprintf *prompt);
+/*
+** operator.c
+*/
+
+void			oprt_and(t_env *env);
+void			oprt_or(t_env *env);
+
+/*
+** redirection.c
+*/
+
+
+void			parse(t_env *env, char *input);
 
 /*
 ** termcaps.c
 */
 
+char			*termcaps(t_ssprintf *prompt);
 t_var			*tvar(void);
 
 void			add_history(t_var *var);
@@ -234,4 +250,7 @@ void			desel(t_var *var);
 void			copy(t_var *var, int p);
 void			cut(t_var *var);
 
+/*
+** END OF TEMCAPS
+*/
 #endif

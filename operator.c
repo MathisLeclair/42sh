@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 13:43:33 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/22 14:30:44 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/25 15:55:08 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,23 @@
 ** AND Lists: command1 [&& command2] ...
 */
 
-void	oprt_and(char *cmd1, char *cmd2, char *args1[], char *args2[])
+void	oprt_and(t_env *env)
 {
-	pid_t		child;
+	pid_t	child;
+	int		status;
 
 	child = -1;
 	if ((int)child == -1)
 		perror("error");
 	else if ((int)child == 0)
 	{
-		execve(cmd1, args1, NULL);
+		parse(env, env->inp1);
 		perror("error");
 	}
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
 	{
-		execve(cmd2, args2, NULL);
+		parse(env, env->inp2);
 		perror("error");
 		exit(EXIT_FAILURE);
 	}
@@ -41,23 +42,23 @@ void	oprt_and(char *cmd1, char *cmd2, char *args1[], char *args2[])
 ** OR Lists: command1 [|| command2] ...
 */
 
-void	oprt_or(char *cmd1, char *cmd2, char *args1[], char *args2[])
+void	oprt_or(t_env *env)
 {
-	pid_t		child;
-
+	pid_t	child;
+	int		status;
 	child = -1;
 	if ((int)child == -1)
 		perror("error");
 	else if ((int)child == 0)
 	{
-		execve(cmd1, args1, NULL);
+		parse(env, env->inp1);
 		perror("error");
 	}
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
 		if (WEXITSTATUS(status) != 0)
 		{
-			execve(cmd2, args2, NULL);
+			parse(env, env->inp2);
 			perror("error");
 			exit(EXIT_FAILURE);
 		}

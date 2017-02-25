@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/24 14:44:00 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/25 19:44:33 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	extracredir(t_env *env)
 {
 	int		i;
 	int		j;
+	char	*temp;
 
 	i = -1;
 	while (env->input[++i])
@@ -120,20 +121,134 @@ void	extracredir(t_env *env)
 		{
 			if (env->input[j] == '>')
 				++j;
-			while (env->input[j] && (env->input[j] == ' ' || env->input[j] == '\t'))
+			while (env->input[j] && env->input[j] == ' ')
 				++j;
 			while (env->input[j] && ((env->input[j] >= 33 && env->input[j] <= 126) || (env->input[j] == ' ' && j > 0 && env->input[j - 1] == '\\')))
 				++j;
-			add_str_to_dstr(&env->redir, ft_strcdup(env->input + i, j - i));
+			temp = ft_strcdup(env->input + i, j - i);
+			add_str_to_dstr(&env->redir, temp);
+			free(temp);
 			ft_remstr(env->input, i, j);
 			i = j;
 		}
 	}
 }
 
-void	splitredir(t_env *env)
+int		cmprev(char *str, char *tofind)
 {
-	extracredir(env);
+	int i;
+	int k;
+
+	i = ft_strlen(str);
+	while (str[--i])
+	{
+		k = ft_strlen(tofind);
+		while (k - 1 >= 0 && i >= 0 && str[i] == tofind[k - 1])
+		{
+			--k;
+			--i;
+		}
+		if (k == 0 && ft_strchr(tofind, str[i]) == 0)
+		{
+			env()->inp1 = ft_strcdup(str, i + 1);
+			env()->inp2 = ft_strdup(str + ft_strlen(tofind) + i + 1);
+			return (i);
+		}
+	}
+	return (-1);
+}
+
+void	extract_rd_output(t_env *env, char *input)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (input[i] && input[i] != '<')
+		++i;
+	j = i + 1;
+	while (input[j] == ' ' || input[j] == '\t')
+		++j;
+	while (ft_isalpha(input[j]))
+		++j;
+	free(env->inp2);
+	env->inp2 = ft_strcdup(input + i, j);
+	ft_remstr(input, i, j);
+	free(env->inp1);
+	env->inp1 =  ft_strdup(input);
+}
+
+void	extract_heredoc(t_env *env, char *input)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (input[i] && input[i] != '<')
+		++i;
+	j = i + 2;
+	while (input[j] == ' ' || input[j] == '\t')
+		++j;
+	while (ft_isalpha(input[j]))
+		++j;
+	free(env->inp2);
+	env->inp2 = ft_strcdup(input + i, j);
+	ft_remstr(input, i, j);
+	free(env->inp1);
+	env->inp1 =  ft_strdup(input);
+}
+
+void	parse(t_env *env, char *input)
+{
+	int i;
+
+	i = -1;
+	free(env->input);
+	env->input = ft_strdup(input);
+	if (cmprev(input, "&&") != -1)
+		oprt_and(env);
+	else if (cmprev(input, "||") != -1)
+		oprt_or(env);
+	else if (cmprev(input, "|") != -1)
+		rd_pipe(env);
+	// else if (cmprev(input, "&") != -1)
+	// 	oprt_or(env);
+	else if (cmprev(input, "<") != -1)
+	{
+		extract_rd_output(env, input);
+		oprt_or(env);
+	}
+	else if (cmprev(input, "<<") != -1)
+	{
+		extract_heredoc(env, input);
+		oprt_or(env);
+	}
+	else if (cmprev(input, ">") != -1 || cmprev(input, ">>") != -1)
+	{
+		extracredir(env);
+		while(env->redir[++i])
+		{
+			if (env->redir[i][0] == '>' && env->redir[i][1] == '>')
+				rd_output_apd(env, i);
+			else if(env->redir[i][0] == '>' && env->redir[i][1] != '>')
+				rd_output(env, i);
+		}
+		free_double_array(env->redir);
+		env->redir = malloc(sizeof(char *));
+		env->redir[0] = NULL;
+	}
+	else
+		ft_reco_cmd(env);
+	if (env->inp1)
+	{
+		free(env->inp1);
+		env->inp1 = 0;
+	}
+	if (env->inp2)
+	{
+		free(env->inp2);
+		env->inp2 = 0;
+	}
 }
 
 int		ft_read(t_env *env)
@@ -143,6 +258,7 @@ int		ft_read(t_env *env)
 	int		i;
 
 	input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));
+	//LA
 	if (verif_quote(input, 0) == -1)
 		return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);
@@ -155,10 +271,11 @@ int		ft_read(t_env *env)
 			ft_dollar(env, -1, 0);
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(env, -1, 0);
-		if (!ft_reco_cmd(env) && (env->input = NULL) == NULL
-		&& free_double_array(inputspl))
-			ft_exit();
-		free(env->input);
+		parse(env, inputspl[i]);
+		// if (!ft_reco_cmd(env) && (env->input = NULL) == NULL
+		// && free_double_array(inputspl))
+		// 	ft_exit();
+		// free(env->input);
 		env->input = NULL;
 	}
 	free_double_array(inputspl);
