@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/25 19:42:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 11:54:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ void	rd_here_doc(t_env *env)
 	int			rsize;
 	char		buff[INPUT_SIZE];
 
+
+	printf("inp1=%s# inp2=%s#\n", env->inp1, env->inp2);
 	child = -1;
 	fd = -1;
 	rsize = -1;

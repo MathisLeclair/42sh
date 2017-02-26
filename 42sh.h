@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/25 15:10:40 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 11:18:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void			oprt_or(t_env *env);
 ** redirection.c
 */
 
-
+void			rd_here_doc(t_env *env);
 void			parse(t_env *env, char *input);
 
 /*
