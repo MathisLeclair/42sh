@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/26 11:54:46 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 12:58:38 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	rd_here_doc(t_env *env)
 		while ((rsize = read(0, buff, INPUT_SIZE)) != -1)
 		{
 			buff[rsize] = '\0';
-			if (!ft_strcmp(buff, env->inp2))
+			if (!ft_strcmp(buff, env->inp2 + 2))
 				break;
 			write(fd, buff, rsize);
 			termcaps(ft_sprintf("heredoc> "));
