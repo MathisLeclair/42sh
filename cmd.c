@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 11:18:43 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 14:10:14 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,25 @@ char	**ft_split_input(char *input)
 	return (a);
 }
 
+int		ft_reco_cmd3(t_env *env, char **split)
+{
+	int i;
+
+	i = 0;
+	if (ft_strcmp(split[0], "unset") == 0)
+		while (split[++i])
+			suppr_var_env(env->loc, split[i]);
+	else if (ft_strcmp(split[0], "export") == 0)
+		while (split[++i])
+			add_var_to_env(env->loc, split[i]);
+	else
+		ft_fork(env, split);
+	if (split)
+		free_double_array(split);
+	return (save_env(env));
+
+}
+
 int		ft_reco_cmd2(t_env *env, char **split)
 {
 	if (ft_strcmp(split[0], "Patate") == 0)
@@ -72,7 +91,7 @@ int		ft_reco_cmd2(t_env *env, char **split)
 	else if (ft_strcmp(split[0], "local") == 0)
 		print_split(env->loc->ev);
 	else
-		ft_fork(env, split);
+		return (ft_reco_cmd3(env, split));
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
