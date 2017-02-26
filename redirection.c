@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/26 15:06:29 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/26 15:25:48 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Pipelines: command1 | command2
 */
 
-void	rd_pipe(t_env *env)
+void		rd_pipe(t_env *env)
 {
 	pid_t		child;
 	int			fds[2];
@@ -48,7 +48,7 @@ void	rd_pipe(t_env *env)
 ** Redirecting Output: command > output.txt
 */
 
-void	rd_output(t_env *env, int i)
+void		rd_output(t_env *env, int i)
 {
 	pid_t	child;
 	int		fd;
@@ -80,7 +80,7 @@ void	rd_output(t_env *env, int i)
 ** Appending Redirected Output: command >> output.txt
 */
 
-void	rd_output_apd(t_env *env, int i)
+void		rd_output_apd(t_env *env, int i)
 {
 	pid_t		child;
 	int			fd;
@@ -112,7 +112,7 @@ void	rd_output_apd(t_env *env, int i)
 ** Redirecting Input: command < output.txt
 */
 
-void	rd_input(t_env *env)
+void		rd_input(t_env *env)
 {
 	pid_t		child;
 	int			fd;
@@ -155,7 +155,19 @@ void	rd_input(t_env *env)
 **
 */
 
-void	rd_here_doc(t_env *env)
+static void	rd_delimiter(char **str)
+{
+	int i;
+
+	i = -1;
+	while ((*str)[++i] == ' ' || (*str)[i] == '<')
+		;
+	*str[0] = 0;
+	ft_strcat(*str, *str + i);
+	ft_strcat(*str, "\n");
+}
+
+void		rd_here_doc(t_env *env)
 {
 	pid_t		child;
 	int			fd;
@@ -165,6 +177,7 @@ void	rd_here_doc(t_env *env)
 	child = -1;
 	fd = -1;
 	rsize = -1;
+	rd_delimiter(&env->inp2);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
 		perror("error");
 	child = fork();
@@ -177,7 +190,7 @@ void	rd_here_doc(t_env *env)
 	{
 		while ((buff = ft_strjoin(termcaps(ft_sprintf("heredoc> ")), "\n")))
 		{
-			if (!ft_strcmp(buff, env->inp2 + 2))
+			if (!ft_strcmp(buff, env->inp2))
 				break;
 			write(fd, buff, ft_strlen(buff));
 			free(buff);
