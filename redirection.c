@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/26 12:58:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 15:06:29 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,10 +160,8 @@ void	rd_here_doc(t_env *env)
 	pid_t		child;
 	int			fd;
 	int			rsize;
-	char		buff[INPUT_SIZE];
+	char		*buff;
 
-
-	printf("inp1=%s# inp2=%s#\n", env->inp1, env->inp2);
 	child = -1;
 	fd = -1;
 	rsize = -1;
@@ -177,14 +175,12 @@ void	rd_here_doc(t_env *env)
 	}
 	else if ((int)child == 0)
 	{
-		termcaps(ft_sprintf("heredoc> "));
-		while ((rsize = read(0, buff, INPUT_SIZE)) != -1)
+		while ((buff = ft_strjoin(termcaps(ft_sprintf("heredoc> ")), "\n")))
 		{
-			buff[rsize] = '\0';
 			if (!ft_strcmp(buff, env->inp2 + 2))
 				break;
-			write(fd, buff, rsize);
-			termcaps(ft_sprintf("heredoc> "));
+			write(fd, buff, ft_strlen(buff));
+			free(buff);
 		}
 		close(fd);
 		if ((fd = open("/tmp/42sh-the-silence", O_RDONLY)) == -1)
