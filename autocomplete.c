@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/23 15:21:53 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/26 13:38:34 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ int		strstr_bool(char *find, char *search_in_lc)
 			while (search_in_lc[i] && search_in_lc[i] == find[++j])
 				++i;
 			if (f_len == j)
+			{
+				free(search_in_lc);
 				return (1);
+			}
 		}
 		else
 			++i;
+	free(search_in_lc);
 	return (0);
 }
 
@@ -281,10 +285,16 @@ char	ft_strcmp_beg(char *str1, char *str2)
 
 void	startfind(char **ac, t_env *env, int boolean, int i)
 {
+	char	*tmp;
+	char	*tmp2;
+
 	if (boolean)
 	{
 		while (ac[i])
-			if (!ft_strcmp_beg(ac[i], env->find))
+		{
+			tmp = to_lwcase(ac[i]);
+			tmp2 = to_lwcase(env->find);
+			if (!ft_strcmp_beg(tmp, tmp2))
 			{
 				free(ac[i]);
 				boolean = i;
@@ -293,10 +303,16 @@ void	startfind(char **ac, t_env *env, int boolean, int i)
 			}
 			else
 				++i;
+			free(tmp);
+			free(tmp2);
+		}
 	}
 	else
 		while (ac[i])
-			if (ft_strcmp_beg(ac[i], env->find))
+		{
+			tmp = to_lwcase(ac[i]);
+			tmp2 = to_lwcase(env->find);
+			if (ft_strcmp_beg(tmp, tmp2))
 			{
 				free(ac[i]);
 				boolean = i;
@@ -305,6 +321,9 @@ void	startfind(char **ac, t_env *env, int boolean, int i)
 			}
 			else
 				++i;
+			free(tmp);
+			free(tmp2);
+		}
 }
 
 char	**forest(char *s, int ps, t_env *env, char first)

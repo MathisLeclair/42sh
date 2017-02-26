@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 11:08:04 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 14:01:23 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,8 +249,8 @@ void	tabu(t_var *var, int *j)
 			replace_w(var->ac[0], var);
 		if (var->ac[1] == 0)
 			*j = 0;
-		else
-			put_ac(var);
+		// else
+			// put_ac(var);
 		i = 0;
 	}
 	else
@@ -260,7 +260,7 @@ void	tabu(t_var *var, int *j)
 		if (var->ac[i] == 0)
 			i = 0;
 		replace_w(var->ac[i], var);
-		put_ac(var);
+		// put_ac(var);
 		++i;
 	}
 }
@@ -492,10 +492,7 @@ char	*termcaps(t_ssprintf *prompt)
 	var = tvar();
 	initvar(var);
 	if ((str = getenv("TERM")) == NULL)
-	{
-		printf("penis\n");
 		error(-6, 0, 0);
-	}
 	tgetent(NULL, str);
 	if (tcgetattr(0, &var->term) == -1)
 		error(-6, 0, 0);
