@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/26 17:45:24 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/02/26 17:49:15 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ FILE =	free_swap \
 		ft_strlen \
 		ft_strmap \
 		ft_strmapi \
+		ft_strcfind \
 		ft_strncat \
 		ft_strncmp \
 		ft_strncpy \

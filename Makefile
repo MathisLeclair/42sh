@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/25 14:36:33 by mleclair         ###   ########.fr        #
+#    Updated: 2017/02/26 18:18:43 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ FILE =	main \
 		termcaps/test \
 		termcaps/history \
 		redirection \
-		operator
+		operator \
+		bquote
 
 OBJ  := $(addsuffix .o, $(FILE))
 
