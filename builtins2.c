@@ -6,11 +6,26 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/21 21:32:33 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 15:00:15 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+void	builtin_export(t_env *env, char **split)
+{
+	int i;
+
+	i = -1;
+	if (!split[1] || (split[1][0] == '-' && split[1][1] == 'p'))
+		while (env->loc->ev[++i])
+			ft_printf("%s %s\n", "export", env->loc->ev[i]);
+	else if (split[1][1] && split[1][0] == '-' && split[1][1] != 'p')
+		ft_printf("%s %c\n","export : bad option:", split[1][1]);
+	else
+		while (split[++i])
+			add_var_to_env(env->loc, split[i]);
+}
 
 void	builtin_read(t_env *ev, char **split)
 {

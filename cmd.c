@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 14:10:14 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 15:00:56 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,16 @@ int		ft_reco_cmd3(t_env *env, char **split)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	if (ft_strcmp(split[0], "unset") == 0)
+	{
+		if (split[1][0] == '-' && split[1][1] == 'v')
+			++i;
 		while (split[++i])
 			suppr_var_env(env->loc, split[i]);
+	}
 	else if (ft_strcmp(split[0], "export") == 0)
-		while (split[++i])
-			add_var_to_env(env->loc, split[i]);
+		builtin_export(env, split);
 	else
 		ft_fork(env, split);
 	if (split)

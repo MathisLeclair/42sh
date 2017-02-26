@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 11:18:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/26 14:54:00 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void			add_str_to_dstr(char ***dstr, char *str);
 
 void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
+void			builtin_export(t_env *env, char **split);
 
 /*
 ** operator.c
