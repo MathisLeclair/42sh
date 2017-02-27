@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/27 12:57:57 by aridolfi         ###   ########.fr       */
+/*   Created: 2017/02/27 13:01:10 by mleclair          #+#    #+#             */
+/*   Updated: 2017/02/27 13:01:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@
 
 static void	frk_pipe(t_env *env)
 {
+<<<<<<< Updated upstream
 	pid_t		child;
 	int			fds[2];
 	int const	READ_END = 0;
 	int const	WRITE_END = 1;
+=======
+	pid_t	child;
+	int		fds[2];
+>>>>>>> Stashed changes
 
 	child = -1;
 	pipe(fds);
@@ -47,7 +52,7 @@ static void	frk_pipe(t_env *env)
 
 void	rd_pipe(t_env *env)
 {
-	pid_t		child;
+	pid_t	child;
 
 	child = -1;
 	child = fork();
