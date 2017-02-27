@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 15:26:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/27 15:40:08 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,8 @@ void	deleteu(t_var *var)
 
 	if (var->del == 1)
 		read(0, NULL, 3);
+	if (var->del == 1)
+		var->del = 0;
 	rem_car(var);
 	ft_putstr(tgetstr("cd", NULL));
 	write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
@@ -199,7 +201,12 @@ void	paste(t_var *var)
 	i = ft_strlen(var->cpy);
 	while (--i >= 0)
 		add_car(var, 1, var->cpy[i]);
+	ft_putstr(tgetstr("cd", NULL));
 	var->i += ft_strlen(var->cpy);
+	write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
+	i = ft_strlen(var->ret + var->i);
+	while (i-- > 0)
+		ft_putstr(tgetstr("le", NULL));
 	var->selend = -1;
 	var->selstart = -1;
 }
@@ -428,10 +435,9 @@ void	touch(t_var *var)
 		else
 		{
 			if (var->ac)
-			{
 				free_double_array(var->ac);
+			if (var->ac)
 				var->ac = NULL;
-			}
 			i = 0;
 		}
 		if (var->buff[0] == 27 && var->buff[2] == 70) //END
