@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 14:10:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/27 14:37:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ void		realoc(char *str)
 	str = tmp;
 }
 
-void		bquote3(t_env *env, char *sav, int i)
+void		bquote3(t_env *env, char *sav, int i, int k)
 {
 	char	*str;
 	int		fd;
 
 	fd = open("/tmp/42sh_the_silence", O_RDONLY);
+	unlink("/tmp/42sh_the_silence");
 	str = malloc(INPUT_SIZE);
 	while (read(fd, str, INPUT_SIZE - 1))
 		realoc(str);
@@ -51,10 +52,10 @@ void		bquote3(t_env *env, char *sav, int i)
 	remove_nl(&str);
 	ft_strncat(env->input, sav, i);
 	ft_strcat(env->input, str);
-	ft_strcat(env->input, sav + i);
+	ft_strcat(env->input, sav + k + i + 2);
 }
 
-void		bquote2(t_env *env, char *sav, int i)
+void		bquote2(t_env *env, char *sav, int i, int k)
 {
 	pid_t	child;
 	int		fd;
@@ -78,7 +79,7 @@ void		bquote2(t_env *env, char *sav, int i)
 	}
 	close(fd);
 	wait(NULL);
-	bquote3(env, sav, i);
+	bquote3(env, sav, i, k);
 }
 
 void	bquote(t_env *env)
@@ -108,5 +109,5 @@ void	bquote(t_env *env)
 	env->input = malloc(INPUT_SIZE);
 	env->input[0] = 0;
 	ft_strncat(env->input, env->inp1 + i + 1, k);
-	bquote2(env, sav, i);
+	bquote2(env, sav, i, k);
 }
