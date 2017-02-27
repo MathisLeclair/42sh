@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 15:40:08 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/27 18:37:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,12 +201,15 @@ void	paste(t_var *var)
 	i = ft_strlen(var->cpy);
 	while (--i >= 0)
 		add_car(var, 1, var->cpy[i]);
-	ft_putstr(tgetstr("cd", NULL));
 	var->i += ft_strlen(var->cpy);
-	write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
-	i = ft_strlen(var->ret + var->i);
-	while (i-- > 0)
-		ft_putstr(tgetstr("le", NULL));
+	i = var->i;
+	ft_putstr(tgetstr("cd", NULL));
+	write(1, var->ret + var->i, ft_strlen(var->ret) - var->i);
+	var->i = ft_strlen(var->ret);
+	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
+	// i = ft_strlen(var->ret + var->i);
+	while (var->i > i)
+		left_arrow(var);
 	var->selend = -1;
 	var->selstart = -1;
 }
