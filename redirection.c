@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/27 12:57:57 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:34:32 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,25 @@ static void	frk_pipe(t_env *env)
 {
 	pid_t		child;
 	int			fds[2];
-	int const	READ_END = 0;
-	int const	WRITE_END = 1;
 
 	child = -1;
 	pipe(fds);
 	child = fork();
 	if ((int)child == -1)
 	{
-		close(fds[READ_END]);
-		close(fds[WRITE_END]);
+		close(fds[1]);
+		close(fds[0]);
 		perror("error");
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fds[READ_END], STDOUT_FILENO);
-		close(fds[WRITE_END]);
+		dup2(fds[1], STDOUT_FILENO);
+		close(fds[0]);
 		parse(env, env->inp1);
 		exit(EXIT_SUCCESS);
 	}
-	dup2(fds[WRITE_END], STDIN_FILENO);
-	close(fds[READ_END]);
+	dup2(fds[0], STDIN_FILENO);
+	close(fds[1]);
 	wait(NULL);
 	parse(env, env->inp2);
 }
