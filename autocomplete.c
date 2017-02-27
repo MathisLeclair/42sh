@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/26 13:38:34 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:24:14 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,6 +332,7 @@ char	**forest(char *s, int ps, t_env *env, char first)
 
 	if (s[ps] == ' ' || s[ps] == '\0' || s[ps + 1] == ' ' || s[ps + 1] == '\0')
 	{
+	ft_putstr("BITE");
 		if (first)
 			ac = auto_possibilities(0, env);
 		else
@@ -341,6 +342,7 @@ char	**forest(char *s, int ps, t_env *env, char first)
 	}
 	else
 	{
+	ft_putstr("BITE2");
 		if (first)
 			ac = auto_possibilities(0, env);
 		else
@@ -348,6 +350,7 @@ char	**forest(char *s, int ps, t_env *env, char first)
 		if (env->find[0] != '/')
 			startfind(ac, env, 0, 0);
 	}
+	ft_putstr("BITE");
 	return (ac);
 }
 
