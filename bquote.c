@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 13:10:32 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:42:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		remove_nl(char **str)
 	}
 }
 
-void		realoc(char *str, int size)
+void		realoc(char *str)
 {
 	char *tmp;
 
@@ -41,13 +41,12 @@ void		bquote3(t_env *env, char *sav, int i, int *fds)
 
 	str = malloc(INPUT_SIZE);
 	while (read(fds[0], str, INPUT_SIZE - 1))
-		realoc(str, INPUT_SIZE);
-	close(fd);
+		realoc(str);
+	close(fds[0]);
 	free(env->input);
 	env->input = malloc(ft_strlen(str));
 	env->input[0] = 0;
 	remove_nl(&str);
-	printf("sav=%s, i =%d, str= #%s\n", sav, i, str);
 	ft_strncat(env->input, sav, i);
 	ft_strcat(env->input, str);
 	ft_strcat(env->input, sav + i);
@@ -56,10 +55,10 @@ void		bquote3(t_env *env, char *sav, int i, int *fds)
 void		bquote2(t_env *env, char *sav, int i)
 {
 	pid_t	child;
+	pid_t	child2;
 	int		fds[2];
 
 	pipe(fds);
-	child = -1;
 	child = fork();
 	if ((int)child == -1)
 	{
@@ -71,14 +70,18 @@ void		bquote2(t_env *env, char *sav, int i)
 	{
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[0]);
-		parse(env, env->input);
+		child2 = fork();
+		if (child2 == 0)
+			parse(env, env->input);
 		exit(EXIT_SUCCESS);
 	}
-	dup2(fds[0], STDIN_FILENO);
-	close(fds[1]);
-	wait(NULL);
-	bquote3(env, sav, i, fds);
-
+	else
+	{
+		wait(NULL);
+		dup2(fds[0], STDIN_FILENO);
+		close(fds[1]);
+		bquote3(env, sav, i, fds);
+	}
 }
 
 void	bquote(t_env *env)
@@ -87,7 +90,6 @@ void	bquote(t_env *env)
 	int		k;
 	char	*sav;
 
-	printf("test\n");
 	i = -1;
 	k = 0;
 	env->inp1 = ft_strdup(env->input);
