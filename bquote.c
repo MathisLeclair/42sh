@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 14:37:39 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/27 19:28:21 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,54 @@ void		remove_nl(char **str)
 {
 	int i;
 
+	if (!(*str))
+		return ;
 	i = -1;
 	while ((*str)[++i])
-	{
 		if ((*str)[i] == '\n')
 			(*str)[i] = ' ';
-	}
+	(*str)[ft_strlen(*str) - 1] = 0;
 }
 
-void		realoc(char *str)
+void		realoc(char *str, char **tmp)
 {
-	char *tmp;
+	char	*toto;
 
-	tmp = malloc(ft_strlen(str) * 2);
-	*tmp = 0;
-	ft_strcat(tmp, str);
+	toto = malloc(ft_strlen(*tmp) + INPUT_SIZE);
+	*toto = 0;
+	if (*tmp)
+		ft_strcat(toto, *tmp);
+	ft_strcat(toto, str);
+	free(*tmp);
+	str[0] = 0;
 	free(str);
-	str = tmp;
+	*tmp = toto;
 }
 
 void		bquote3(t_env *env, char *sav, int i, int k)
 {
-	char	*str;
+	char	*tmp;
+	char	*buf;
 	int		fd;
 
+	tmp = NULL;
 	fd = open("/tmp/42sh_the_silence", O_RDONLY);
 	unlink("/tmp/42sh_the_silence");
-	str = malloc(INPUT_SIZE);
-	while (read(fd, str, INPUT_SIZE - 1))
-		realoc(str);
+	buf = malloc(INPUT_SIZE);
+	while (read(fd, buf, INPUT_SIZE - 1))
+		realoc(buf, &tmp);
 	close(fd);
 	free(env->input);
-	env->input = malloc(ft_strlen(str));
+	env->input = malloc(ft_strlen(tmp));
 	env->input[0] = 0;
-	remove_nl(&str);
+	if (tmp)
+		remove_nl(&tmp);
 	ft_strncat(env->input, sav, i);
-	ft_strcat(env->input, str);
+	if (tmp)
+		ft_strcat(env->input, tmp);
 	ft_strcat(env->input, sav + k + i + 2);
+	// write(2, env->input, ft_strlen(env->input));
+	// write(2, "\n", 1);
 }
 
 void		bquote2(t_env *env, char *sav, int i, int k)
