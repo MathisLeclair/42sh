@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/26 15:25:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/27 11:46:34 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Pipelines: command1 | command2
 */
 
-void		rd_pipe(t_env *env)
+static void	frk_pipe(t_env *env)
 {
 	pid_t		child;
 	int			fds[2];
@@ -35,13 +35,31 @@ void		rd_pipe(t_env *env)
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[0]);
 		parse(env, env->inp1);
-		perror("error");
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
 	wait(NULL);
 	parse(env, env->inp2);
+}
+
+void	rd_pipe(t_env *env)
+{
+	pid_t		child;
+
+	child = -1;
+	child = fork();
+	if ((int)child == -1)
+	{
+		perror("error");
+		exit(EXIT_FAILURE);
+	}
+	else if ((int)child == 0)
+	{
+		frk_pipe(env);
+		exit(EXIT_SUCCESS);
+	}
+	wait(NULL);
 }
 
 /*
