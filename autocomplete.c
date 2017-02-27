@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/27 13:24:14 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/27 14:05:01 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,29 +75,29 @@ void	add_str_to_dstr(char ***dstr, char *str)
 
 void	ft_ac_cmd_build(char ***ac, char *find)
 {
-	if (strstr_bool(find, "echo"))
+	if (strstr_bool(find, ft_strdup("echo")))
 		add_str_to_dstr(ac, "echo");
-	if (strstr_bool(find, "cd"))
+	if (strstr_bool(find, ft_strdup("cd")))
 		add_str_to_dstr(ac, "cd");
-	if (strstr_bool(find, "aperture"))
+	if (strstr_bool(find, ft_strdup("aperture")))
 		add_str_to_dstr(ac, "aperture");
-	if (strstr_bool(find, "unsetenv"))
+	if (strstr_bool(find, ft_strdup("unsetenv")))
 		add_str_to_dstr(ac, "unsetenv");
-	if (strstr_bool(find, "setenv"))
+	if (strstr_bool(find, ft_strdup("setenv")))
 		add_str_to_dstr(ac, "setenv");
-	if (strstr_bool(find, "exit"))
+	if (strstr_bool(find, ft_strdup("exit")))
 		add_str_to_dstr(ac, "exit");
-	if (strstr_bool(find, "Patate"))
+	if (strstr_bool(find, ft_strdup("Patate")))
 		add_str_to_dstr(ac, "Patate");
-	if (strstr_bool(find, "env"))
+	if (strstr_bool(find, ft_strdup("env")))
 		add_str_to_dstr(ac, "env");
-	if (strstr_bool(find, "local"))
+	if (strstr_bool(find, ft_strdup("local")))
 		add_str_to_dstr(ac, "local");
-	if (strstr_bool(find, "unset"))
+	if (strstr_bool(find, ft_strdup("unset")))
 		add_str_to_dstr(ac, "unset");
-	if (strstr_bool(find, "export"))
+	if (strstr_bool(find, ft_strdup("export")))
 		add_str_to_dstr(ac, "export");
-	if (strstr_bool(find, "set"))
+	if (strstr_bool(find, ft_strdup("set")))
 		add_str_to_dstr(ac, "set");
 }
 
@@ -332,7 +332,6 @@ char	**forest(char *s, int ps, t_env *env, char first)
 
 	if (s[ps] == ' ' || s[ps] == '\0' || s[ps + 1] == ' ' || s[ps + 1] == '\0')
 	{
-	ft_putstr("BITE");
 		if (first)
 			ac = auto_possibilities(0, env);
 		else
@@ -342,7 +341,6 @@ char	**forest(char *s, int ps, t_env *env, char first)
 	}
 	else
 	{
-	ft_putstr("BITE2");
 		if (first)
 			ac = auto_possibilities(0, env);
 		else
@@ -350,7 +348,6 @@ char	**forest(char *s, int ps, t_env *env, char first)
 		if (env->find[0] != '/')
 			startfind(ac, env, 0, 0);
 	}
-	ft_putstr("BITE");
 	return (ac);
 }
 
