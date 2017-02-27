@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 18:20:12 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/02 12:58:41 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,12 @@ void			builtin_history(t_env *env, char **split);
 void			jobctrl_init_shell(void);
 
 /*
+** job_control.c
+*/
+
+void			jobctrl_init_shell(void);
+
+/*
 ** operator.c
 */
 
@@ -214,9 +220,9 @@ void			oprt_or(t_env *env);
 */
 
 void			rd_pipe(t_env *env);
-void			rd_input(t_env *env);
 void			rd_output(t_env *env, int i);
 void			rd_output_apd(t_env *env, int i);
+void			rd_input(t_env *env);
 void			rd_here_doc(t_env *env);
 void			parse(t_env *env, char *input);
 
