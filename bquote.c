@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 13:42:19 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/27 14:10:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ void		realoc(char *str)
 	str = tmp;
 }
 
-void		bquote3(t_env *env, char *sav, int i, int *fds)
+void		bquote3(t_env *env, char *sav, int i)
 {
 	char	*str;
+	int		fd;
 
+	fd = open("/tmp/42sh_the_silence", O_RDONLY);
 	str = malloc(INPUT_SIZE);
-	while (read(fds[0], str, INPUT_SIZE - 1))
+	while (read(fd, str, INPUT_SIZE - 1))
 		realoc(str);
-	close(fds[0]);
+	close(fd);
 	free(env->input);
 	env->input = malloc(ft_strlen(str));
 	env->input[0] = 0;
@@ -55,33 +57,28 @@ void		bquote3(t_env *env, char *sav, int i, int *fds)
 void		bquote2(t_env *env, char *sav, int i)
 {
 	pid_t	child;
-	pid_t	child2;
-	int		fds[2];
+	int		fd;
 
-	pipe(fds);
+	child = -1;
+	fd = -1;
+	if ((fd = open("/tmp/42sh_the_silence",
+		O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
+		perror("error");
 	child = fork();
 	if ((int)child == -1)
 	{
-		close(fds[1]);
-		close(fds[0]);
+		close(fd);
 		perror("error");
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fds[1], STDOUT_FILENO);
-		close(fds[0]);
-		child2 = fork();
-		if (child2 == 0)
-			parse(env, env->input);
+		dup2(fd, STDOUT_FILENO);
+		parse(env, env->input);
 		exit(EXIT_SUCCESS);
 	}
-	else
-	{
-		wait(NULL);
-		dup2(fds[0], STDIN_FILENO);
-		close(fds[1]);
-		bquote3(env, sav, i, fds);
-	}
+	close(fd);
+	wait(NULL);
+	bquote3(env, sav, i);
 }
 
 void	bquote(t_env *env)
