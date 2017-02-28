@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 13:43:33 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/28 14:23:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:29:03 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	oprt_and(t_env *env)
 	int		status;
 
 	child = -1;
+	env->isoperand = 1;
 	child = fork();
 	if ((int)child == -1)
 		perror("error");
@@ -30,10 +31,12 @@ void	oprt_and(t_env *env)
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
 	{
+		env->isoperand = 0;
 		parse(env, env->inp2);
 		perror("error");
 		exit(EXIT_FAILURE);
 	}
+	env->isoperand = 0;
 }
 
 /*
@@ -45,6 +48,7 @@ void	oprt_or(t_env *env)
 	pid_t	child;
 	int		status;
 
+	env->isoperand = 1;
 	child = -1;
 	child = fork();
 	if ((int)child == -1)
@@ -60,6 +64,8 @@ void	oprt_or(t_env *env)
 		{
 			parse(env, env->inp2);
 			perror("error");
+			env->isoperand = 0;
 			exit(EXIT_FAILURE);
 		}
+	env->isoperand = 0;
 }

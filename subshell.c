@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 17:42:44 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:27:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	subshell2(t_env *env, int i, int l, char *input)
 
 	i = ft_strfind(input, '(');
 	l = ft_strfind(input + i, ')');
-	str = malloc(l - i + 1);
+	str = malloc(l);
 	*str = 0;
 	str = ft_strncat(str, input + i + 1, l - i - 1);
 	child = fork();
@@ -80,7 +80,12 @@ int		verif_par(char *str)
 int		subshell(t_env *env, char *input)
 {
 	char *str;
-	
+
+	if (env->isoperand == 0)
+	{
+		ft_putstr("Wrong use of '()'\n");
+		return(-1);
+	}
 	str = ft_strdup(input);
 	if (verif_par(str) == -1)
 	{
