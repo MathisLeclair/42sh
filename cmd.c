@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 19:29:50 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 20:23:47 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		ft_reco_cmd2(t_env *env, char **split)
 	else if (ft_strcmp(split[0], "exit") == 0)
 	{
 		free_double_array(split);
-		return (0);
+		ft_exit();
 	}
 	else if (ft_strcmp(split[0], "env") == 0)
 		reco_env(env, split, 0, 0);

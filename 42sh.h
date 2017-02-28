@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 18:43:33 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 20:02:04 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,8 +252,6 @@ void			left_arrow(t_var *var);
 void			right_arrow(t_var *var);
 void			shift_arrow_r(t_var *var);
 void			shift_arrow_l(t_var *var);
-void			up_arrow(t_var *var);
-void			down_arrow(t_var *var);
 
 void			shift_down(t_var *var);
 void			shift_up(t_var *var);

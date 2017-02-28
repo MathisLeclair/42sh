@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 18:41:58 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 20:28:26 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	initvar(t_var *var)
 	var->selend = -1;
 	var->inputlen = 0;
 	var->ac = NULL;
+	var->arr = 0;
 }
 
 void	add_car(t_var *var, int boule, char c)
@@ -142,15 +143,69 @@ void	shift_down(t_var *var)
 		right_arrow(var);
 }
 
-void	up_arrow(t_var *var)
+void	paste(t_var *var)
 {
-	var->buff = ft_strdup(var->ret);
-	(void)var;
+	int i;
+
+	ft_putstr(var->cpy);
+	i = ft_strlen(var->cpy);
+	while (--i >= 0)
+		add_car(var, 1, var->cpy[i]);
+	var->i += ft_strlen(var->cpy);
+	i = var->i;
+	ft_putstr(tgetstr("cd", NULL));
+	write(1, var->ret + var->i, ft_strlen(var->ret) - var->i);
+	var->i = ft_strlen(var->ret);
+	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
+	// i = ft_strlen(var->ret + var->i);
+	while (var->i > i)
+		left_arrow(var);
+	var->selend = -1;
+	var->selstart = -1;
 }
 
-void	down_arrow(t_var *var)
+void	up_arrow(t_var *var, int *bg)
 {
-	(void)(var);
+	char *tmp;
+
+	if (var->arr == NULL)
+		var->arr = ft_strdup(var->ret);
+	while (var->i != 0)
+		backspace(var);
+	while (var->ret[0])
+		deleteu(var);
+	if (*bg > 0)
+		(*bg)--;
+	tmp = var->cpy;
+	var->cpy = env()->history[*bg] + 7;
+	paste(var);
+	var->cpy = tmp;
+}
+
+void	down_arrow(t_var *var, int *bg)
+{
+	char *tmp;
+
+	while (var->i != 0)
+		backspace(var);
+	while (var->ret[0])
+		deleteu(var);
+	if (env()->history[*bg])
+		(*bg)++;
+	if (env()->history[*bg] == 0)
+	{
+		tmp = var->cpy;
+		var->cpy = var->arr;
+		paste(var);
+		var->cpy = tmp;
+	}
+	else
+	{
+		tmp = var->cpy;
+		var->cpy = env()->history[*bg] + 7;
+		paste(var);
+		var->cpy = tmp;
+	}
 }
 
 void	home(t_var *var)
@@ -192,27 +247,6 @@ void	backspace(t_var *var)
 		left_arrow(var);
 		deleteu(var);
 	}
-}
-
-void	paste(t_var *var)
-{
-	int i;
-
-	ft_putstr(var->cpy);
-	i = ft_strlen(var->cpy);
-	while (--i >= 0)
-		add_car(var, 1, var->cpy[i]);
-	var->i += ft_strlen(var->cpy);
-	i = var->i;
-	ft_putstr(tgetstr("cd", NULL));
-	write(1, var->ret + var->i, ft_strlen(var->ret) - var->i);
-	var->i = ft_strlen(var->ret);
-	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
-	// i = ft_strlen(var->ret + var->i);
-	while (var->i > i)
-		left_arrow(var);
-	var->selend = -1;
-	var->selstart = -1;
 }
 
 void	replace_w(char *word, t_var *var)
@@ -393,9 +427,13 @@ void	touch(t_var *var)
 	// char		*test;
 	int	i;
 	int j;
+	int bg;
 
 	// test = ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', "test", "$\e[0;31m42sh\e[0m>");
 	// ft_putstr(test);
+	bg = 0;
+	while (env()->history[bg])
+		++bg;
 	i = 0;
 	var->i = 0;
 	var->ret[0] = 0; 
@@ -430,10 +468,17 @@ void	touch(t_var *var)
 			shift_down(var);
 		if (var->buff[0] == 27 && var->buff[2] == 72) //HOME
 			home(var);
-		if (var->buff[0] == 27 && var->buff[2] == 65) // UP ARROW
-			up_arrow(var);
-		if (var->buff[0] == 27 && var->buff[2] == 66) // DOWN ARROW
-			down_arrow(var);
+		if (var->buff[0] == 27 && var->buff[2] == 65 && env()->history[0]) // UP ARROW
+			up_arrow(var, &bg);
+		else if (var->buff[0] == 27 && var->buff[2] == 66 && env()->history[0]) // DOWN ARROW
+			down_arrow(var, &bg);
+		else
+		{
+			free(var->arr);
+			var->arr = NULL;
+			while (env()->history[bg])
+				++bg;
+		}
 		if (var->buff[0] == 9 && var->buff[2] == 0) // AUTOCOMPLETE
 			tabu(var, &i);
 		else
@@ -487,7 +532,8 @@ void	touch(t_var *var)
 	}
 	while (var->i != var->inputlen)
 		right_arrow(var);
-	add_history(var);
+	if (var->ret[0])
+		add_history(var);
 	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
