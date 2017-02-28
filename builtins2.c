@@ -6,18 +6,11 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 17:00:56 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:27:13 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
-
-void	builtin_history(t_env *env, char **split)
-{
-	(void)split;
-	ft_putstr("dsf\n");
-	print_split(env->history);
-}
 
 void	builtin_export(t_env *env, char **split)
 {
@@ -67,7 +60,6 @@ void	history(t_env *env, char **split)
 	int j;
 
 	i = 0;
-	j = 0;
 	if (split[0] && split[1] && split[2])
 	{
 		error(-7, NULL, NULL);
@@ -79,12 +71,36 @@ void	history(t_env *env, char **split)
 		return ;
 	}
 	i = 0;
-	if (split[0] && split[1][0] == '-' && split[1][1] == 'c')
+	if (split[1])
 	{
-		free_double_array(env->history);
-		env->history = 0;
+		if (split[1][0] == '-')
+		{
+			if (split[1][1] == 'c')
+			{
+				free_double_array(env->history);
+				env->history = 0;
+				retvalue_into_loc(env, 0);
+			}
+		}
+		else if (split[1] && isnumber(split[1][0]))
+		{
+			i = ft_atoi(split[1]);
+			j = 0;
+			while (env->history[j])
+				++j;
+			while (i-- > 0)
+				ft_printf("%s\n", env->history[--j]);
+			retvalue_into_loc(env, 0);
+		}
+		else
+		{
+			ft_printf("Wrong argument, only -c accepted.");
+			retvalue_into_loc(env, 1);
+		}
 	}
-	else if (isnumber(split[1][0]))
-		i = ft_atoi(split[1]);
-	print_split(env->history + i);
+	else
+	{
+		print_split(env->history + i);
+		retvalue_into_loc(env, 0);
+	}
 }
