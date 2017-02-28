@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 13:43:33 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/28 18:59:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 20:17:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ void	oprt_and(t_env *env)
 	if ((int)child == -1)
 		perror("error");
 	else if ((int)child == 0)
+	{
 		parse(env, env->inp1);
+		exit(env->lastret);
+	}
 	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
+	if (WEXITSTATUS(status) == 0)
 	{
 		parse(env, env->inp2);
-		perror("error");
-		exit(EXIT_FAILURE);
 	}
 }
 
@@ -52,15 +53,14 @@ void	oprt_or(t_env *env)
 	else if ((int)child == 0)
 	{
 		parse(env, env->inp1);
-		perror("error");
+		exit(env->lastret);
 	}
 	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		if (WEXITSTATUS(status) != 0)
-		{
-			parse(env, env->inp2);
-			perror("error");
-			env->isoperand = 0;
-			exit(EXIT_FAILURE);
-		}
+	if (WEXITSTATUS(status) == 0)
+		return ;
+	if (WEXITSTATUS(status) != 0)
+	{
+		parse(env, env->inp2);
+		env->isoperand = 0;
+	}
 }
