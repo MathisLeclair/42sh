@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 16:48:41 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:46:04 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	else if (ft_strcmp(split[0], "export") == 0)
 		builtin_export(env, split);
 	else if (ft_strcmp(split[0], "history") == 0)
+	{
+		ft_putstr("dsf\n");
 		builtin_history(env, split);
+	}
 	else
 		ft_fork(env, split);
 	if (split)
@@ -236,6 +239,8 @@ void	parse(t_env *env, char *input)
 	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
 		if(subshell(env, input) == -1)
 			return;
+	if (ft_strchr(env->input, '$'))
+		ft_dollar(env, -1, 0);
 	if (cmprev(input, "&&") != -1)
 		oprt_and(env);
 	else if (cmprev(input, "||") != -1)
@@ -298,8 +303,6 @@ int		ft_read(t_env *env)
 	while (inputspl && inputspl[++i])
 	{
 		env->input = ft_strdup(inputspl[i]);
-		if (ft_strchr(env->input, '$'))
-			ft_dollar(env, -1, 0);
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(env, -1, 0);
 		parse(env, inputspl[i]);

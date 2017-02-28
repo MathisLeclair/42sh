@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 18:37:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:12:08 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,7 +486,7 @@ void	touch(t_var *var)
 	}
 	while (var->i != var->inputlen)
 		right_arrow(var);
-	// add_history(var);
+	add_history(var);
 	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }

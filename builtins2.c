@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 15:00:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:00:56 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+void	builtin_history(t_env *env, char **split)
+{
+	(void)split;
+	ft_putstr("dsf\n");
+	print_split(env->history);
+}
 
 void	builtin_export(t_env *env, char **split)
 {

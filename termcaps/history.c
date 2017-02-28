@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 15:26:16 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 14:07:09 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:12:43 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ void	add_history(t_var *var)
 	while (env()->history[i])
 		++i;
 	num = ft_itoa(i);
+	if (ft_strlen(num) < 5)
+	{
+		tmp = malloc(6);
+		i = -1;
+		while (++i < 5 - (int)ft_strlen(num))
+			tmp[i] = ' ';
+		tmp[i] = 0;
+		ft_strcat(tmp, num);
+		free(num);
+		num = tmp;
+	}
 	tmp = malloc(ft_strlen(var->ret) + ft_strlen(num) + 5);
 	*tmp = 0;
 	ft_strcat(tmp, num);
@@ -34,7 +45,5 @@ void	add_history(t_var *var)
 	ft_strcat(tmp, var->ret);
 	add_str_to_dstr(&env()->history, tmp);
 	free(tmp);
-	tmp = NULL;
 	free(num);
-	num = NULL;
 }
