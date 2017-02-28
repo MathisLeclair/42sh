@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/28 18:31:21 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 19:00:20 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,8 @@ void		rd_output(t_env *env, int i)
 	}
 	else if ((int)child == 0)
 	{
-		env->isoperand = 1;
 		dup2(fd, STDOUT_FILENO);
 		parse(env, env->input);
-		env->isoperand = 0;
 		exit(EXIT_SUCCESS);
 	}
 	close(fd);
@@ -122,10 +120,8 @@ void		rd_output_apd(t_env *env, int i)
 	}
 	else if ((int)child == 0)
 	{
-		env->isoperand = 1;
 		dup2(fd, STDOUT_FILENO);
 		parse(env, env->input);
-		env->isoperand = 0;
 		exit(EXIT_SUCCESS);
 	}
 	close(fd);
@@ -153,10 +149,8 @@ void		rd_input(t_env *env)
 	}
 	else if ((int)child == 0)
 	{
-		env->isoperand = 1;
 		dup2(fd, STDIN_FILENO);
 		parse(env, env->inp1);
-		env->isoperand = 0;
 		exit(EXIT_SUCCESS);
 	}
 	close(fd);

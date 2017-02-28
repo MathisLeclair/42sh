@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 17:35:22 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:35:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	set_evloc2(t_env *e)
 	free(buf);
 	e->redir = malloc(sizeof(char *));
 	*e->redir = 0;
+	env()->isoperand = 0;
 }
 
 void	set_evloc(t_env *e)

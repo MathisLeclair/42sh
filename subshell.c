@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 18:27:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 19:15:53 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,27 @@ int		verif_par(char *str)
 	return (0);
 }
 
+int		verif_subshell(char *input)
+{
+	int i;
+	int ok;
+	int u;
+
+	ok = -1;
+	u = -1;
+	i = ft_strfind(input, '(');
+	while (input[++u])
+		if (input[u] == '&' || input[u] == '|' ||
+		input[u] == '>' ||input[u] == '<')
+			ok = 0;
+	return (ok);
+}
+
 int		subshell(t_env *env, char *input)
 {
 	char *str;
 
-	if (env->isoperand == 0)
+	if (verif_subshell(input) == -1)
 	{
 		ft_putstr("Wrong use of '()'\n");
 		return(-1);
