@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 16:12:08 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:41:58 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	shift_down(t_var *var)
 
 void	up_arrow(t_var *var)
 {
+	var->buff = ft_strdup(var->ret);
 	(void)var;
 }
 
@@ -472,11 +473,11 @@ void	touch(t_var *var)
 			// printf("%d\n", var->lenligne);
 			if (var->lenligne % tgetnum("co") == 1)
 				ft_putstr(tgetstr("sf", NULL));
-	ft_putstr(tgetstr("cd", NULL));
-	write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
-	j = ft_strlen(var->ret + var->i);
-	while (j-- > 0)
-		ft_putstr(tgetstr("le", NULL));
+		ft_putstr(tgetstr("cd", NULL));
+		write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
+		j = ft_strlen(var->ret + var->i);
+		while (j-- > 0)
+			ft_putstr(tgetstr("le", NULL));
 		}
 		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
 		// printf("id2 touche = %d\n", var->buff[1]);

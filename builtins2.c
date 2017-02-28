@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 18:31:40 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:36:20 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,11 @@ void	history(t_env *env, char **split)
 	int i;
 	int j;
 
-	i = 0;
 	if (split[0] && split[1] && split[2])
-	{
 		error(-7, NULL, NULL);
-		return ;
-	}
-	if (!(env->history))
-	{
+	else if (!(env->history))
 		error(-11, 0 , 0);
-		return ;
-	}
-	i = 0;
-	if (split[1])
+	else if (split[1])
 	{
 		if (split[1][0] == '-')
 		{
@@ -105,7 +97,7 @@ void	history(t_env *env, char **split)
 	}
 	else
 	{
-		print_split(env->history + i);
+		print_split(env->history);
 		retvalue_into_loc(env, 0);
 	}
 }
