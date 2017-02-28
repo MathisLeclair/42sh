@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 18:27:13 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:31:40 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void	history(t_env *env, char **split)
 				env->history = 0;
 				retvalue_into_loc(env, 0);
 			}
+			else
+			{
+				ft_putstr("Wrong argument, only -c accepted.\n");
+				retvalue_into_loc(env, 1);
+			}
 		}
 		else if (split[1] && isnumber(split[1][0]))
 		{
@@ -89,12 +94,12 @@ void	history(t_env *env, char **split)
 			while (env->history[j])
 				++j;
 			while (i-- > 0)
-				ft_printf("%s\n", env->history[--j]);
+				ft_printf("%s\n", env->history[j - i - 1]);
 			retvalue_into_loc(env, 0);
 		}
 		else
 		{
-			ft_printf("Wrong argument, only -c accepted.");
+			ft_putstr("Is not a number.\n");
 			retvalue_into_loc(env, 1);
 		}
 	}
