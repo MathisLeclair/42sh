@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 16:01:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:40:02 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,8 +224,12 @@ void			parse(t_env *env, char *input);
 
 void			bquote(t_env *env);
 
-int				subshell(t_env *env, char *input);
+/*
+** subshell.c
+*/
 
+int				subshell(t_env *env, char *input);
+void			retvalue_into_loc(t_env *env, int i);
 
 /*
 ** termcaps.c

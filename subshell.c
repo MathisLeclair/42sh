@@ -6,17 +6,29 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 15:28:04 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:42:44 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
+void	retvalue_into_loc(t_env *env, int i)
+{
+	char *tmp;
+
+	env->lastret = i;
+	tmp = malloc(300);
+	tmp[0] = 0;
+	ft_strcat(tmp, "?=");
+	ft_strcat(tmp, ft_itoa(i));
+	add_var_to_env(env, tmp);
+	free(tmp);
+}
+
 void	subshell2(t_env *env, int i, int l, char *input)
 {
 	int		child;
 	int		status;
-	char	ret;
 	char	*str;
 
 	i = ft_strfind(input, '(');
@@ -24,20 +36,18 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	str = malloc(l - i + 1);
 	*str = 0;
 	str = ft_strncat(str, input + i + 1, l - i - 1);
-	printf("env->input=%s# str=%s# i=%d# l=%d#\n", input, str, i, l);
 	child = fork();
 	if (child == 0)
 	{
 		parse(env, str);
-		exit(0);
+		exit(env->lastret);
 	}
 	else
 	{
 		waitpid(child, &status, 0);
-		ret = WEXITSTATUS(status);
+		retvalue_into_loc(env, WEXITSTATUS(status));
 		ft_remstr(env->input, i, l + 1);
 		ft_remstr(input, i, l + 1);
-		printf("env->input after=%s#\n input=%s#\n", env->input, input);
 	}
 }
 

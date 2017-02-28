@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/24 14:46:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:35:22 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	set_evloc2(t_env *e)
 	add_var_to_env(e->loc, "HISTFILE=/private/tmp/.42sh_history");
 	add_var_to_env(e->loc, "HISTSIZE=500");
 	add_var_to_env(e->loc, "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
+	add_var_to_env(e, "?=0");
 	stat("./.", buf);
 	truc = getpwuid(buf->st_uid);
 	tmp = ft_strjoinfree("LOGNAME=", truc->pw_name, 0);

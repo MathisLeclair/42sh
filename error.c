@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/25 19:45:24 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:44:32 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	error2(int i, char *str)
 
 void	error(int i, char *str, char *str2)
 {
+	retvalue_into_loc(env(), 0);
 	if (str2)
 		free(str2);
 	if (i == -1)
