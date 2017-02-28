@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 18:37:15 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/02/28 15:21:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,9 @@ void	parse(t_env *env, char *input)
 	env->input = ft_strdup(input);
 	while (ft_strchr(env->input, '`') != 0)
 		bquote(env);
+	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
+		if(subshell(env, input) == -1)
+			return;
 	if (cmprev(input, "&&") != -1)
 		oprt_and(env);
 	else if (cmprev(input, "||") != -1)

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 18:18:33 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:01:34 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_env
 	char 			**redir;
 	char			*inp1;
 	char			*inp2;
+	int				lastret;
 }				t_env;
 
 typedef struct	s_var
@@ -222,6 +223,9 @@ void			parse(t_env *env, char *input);
 */
 
 void			bquote(t_env *env);
+
+int				subshell(t_env *env, char *input);
+
 
 /*
 ** termcaps.c
