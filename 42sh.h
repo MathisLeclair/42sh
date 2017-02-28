@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 16:01:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:48:38 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ void			add_str_to_dstr(char ***dstr, char *str);
 void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
 void			builtin_export(t_env *env, char **split);
+void			builtin_history(t_env *env, char **split);
 
 /*
 ** operator.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 15:21:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:48:41 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	}
 	else if (ft_strcmp(split[0], "export") == 0)
 		builtin_export(env, split);
+	else if (ft_strcmp(split[0], "history") == 0)
+		builtin_history(env, split);
 	else
 		ft_fork(env, split);
 	if (split)
