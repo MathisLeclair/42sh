@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/01 15:22:23 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/01 15:25:00 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ void	rd_pipe(t_env *env)
 **					   command [n]>| output.txt
 */
 
-void		rd_output(t_env *env, int i)
+void		rd_output(t_env *env, int i, char n)
 {
 	pid_t	child;
 	int		fd;
+	char	n;
 	char	**s;
 
 	child = -1;
@@ -107,7 +108,8 @@ void		rd_output_apd(t_env *env, int i)
 {
 	pid_t		child;
 	int			fd;
-	char	**s;
+	char		n;
+	char		**s;
 
 	child = -1;
 	fd = -1;
@@ -200,6 +202,7 @@ void		rd_here_doc(t_env *env)
 	pid_t		child;
 	int			fd;
 	int			rsize;
+	char		n;
 	char		*buff;
 
 	child = -1;
