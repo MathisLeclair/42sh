@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 14:52:05 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 16:37:31 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,20 +163,17 @@ void	paste(t_var *var)
 	var->selstart = -1;
 }
 
-void	ft_asdf(t_var *var)
+void	ft_asdf(t_var *var, int i, int *bg)
 {
-	int		i;
 	int		j;
 	char	*tmp;
 	char	*tmp2;
 
-
 	var->ac = malloc(sizeof(char *));
 	var->ac[0]= 0;
-	i = 0;
-	while (env()->history)
+	while (env()->history[++i])
 		if (strstr(env()->history[i], var->ret))
-			add_str_to_dstr(&var->ac, env()->history[i]);
+			add_str_to_dstr(&var->ac, env()->history[i] + 7);
 	i = 0;
 	while (var->ac[i])
 	{
@@ -194,6 +191,7 @@ void	ft_asdf(t_var *var)
 		free(tmp);
 		free(tmp2);
 	}
+	*bg = i;
 }
 
 void	up_arrow(t_var *var, int *bg)
@@ -201,7 +199,7 @@ void	up_arrow(t_var *var, int *bg)
 	char *tmp;
 
 	if (env()->history[*bg] == 0)
-		ft_asdf(var);
+		ft_asdf(var, -1, bg);
 	if (var->arr == NULL)
 		var->arr = ft_strdup(var->ret);
 	while (var->i != 0)
@@ -211,7 +209,7 @@ void	up_arrow(t_var *var, int *bg)
 	if (*bg > 0)
 		(*bg)--;
 	tmp = var->cpy;
-	var->cpy = env()->history[*bg] + 7;
+	var->cpy = var->ac[*bg];
 	paste(var);
 	var->cpy = tmp;
 }
@@ -224,21 +222,24 @@ void	down_arrow(t_var *var, int *bg)
 		backspace(var);
 	while (var->ret[0])
 		deleteu(var);
-	if (env()->history[*bg])
-		(*bg)++;
-	if (env()->history[*bg] == 0)
+	if (var->ac[0])
 	{
-		tmp = var->cpy;
-		var->cpy = var->arr;
-		paste(var);
-		var->cpy = tmp;
-	}
-	else
-	{
-		tmp = var->cpy;
-		var->cpy = env()->history[*bg] + 7;
-		paste(var);
-		var->cpy = tmp;
+		if (var->ac[*bg])
+			(*bg)++;
+		if (var->ac[*bg] == 0)
+		{
+			tmp = var->cpy;
+			var->cpy = var->arr;
+			paste(var);
+			var->cpy = tmp;
+		}
+		else
+		{
+			tmp = var->cpy;
+			var->cpy = var->ac[*bg];
+			paste(var);
+			var->cpy = tmp;
+		}
 	}
 }
 
@@ -502,9 +503,11 @@ void	touch(t_var *var)
 			shift_down(var);
 		if (var->buff[0] == 27 && var->buff[2] == 72) //HOME
 			home(var);
-		if (var->buff[0] == 27 && var->buff[2] == 65 && env()->history[0]) // UP ARROW
+		if (var->buff[0] == 9 && var->buff[2] == 0) // AUTOCOMPLETE
+			tabu(var, &i);
+		else if (var->buff[0] == 27 && var->buff[2] == 65 && env()->history[0]) // UP ARROW
 			up_arrow(var, &bg);
-		else if (var->buff[0] == 27 && var->buff[2] == 66 && env()->history[0]) // DOWN ARROW
+		else if (var->buff[0] == 27 && var->buff[2] == 66 && var->ac) // DOWN ARROW
 			down_arrow(var, &bg);
 		else
 		{
@@ -512,11 +515,6 @@ void	touch(t_var *var)
 			var->arr = NULL;
 			while (env()->history[bg])
 				++bg;
-		}
-		if (var->buff[0] == 9 && var->buff[2] == 0) // AUTOCOMPLETE
-			tabu(var, &i);
-		else
-		{
 			if (var->ac)
 				free_double_array(var->ac);
 			if (var->ac)
@@ -552,11 +550,11 @@ void	touch(t_var *var)
 			// printf("%d\n", var->lenligne);
 			if (var->lenligne % tgetnum("co") == 1)
 				ft_putstr(tgetstr("sf", NULL));
-		ft_putstr(tgetstr("cd", NULL));
-		write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
-		j = ft_strlen(var->ret + var->i);
-		while (j-- > 0)
-			ft_putstr(tgetstr("le", NULL));
+			ft_putstr(tgetstr("cd", NULL));
+			write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
+			j = ft_strlen(var->ret + var->i);
+			while (j-- > 0)
+				ft_putstr(tgetstr("le", NULL));
 		}
 		// printf("\nid1 touche = %d\n", var->buff[0]); //  DEBUG INPUT
 		// printf("id2 touche = %d\n", var->buff[1]);
