@@ -6,16 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 14:16:42 by mleclair          #+#    #+#             */
-/*   Updated: 2016/12/08 18:38:07 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/01 15:52:48 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+#include "libft.h"
 
 int		ft_isokay(char c)
 {
