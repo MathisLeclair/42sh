@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 20:28:26 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 14:52:05 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,17 +157,51 @@ void	paste(t_var *var)
 	write(1, var->ret + var->i, ft_strlen(var->ret) - var->i);
 	var->i = ft_strlen(var->ret);
 	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
-	// i = ft_strlen(var->ret + var->i);
 	while (var->i > i)
 		left_arrow(var);
 	var->selend = -1;
 	var->selstart = -1;
 }
 
+void	ft_asdf(t_var *var)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	char	*tmp2;
+
+
+	var->ac = malloc(sizeof(char *));
+	var->ac[0]= 0;
+	i = 0;
+	while (env()->history)
+		if (strstr(env()->history[i], var->ret))
+			add_str_to_dstr(&var->ac, env()->history[i]);
+	i = 0;
+	while (var->ac[i])
+	{
+		tmp = ft_strdup(var->ac[i]);
+		tmp2 = ft_strdup(var->ret);
+		if (!ft_strcmp_beg(tmp, tmp2))
+		{
+			free(var->ac[i]);
+			j = i;
+			while (var->ac[j++])
+				var->ac[j - 1] = var->ac[j];
+		}
+		else
+			++i;
+		free(tmp);
+		free(tmp2);
+	}
+}
+
 void	up_arrow(t_var *var, int *bg)
 {
 	char *tmp;
 
+	if (env()->history[*bg] == 0)
+		ft_asdf(var);
 	if (var->arr == NULL)
 		var->arr = ft_strdup(var->ret);
 	while (var->i != 0)

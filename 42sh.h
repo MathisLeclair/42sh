@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 15:26:26 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/01 16:00:28 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,7 @@ void			desel(t_var *var);
 void			copy(t_var *var, int p);
 void			cut(t_var *var);
 
+char			ft_strcmp_beg(char *str1, char *str2);
 /*
 ** END OF TEMCAPS
 */

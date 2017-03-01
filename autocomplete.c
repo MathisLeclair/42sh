@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/27 14:05:01 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 13:59:33 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,42 +288,22 @@ void	startfind(char **ac, t_env *env, int boolean, int i)
 	char	*tmp;
 	char	*tmp2;
 
-	if (boolean)
+	while (ac[i])
 	{
-		while (ac[i])
+		tmp = to_lwcase(ac[i]);
+		tmp2 = to_lwcase(env->find);
+		if (!ft_strcmp_beg(tmp, tmp2))
 		{
-			tmp = to_lwcase(ac[i]);
-			tmp2 = to_lwcase(env->find);
-			if (!ft_strcmp_beg(tmp, tmp2))
-			{
-				free(ac[i]);
-				boolean = i;
-				while (ac[boolean++])
-					ac[boolean - 1] = ac[boolean];
-			}
-			else
-				++i;
-			free(tmp);
-			free(tmp2);
+			free(ac[i]);
+			boolean = i;
+			while (ac[boolean++])
+				ac[boolean - 1] = ac[boolean];
 		}
+		else
+			++i;
+		free(tmp);
+		free(tmp2);
 	}
-	else
-		while (ac[i])
-		{
-			tmp = to_lwcase(ac[i]);
-			tmp2 = to_lwcase(env->find);
-			if (ft_strcmp_beg(tmp, tmp2))
-			{
-				free(ac[i]);
-				boolean = i;
-				while (ac[boolean++])
-					ac[boolean - 1] = ac[boolean];
-			}
-			else
-				++i;
-			free(tmp);
-			free(tmp2);
-		}
 }
 
 char	**forest(char *s, int ps, t_env *env, char first)
