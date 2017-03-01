@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 20:02:04 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 14:49:45 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,6 @@ typedef struct dirent	t_dirent;
 
 t_env			*env(void);
 void			ft_sig(int i);
-
-
-/*
-** redirection.c
-*/
-
-void			rd_pipe(t_env *env);
-void			rd_input(t_env *env);
-void			rd_output(t_env *env, int i);
-void			rd_output_apd(t_env *env, int i);
-void			rd_input(t_env *env);
 
 /*
 ** getnextline
@@ -218,6 +207,10 @@ void			oprt_or(t_env *env);
 ** redirection.c
 */
 
+void			rd_pipe(t_env *env);
+void			rd_input(t_env *env);
+void			rd_output(t_env *env, int i);
+void			rd_output_apd(t_env *env, int i);
 void			rd_here_doc(t_env *env);
 void			parse(t_env *env, char *input);
 

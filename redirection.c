@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/28 19:00:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/01 15:22:23 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	rd_pipe(t_env *env)
 }
 
 /*
-** Redirecting Output: command > output.txt
+** Redirecting Output: command [n]> output.txt
+**					   command [n]>| output.txt
 */
 
 void		rd_output(t_env *env, int i)
@@ -76,6 +77,8 @@ void		rd_output(t_env *env, int i)
 
 	child = -1;
 	fd = -1;
+	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
+		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
 	s = ft_strsplitquote(env->redir[i], ' ', 0);
 	if ((fd = open(s[1] == 0 ? s[0] + 1 : s[1], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 		perror("error");
@@ -88,7 +91,7 @@ void		rd_output(t_env *env, int i)
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, (n == -1 ? STDOUT_FILENO : n));
 		parse(env, env->input);
 		exit(EXIT_SUCCESS);
 	}
@@ -97,7 +100,7 @@ void		rd_output(t_env *env, int i)
 }
 
 /*
-** Appending Redirected Output: command >> output.txt
+** Appending Redirected Output: command [n]>> output.txt
 */
 
 void		rd_output_apd(t_env *env, int i)
@@ -108,6 +111,8 @@ void		rd_output_apd(t_env *env, int i)
 
 	child = -1;
 	fd = -1;
+	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
+		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
 	s = ft_strsplitquote(env->redir[i], ' ', 0);
 	if ((fd = open(s[1] == 0 ? s[0] + 2 : s[1], O_WRONLY | O_CREAT | O_APPEND, 0644)) == -1)
 		perror("error");
@@ -120,7 +125,7 @@ void		rd_output_apd(t_env *env, int i)
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, (n == -1 ? STDOUT_FILENO : n));
 		parse(env, env->input);
 		exit(EXIT_SUCCESS);
 	}
@@ -129,16 +134,19 @@ void		rd_output_apd(t_env *env, int i)
 }
 
 /*
-** Redirecting Input: command < output.txt
+** Redirecting Input: command [n]< output.txt
 */
 
 void		rd_input(t_env *env)
 {
 	pid_t		child;
 	int			fd;
+	char		n;
 
 	child = -1;
 	fd = -1;
+	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
+		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
 	if ((fd = open(env->inp2, O_RDONLY)) == -1)
 		perror("error");
 	child = fork();
@@ -149,7 +157,7 @@ void		rd_input(t_env *env)
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fd, STDIN_FILENO);
+		dup2(fd, (n == -1 ? STDIN_FILENO : n));
 		parse(env, env->inp1);
 		exit(EXIT_SUCCESS);
 	}
@@ -160,14 +168,14 @@ void		rd_input(t_env *env)
 /*
 ** Here-Document:
 **
-** interactive-program << delimiter
+** interactive-program [n]<< delimiter
 ** command 1
 ** command 2
 ** .........
 ** command n
 ** delimiter
 **
-** command <<- delimiter
+** command [n]<<- delimiter
 ** 		here type your
 **		input tabulation
 **		will be ignored
@@ -197,6 +205,8 @@ void		rd_here_doc(t_env *env)
 	child = -1;
 	fd = -1;
 	rsize = -1;
+	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
+		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
 	rd_delimiter(&env->inp2);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
 		perror("error");
@@ -219,7 +229,7 @@ void		rd_here_doc(t_env *env)
 		if ((fd = open("/tmp/42sh-the-silence", O_RDONLY)) == -1)
 			perror("error");
 		unlink("/tmp/42sh-the-silence");
-		dup2(fd, STDIN_FILENO);
+		dup2(fd, (n == -1 ? STDIN_FILENO : n));
 		parse(env, env->inp1);
 		exit(EXIT_SUCCESS);
 	}
