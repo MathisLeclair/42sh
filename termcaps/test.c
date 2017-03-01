@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 16:41:00 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 16:59:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -455,7 +455,9 @@ void	reset(t_var *var)
 	tcsetattr(0, 0, &var->term);
 	tcsetattr(0, 0, &var->termsav);
 	free(var->buff);
+	var->buff = NULL;
 	free(var->cpy);
+	var->cpy = NULL;
 	var->term = var->termsav;
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
