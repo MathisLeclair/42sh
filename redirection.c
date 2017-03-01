@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/01 15:25:00 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/01 15:26:44 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	rd_pipe(t_env *env)
 **					   command [n]>| output.txt
 */
 
-void		rd_output(t_env *env, int i, char n)
+void		rd_output(t_env *env, int i)
 {
 	pid_t	child;
 	int		fd;
