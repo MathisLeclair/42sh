@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 17:24:34 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 20:58:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,6 +462,45 @@ void	reset(t_var *var)
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
 
+void	exclam(t_var *var)
+{
+	int i;
+	int u;
+	int k;
+	int j;
+	char *tmp;
+
+	u = -1;
+	i = ft_strfind(var->ret, '!');
+	while (env()->history[u])
+			++u;
+	j = i;
+	while (var->ret[j] && var->ret[j] != ' ')
+		++j;
+	tmp = ft_strcdup(var->ret + i, j- i);
+	if (!ft_isdigit(var->ret[i + 1]))
+	{
+		k = u;
+		while (k > 0 && env()->history[--k])
+			if(ft_strcmp_beg(env()->history[k] + 7, tmp))
+				break ;
+		if (k == 0 && !ft_strcmp_beg(env()->history[k] + 7, tmp))
+			error(-13, NULL, NULL);
+	}
+	else
+	{
+		k = ft_atoi(var->ret + i + 1);
+		if (k > u)
+			error(-13, NULL, NULL);
+	}
+	free(tmp);
+	ft_remstr(var->ret, i, j);
+	var->i = i;
+	i = ft_strlen(env()->history[k]);
+	while (i-- > 7)
+		add_car(var, 1, (env()->history[k])[i]);
+}
+
 void	touch(t_var *var)
 {
 	// char		*test;
@@ -569,6 +608,8 @@ void	touch(t_var *var)
 	}
 	while (var->i != var->inputlen)
 		right_arrow(var);
+	if (ft_strchr(var->ret, '!'))
+		exclam(var);
 	if (var->ret[0])
 		add_history(var);
 	write(1, "\n", 1);
