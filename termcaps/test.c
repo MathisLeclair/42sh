@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 16:37:31 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 16:41:00 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,28 +202,31 @@ void	up_arrow(t_var *var, int *bg)
 		ft_asdf(var, -1, bg);
 	if (var->arr == NULL)
 		var->arr = ft_strdup(var->ret);
-	while (var->i != 0)
-		backspace(var);
-	while (var->ret[0])
-		deleteu(var);
-	if (*bg > 0)
-		(*bg)--;
-	tmp = var->cpy;
-	var->cpy = var->ac[*bg];
-	paste(var);
-	var->cpy = tmp;
+	if (var->ac[0])
+	{
+		while (var->i != 0)
+			backspace(var);
+		while (var->ret[0])
+			deleteu(var);
+		if (*bg > 0)
+			(*bg)--;
+		tmp = var->cpy;
+		var->cpy = var->ac[*bg];
+		paste(var);
+		var->cpy = tmp;
+	}
 }
 
 void	down_arrow(t_var *var, int *bg)
 {
 	char *tmp;
 
-	while (var->i != 0)
-		backspace(var);
-	while (var->ret[0])
-		deleteu(var);
 	if (var->ac[0])
 	{
+		while (var->i != 0)
+			backspace(var);
+		while (var->ret[0])
+			deleteu(var);
 		if (var->ac[*bg])
 			(*bg)++;
 		if (var->ac[*bg] == 0)
