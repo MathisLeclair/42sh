@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/02/28 19:00:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/01 14:33:24 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ void	rd_pipe(t_env *env)
 }
 
 /*
-** Redirecting Output: command > output.txt
+** Redirecting Output: command [n]> output.txt
+**					   command [n]>| output.txt
 */
 
-void		rd_output(t_env *env, int i)
+void		rd_output(t_env *env, int i, char n)
 {
 	pid_t	child;
 	int		fd;
@@ -88,7 +89,7 @@ void		rd_output(t_env *env, int i)
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, (n == -1 ? STDOUT_FILENO : n));
 		parse(env, env->input);
 		exit(EXIT_SUCCESS);
 	}
@@ -97,7 +98,7 @@ void		rd_output(t_env *env, int i)
 }
 
 /*
-** Appending Redirected Output: command >> output.txt
+** Appending Redirected Output: command [n]>> output.txt
 */
 
 void		rd_output_apd(t_env *env, int i)
@@ -120,7 +121,7 @@ void		rd_output_apd(t_env *env, int i)
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, (n == -1 ? STDOUT_FILENO : n));
 		parse(env, env->input);
 		exit(EXIT_SUCCESS);
 	}
@@ -129,10 +130,10 @@ void		rd_output_apd(t_env *env, int i)
 }
 
 /*
-** Redirecting Input: command < output.txt
+** Redirecting Input: command [n]< output.txt
 */
 
-void		rd_input(t_env *env)
+void		rd_input(t_env *env, char n)
 {
 	pid_t		child;
 	int			fd;
@@ -149,7 +150,7 @@ void		rd_input(t_env *env)
 	}
 	else if ((int)child == 0)
 	{
-		dup2(fd, STDIN_FILENO);
+		dup2(fd, (n == -1 ? STDIN_FILENO : n));
 		parse(env, env->inp1);
 		exit(EXIT_SUCCESS);
 	}
@@ -160,14 +161,14 @@ void		rd_input(t_env *env)
 /*
 ** Here-Document:
 **
-** interactive-program << delimiter
+** interactive-program [n]<< delimiter
 ** command 1
 ** command 2
 ** .........
 ** command n
 ** delimiter
 **
-** command <<- delimiter
+** command [n]<<- delimiter
 ** 		here type your
 **		input tabulation
 **		will be ignored
@@ -175,7 +176,7 @@ void		rd_input(t_env *env)
 **
 */
 
-static void	rd_delimiter(char **str)
+static void	rd_delimiter(char **str, char n)
 {
 	int i;
 
@@ -219,7 +220,7 @@ void		rd_here_doc(t_env *env)
 		if ((fd = open("/tmp/42sh-the-silence", O_RDONLY)) == -1)
 			perror("error");
 		unlink("/tmp/42sh-the-silence");
-		dup2(fd, STDIN_FILENO);
+		dup2(fd, (n == -1 ? STDIN_FILENO : n));
 		parse(env, env->inp1);
 		exit(EXIT_SUCCESS);
 	}
