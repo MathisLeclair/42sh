@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/28 12:45:41 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/01 18:18:51 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,31 +17,33 @@ NAME = 42sh
 
 PATHTOMAKEFILE = ./libft/
 
-FILE =	main \
-		cmd \
-		error \
-		ft_cmpspec \
-		env_mod \
-		get_next_line \
-		cmd_env \
-		ft_dollar \
-		set_env \
-		fork \
-		ft_strsplitquote \
-		free \
-		builtins \
-		builtins2 \
-		aperture \
-		tilde \
-		verif_quote \
-		double_array_sort \
-		autocomplete \
-		termcaps/test \
-		termcaps/history \
-		redirection \
-		operator \
-		bquote \
-		subshell
+FILE =						\
+		aperture 			\
+		autocomplete 		\
+		bquote 				\
+		builtins 			\
+		builtins2 			\
+		cmd_env 			\
+		cmd 				\
+		double_array_sort 	\
+		env_mod 			\
+		error 				\
+		fork 				\
+		free 				\
+		ft_cmpspec 			\
+		ft_dollar 			\
+		ft_strsplitquote 	\
+		get_next_line 		\
+		job_control			\
+		main				\
+		operator 			\
+		redirection 		\
+		set_env 			\
+		subshell			\
+		termcaps/history 	\
+		termcaps/test 		\
+		tilde 				\
+		verif_quote 		\
 
 OBJ  := $(addsuffix .o, $(FILE))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 16:00:28 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/01 18:20:12 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,12 @@ void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
 void			builtin_export(t_env *env, char **split);
 void			builtin_history(t_env *env, char **split);
+
+/*
+** job_control.c
+*/
+
+void			jobctrl_init_shell(void);
 
 /*
 ** operator.c
