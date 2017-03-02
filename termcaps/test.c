@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/01 20:58:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/02 12:00:12 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -482,16 +482,29 @@ void	exclam(t_var *var)
 	{
 		k = u;
 		while (k > 0 && env()->history[--k])
-			if(ft_strcmp_beg(env()->history[k] + 7, tmp))
+			if(ft_strcmp_beg(env()->history[k] + 7, tmp + 1))
 				break ;
-		if (k == 0 && !ft_strcmp_beg(env()->history[k] + 7, tmp))
+		if (k == 0 && !ft_strcmp_beg(env()->history[k] + 7, tmp + 1))
 			error(-13, NULL, NULL);
+		if (k == 0 && !ft_strcmp_beg(env()->history[k] + 7, tmp + 1))
+			return ;
 	}
 	else
 	{
+		u = i;
+		while (ft_isdigit(var->ret[++u]))
+			;
+		if (u > 100000)
+		{
+			error(-13, NULL, NULL);
+			return ;
+		}
 		k = ft_atoi(var->ret + i + 1);
 		if (k > u)
+		{
 			error(-13, NULL, NULL);
+			return ;
+		}
 	}
 	free(tmp);
 	ft_remstr(var->ret, i, j);
