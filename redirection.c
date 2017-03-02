@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/01 15:26:44 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/02 14:51:24 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,14 @@ void		rd_output(t_env *env, int i)
 
 	child = -1;
 	fd = -1;
+	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
 		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
+	if (env->inp2[0] == '&')
+	{
+		rd_dupoutput(env, n);
+		return ;
+	}
 	s = ft_strsplitquote(env->redir[i], ' ', 0);
 	if ((fd = open(s[1] == 0 ? s[0] + 1 : s[1], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 		perror("error");
@@ -113,6 +119,7 @@ void		rd_output_apd(t_env *env, int i)
 
 	child = -1;
 	fd = -1;
+	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
 		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
 	s = ft_strsplitquote(env->redir[i], ' ', 0);
@@ -147,8 +154,14 @@ void		rd_input(t_env *env)
 
 	child = -1;
 	fd = -1;
+	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
 		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
+	if (env->inp2[0] == '&')
+	{
+		rd_dupinput(env, n);
+		return ;
+	}
 	if ((fd = open(env->inp2, O_RDONLY)) == -1)
 		perror("error");
 	child = fork();
@@ -208,6 +221,7 @@ void		rd_here_doc(t_env *env)
 	child = -1;
 	fd = -1;
 	rsize = -1;
+	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1 - 1)]))
 		n = (env->inp1[ft_strlen(env->inp1 - 2)] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1 - 1)] - 48);
 	rd_delimiter(&env->inp2);
@@ -238,4 +252,64 @@ void		rd_here_doc(t_env *env)
 	}
 	wait(NULL);
 	close(fd);
+}
+
+/*
+** Duplicating an Input File Descriptor: command [n]<&word
+*/
+
+void		rd_dupinput(t_env *env, char n)
+{
+	pid_t		child;
+	char		word;
+
+	child = -1;
+	word = env->inp2[1] - 48;
+	if (word == ('-' - 48))
+	{
+		close((int)n);
+		return ;
+	}
+	if (fcntl((int)word, F_GETFD) == -1)
+		perror("error");
+	child = fork();
+	if ((int)child == -1)
+		perror("error");
+	else if ((int)child == 0)
+	{
+		dup2(word, (n == -1 ? STDIN_FILENO : n));
+		parse(env, env->inp1);
+		exit(EXIT_SUCCESS);
+	}
+	wait(NULL);
+}
+
+/*
+** Duplicating an Output File Descriptor: command [n]>&word
+*/
+
+void		rd_dupoutput(t_env *env, char n)
+{
+	pid_t		child;
+	char		word;
+
+	child = -1;
+	word = env->inp2[1] - 48;
+	if (word == ('-' - 48))
+	{
+		close((int)n);
+		return ;
+	}
+	if (fcntl((int)word, F_GETFD) == -1)
+		perror("error");
+	child = fork();
+	if ((int)child == -1)
+		perror("error");
+	else if ((int)child == 0)
+	{
+		dup2(word, (n == -1 ? STDOUT_FILENO : n));
+		parse(env, env->inp1);
+		exit(EXIT_SUCCESS);
+	}
+	wait(NULL);
 }

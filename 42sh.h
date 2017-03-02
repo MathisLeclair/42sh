@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 12:58:41 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/02 14:41:08 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,8 +223,12 @@ void			rd_pipe(t_env *env);
 void			rd_output(t_env *env, int i);
 void			rd_output_apd(t_env *env, int i);
 void			rd_input(t_env *env);
+
 void			rd_here_doc(t_env *env);
 void			parse(t_env *env, char *input);
+
+void			rd_dupinput(t_env *env, char n);
+void			rd_dupoutput(t_env *env, char n);
 
 /*
 ** bquote.c
