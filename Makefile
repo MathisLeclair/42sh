@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/01 18:57:33 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/01 20:33:45 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ $(NAME): 	$(OBJS)
 			@echo "|           sub compilation :          |"
 			@echo "|                libft                 |"
 			@make -C $(LIBDIR)
-			@$(CC) $(CFLAGS) -L./libft/ -lft -o $(NAME) $(OBJS) -lncurses -I. -I./termcaps
+			@$(CC) $(CFLAGS) -o $@ $^ -L./libft/ -lft -lncurses -I. -I./termcaps
 			@echo "|                 FIN                  |"
 			@echo "----------------------------------------"
 			@echo "               ________"
