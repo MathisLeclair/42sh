@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 12:00:12 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/02 17:30:01 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_var	*tvar(void)
 void	initvar(t_var *var)
 {
 	var->buff = malloc(3);
+	bzero(var->buff, 3);
 	var->ret = malloc(INPUT_SIZE);
 	var->cpy = malloc(INPUT_SIZE);
 	var->cpy[0] = 0;
@@ -244,6 +245,35 @@ void	down_arrow(t_var *var, int *bg)
 			var->cpy = tmp;
 		}
 	}
+}
+
+void	control_r(t_var *var, char *tmp, char *tmp2, int j)
+{
+	char	*str;
+	int		i;
+
+	if (var->cpy)
+		tmp2 = ft_strdup(var->cpy);
+	str = termcaps(ft_sprintf("\nhist-i-search : "));
+	i = ft_strlen(str) / tgetnum("co") + 2;
+	while (i--)
+		ft_putstr(tgetstr("up", NULL));
+	while (--j)
+		ft_putstr(tgetstr("nd", NULL));
+	initvar(var);
+	ft_putstr(tgetstr("cd", NULL));
+	i = 0;
+	while (env()->history[i])
+		++i;
+	while (i > 0 && str[0] && --i && !ft_strcmp_beg(env()->history[i] + 7, str))
+		;
+	if (str[0] && ((i == 0 && env()->history[i] && ft_strcmp_beg(env()->history[i] + 7, str)) || i != 0))
+		var->cpy = env()->history[i] + 7;
+	else
+		var->cpy = tmp;
+	paste(var);
+	free(tmp);
+	var->cpy = tmp2;
 }
 
 void	home(t_var *var)
@@ -578,6 +608,8 @@ void	touch(t_var *var)
 				var->ac = NULL;
 			i = 0;
 		}
+		if (var->buff[0] == 18 && var->buff[1] == 0 && var->buff[2] == 0)
+			control_r(var, ft_strdup(var->ret), NULL, var->lenprompt);
 		if (var->buff[0] == 27 && var->buff[2] == 70) //END
 			end(var);
 		if (var->del == 1)
@@ -623,8 +655,6 @@ void	touch(t_var *var)
 		right_arrow(var);
 	if (ft_strchr(var->ret, '!'))
 		exclam(var);
-	if (var->ret[0])
-		add_history(var);
 	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
@@ -635,7 +665,6 @@ char	*termcaps(t_ssprintf *prompt)
 	t_var			*var;
 
 	ft_putstr(prompt->buf);
-	ft_bzero(prompt->buf, prompt->ret);
 	var = tvar();
 	initvar(var);
 	if ((str = getenv("TERM")) == NULL)
@@ -654,5 +683,8 @@ char	*termcaps(t_ssprintf *prompt)
 	reset(var);
 	// free(var);
 	str = var->ret;
+	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
+		add_history(var);
+	ft_bzero(prompt->buf, prompt->ret);
 	return (str);
 }
