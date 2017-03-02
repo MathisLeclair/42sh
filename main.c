@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 13:03:48 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/02 13:34:02 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ int		main(int ac, char **av, char **ev)
 	set_env(env(), ev);
 	signal(SIGINT, ft_sig);
 	signal(SIGCONT, ft_sig);
+	signal(SIGTSTP, retreive_ctrlz);
 	(void)av;
 	(void)ac;
 	shlvl(env());
-	// ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', envi->dir, PROMPT);
+	jobctrl_init_shell();
 	while (1)
 	{
 		if ((ft_read(env())) == 0)

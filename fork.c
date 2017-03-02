@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 17:43:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/02 14:31:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,16 @@ void	ft_fork(t_env *env, char **input)
 	t = 0;
 	env->i = fork();
 	if (env->i == 0)
+	{
 		ft_child(env, input, pwd);
+	}
 	else
 	{
+	pidenv(0);
 		if (wait(&status) == -1)
 			error(-3, NULL, NULL);
 		retvalue_into_loc(env, WEXITSTATUS(status));
 		env->i = 1;
 	}
+	pidenv(1);
 }

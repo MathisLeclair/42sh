@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/11 18:28:57 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/02 15:07:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,26 @@ void	aperture2(void)
 {
 	char	buf[5];
 	int		fd;
+	int		truc;
 
-	if ((fd = open("stillalive.txt", O_RDONLY)) == -1)
+	truc = fork();
+	if (truc == 0)
 	{
-		ft_putstr("But why delete it????? you monster\n");
-		return ;
+		env()->i = 0;
+		if ((fd = open("stillalive.txt", O_RDONLY)) == -1)
+		{
+			ft_putstr("But why delete it????? you monster\n");
+			return ;
+		}
+		while (read(fd, buf, 1))
+		{
+			write(1, &buf[0], 1);
+			usleep(80000);
+		}
+		exit(0);
 	}
-	while (read(fd, buf, 1))
-	{
-		write(1, &buf[0], 1);
-		usleep(80000);
-	}
+	else
+		wait(NULL);
 }
 
 void	ft_aperture(void)

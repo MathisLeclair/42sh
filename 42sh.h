@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 12:58:41 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/02 14:39:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct	s_env
 	char			*inp2;
 	int				lastret;
 	int				isoperand;
+	int				*PID;
+	int				shell_terminal;
 }				t_env;
 
 typedef struct	s_var
@@ -207,6 +209,8 @@ void			jobctrl_init_shell(void);
 */
 
 void			jobctrl_init_shell(void);
+void			retreive_ctrlz(int i);
+
 
 /*
 ** operator.c
@@ -238,6 +242,7 @@ void			bquote(t_env *env);
 
 int				subshell(t_env *env, char *input);
 void			retvalue_into_loc(t_env *env, int i);
+void			pidenv(int u);
 
 /*
 ** termcaps.c
