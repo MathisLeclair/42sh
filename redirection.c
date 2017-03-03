@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/03 14:55:27 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/03 15:19:40 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void		rd_output(t_env *env, int i)
 	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
 		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1) - 1] - 48);
+	if (n != -1)
+		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
 	if (env->inp2[0] == '&')
 	{
 		rd_dupoutput(env, n);
@@ -122,6 +124,8 @@ void		rd_output_apd(t_env *env, int i)
 	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
 		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1) - 1] - 48);
+	if (n != -1)
+		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
 	s = ft_strsplitquote(env->redir[i], ' ', 0);
 	if ((fd = open(s[1] == 0 ? s[0] + 2 : s[1], O_WRONLY | O_CREAT | O_APPEND, 0644)) == -1)
 		perror("error");
@@ -157,6 +161,8 @@ void		rd_input(t_env *env)
 	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
 		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1) - 1] - 48);
+	if (n != -1)
+		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
 	if (env->inp2[0] == '&')
 	{
 		rd_dupinput(env, n);
@@ -224,6 +230,8 @@ void		rd_here_doc(t_env *env)
 	n = -1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
 		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1) - 1] - 48);
+	if (n != -1)
+		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
 	rd_delimiter(&env->inp2);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
 		perror("error");
