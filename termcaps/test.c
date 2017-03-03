@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 17:30:01 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/03 17:01:44 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ t_var	*tvar(void)
 	return (var);
 }
 
-void	initvar(t_var *var)
+void	initvar(t_var *var, int i)
 {
-	var->buff = malloc(3);
-	bzero(var->buff, 3);
+	if (i == 1)
+	{
+		var->buff = malloc(3);
+		bzero(var->buff, 3);
+	}
 	var->ret = malloc(INPUT_SIZE);
 	var->cpy = malloc(INPUT_SIZE);
 	var->cpy[0] = 0;
@@ -249,18 +252,24 @@ void	down_arrow(t_var *var, int *bg)
 
 void	control_r(t_var *var, char *tmp, char *tmp2, int j)
 {
-	char	*str;
-	int		i;
+	char		*str;
+	t_ssprintf	*loul;
+	int			i;
 
 	if (var->cpy)
 		tmp2 = ft_strdup(var->cpy);
-	str = termcaps(ft_sprintf("\nhist-i-search : "));
+	loul = malloc(sizeof(t_ssprintf));
+	loul->buf = ft_strdup("\nhist-i-search : ");
+	loul->ret = ft_strlen("\nhist-i-search : ");
+	str = termcaps(loul);
+	free(loul->buf);
+	free(loul);
 	i = ft_strlen(str) / tgetnum("co") + 2;
 	while (i--)
 		ft_putstr(tgetstr("up", NULL));
 	while (--j)
 		ft_putstr(tgetstr("nd", NULL));
-	initvar(var);
+	initvar(var, 1);
 	ft_putstr(tgetstr("cd", NULL));
 	i = 0;
 	while (env()->history[i])
@@ -666,7 +675,7 @@ char	*termcaps(t_ssprintf *prompt)
 
 	ft_putstr(prompt->buf);
 	var = tvar();
-	initvar(var);
+	initvar(var, 1);
 	if ((str = getenv("TERM")) == NULL)
 		str = ft_strdup("xterm-256color");
 	tgetent(NULL, str);

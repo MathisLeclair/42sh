@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 15:00:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 16:59:14 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	ft_sig(int i)
 	else if (env()->i == 1)
 	{
 		i = tvar()->i;
-		while (i--)
-			deleteu(tvar());
+		while (tvar()->i != tvar()->inputlen)
+			right_arrow(tvar());
+		initvar(tvar(), 0);
 		write(1, "\n", 1);
-		ft_putstr(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s",
-			L'✈', env()->dir, PROMPT)->buf);
+		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env()->dir, PROMPT);
 	}
 }
 

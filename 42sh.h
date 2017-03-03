@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 16:57:43 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/03 16:59:37 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ void			copy(t_var *var, int p);
 void			cut(t_var *var);
 
 char			ft_strcmp_beg(char *str1, char *str2);
+void			initvar(t_var *var, int i);
 /*
 ** END OF TEMCAPS
 */
