@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 15:26:16 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 20:17:50 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/03 17:30:46 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ void	add_history(t_var *var)
 	char *num;
 
 	i = 0;
-	if (env()->history == NULL)
-	{
-		env()->history = malloc(sizeof(char *));
-		env()->history[0] = 0;
-	}
 	while (env()->history[i])
 		++i;
 	num = ft_itoa(i);
