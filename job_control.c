@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 14:54:25 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/03 16:22:37 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 17:54:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_last_job(t_env *env)
 void	add_job(int u)
 {
 	t_job *new;
-	char **tmp;
+	// char **tmp;
 
 	new = malloc(sizeof(t_job));
 	env()->job->next = new;
@@ -42,18 +42,18 @@ void	add_job(int u)
 	new->status = ft_strdup("suspend");
 	new->stat = '+';
 	new->num = env()->job->num + 1;
-	tmp = ft_strsplitquote(env()->input, ' ', 0);
-	new->name = ft_strdup(tmp[0]);
+	// tmp = ft_strsplitquote(env()->input, ' ', 0);
+	new->name = ft_strdup(env()->input);
 	env()->job = env()->job->next;
-	free(tmp);
+	// free(tmp);
 }
 
 void	retreive_ctrlz(int i)
 {
 	env()->booljob = 1;
-	// kill(SIGTSTP, new->pid);
 	tcsetpgrp(env()->shell_terminal, i);
 	kill(SIGCONT, i);
+	printf("\nsuspend\n");
 }
 
 void	jobctrl_init_shell(void)

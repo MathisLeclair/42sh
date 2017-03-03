@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 16:07:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 18:16:25 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	else if (ft_strcmp(split[0], "job") == 0)
 		builtin_jobs(env, split);
 	else if (ft_strcmp(split[0], "fg") == 0)
-		builtin_fg(env, split);
+		builtin_fg(env, split, 0);
 	else if (ft_strcmp(split[0], "bg") == 0)
 		builtin_bg(env, split);
 	else

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 18:39:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 17:42:10 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	error2(int i, char *str)
 		ft_remstr(tvar()->ret, 0, ft_strlen(tvar()->ret));
 		ft_putstr("\nshell: No such event");
 	}
+	else if (i == -14)
+		ft_putstr("job: No of job not found\n");
 }
 
 void	error(int i, char *str, char *str2)

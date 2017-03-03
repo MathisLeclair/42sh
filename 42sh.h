@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 17:21:28 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/03 18:16:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ void			builtin_history(t_env *env, char **split);
 
 void			builtin_jobs(t_env *ev, char **split);
 void			builtin_bg(t_env *ev, char **split);
-void			builtin_fg(t_env *ev, char **split);
+void			builtin_fg(t_env *ev, char **split, int boule);
 
 
 /*
