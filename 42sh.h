@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 16:40:29 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 15:50:11 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@
 # include <sys/stat.h>
 # include <pwd.h>
 
+typedef struct	s_job
+{
+	char			*name;
+	char			stat;
+	char			*status;
+	int				pid;
+	int				num;
+	struct s_job	*prev;
+	struct s_job	*next;
+}				t_job;
+
 typedef struct	s_env
 {
 	char			**history;
@@ -44,8 +55,9 @@ typedef struct	s_env
 	char			*inp2;
 	int				lastret;
 	int				isoperand;
-	int				*PID;
 	int				shell_terminal;
+	t_job			*job;
+	int				booljob;
 }				t_env;
 
 typedef struct	s_var
@@ -199,6 +211,15 @@ void			builtin_export(t_env *env, char **split);
 void			builtin_history(t_env *env, char **split);
 
 /*
+** builtin_job_control.c
+*/
+
+void			builtin_jobs(t_env *ev, char **split);
+void			builtin_bg(t_env *ev, char **split);
+void			builtin_fg(t_env *ev, char **split);
+
+
+/*
 ** job_control.c
 */
 
@@ -246,7 +267,6 @@ void			bquote(t_env *env);
 
 int				subshell(t_env *env, char *input);
 void			retvalue_into_loc(t_env *env, int i);
-void			pidenv(int u);
 
 /*
 ** termcaps.c
@@ -284,4 +304,10 @@ char			ft_strcmp_beg(char *str1, char *str2);
 /*
 ** END OF TEMCAPS
 */
+
+void			signblock();
+void			free_last_job(t_env *env);
+void			add_job(int u);
+
+
 #endif

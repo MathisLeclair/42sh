@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/02 12:59:15 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/02 17:03:39 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ FILES 	=						\
 			bquote 				\
 			builtins 			\
 			builtins2 			\
+			builtin_job_control \
 			cmd_env 			\
 			cmd 				\
 			double_array_sort 	\

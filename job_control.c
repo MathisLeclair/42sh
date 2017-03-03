@@ -6,51 +6,54 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 14:54:25 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/02 14:44:29 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 16:22:37 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-/*
-**	See if we are running interactively.
-**	Loop until we are in the foreground.
-**	Ignore interactive and job-control signals.
-**	Put ourselves in our own process group.
-**	Grab control of the terminal.
-**	Save default terminal attributes for shell.
-*/
-
-void	 pidenv(int u)
+void	free_last_job(t_env *env)
 {
-	int i;
+	while (env->job->next)
+		env->job = env->job->next;
+	if (env->job->prev)
+		env->job = env->job->prev;
+	else
+		return ;
+	free(env->job->next->status);
+	free(env->job->next);
+	env->job->next = NULL;
 
-	i = -1;
-	while (env()->PID[++i])
-		;
-	if (u == 0)
-	{
-		env()->PID[i] = env()->i;
-		env()->PID[i + 1] = 0;
-	}
-	else if (i >= 1)
-		env()->PID[i - 1] = 0;
+}
+
+void	add_job(int u)
+{
+	t_job *new;
+	char **tmp;
+
+	new = malloc(sizeof(t_job));
+	env()->job->next = new;
+	env()->job->stat = '-';
+	if (env()->job->prev)
+		env()->job->prev->stat = ' ';
+	new->prev = env()->job;
+	new->pid = u;
+	new->next = NULL;
+	new->status = ft_strdup("suspend");
+	new->stat = '+';
+	new->num = env()->job->num + 1;
+	tmp = ft_strsplitquote(env()->input, ' ', 0);
+	new->name = ft_strdup(tmp[0]);
+	env()->job = env()->job->next;
+	free(tmp);
 }
 
 void	retreive_ctrlz(int i)
 {
-	i = -1;
-	while (env()->PID[++i])
-		;
-	--i;
-	if (env()->PID[i] == env()->PID[0])
-		return ;
-	if (tcgetpgrp(env()->PID[0]) != env()->PID[0])
-	{
-		kill(SIGTSTP, env()->PID[i]);
-		tcsetpgrp(env()->shell_terminal, env()->PID[0]);
-		kill(SIGCONT, env()->PID[0]);
-	}
+	env()->booljob = 1;
+	// kill(SIGTSTP, new->pid);
+	tcsetpgrp(env()->shell_terminal, i);
+	kill(SIGCONT, i);
 }
 
 void	jobctrl_init_shell(void)

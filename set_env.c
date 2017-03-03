@@ -6,11 +6,20 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 13:48:14 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 14:23:59 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+void	set_e3(t_env *e)
+{
+	e->job->status = NULL;
+	e->job->stat = 0;
+	e->job->next = NULL;
+	e->job->prev = NULL;
+	e->job->num = 0;
+}
 
 void	set_evloc2(t_env *e)
 {
@@ -32,12 +41,13 @@ void	set_evloc2(t_env *e)
 	free(buf);
 	e->redir = malloc(sizeof(char *));
 	*e->redir = 0;
-	env()->isoperand = 0;
-	env()->history = malloc(sizeof(char *));
-	env()->history[0] = 0;
-	e->PID = malloc(sizeof(int *));
-	e->PID[0] = getpid();
-	e->PID[1] = 0;
+	e->isoperand = 0;
+	e->history = malloc(sizeof(char *));
+	e->history[0] = 0;
+	e->job = malloc(sizeof(t_job));
+	e->job->name = "shell";
+	e->job->pid = getpid();
+	set_e3(e);
 }
 
 void	set_evloc(t_env *e)

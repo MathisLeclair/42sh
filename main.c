@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 13:34:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 15:00:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,16 @@ void	ft_sig(int i)
 		ft_putstr(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s",
 			L'✈', env()->dir, PROMPT)->buf);
 	}
+}
+
+void	signblock(void)
+{
+	sigset_t *set;
+
+	set = malloc(sizeof(sigset_t));
+	sigemptyset(set);
+	sigaddset(set, SIGTSTP);
+	sigprocmask(SIG_BLOCK, set, NULL);
 }
 
 int		main(int ac, char **av, char **ev)
