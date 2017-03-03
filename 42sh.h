@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 18:16:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 18:29:08 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,7 @@ void			signblock();
 void			free_last_job(t_env *env);
 void			add_job(int u);
 void			set_history(void);
+void			file_history(void);
 
 
 #endif
