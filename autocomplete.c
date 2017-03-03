@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/01 13:59:33 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/03 17:08:46 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ char	**auto_possibilities(char pwd, t_env *env)
 	env->find = env->input;
 	env->input = find_lwc;
 	save = ft_strdup(env->find);
-	if (env->find[0] == '/')
+	if (env->find[0] == '/' || env->find[0] == '.')
 	{
 		ac_target(save, &ac);
 		if (ac[0] == 0 && opendir(ft_strcat(env->find, "/")))
