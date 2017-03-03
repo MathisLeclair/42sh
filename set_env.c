@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 14:23:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 17:21:19 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	set_evloc2(t_env *e)
 	e->redir = malloc(sizeof(char *));
 	*e->redir = 0;
 	e->isoperand = 0;
-	e->history = malloc(sizeof(char *));
-	e->history[0] = 0;
+	set_history();
 	e->job = malloc(sizeof(t_job));
 	e->job->name = "shell";
 	e->job->pid = getpid();
