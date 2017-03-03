@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/02 17:03:39 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/03 16:57:56 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ FILES 	=						\
 			main				\
 			operator 			\
 			redirection 		\
+			redirection_fd		\
 			set_env 			\
 			subshell			\
 			termcaps/history 	\

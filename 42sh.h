@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 15:50:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/03 16:57:43 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,13 @@ void			oprt_and(t_env *env);
 void			oprt_or(t_env *env);
 
 /*
+** redirection_fd.c
+*/
+
+void			rd_dupinput(t_env *env, char n);
+void			rd_dupoutput(t_env *env, char n);
+
+/*
 ** redirection.c
 */
 
@@ -251,9 +258,6 @@ void			rd_input(t_env *env);
 
 void			rd_here_doc(t_env *env);
 void			parse(t_env *env, char *input);
-
-void			rd_dupinput(t_env *env, char n);
-void			rd_dupoutput(t_env *env, char n);
 
 /*
 ** bquote.c
