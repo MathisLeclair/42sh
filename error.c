@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 17:42:10 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 13:25:53 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	error(int i, char *str, char *str2)
 	else if (i == -6)
 	{
 		ft_putstr("\n");
-		exit(EXIT_FAILURE);
+		file_history();
+		exit(EXIT_SUCCESS);
 	}
 	else if (i == -7)
 		ft_putstr("shell: error too many arguments.\n");
