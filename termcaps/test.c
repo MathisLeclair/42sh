@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 15:58:10 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/04 16:02:30 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -463,7 +463,7 @@ void	copy(t_var *var, int p)
 	while (i <= var->selend)
 		var->cpy[j++] = var->ret[i++];
 	var->cpy[i + 1] = 0;
-	if (p != 1)
+	if (p != 1 && var->cpy[0])
 		desel(var);
 }
 
