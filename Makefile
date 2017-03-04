@@ -6,7 +6,7 @@
 #    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/03 17:27:16 by bfrochot         ###   ########.fr        #
+#    Updated: 2017/03/04 14:28:48 by bfrochot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ FILES 	=						\
 			redirection_fd		\
 			set_env 			\
 			subshell			\
-			termcaps/history 	\
 			termcaps/test 		\
 			tilde 				\
 			verif_quote 		\
