@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/03 17:08:46 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/04 14:27:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	ft_ac_cmd_build(char ***ac, char *find)
 		add_str_to_dstr(ac, "export");
 	if (strstr_bool(find, ft_strdup("set")))
 		add_str_to_dstr(ac, "set");
+	if (strstr_bool(find, ft_strdup("job")))
+		add_str_to_dstr(ac, "job");
 }
 
 void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
