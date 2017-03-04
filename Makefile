@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
+#    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/04 14:28:48 by bfrochot         ###   ########.fr        #
+#    Updated: 2017/03/04 17:44:12 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,8 @@ FILES 	=						\
 			termcaps/test 		\
 			tilde 				\
 			verif_quote 		\
+			handle_argv 		\
+			handle_file			\
 			history
 
 OBJS  := 	$(addsuffix .o, $(FILES))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 17:16:04 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/05 17:35:37 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,16 @@ void	signblock(int i)
 
 int		main(int ac, char **av, char **ev)
 {
-	t_env *envi;
-
-	envi = env();
 	set_env(env(), ev);
 	signal(SIGINT, ft_sig);
 	signal(SIGCONT, ft_sig);
 	signal(SIGTSTP, retreive_ctrlz);
-	(void)av;
-	(void)ac;
 	shlvl(env());
 	jobctrl_init_shell();
+	handle_file(ac, av, env());
 	while (1)
 	{
-		if ((ft_read(env())) == 0)
+		if ((ft_read(env(), NULL)) == 0)
 			continue ;
 		else
 		{

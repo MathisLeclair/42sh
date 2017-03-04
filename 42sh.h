@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 11:19:00 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/05 17:36:16 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char			*ft_super_strstr(const char *str1, const char *str2);
 **cmd.c
 */
 
-int				ft_read(t_env *env);
+int				ft_read(t_env *env, char *input);
 int				ft_reco_cmd(t_env *env);
 void			ft_suppr_quotes(char *str, int i, int j);
 
@@ -125,6 +125,7 @@ void			*palloc(size_t	size);
 
 int				find_param(char **split, char *str);
 void			add_var_to_env(t_env *env, char *str);
+void			add_pair_to_env(t_env *env, char *key, char *val);
 void			suppr_var_env(t_env *env, char *str);
 
 /*
@@ -260,6 +261,18 @@ void			rd_input(t_env *env);
 
 void			rd_here_doc(t_env *env);
 void			parse(t_env *env, char *input);
+
+/*
+** handle_argv.c
+*/
+
+void			handle_argv(int ac, char **av, t_env *loc);
+
+/*
+** handle_file.c
+*/
+
+void			handle_file(int ac, char **av, t_env *env);
 
 /*
 ** bquote.c

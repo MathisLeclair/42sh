@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_mod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 15:10:15 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/30 17:44:32 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 15:35:00 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,19 @@ void	add_var_to_env(t_env *env, char *str)
 	}
 	else
 		modif_var_env(env, str, i);
+}
+
+void	add_pair_to_env(t_env *env, char *key, char *val)
+{
+	char *tmp;
+
+	tmp = palloc(ft_strlen(key) + ft_strlen(val) + 2);
+	*tmp = '\0';
+	ft_strcat(tmp, key);
+	ft_strcat(tmp, "=");
+	ft_strcat(tmp, val);
+	add_var_to_env(env, tmp);
+	free(tmp);
 }
 
 void	suppr_var_env(t_env *env, char *str)

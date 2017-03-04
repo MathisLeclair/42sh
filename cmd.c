@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 11:15:19 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 18:28:12 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,13 +301,13 @@ void	parse(t_env *env, char *input)
 	}
 }
 
-int		ft_read(t_env *env)
+int		ft_read(t_env *env, char *input)
 {
-	char	*input;
 	char	**inputspl;
 	int		i;
 
-	input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));
+	if (input == NULL)
+		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));
 	//LA
 	if (verif_quote(input, 0) == -1)
 		return (0);
