@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:19:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/03 18:19:57 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/04 13:43:11 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,11 @@ void	file_history(void)
 	char	*tmp;
 	char	*num;
 
-	if ((fd = open("/tmp/.42shhistory", O_CREAT, 0777)) == -1)
-		return ;
-	close(fd);
-	fd = open("/tmp/.42shhistory", S_IRWXU | O_TRUNC);
-	printf("%d\n", fd);
-	printf("%ld\n", write(fd," ", 1));
+	fd = open("/tmp/.42shhistory", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	i = 0;
 	while (env()->history[i])
 		++i;
-	i = i > 10000 ? i - 10000 : 0;
+	i = i > 5000 ? i - 5000 : 0;
 	j = 0;
 	while (env()->history[i])
 	{
@@ -53,8 +48,8 @@ void	file_history(void)
 		num = ft_itoa(j);
 		k = -1;
 		while (++k < 5 - (int)ft_strlen(num))
-			tmp[i] = ' ';
-		tmp[i] = 0;
+			tmp[k] = ' ';
+		tmp[k] = 0;
 		ft_strcat(tmp, num);
 		free(num);
 		write(fd, tmp, 5);
