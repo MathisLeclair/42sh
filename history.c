@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:19:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/04 14:28:31 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/04 17:05:08 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ void	add_history(t_var *var)
 	ft_strcat(tmp, num);
 	ft_strcat(tmp, "  ");
 	ft_strcat(tmp, var->ret);
-	add_str_to_dstr(&env()->history, tmp);
+	i = 0;
+	while (env()->history[i])
+		++i;
+	if (i != 0 && ft_strcmp(tmp + 7, env()->history[i - 1] + 7))
+		add_str_to_dstr(&env()->history, tmp);
 	free(tmp);
 	free(num);
 }
