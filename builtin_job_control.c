@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:00:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 12:41:37 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 16:53:45 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ void	fg_minus(t_env *e)
 		e->job = e->job->prev;
 	while (e->job->next)
 	{
-		printf("e->job->stat=%c\n", e->job->stat);
 		if (e->job->stat == '+')
 		{
-			printf("test\n");
 			e->job->stat = '-';
 			return ;
 		}
@@ -72,8 +70,8 @@ void	builtin_fg(t_env *ev, char **split, int boule)
 		{
 			tcsetpgrp(ev->shell_terminal, ev->job->pid);
 			kill(ev->job->pid, SIGCONT);
+			ev->job->killable = 1;
 			fg_minus(ev);
-			// supressoldstat(ev, '+');
 			ev->job->stat = '+';
 		}
 		else
@@ -85,9 +83,10 @@ void	builtin_fg(t_env *ev, char **split, int boule)
 	else
 	{
 		if (boule == 0)
+		{
 			tcsetpgrp(ev->shell_terminal, ev->job->pid);
-		else
 			ev->job->killable = 1;
+		}
 		kill(ev->job->pid, SIGCONT);
 	}
 }
