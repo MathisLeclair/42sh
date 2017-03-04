@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 13:19:41 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/04 15:58:10 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,23 @@ t_var	*tvar(void)
 	static t_var	*var = NULL;
 
 	if (var == NULL)
+	{
 		var = malloc(sizeof(t_var));
+		var->cpy = malloc(sizeof(INPUT_SIZE));
+		var->ret = malloc(sizeof(INPUT_SIZE));
+		var->buff = malloc(3);
+		var->buff[0] = 0;
+		var->buff[1] = 0;
+		var->buff[2] = 0;
+	}
 	return (var);
 }
 
 void	initvar(t_var *var, int i)
 {
 	if (i == 1)
-	{
-		var->buff = malloc(3);
 		bzero(var->buff, 3);
-	}
-	var->ret = malloc(INPUT_SIZE);
-	var->cpy = malloc(INPUT_SIZE);
-	var->cpy[0] = 0;
-	var->lenprompt = 10 + ft_strlen(env()->dir); // A CHANGER POUR LA TAILLE DU PROMPT EN TPS REEL
+	var->lenprompt = 10 + ft_strlen(env()->dir);
 	var->lenligne = var->lenprompt;
 	var->i = 0;
 	var->sovi = 0;
@@ -50,6 +52,7 @@ void	initvar(t_var *var, int i)
 	var->inputlen = 0;
 	var->ac = NULL;
 	var->arr = 0;
+	var->ret[0] = 0;
 }
 
 void	add_car(t_var *var, int boule, char c)
@@ -328,14 +331,17 @@ void	backspace(t_var *var)
 
 void	replace_w(char *word, t_var *var)
 {
+	char	*tmp;
+
 	while (var->i && var->ret[var->i - 1] != ' ')
 		backspace(var);
 	while (var->ret[var->i] != ' ' && var->ret[var->i])
 		deleteu(var);
+	tmp = var->cpy;
 	var->cpy = ft_strdup(word);
 	paste(var);
 	free(var->cpy);
-	var->cpy = NULL;
+	var->cpy = tmp;
 }
 
 void	put_ac(t_var * var)
@@ -493,10 +499,6 @@ void	reset(t_var *var)
 	var->term.c_lflag = (ICANON | ECHO);
 	tcsetattr(0, 0, &var->term);
 	tcsetattr(0, 0, &var->termsav);
-	free(var->buff);
-	var->buff = NULL;
-	free(var->cpy);
-	var->cpy = NULL;
 	var->term = var->termsav;
 	ft_putstr(tgetstr("ei", NULL)); // END OF INSERT MODE
 }
@@ -686,10 +688,10 @@ char	*termcaps(t_ssprintf *prompt)
 		error(-6, 0, 0);
 	touch(var);
 	reset(var);
-	// free(var);
-	str = var->ret;
+	str = ft_strdup(var->ret);
 	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
 		add_history(var);
 	ft_bzero(prompt->buf, prompt->ret);
+	initvar(var, 1);
 	return (str);
 }
