@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 18:16:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 11:15:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,23 @@ void	extract_heredoc(t_env *env, char *input)
 	env->inp1 =  ft_strdup(input);
 }
 
+void	handle_weirde(t_env *e)
+{
+	int i;
+
+	i = -1;
+	while (e->input[++i])
+	{
+		if (e->input[i] == '&' && i > 1 && e->input[i - 1] != '<' &&
+			e->input[i - 1] != '>' && e->input[i + 1] != '&'
+			&& e->input[i - 1] != '&')
+		{
+			e->boolweride = 1;
+			e->input[i] = ' ';
+		}
+	}
+}
+
 void	parse(t_env *env, char *input)
 {
 	int i;
@@ -235,6 +252,7 @@ void	parse(t_env *env, char *input)
 	i = -1;
 	free(env->input);
 	env->input = ft_strdup(input);
+	handle_weirde(env);
 	while (ft_strchr(env->input, '`') != 0)
 		bquote(env);
 	if (ft_strchr(env->input, '$'))
@@ -245,8 +263,6 @@ void	parse(t_env *env, char *input)
 		oprt_or(env);
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
-	// else if (cmprev(input, "&") != -1)
-	// 	oprt_or(env);
 	else if (cmprev(input, "<") != -1)
 	{
 		extract_rd_output(env, input);

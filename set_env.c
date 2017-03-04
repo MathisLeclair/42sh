@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 18:16:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 11:19:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	set_e3(t_env *e)
 	e->job->next = NULL;
 	e->job->prev = NULL;
 	e->job->num = 0;
+	e->boolweride = 0;
+	e->job->killable = -1;
 }
 
 void	set_evloc2(t_env *e)

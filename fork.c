@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 15:57:56 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 12:52:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void	ft_fork(t_env *env, char **input)
 		add_job(env->i);
 		if (waitpid(env->i, &status, WUNTRACED) == -1)
 			error(-3, NULL, NULL);
+		if (env->boolweride == 1)
+		{
+			retreive_ctrlz(env->i);
+			builtin_bg(env, NULL);
+		}
 		if (env->booljob == 0)
 			free_last_job(env);
 		env->booljob = 0;

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 18:29:08 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/04 11:19:00 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_job
 	char			*status;
 	int				pid;
 	int				num;
+	int				killable;
 	struct s_job	*prev;
 	struct s_job	*next;
 }				t_job;
@@ -58,6 +59,7 @@ typedef struct	s_env
 	int				shell_terminal;
 	t_job			*job;
 	int				booljob;
+	int				boolweride;
 }				t_env;
 
 typedef struct	s_var

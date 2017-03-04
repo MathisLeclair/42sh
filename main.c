@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/03 18:12:18 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 11:35:09 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ t_env	*env(void)
 
 void	ft_sig(int i)
 {
-	if (env()->i == 0)
+	if (env()->i == 0 && getpid() != env()->job->pid &&
+		env()->job->killable == 1)
 	{
-		reset(tvar());
-		exit(0);
+			reset(tvar());
+			kill(env()->job->pid, SIGINT);
 	}
 	else if (env()->i == 1)
 	{
@@ -60,14 +61,17 @@ void	ft_sig(int i)
 	}
 }
 
-void	signblock(void)
+void	signblock(int i)
 {
 	sigset_t *set;
 
 	set = malloc(sizeof(sigset_t));
 	sigemptyset(set);
-	sigaddset(set, SIGTSTP);
-	sigprocmask(SIG_BLOCK, set, NULL);
+	sigaddset(set, SIGINT);
+	if (i == 1)
+		sigprocmask(SIG_BLOCK, set, NULL);
+	else
+		sigprocmask(SIG_UNBLOCK, set, NULL);
 }
 
 int		main(int ac, char **av, char **ev)
