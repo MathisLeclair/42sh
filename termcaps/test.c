@@ -6,15 +6,13 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 16:02:30 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/04 18:02:27 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <termios.h>
 #include <unistd.h>
 #include <term.h>
-#include <errno.h>
-#include <stdio.h>
 #include <curses.h>
 #include <stdlib.h>
 
