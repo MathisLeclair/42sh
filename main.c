@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 14:01:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 17:16:04 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,16 @@ t_env	*env(void)
 
 void	ft_sig(int i)
 {
-	if (env()->i == 0 && getpid() != env()->job->pid &&
-		env()->job->killable == 1)
+	if (env()->i == 0)
 	{
-			reset(tvar());
-			kill(env()->job->pid, SIGINT);
+		reset(tvar());
+		exit(0);
+		// kill(env()->job->pid, SIGINT);
 	}
 	else if (env()->i == 1)
 	{
+		if (env()->job->killable == 1)
+			free_last_job(env());
 		i = tvar()->i;
 		while (tvar()->i != tvar()->inputlen)
 			right_arrow(tvar());

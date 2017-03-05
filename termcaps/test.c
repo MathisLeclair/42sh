@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 18:02:27 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/05 15:15:05 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -605,6 +605,7 @@ void	touch(t_var *var)
 			up_arrow(var, &bg);
 		else if (var->buff[0] == 27 && var->buff[2] == 66 && var->ac) // DOWN ARROW
 			down_arrow(var, &bg);
+
 		else
 		{
 			free(var->arr);

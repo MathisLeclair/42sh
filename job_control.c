@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 14:54:25 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/04 11:52:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/04 17:21:38 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_last_job(t_env *env)
 {
+	printf("LIBERER   WDOIDWAOIHDWAHOWD\n");
 	while (env->job->next)
 		env->job = env->job->next;
 	if (env->job->prev)
@@ -48,10 +49,16 @@ void	add_job(int u)
 
 void	retreive_ctrlz(int i)
 {
-	env()->booljob = 1;
-	tcsetpgrp(env()->shell_terminal, i);
-	kill(SIGCONT, i);
-	printf("\nsuspend\n");
+	(void)i;
+
+	if (getpid() != env()->job->pid)
+	{
+		env()->booljob = 1;
+		env()->job->killable = 0;
+		tcsetpgrp(env()->shell_terminal, i);
+		kill(getpid(), SIGCONT);
+		printf("\nsuspend\n");
+	}
 }
 
 void	jobctrl_init_shell(void)
