@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 13:36:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/05 17:34:25 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <termios.h>
 #include <unistd.h>
 #include <term.h>
-#include <errno.h>
-#include <stdio.h>
 #include <curses.h>
 #include <stdlib.h>
 
