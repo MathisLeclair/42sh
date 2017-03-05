@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 16:02:30 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/05 13:36:15 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -607,6 +607,7 @@ void	touch(t_var *var)
 			up_arrow(var, &bg);
 		else if (var->buff[0] == 27 && var->buff[2] == 66 && var->ac) // DOWN ARROW
 			down_arrow(var, &bg);
+
 		else
 		{
 			free(var->arr);
