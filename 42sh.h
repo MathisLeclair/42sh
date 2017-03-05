@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 17:36:16 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/03/05 19:12:22 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,7 @@ void			free_last_job(t_env *env);
 void			add_job(int u);
 void			set_history(void);
 void			file_history(void);
+void			auto_prop(t_var *var);
 
 
 #endif

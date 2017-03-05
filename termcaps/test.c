@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 17:34:25 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/03/05 19:39:42 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,21 +344,22 @@ void	replace_w(char *word, t_var *var)
 
 void	put_ac(t_var * var)
 {
-	(void)var;
-	// int i;
-	// int j;
+	int i;
 
-	// i = var->i;
-	// while (var->i != var->inputlen)
-	// 	right_arrow(var);
-	// ft_putstr("bite\nb");
-	// while (var->i != i)
-	// 	left_arrow(var);
-	// j = 0;
-	// while (j++ < 6)
-	// 	left_arrow(var);
-	// var->i += j - 1;
-	// var->lenligne += j - 1;
+	i = var->i;
+	while (var->i != var->inputlen)
+		right_arrow(var);
+	while ((var->i + var->lenprompt - 1) % tgetnum("co") != 0)
+	{
+		write(1, " ", 1);
+		var->i += 1;
+	}
+	auto_prop(var);
+	while (var->i != i)
+	{
+		ft_putstr(tgetstr("le", NULL));
+		var->i -= 1;
+	}
 }
 
 void	tabu(t_var *var, int *j)
@@ -375,8 +376,8 @@ void	tabu(t_var *var, int *j)
 			replace_w(var->ac[0], var);
 		if (var->ac[1] == 0)
 			*j = 0;
-		// else
-			// put_ac(var);
+		else
+			put_ac(var);
 		i = 0;
 	}
 	else
@@ -386,7 +387,7 @@ void	tabu(t_var *var, int *j)
 		if (var->ac[i] == 0)
 			i = 0;
 		replace_w(var->ac[i], var);
-		// put_ac(var);
+		put_ac(var);
 		++i;
 	}
 }
@@ -659,6 +660,7 @@ void	touch(t_var *var)
 	}
 	while (var->i != var->inputlen)
 		right_arrow(var);
+	ft_putstr(tgetstr("cd", NULL));
 	if (ft_strchr(var->ret, '!'))
 		exclam(var);
 	write(1, "\n", 1);

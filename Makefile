@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
+#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/04 17:44:12 by tgauvrit         ###   ########.fr        #
+#    Updated: 2017/03/05 19:12:44 by bfrochot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ FILES 	=						\
 			verif_quote 		\
 			handle_argv 		\
 			handle_file			\
-			history
+			history				\
+			auto_prop
 
 OBJS  := 	$(addsuffix .o, $(FILES))
 
