@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 17:35:37 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/03/05 19:11:12 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,15 @@ t_env	*env(void)
 
 void	ft_sig(int i)
 {
-	if (env()->i == 0)
+	if (env()->i != 1 && env()->job->pid != getpid() && env()->job->killable == 1)
 	{
 		reset(tvar());
-		exit(0);
-		// kill(env()->job->pid, SIGINT);
+		kill(env()->job->pid, SIGINT);
+		printf("test\n");
+		free_current_job(env());
 	}
 	else if (env()->i == 1)
 	{
-		if (env()->job->killable == 1)
-			free_last_job(env());
 		i = tvar()->i;
 		while (tvar()->i != tvar()->inputlen)
 			right_arrow(tvar());

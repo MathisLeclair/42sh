@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 17:36:16 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/03/05 18:52:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ void			initvar(t_var *var, int i);
 */
 
 void			signblock();
-void			free_last_job(t_env *env);
+void			free_current_job(t_env *env);
 void			add_job(int u);
 void			set_history(void);
 void			file_history(void);

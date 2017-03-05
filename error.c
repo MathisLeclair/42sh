@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 13:25:53 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/05 17:50:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	error2(int i, char *str)
 		ft_putstr("\nshell: No such event");
 	}
 	else if (i == -14)
-		ft_putstr("job: No of job not found\n");
+		ft_putstr("job: Number of job not found\n");
 }
 
 void	error(int i, char *str, char *str2)
