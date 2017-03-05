@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:00:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 16:53:45 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/05 17:51:01 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	builtin_jobs(t_env *ev, char **split)
 	while(ev->job->prev)
 		ev->job = ev->job->prev;
 	if (!ev->job->next)
-		return ;
+		return(ft_putstr("No current job\n")) ;
 	while(ev->job->next)
 	{
 		ev->job = ev->job->next;

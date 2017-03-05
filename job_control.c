@@ -6,25 +6,25 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 14:54:25 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/04 17:21:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/05 18:16:30 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-void	free_last_job(t_env *env)
+void	free_current_job(t_env *env)
 {
-	printf("LIBERER   WDOIDWAOIHDWAHOWD\n");
-	while (env->job->next)
-		env->job = env->job->next;
-	if (env->job->prev)
-		env->job = env->job->prev;
-	else
-		return ;
-	free(env->job->next->status);
-	free(env->job->next);
-	env->job->next = NULL;
+	t_job *sav;
 
+	if (env->job->pid == getpid())
+		return ;
+	sav = env->job->prev;
+	env->job->prev->next = env->job->next;
+	if (env->job->next)
+		env->job->next->prev = env->job->prev;
+	free(env->job->status);
+	free(env->job);
+	env->job = sav;
 }
 
 void	add_job(int u)
@@ -53,11 +53,12 @@ void	retreive_ctrlz(int i)
 
 	if (getpid() != env()->job->pid)
 	{
+		kill(env()->job->pid, SIGTSTP);
 		env()->booljob = 1;
 		env()->job->killable = 0;
 		tcsetpgrp(env()->shell_terminal, i);
 		kill(getpid(), SIGCONT);
-		printf("\nsuspend\n");
+		printf("\nSuspended\n");
 	}
 }
 
