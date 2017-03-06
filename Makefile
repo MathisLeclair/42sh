@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/06 11:32:38 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/06 12:33:04 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ OBJDIR	= 	objs
 LIBDIR	= 	./libft/
 
 # Files && Objs
+TCAPS	=	termcaps
 FILES 	=						\
 			aperture 			\
 			autocomplete 		\
@@ -44,10 +45,11 @@ FILES 	=						\
 			main				\
 			operator 			\
 			redirection 		\
+			redirection_adv		\
 			redirection_fd		\
 			set_env 			\
 			subshell			\
-			termcaps/test 		\
+			$(TCAPS)/test 		\
 			tilde 				\
 			verif_quote 		\
 			handle_argv 		\
@@ -91,7 +93,7 @@ all: 		$(OBJDIR) $(NAME)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR) 2>&-
-	@cd $(OBJDIR) && mkdir -p termcaps 2>&-
+	@cd $(OBJDIR) && mkdir -p $(TCAPS) 2>&-
 
 $(NAME): 	$(OBJP)
 			@echo "----------------------------------------"
@@ -101,7 +103,7 @@ $(NAME): 	$(OBJP)
 			@echo "|           sub compilation :          |"
 			@echo "|                libft                 |"
 			@make -C $(LIBDIR)
-			@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./termcaps
+			@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./$(TCAPS)
 			@echo "|                 FIN                  |"
 			@echo "----------------------------------------"
 			@echo "               ________"
