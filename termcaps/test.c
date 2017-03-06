@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 15:15:05 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 10:40:06 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,21 +344,22 @@ void	replace_w(char *word, t_var *var)
 
 void	put_ac(t_var * var)
 {
-	(void)var;
-	// int i;
-	// int j;
+	int i;
 
-	// i = var->i;
-	// while (var->i != var->inputlen)
-	// 	right_arrow(var);
-	// ft_putstr("bite\nb");
-	// while (var->i != i)
-	// 	left_arrow(var);
-	// j = 0;
-	// while (j++ < 6)
-	// 	left_arrow(var);
-	// var->i += j - 1;
-	// var->lenligne += j - 1;
+	i = var->i;
+	while (var->i != var->inputlen)
+		right_arrow(var);
+	while ((var->i + var->lenprompt - 1) % tgetnum("co") != 0)
+	{
+		write(1, " ", 1);
+		var->i += 1;
+	}
+	auto_prop(var);
+	while (var->i != i)
+	{
+		ft_putstr(tgetstr("le", NULL));
+		var->i -= 1;
+	}
 }
 
 void	tabu(t_var *var, int *j)
@@ -375,8 +376,8 @@ void	tabu(t_var *var, int *j)
 			replace_w(var->ac[0], var);
 		if (var->ac[1] == 0)
 			*j = 0;
-		// else
-			// put_ac(var);
+		else
+			put_ac(var);
 		i = 0;
 	}
 	else
@@ -386,7 +387,7 @@ void	tabu(t_var *var, int *j)
 		if (var->ac[i] == 0)
 			i = 0;
 		replace_w(var->ac[i], var);
-		// put_ac(var);
+		put_ac(var);
 		++i;
 	}
 }
@@ -567,7 +568,7 @@ void	touch(t_var *var)
 		++bg;
 	i = 0;
 	var->i = 0;
-	var->ret[0] = 0; 
+	var->ret[0] = 0;
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
 	ft_putstr(tgetstr("bw", NULL));
 	while (var->buff[0] != 10)
@@ -587,7 +588,7 @@ void	touch(t_var *var)
 			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
 			left_arrow(var);
-		if (var->buff[0] == 27 && var->buff[2] == 67)  //RIGHT ARROW 
+		if (var->buff[0] == 27 && var->buff[2] == 67)  //RIGHT ARROW
 			right_arrow(var);
 		if (var->buff[0] == 59 && var->buff[2] == 68) //SHIFT + LEFT ARROW
 			shift_arrow_l(var);
@@ -659,6 +660,7 @@ void	touch(t_var *var)
 	}
 	while (var->i != var->inputlen)
 		right_arrow(var);
+	ft_putstr(tgetstr("cd", NULL));
 	if (ft_strchr(var->ret, '!'))
 		exclam(var);
 	write(1, "\n", 1);

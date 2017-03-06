@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 17:16:04 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/05 19:11:12 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,15 @@ t_env	*env(void)
 
 void	ft_sig(int i)
 {
-	if (env()->i == 0)
+	if (env()->i != 1 && env()->job->pid != getpid() && env()->job->killable == 1)
 	{
 		reset(tvar());
-		exit(0);
-		// kill(env()->job->pid, SIGINT);
+		kill(env()->job->pid, SIGINT);
+		printf("test\n");
+		free_current_job(env());
 	}
 	else if (env()->i == 1)
 	{
-		if (env()->job->killable == 1)
-			free_last_job(env());
 		i = tvar()->i;
 		while (tvar()->i != tvar()->inputlen)
 			right_arrow(tvar());
@@ -77,20 +76,16 @@ void	signblock(int i)
 
 int		main(int ac, char **av, char **ev)
 {
-	t_env *envi;
-
-	envi = env();
 	set_env(env(), ev);
 	signal(SIGINT, ft_sig);
 	signal(SIGCONT, ft_sig);
 	signal(SIGTSTP, retreive_ctrlz);
-	(void)av;
-	(void)ac;
 	shlvl(env());
 	jobctrl_init_shell();
+	handle_file(ac, av, env());
 	while (1)
 	{
-		if ((ft_read(env())) == 0)
+		if ((ft_read(env(), NULL)) == 0)
 			continue ;
 		else
 		{

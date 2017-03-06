@@ -6,7 +6,7 @@
 #    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/04 14:28:48 by bfrochot         ###   ########.fr        #
+#    Updated: 2017/03/05 19:12:44 by bfrochot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,10 @@ FILES 	=						\
 			termcaps/test 		\
 			tilde 				\
 			verif_quote 		\
-			history
+			handle_argv 		\
+			handle_file			\
+			history				\
+			auto_prop
 
 OBJS  := 	$(addsuffix .o, $(FILES))
 
