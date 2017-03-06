@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 14:13:20 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:05:59 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -557,13 +557,10 @@ void	exclam(t_var *var)
 
 void	touch(t_var *var)
 {
-	// char		*test;
 	int	i;
 	int j;
 	int bg;
 
-	// test = ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', "test", "$\e[0;31m42sh\e[0m>");
-	// ft_putstr(test);
 	bg = 0;
 	while (env()->history[bg])
 		++bg;
@@ -644,7 +641,6 @@ void	touch(t_var *var)
 			add_car(var, 0, 0);
 			++var->i;
 			++var->lenligne;
-			// printf("%d\n", var->lenligne);
 			if (var->lenligne % tgetnum("co") == 1)
 				ft_putstr(tgetstr("sf", NULL));
 			ft_putstr(tgetstr("cd", NULL));

@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/06 15:11:50 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:07:28 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	auto_prop(t_var *var)
 		var->lenligne += 1;
 		k = 0;
 		while (len + k++ < max + 1)
-		{
-			write(1, " ", 1);
 			var->i += 1;
-		}
+		write(1, "                                                                                            ", k - 1);
 		l += max + 1;
 		if (l - tgetnum("co") > -max)
 		{
