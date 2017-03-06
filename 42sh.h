@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 14:46:34 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 17:33:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,7 +330,7 @@ void			free_current_job(t_env *env);
 void			add_job(int u);
 void			set_history(void);
 void			file_history(int i, int j, int k);
-void			auto_prop(t_var *var);
-
+void			auto_prop(t_var *var, int p);
+void			ft_join_spaces(char **tmp, int i);
 
 #endif

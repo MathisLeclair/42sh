@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
+#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/02/26 17:49:15 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/06 18:13:58 by bfrochot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,7 +105,8 @@ FILE =	free_swap \
 		$(PATH)sprintf \
 		$(PATH)stableaupointeursurfonction \
 		ft_remstr \
-		ft_strcdup
+		ft_strcdup \
+		ft_power
 
 OBJ  := $(addsuffix .o, $(FILE))
 

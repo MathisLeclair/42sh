@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 16:05:59 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 17:44:59 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ t_var	*tvar(void)
 
 	if (var == NULL)
 	{
-		var = malloc(sizeof(t_var));
-		var->cpy = malloc(sizeof(INPUT_SIZE));
-		var->ret = malloc(sizeof(INPUT_SIZE));
-		var->buff = malloc(3);
+		var = palloc(sizeof(t_var));
+		var->cpy = palloc(sizeof(INPUT_SIZE));
+		var->ret = palloc(sizeof(INPUT_SIZE));
+		var->buff = palloc(3);
 		var->buff[0] = 0;
 		var->buff[1] = 0;
 		var->buff[2] = 0;
@@ -58,7 +58,7 @@ void	add_car(t_var *var, int boule, char c)
 	char *tmp;
 
 	++var->inputlen;
-	tmp = malloc(4096);
+	tmp = palloc(4096);
 	tmp[0] = 0;
 	ft_strcpy(tmp, var->ret + var->i);
 	var->ret[var->i] = boule == 1 ? c : var->buff[0];
@@ -71,7 +71,7 @@ void	rem_car(t_var *var)
 {
 	char *tmp;
 
-	tmp = malloc(4096);
+	tmp = palloc(4096);
 	ft_strcpy(tmp, var->ret + var->i + 1);
 	var->ret[var->i] = 0;
 	ft_strcat(var->ret, tmp);
@@ -174,7 +174,7 @@ void	ft_asdf(t_var *var, int i, int *bg)
 	char	*tmp;
 	char	*tmp2;
 
-	var->ac = malloc(sizeof(char *));
+	var->ac = palloc(sizeof(char *));
 	var->ac[0]= 0;
 	while (env()->history[++i])
 		if (strstr(env()->history[i], var->ret))
@@ -259,7 +259,7 @@ void	control_r(t_var *var, char *tmp, char *tmp2, int j)
 
 	if (var->cpy)
 		tmp2 = ft_strdup(var->cpy);
-	loul = malloc(sizeof(t_ssprintf));
+	loul = palloc(sizeof(t_ssprintf));
 	loul->buf = ft_strdup("\nhist-i-search : ");
 	loul->ret = ft_strlen("\nhist-i-search : ");
 	str = termcaps(loul);
@@ -342,19 +342,28 @@ void	replace_w(char *word, t_var *var)
 	var->cpy = tmp;
 }
 
-void	put_ac(t_var * var)
+void	put_ac(t_var * var, int p)
 {
-	int i;
+	int		i;
+	char	*tmp;
 
 	i = var->i;
 	while (var->i != var->inputlen)
 		right_arrow(var);
+	tmp = palloc(1);
+	*tmp = 0;
 	while ((var->i + var->lenprompt - 1) % tgetnum("co") != 0)
 	{
-		write(1, " ", 1);
+		ft_join_spaces(&tmp, 1);
 		var->i += 1;
 	}
-	auto_prop(var);
+	ft_putstr(tmp);
+	auto_prop(var, p);
+	while (var->i / tgetnum("co") > 1)
+	{
+		ft_putstr(tgetstr("up", NULL));
+		var->i -= tgetnum("co");
+	}
 	while (var->i != i)
 	{
 		ft_putstr(tgetstr("le", NULL));
@@ -378,7 +387,7 @@ void	tabu(t_var *var, int *j)
 		if (var->ac[1] == 0)
 			*j = 0;
 		else
-			put_ac(var);
+			put_ac(var, 1);
 		i = 0;
 	}
 	else
@@ -388,7 +397,7 @@ void	tabu(t_var *var, int *j)
 		if (var->ac[i] == 0)
 			i = 0;
 		replace_w(var->ac[i], var);
-		put_ac(var);
+		put_ac(var, 0);
 		++i;
 	}
 }

@@ -6,27 +6,25 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 10:58:50 by exam              #+#    #+#             */
-/*   Updated: 2017/03/04 18:00:42 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 18:18:55 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_power(long long int value, int power)
+char	*ft_itoa_base(uintmax_t value, int base, char neg)
 {
-	if (power == 0)
-		return (1);
-	while (power > 1)
-		value *= value;
-	return (value);
-}
-
-char	*sol(int i, char neg, uintmax_t save, int base)
-{
+	int				i;
+	uintmax_t		save;
 	char	*str;
 	char	*slo;
-	int		j;
 
+	i = 0;
+	if (value == 0)
+		i++;
+	save = value;
+	while (value > 0 && ++i)
+		value = value / base;
 	str = "0123456789ABCDEF";
 	slo = malloc(i + neg + 1);
 	slo[i + neg] = '\0';
@@ -34,29 +32,10 @@ char	*sol(int i, char neg, uintmax_t save, int base)
 		slo[0] = '-';
 	if (save == 0)
 		slo[0] = '0';
-	while (save > 0)
+	while (i + neg && i--)
 	{
-		j = (save % base);
-		slo[i + neg - 1] = str[j];
+		slo[i + neg] = str[save % base];
 		save = save / base;
-		i--;
 	}
 	return (slo);
-}
-
-char	*ft_itoa_base(uintmax_t value, int base, char neg)
-{
-	int				i;
-	uintmax_t		save;
-
-	i = 0;
-	if (value == 0)
-		i++;
-	save = value;
-	while (value > 0)
-	{
-		value = value / base;
-		i++;
-	}
-	return (sol(i, neg, save, base));
 }
