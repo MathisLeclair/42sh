@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 10:58:50 by exam              #+#    #+#             */
-/*   Updated: 2017/03/06 18:18:55 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 18:19:50 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_itoa_base(uintmax_t value, int base, char neg)
 {
-	int				i;
-	uintmax_t		save;
-	char	*str;
-	char	*slo;
+	int			i;
+	uintmax_t	save;
+	char		*str;
+	char		*slo;
 
 	i = 0;
 	if (value == 0)
