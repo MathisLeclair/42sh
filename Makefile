@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
+#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/05 19:12:44 by bfrochot         ###   ########.fr        #
+#    Updated: 2017/03/06 12:33:04 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ OBJDIR	= 	objs
 LIBDIR	= 	./libft/
 
 # Files && Objs
+TCAPS	=	termcaps
 FILES 	=						\
 			aperture 			\
 			autocomplete 		\
@@ -44,10 +45,11 @@ FILES 	=						\
 			main				\
 			operator 			\
 			redirection 		\
+			redirection_adv		\
 			redirection_fd		\
 			set_env 			\
 			subshell			\
-			termcaps/test 		\
+			$(TCAPS)/test 		\
 			tilde 				\
 			verif_quote 		\
 			handle_argv 		\
@@ -55,21 +57,45 @@ FILES 	=						\
 			history				\
 			auto_prop
 
-OBJS  := 	$(addsuffix .o, $(FILES))
+OBJ  := 	$(addsuffix .o, $(FILES))
+
+# Paths foreach
+OBJP =		$(addprefix $(OBJDIR)/, $(OBJ))
 
 # **************************************************************************** #
 
+# SPECIAL CHARS
+
+LOG_CLEAR		= \033[2K
+LOG_UP			= \033[A
+LOG_NOCOLOR		= \033[0m
+LOG_BOLD		= \033[1m
+LOG_UNDERLINE	= \033[4m
+LOG_BLINKING	= \033[5m
+LOG_BLACK		= \033[1;30m
+LOG_RED			= \033[1;31m
+LOG_GREEN		= \033[1;32m
+LOG_YELLOW		= \033[1;33m
+LOG_BLUE		= \033[1;34m
+LOG_VIOLET		= \033[1;35m
+LOG_CYAN		= \033[1;36m
+LOG_WHITE		= \033[1;37m
+
 # Bonus
 
-.PHONY:		clean
+.PHONY:		clean fclean
 
 # **************************************************************************** #
 
 # Rules
 
-all: 		$(NAME)
+all: 		$(OBJDIR) $(NAME)
 
-$(NAME): 	$(OBJS)
+$(OBJDIR):
+	@mkdir -p $(OBJDIR) 2>&-
+	@cd $(OBJDIR) && mkdir -p $(TCAPS) 2>&-
+
+$(NAME): 	$(OBJP)
 			@echo "----------------------------------------"
 			@echo "|       Debut de la compilation        |"
 			@echo "|              Ecole 42                |"
@@ -77,7 +103,7 @@ $(NAME): 	$(OBJS)
 			@echo "|           sub compilation :          |"
 			@echo "|                libft                 |"
 			@make -C $(LIBDIR)
-			@$(CC) $(CFLAGS) -o $@ $^ -L./libft/ -lft -lncurses -I. -I./termcaps
+			@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./$(TCAPS)
 			@echo "|                 FIN                  |"
 			@echo "----------------------------------------"
 			@echo "               ________"
@@ -102,17 +128,17 @@ $(NAME): 	$(OBJS)
 			@echo "       .-^--r-^-.   .-^--r-^-."
 			@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
-$(OBJS): 	%.o: %.c
+$(OBJDIR)/%.o:	%.c
 			@$(CC) $(CFLAGS) -c -g  $< -o $@
 
 clean:
-			@rm -rf $(OBJS)
-			@make -C $(LIBDIR) clean
+			@rm -rf $(OBJDIR)
+			@make clean -C $(LIBDIR)
+
 fclean: 	clean
-			@rm -rf $(NAME)
-			@make -C $(LIBDIR) fclean
+			@rm -f $(NAME)
+			@make fclean -C $(LIBDIR)
 
 re: 		fclean all
-			@make -C $(LIBDIR) re
 
 # **************************************************************************** #

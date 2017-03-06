@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 14:10:12 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:13:20 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -569,7 +569,7 @@ void	touch(t_var *var)
 		++bg;
 	i = 0;
 	var->i = 0;
-	var->ret[0] = 0; 
+	var->ret[0] = 0;
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
 	ft_putstr(tgetstr("bw", NULL));
 	while (var->buff[0] != 10)
@@ -589,7 +589,7 @@ void	touch(t_var *var)
 			paste(var);
 		if (var->buff[0] == 27 && var->buff[2] == 68 && var->i > 0) //LEFT ARROW
 			left_arrow(var);
-		if (var->buff[0] == 27 && var->buff[2] == 67)  //RIGHT ARROW 
+		if (var->buff[0] == 27 && var->buff[2] == 67)  //RIGHT ARROW
 			right_arrow(var);
 		if (var->buff[0] == 59 && var->buff[2] == 68) //SHIFT + LEFT ARROW
 			shift_arrow_l(var);

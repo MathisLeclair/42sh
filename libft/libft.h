@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/26 17:49:03 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:17:16 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int				ft_printf(const char *str, ...);
 
 void			ft_remstr(char *str, int start, int end);
 char			*ft_strcdup(const char *src, int k);
+void			free_swap(char **src, char *dst);
 int				ft_strfind(const char *s, int c);
 
 #endif
