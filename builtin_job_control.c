@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_job_control.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:00:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 17:51:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:15:34 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	builtin_fg(t_env *ev, char **split, int boule)
 	int i;
 
 	if (getpid() == ev->job->pid)
-		return ft_putstr("fg: no current job\n");
+		return (ft_putstr("fg: no current job\n"));
 	if (split[1] && split[2])
-		return(error(-7, NULL, NULL));
+		return (error(-7, NULL, NULL));
 	if (split[1])
 	{
 		i = ft_atoi(split[1]);
@@ -77,7 +77,7 @@ void	builtin_fg(t_env *ev, char **split, int boule)
 		else
 		{
 			ev->job->stat = '+';
-			return(error(-14, NULL, NULL));
+			return (error(-14, NULL, NULL));
 		}
 	}
 	else
@@ -102,13 +102,14 @@ void	builtin_jobs(t_env *ev, char **split)
 
 	(void)split;
 	i = -1;
-	while(ev->job->prev)
+	while (ev->job->prev)
 		ev->job = ev->job->prev;
 	if (!ev->job->next)
-		return(ft_putstr("No current job\n")) ;
-	while(ev->job->next)
+		return (ft_putstr("No current job\n"));
+	while (ev->job->next)
 	{
 		ev->job = ev->job->next;
-		ft_printf("[%d] %c %s %s\n", ev->job->num, ev->job->stat, ev->job->status ,ev->job->name);
+		ft_printf("[%d] %c %s %s\n", ev->job->num, ev->job->stat,
+		ev->job->status, ev->job->name);
 	}
 }

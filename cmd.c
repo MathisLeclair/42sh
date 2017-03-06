@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 18:28:12 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:01:29 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
-
 }
 
 int		ft_reco_cmd2(t_env *env, char **split)
@@ -204,7 +203,7 @@ void	extract_rd_output(t_env *env, char *input)
 	env->inp2[j] = 0;
 	ft_remstr(input, i, j);
 	free(env->inp1);
-	env->inp1 =  ft_strdup(input);
+	env->inp1 = ft_strdup(input);
 	env->inp1[ft_strlen(input)] = 0;
 }
 
@@ -225,7 +224,7 @@ void	extract_heredoc(t_env *env, char *input)
 	env->inp2 = ft_strcdup(input + i, j);
 	ft_remstr(input, i, j);
 	free(env->inp1);
-	env->inp1 =  ft_strdup(input);
+	env->inp1 = ft_strdup(input);
 }
 
 void	handle_weirde(t_env *e)
@@ -276,11 +275,11 @@ void	parse(t_env *env, char *input)
 	else if (cmprev(input, ">") != -1 || cmprev(input, ">>") != -1)
 	{
 		extracredir(env);
-		while(env->redir[++i])
+		while (env->redir[++i])
 		{
 			if (env->redir[i][0] == '>' && env->redir[i][1] == '>')
 				rd_output_apd(env, i);
-			else if(env->redir[i][0] == '>' && env->redir[i][1] != '>')
+			else if (env->redir[i][0] == '>' && env->redir[i][1] != '>')
 				rd_output(env, i);
 		}
 		free_double_array(env->redir);
@@ -307,12 +306,12 @@ int		ft_read(t_env *env, char *input)
 	int		i;
 
 	if (input == NULL)
-		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));
-	//LA
+		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
+		env->dir, PROMPT));
 	if (verif_quote(input, 0) == -1)
 		return (0);
 	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
-		if(subshell(env, input) == -1)
+		if (subshell(env, input) == -1)
 			return (-1);
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
@@ -328,5 +327,3 @@ int		ft_read(t_env *env, char *input)
 	free_double_array(inputspl);
 	return (0);
 }
-
-//	input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env->dir, PROMPT));

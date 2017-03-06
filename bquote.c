@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/27 19:28:21 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:15:02 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	if (tmp)
 		ft_strcat(env->input, tmp);
 	ft_strcat(env->input, sav + k + i + 2);
-	// write(2, env->input, ft_strlen(env->input));
-	// write(2, "\n", 1);
 }
 
 void		bquote2(t_env *env, char *sav, int i, int k)
@@ -71,6 +69,7 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	pid_t	child;
 	int		fd;
 
+	ft_strncat(env->input, env->inp1 + i + 1, k);
 	child = -1;
 	fd = -1;
 	if ((fd = open("/tmp/42sh_the_silence",
@@ -93,7 +92,7 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	bquote3(env, sav, i, k);
 }
 
-void	bquote(t_env *env)
+void		bquote(t_env *env)
 {
 	int		i;
 	int		k;
@@ -119,6 +118,5 @@ void	bquote(t_env *env)
 	free(env->input);
 	env->input = malloc(INPUT_SIZE);
 	env->input[0] = 0;
-	ft_strncat(env->input, env->inp1 + i + 1, k);
 	bquote2(env, sav, i, k);
 }

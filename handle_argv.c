@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_argv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:59:10 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/03/04 17:59:00 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:07:36 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	ft_strcat2(char *dest, char *s1, char *s2)
 	ft_strcat(dest, s2);
 }
 
-void handle_argv(int ac, char **av, t_env *loc)
+void		handle_argv(int ac, char **av, t_env *loc)
 {
-	int i;
-	int size;
+	int		i;
+	int		size;
 	char	*tmp;
 
 	ac--;

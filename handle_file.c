@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_file.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:20:45 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/03/05 10:23:30 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:06:44 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ static void	strip_comments(char *str)
 	int quote;
 
 	if (*str == '#')
-	{
-		*str = '\0';
+		*str = 0;
+	if (*str == '#')
 		return ;
-	}
 	i = 0;
 	quote = 0;
 	len = ft_strlen(str);
@@ -30,15 +29,12 @@ static void	strip_comments(char *str)
 	{
 		if ((str[i] == '\'' || str[i] == '\"') && (quote % (str[i] % 6)) == 0)
 			quote ^= str[i] % 6;
-		if (str[i] == '#' && quote == 0)
+		if (str[i] == '#' && quote == 0 && str[i - 1] != '\\')
+			str[i] = '\0';
+		else if (str[i] == '#' && quote == 0 && str[i - 1] == '\\')
 		{
-			if (str[i - 1] != '\\')
-				str[i] = '\0';
-			else
-			{
-				ft_strcpy(str + i - 1, str + i);
-				--i;
-			}
+			ft_strcpy(str + i - 1, str + i);
+			--i;
 		}
 	}
 }

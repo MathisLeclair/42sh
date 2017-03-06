@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 19:11:12 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:59:19 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ t_env	*env(void)
 
 void	ft_sig(int i)
 {
-	if (env()->i != 1 && env()->job->pid != getpid() && env()->job->killable == 1)
+	if (env()->i != 1 && env()->job->pid != getpid()
+	&& env()->job->killable == 1)
 	{
 		reset(tvar());
 		kill(env()->job->pid, SIGINT);
@@ -57,7 +58,8 @@ void	ft_sig(int i)
 			right_arrow(tvar());
 		initvar(tvar(), 0);
 		write(1, "\n", 1);
-		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env()->dir, PROMPT);
+		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env()->dir,
+		PROMPT);
 	}
 }
 

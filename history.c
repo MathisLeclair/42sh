@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:19:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/06 14:48:42 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:09:01 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	set_history(void)
 	tmp = malloc(INPUT_SIZE);
 	*tmp = 0;
 	if (find_param(env()->loc->ev, "HOME") != -1)
-		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev, "HOME")] + 5), "/.42shistory");
+		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev,
+		"HOME")] + 5), "/.42shistory");
 	fd = open(tmp, O_RDONLY);
 	if (fd == -1)
 		return ;
@@ -49,11 +50,11 @@ void	file_history(int i, int j, int k)
 	char	*tmp;
 	char	*num;
 
-
 	tmp = malloc(INPUT_SIZE);
 	*tmp = 0;
 	if (find_param(env()->loc->ev, "HOME") != -1)
-		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev, "HOME")] + 5), "/.42shistory");
+		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev,
+		"HOME")] + 5), "/.42shistory");
 	fd = open(tmp, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	while (env()->history[i])
 		++i;
@@ -74,9 +75,9 @@ void	file_history(int i, int j, int k)
 
 void	add_history(t_var *var)
 {
-	int i;
-	char *tmp;
-	char *num;
+	int		i;
+	char	*tmp;
+	char	*num;
 
 	i = 0;
 	while (env()->history[i])

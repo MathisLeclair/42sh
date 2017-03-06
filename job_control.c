@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 14:54:25 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/05 18:16:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:12:18 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	add_job(int u)
 void	retreive_ctrlz(int i)
 {
 	(void)i;
-
 	if (getpid() != env()->job->pid)
 	{
 		kill(env()->job->pid, SIGTSTP);
@@ -64,23 +63,23 @@ void	retreive_ctrlz(int i)
 
 void	jobctrl_init_shell(void)
 {
-	pid_t shell_pgid;
-	struct termios shell_tmodes;
-	int shell_is_interactive;
+	pid_t			shell_pgid;
+	struct termios	shell_tmodes;
+	int				shell_is_interactive;
 
 	env()->shell_terminal = STDIN_FILENO;
 	shell_is_interactive = isatty(env()->shell_terminal);
 	if (shell_is_interactive)
-    {
+	{
 		while (tcgetpgrp(env()->shell_terminal) != (shell_pgid = getpgrp()))
-	  		kill(- shell_pgid, SIGTTIN);
+			kill(-shell_pgid, SIGTTIN);
 		shell_pgid = getpid();
 		if (setpgid(shell_pgid, shell_pgid) < 0)
-	  	{
+		{
 			perror("Couldn't put the shell in its own process group");
 			exit(EXIT_FAILURE);
-	  	}
+		}
 		tcsetpgrp(env()->shell_terminal, shell_pgid);
 		tcgetattr(env()->shell_terminal, &shell_tmodes);
-    }
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 17:00:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:14:41 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	builtin_export(t_env *env, char **split)
 		while (env->loc->ev[++i])
 			ft_printf("%s %s\n", "export", env->loc->ev[i]);
 	else if (split[1][1] && split[1][0] == '-' && split[1][1] != 'p')
-		ft_printf("%s %c\n","export : bad option:", split[1][1]);
+		ft_printf("%s %c\n", "export : bad option:", split[1][1]);
 	else
 		while (split[++i])
 			add_var_to_env(env->loc, split[i]);
@@ -62,7 +62,7 @@ void	history(t_env *env, char **split)
 	if (split[0] && split[1] && split[2])
 		error(-7, NULL, NULL);
 	else if (!(env->history))
-		error(-11, 0 , 0);
+		error(-11, 0, 0);
 	else if (split[1])
 	{
 		if (split[1][0] == '-')
