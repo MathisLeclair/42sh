@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:19:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/06 14:33:54 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:48:42 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,20 @@ void	set_history(void)
 	close(fd);
 }
 
-void	file_history(void)
+void	file_history2(int fd, char *tmp, int *i, char *num)
+{
+	ft_strcat(tmp, num);
+	free(num);
+	write(fd, tmp, 5);
+	write(fd, "  ", 2);
+	write(fd, env()->history[*i] + 7, ft_strlen(env()->history[*i] + 7));
+	write(fd, "\n", 1);
+	*i += 1;
+}
+
+void	file_history(int i, int j, int k)
 {
 	int		fd;
-	int		i;
-	int		j;
-	int		k;
 	char	*tmp;
 	char	*num;
 
@@ -47,11 +55,9 @@ void	file_history(void)
 	if (find_param(env()->loc->ev, "HOME") != -1)
 		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev, "HOME")] + 5), "/.42shistory");
 	fd = open(tmp, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	i = 0;
 	while (env()->history[i])
 		++i;
 	i = i > 5000 ? i - 5000 : 0;
-	j = 0;
 	while (env()->history[i])
 	{
 		tmp = malloc(6);
@@ -60,13 +66,7 @@ void	file_history(void)
 		while (++k < 5 - (int)ft_strlen(num))
 			tmp[k] = ' ';
 		tmp[k] = 0;
-		ft_strcat(tmp, num);
-		free(num);
-		write(fd, tmp, 5);
-		write(fd, "  ", 2);
-		write(fd, env()->history[i] + 7, ft_strlen(env()->history[i] + 7));
-		write(fd, "\n", 1);
-		++i;
+		file_history2(fd, tmp, &i, num);
 		++j;
 	}
 	close(fd);

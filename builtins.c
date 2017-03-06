@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/03 17:32:27 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:47:39 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_exit(void)
 {
 	env_free(env());
 	ft_putstr("exit\n");
-	file_history();
+	file_history(0, 0, 0);
 	exit(0);
 }
 

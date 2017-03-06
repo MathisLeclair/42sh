@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 14:16:14 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:47:48 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	error(int i, char *str, char *str2)
 	else if (i == -6)
 	{
 		ft_putstr("\n");
-		file_history();
+		file_history(0, 0, 0);
 		exit(EXIT_SUCCESS);
 	}
 	else if (i == -7)
