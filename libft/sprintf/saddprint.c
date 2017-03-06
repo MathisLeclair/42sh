@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   saddprint.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 14:40:26 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/22 15:24:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:56:19 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ char		*sstrresize(char *s, int len, int k)
 
 t_ssprintf	*machin(char *bu, int rt)
 {
-	t_ssprintf *raturn;
+	t_ssprintf	*raturn;
 
 	raturn = malloc(sizeof(t_ssprintf));
 	raturn->buf = bu;
 	raturn->ret = rt;
 	return (raturn);
 }
-
 
 t_ssprintf	*ft_sprint(char *str, int k, int bool)
 {

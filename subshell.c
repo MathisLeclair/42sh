@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/28 19:15:53 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:52:53 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		verif_subshell(char *input)
 	i = ft_strfind(input, '(');
 	while (input[++u])
 		if (input[u] == '&' || input[u] == '|' ||
-		input[u] == '>' ||input[u] == '<')
+		input[u] == '>' || input[u] == '<')
 			ok = 0;
 	return (ok);
 }
@@ -100,7 +100,7 @@ int		subshell(t_env *env, char *input)
 	if (verif_subshell(input) == -1)
 	{
 		ft_putstr("Wrong use of '()'\n");
-		return(-1);
+		return (-1);
 	}
 	str = ft_strdup(input);
 	if (verif_par(str) == -1)

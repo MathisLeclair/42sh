@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/04 11:19:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:52:28 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	set_evloc2(t_env *e)
 void	set_evloc(t_env *e)
 {
 	int		i;
-	char 	*tmp;
+	char	*tmp;
 
 	e->loc = malloc(sizeof(t_env));
 	i = 0;
