@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 19:39:42 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:10:12 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,6 +360,7 @@ void	put_ac(t_var * var)
 		ft_putstr(tgetstr("le", NULL));
 		var->i -= 1;
 	}
+	var->lenligne = var->i + var->lenprompt;
 }
 
 void	tabu(t_var *var, int *j)
