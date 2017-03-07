@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/07 16:10:03 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/07 16:31:39 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,10 +88,14 @@ LOG_WHITE		= \033[1;37m
 
 # **************************************************************************** #
 
-# Rules
+# RULES
 
+# Main rules
 all				: 	$(OBJDIR) $(NAME)
 
+re				: 	fclean all
+
+# Compilation rules
 $(OBJDIR)		:
 					@mkdir -p $(OBJDIR) 2>&-
 					@cd $(OBJDIR) && mkdir -p $(TCAPS) 2>&-
@@ -114,6 +118,7 @@ $(NAME)			: 	$(OBJP)
 $(OBJDIR)/%.o	:	%.c
 					@$(CC) $(CFLAGS) -c -g  $< -o $@
 
+# Clean rules
 clean			:
 					@rm -rf $(OBJDIR)
 					@make clean -C $(LIBDIR)
@@ -122,6 +127,18 @@ fclean			: 	clean
 					@rm -f $(NAME)
 					@make fclean -C $(LIBDIR)
 
-re				: 	fclean all
+# Miscellaneous rules
+ascii			:
+					@echo "-------------------------------------------------------------"
+					@echo "|                  Debut de la compilation                  |"
+					@echo "|                         Ecole 42                          |"
+					@echo "|                           42sh                            |"
+					@echo "|                     sub compilation :                     |"
+					@echo "|                           libft                           |"
+					@echo "|                            FIN                            |"
+					@echo "-------------------------------------------------------------"
+					@cat cake-v2.ascii
+					@echo ""
+					@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 # **************************************************************************** #
