@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
+#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/06 18:13:58 by bfrochot         ###   ########.fr        #
+#    Updated: 2017/03/07 16:24:17 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,20 +103,45 @@ FILE =	free_swap \
 		$(PATH)spart2 \
 		$(PATH)spart3 \
 		$(PATH)sprintf \
-		$(PATH)stableaupointeursurfonction \
+		$(PATH)sptf_array_ptr \
 		ft_remstr \
 		ft_strcdup \
 		ft_power
 
 OBJ  := $(addsuffix .o, $(FILE))
 
+# **************************************************************************** #
+
+LOG_CLEAR		= \033[2K
+LOG_UP			= \033[A
+LOG_NOCOLOR		= \033[0m
+LOG_BOLD		= \033[1m
+LOG_UNDERLINE	= \033[4m
+LOG_BLINKING	= \033[5m
+LOG_BLACK		= \033[1;30m
+LOG_RED			= \033[1;31m
+LOG_GREEN		= \033[1;32m
+LOG_YELLOW		= \033[1;33m
+LOG_BLUE		= \033[1;34m
+LOG_VIOLET		= \033[1;35m
+LOG_CYAN		= \033[1;36m
+LOG_WHITE		= \033[1;37m
+
+# Bonus
+
+.PHONY:		clean fclean
+
+# **************************************************************************** #
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "--$(LOG_CLEAR)$(LOG_GREEN)$(NAME)$(LOG_NOCOLOR) ....................................... $(LOG_VIOLET)Cake Done$(LOG_NOCOLOR)$(LOG_UP)"
 
-
-$(OBJ): %.o: %.c
+%.o: %.c
+	@echo "--$(LOG_CLEAR)$(LOG_RED)$(NAME)$(LOG_NOCOLOR) ....................................... $(LOG_RED)$<$(LOG_NOCOLOR)$(LOG_UP)"
 	@gcc -c -Wall -Wextra -g -Werror $< -o $@
 
 clean:
@@ -126,5 +151,3 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all
-
-.PHONY : all clean fclean re

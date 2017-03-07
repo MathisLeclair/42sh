@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/06 12:33:04 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/07 16:10:03 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ LIBDIR	= 	./libft/
 
 # Files && Objs
 TCAPS	=	termcaps
+
 FILES 	=						\
 			aperture 			\
 			autocomplete 		\
@@ -83,62 +84,44 @@ LOG_WHITE		= \033[1;37m
 
 # Bonus
 
-.PHONY:		clean fclean
+.PHONY			:	clean fclean
 
 # **************************************************************************** #
 
 # Rules
 
-all: 		$(OBJDIR) $(NAME)
+all				: 	$(OBJDIR) $(NAME)
 
-$(OBJDIR):
-	@mkdir -p $(OBJDIR) 2>&-
-	@cd $(OBJDIR) && mkdir -p $(TCAPS) 2>&-
+$(OBJDIR)		:
+					@mkdir -p $(OBJDIR) 2>&-
+					@cd $(OBJDIR) && mkdir -p $(TCAPS) 2>&-
 
-$(NAME): 	$(OBJP)
-			@echo "----------------------------------------"
-			@echo "|       Debut de la compilation        |"
-			@echo "|              Ecole 42                |"
-			@echo "|              minishell               |"
-			@echo "|           sub compilation :          |"
-			@echo "|                libft                 |"
-			@make -C $(LIBDIR)
-			@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./$(TCAPS)
-			@echo "|                 FIN                  |"
-			@echo "----------------------------------------"
-			@echo "               ________"
-			@echo "          _,.-Y  |  |  Y-._"
-			@echo "      .-~\"   ||  |  |  |   \"-."
-			@echo "      I\" \"\"==\"|\" !\"\"! \"|\"[]\"\"|     _____"
-			@echo "      L__  [] |..------|:   _[----I\" .-{\"-."
-			@echo "     I___|  ..| l______|l_ [__L]_[I_/r(=}=-P"
-			@echo "    [L______L_[________]______j~  '-=c_]/=-^"
-			@echo "     \_I_j.--.\==I|I==_/.--L_]"
-			@echo "       [_((==)[\`-----\"](==)j"
-			@echo "          I--I\"~~\"\"\"~~\"I--I"
-			@echo "          |[]|         |[]|"
-			@echo "          l__j         l__j"
-			@echo "          |!!|         |!!|"
-			@echo "          |..|         |..|"
-			@echo "          ([])         ([])"
-			@echo "          ]--[         ]--["
-			@echo "          [_L]         [_L]"
-			@echo "         /|..|\       /|..|\\"
-			@echo "        \`=}--{='     \`=}--{=i'"
-			@echo "       .-^--r-^-.   .-^--r-^-."
-			@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+$(NAME)			: 	$(OBJP)
+					@echo "-------------------------------------------------------------"
+					@echo "|                  Debut de la compilation                  |"
+					@echo "|                         Ecole 42                          |"
+					@echo "|                           42sh                            |"
+					@echo "|                     sub compilation :                     |"
+					@echo "|                           libft                           |"
+					@make -C $(LIBDIR)
+					@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./$(TCAPS)
+					@echo "|                            FIN                            |"
+					@echo "-------------------------------------------------------------"
+					@cat cake-v2.ascii
+					@echo ""
+					@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
-$(OBJDIR)/%.o:	%.c
-			@$(CC) $(CFLAGS) -c -g  $< -o $@
+$(OBJDIR)/%.o	:	%.c
+					@$(CC) $(CFLAGS) -c -g  $< -o $@
 
-clean:
-			@rm -rf $(OBJDIR)
-			@make clean -C $(LIBDIR)
+clean			:
+					@rm -rf $(OBJDIR)
+					@make clean -C $(LIBDIR)
 
-fclean: 	clean
-			@rm -f $(NAME)
-			@make fclean -C $(LIBDIR)
+fclean			: 	clean
+					@rm -f $(NAME)
+					@make fclean -C $(LIBDIR)
 
-re: 		fclean all
+re				: 	fclean all
 
 # **************************************************************************** #
