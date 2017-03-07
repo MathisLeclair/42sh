@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/07 16:24:17 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/07 16:33:08 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,7 +138,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "--$(LOG_CLEAR)$(LOG_GREEN)$(NAME)$(LOG_NOCOLOR) ....................................... $(LOG_VIOLET)Cake Done$(LOG_NOCOLOR)$(LOG_UP)"
+	@echo "--$(LOG_CLEAR)$(LOG_RED)$(NAME)$(LOG_NOCOLOR) ....................................... $(LOG_RED)Cake Done$(LOG_NOCOLOR)$(LOG_UP)"
 
 %.o: %.c
 	@echo "--$(LOG_CLEAR)$(LOG_RED)$(NAME)$(LOG_NOCOLOR) ....................................... $(LOG_RED)$<$(LOG_NOCOLOR)$(LOG_UP)"
