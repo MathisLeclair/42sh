@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:59 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/08 14:51:22 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	add_car(t_var *var, int boule, char c)
 {
 	char *tmp;
 
-	++var->inputlen;
+	var->inputlen += 1;
 	tmp = palloc(4096);
 	tmp[0] = 0;
-	ft_strcpy(tmp, var->ret + var->i);
+	ft_strcat(tmp, var->ret + var->i);
 	var->ret[var->i] = boule == 1 ? c : var->buff[0];
 	var->ret[var->i + 1] = 0;
 	ft_strcat(var->ret, tmp);
@@ -159,7 +159,7 @@ void	paste(t_var *var)
 	var->i += ft_strlen(var->cpy);
 	i = var->i;
 	ft_putstr(tgetstr("cd", NULL));
-	write(1, var->ret + var->i, ft_strlen(var->ret) - var->i);
+	ft_putstr(var->ret + var->i);
 	var->i = ft_strlen(var->ret);
 	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
 	while (var->i > i)
@@ -331,6 +331,17 @@ void	replace_w(char *word, t_var *var)
 {
 	char	*tmp;
 
+		// int fd;
+		// int j;
+		// fd = open("./42test", O_CREAT | O_WRONLY, 0777);
+		// j = -1;
+		// while (var->ac[++j])
+		// {
+			// write(fd, word, ft_strlen(word));
+			// write(fd, "\n", 1);
+		// }
+		// close(fd);
+
 	while (var->i && var->ret[var->i - 1] != ' ')
 		backspace(var);
 	while (var->ret[var->i] != ' ' && var->ret[var->i])
@@ -342,7 +353,7 @@ void	replace_w(char *word, t_var *var)
 	var->cpy = tmp;
 }
 
-void	put_ac(t_var * var, int p)
+void	put_ac(t_var *var, int p)
 {
 	int		i;
 	char	*tmp;
@@ -359,15 +370,15 @@ void	put_ac(t_var * var, int p)
 	}
 	ft_putstr(tmp);
 	auto_prop(var, p);
-	while (var->i / tgetnum("co") > 1)
+	while (var->i / tgetnum("co") > 0)
 	{
 		ft_putstr(tgetstr("up", NULL));
 		var->i -= tgetnum("co");
 	}
 	while (var->i != i)
 	{
-		ft_putstr(tgetstr("le", NULL));
-		var->i -= 1;
+		var->i > i ? ft_putstr(tgetstr("le", NULL)) : ft_putstr(tgetstr("nd", NULL));
+		var->i -= var->i > i ? 1 : -1;
 	}
 	var->lenligne = var->i + var->lenprompt;
 }
@@ -400,6 +411,7 @@ void	tabu(t_var *var, int *j)
 		put_ac(var, 0);
 		++i;
 	}
+	var->buff[0] = 0;
 }
 
 void	desel(t_var *var)
@@ -613,7 +625,6 @@ void	touch(t_var *var)
 			up_arrow(var, &bg);
 		else if (var->buff[0] == 27 && var->buff[2] == 66 && var->ac) // DOWN ARROW
 			down_arrow(var, &bg);
-
 		else
 		{
 			free(var->arr);
@@ -653,7 +664,7 @@ void	touch(t_var *var)
 			if (var->lenligne % tgetnum("co") == 1)
 				ft_putstr(tgetstr("sf", NULL));
 			ft_putstr(tgetstr("cd", NULL));
-			write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
+			ft_putstr(var->ret + var->i);
 			j = ft_strlen(var->ret + var->i);
 			while (j-- > 0)
 				ft_putstr(tgetstr("le", NULL));

@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 10:58:50 by exam              #+#    #+#             */
-/*   Updated: 2017/03/06 18:21:13 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/06 18:28:00 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ char	*ft_itoa_base(uintmax_t value, int base, char neg)
 	slo = malloc(i + neg + 1);
 	slo[i + neg] = '\0';
 	slo[0] = '-';
-	if (save == 0)
-		slo[0] = '0';
 	while (i + neg && i--)
 	{
 		slo[i + neg] = str[save % base];

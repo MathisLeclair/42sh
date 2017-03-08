@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/10 15:01:14 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/04 14:27:18 by mleclair         ###   ########.fr       */
+/*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
+/*   Updated: 2017/03/08 13:53:49 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ char	**auto_possibilities(char pwd, t_env *env)
 	char	**ac;
 	char	*find_lwc;
 	char	*save;
+	DIR		*dir;
 
 	find_lwc = env->input;
 	env->input = env->find;
@@ -235,11 +236,22 @@ char	**auto_possibilities(char pwd, t_env *env)
 	env->find = env->input;
 	env->input = find_lwc;
 	save = ft_strdup(env->find);
-	if (env->find[0] == '/' || env->find[0] == '.')
+	if (env->find[ft_strlen(env->find) - 1] != '/' && (dir = opendir(env->find)))
+	{
+		ac = malloc(sizeof(char *) * 2);
+		ac[0] = ft_strdup(ft_strcat(env->find, "/"));
+		ac[1] = 0;
+		closedir(dir);
+		return (ac);
+	}
+	if (env->find[0] == '/' || env->find[0] == '.' || (dir = opendir(env->find)))
 	{
 		ac_target(save, &ac);
-		if (ac[0] == 0 && opendir(ft_strcat(env->find, "/")))
+		if (ac[0] == 0 && dir)
+		{
 			ac[0] = ft_strdup(env->find);
+			closedir(dir);
+		}
 		return (ac);
 	}
 	free(save);

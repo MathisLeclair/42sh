@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aperture.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/02 15:07:24 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/07 13:16:56 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	aperture2(void)
 		env()->i = 0;
 		if ((fd = open("stillalive.txt", O_RDONLY)) == -1)
 		{
-			ft_putstr("But why delete it????? you monster\n");
+			ft_putstr("But why delete it ? you monster\n");
 			return ;
 		}
 		while (read(fd, buf, 1))
