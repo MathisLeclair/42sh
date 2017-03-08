@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/06 11:55:36 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/07 17:55:00 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	frk_pipe(t_env *env)
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
-	wait(NULL);
 	parse(env, env->inp2);
+	wait(NULL);
 }
 
 void	rd_pipe(t_env *env)
