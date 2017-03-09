@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/09 14:06:06 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/09 15:13:40 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_var	*tvar(void)
 		var = palloc(sizeof(t_var));
 		var->cpy = palloc(INPUT_SIZE);
 		var->ret = palloc(1); // tention
+		var->ret[0] = 0;
 		var->buff = palloc(3);
 		var->buff[0] = 0;
 		var->buff[1] = 0;
@@ -58,22 +59,14 @@ void	add_car(t_var *var, int boule, char c)
 	char *tmp;
 
 	var->inputlen += 1;
-	tmp = palloc(ft_strlen(var->ret) + 1);
-	tmp[0] = 0;
+	tmp = palloc(ft_strlen(var->ret) + 2);
+	*tmp = 0;
 	ft_strncat(tmp, var->ret, var->i);
 	tmp[var->i] = boule == 1 ? c : var->buff[0];
 	tmp[var->i + 1] = 0;
 	ft_strcat(tmp, var->ret + var->i);
 	free(var->ret);
 	var->ret = tmp;
-
-	// int fd;
-	// int j;
-	// fd = open("./42test", O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	// j = -1;
-	// ft_putstr_fd(var->ret, fd);
-	// write(fd, "\n", 1);
-	// close(fd);
 }
 
 void	rem_car(t_var *var)
@@ -81,7 +74,10 @@ void	rem_car(t_var *var)
 	char *tmp;
 
 	tmp = palloc(4096);
-	ft_strcpy(tmp, var->ret + var->i + 1);
+	if (var->ret[var->i])
+		ft_strcpy(tmp, var->ret + var->i + 1);
+	else
+		tmp[0] = 0;
 	var->ret[var->i] = 0;
 	ft_strcat(var->ret, tmp);
 	free(tmp);
@@ -165,6 +161,13 @@ void	paste(t_var *var)
 	i = ft_strlen(var->cpy);
 	while (i--)
 		add_car(var, 1, var->cpy[i]);
+	// int fd;
+	// int j;
+	// fd = open("./42test", O_CREAT | O_WRONLY | O_APPEND, 0777);
+	// j = -1;
+	// ft_putstr_fd(var->ret, fd);
+	// write(fd, "\n", 1);
+	// close(fd);
 	var->i += ft_strlen(var->cpy);
 	i = var->i;
 	ft_putstr(tgetstr("cd", NULL));
