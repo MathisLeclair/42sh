@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/07 17:55:00 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/09 16:50:58 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	frk_pipe(t_env *env)
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[0]);
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
@@ -59,7 +59,7 @@ void	rd_pipe(t_env *env)
 		env->isoperand = 1;
 		frk_pipe(env);
 		env->isoperand = 0;
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	wait(NULL);
 }
@@ -102,7 +102,7 @@ void		rd_output(t_env *env, int i)
 	{
 		dup2(fd, (n == -1 ? STDOUT_FILENO : (int)n));
 		parse(env, env->input);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	close(fd);
 	wait(NULL);
@@ -140,7 +140,7 @@ void		rd_output_apd(t_env *env, int i)
 	{
 		dup2(fd, (n == -1 ? STDOUT_FILENO : (int)n));
 		parse(env, env->input);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	close(fd);
 	wait(NULL);
@@ -180,7 +180,7 @@ void		rd_input(t_env *env)
 	{
 		dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	close(fd);
 	wait(NULL);
