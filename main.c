@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 14:59:19 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/09 17:44:18 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		main(int ac, char **av, char **ev)
 	jobctrl_init_shell();
 	handle_file(ac, av, env());
 	while (1)
-	{
 		if ((ft_read(env(), NULL)) == 0)
 			continue ;
 		else
@@ -94,6 +93,5 @@ int		main(int ac, char **av, char **ev)
 			env_free(env());
 			break ;
 		}
-	}
 	ft_putstr("GOODBYE\n");
 }
