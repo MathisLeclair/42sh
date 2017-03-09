@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/07 18:23:27 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/09 17:35:04 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void	auto_prop(t_var *var, int p)
 	max = 0;
 	while (var->ac[++i])
 		max = ft_strlen(var->ac[i]) > max ? ft_strlen(var->ac[i]) : max;
-	if (tgetnum("li") < i / (tgetnum("co") / (int)max) && p == 0)
+	if (tgetnum("li") - 2 < i / (tgetnum("co") / (int)max) && p == 0)
 		m = m == i - 2 ? -1 : m + 1;
-	i = m;
+	// printf("%d et %d\n", i, i - (tgetnum("li") - 2) * (tgetnum("co") / (int)max));
+	i = (i - m) / (tgetnum("co") / (int)max) < tgetnum("li") - 1 ? i - (tgetnum("li") - 1) * (tgetnum("co") / (int)max) : m;
+	i = m == -1 ? m : i;
 	l = 0;
 	while (var->ac[++i] && (i - m) / (tgetnum("co") / (int)max) + 1 < tgetnum("li"))
 	{
