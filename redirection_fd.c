@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:38:45 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/03 14:59:27 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/09 16:51:39 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	rd_closeinput(t_env *env, char n)
 	else if ((int)child == 0)
 	{
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	wait(NULL);
 	if (n == -1 || (n >= 0 && n <= 2))
@@ -59,7 +59,7 @@ void		rd_dupinput(t_env *env, char n)
 	{
 		dup2(word, (n == -1 ? STDIN_FILENO : n));
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	wait(NULL);
 }
@@ -83,7 +83,7 @@ static void	rd_closeoutput(t_env *env, char n)
 	else if ((int)child == 0)
 	{
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	wait(NULL);
 	if (n == -1 || (n >= 0 && n <= 2))
@@ -111,7 +111,7 @@ void		rd_dupoutput(t_env *env, char n)
 	{
 		dup2(word, (n == -1 ? STDOUT_FILENO : n));
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	wait(NULL);
 }

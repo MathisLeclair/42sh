@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/06 14:09:49 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/09 16:52:18 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 		unlink("/tmp/42sh-the-silence");
 		dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	wait(NULL);
 	close(fd);
@@ -124,7 +124,7 @@ void		rd_here_doc(t_env *env)
 		unlink("/tmp/42sh-the-silence");
 		dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
 		parse(env, env->inp1);
-		exit(EXIT_SUCCESS);
+		exit(env->lastret);
 	}
 	wait(NULL);
 	close(fd);
