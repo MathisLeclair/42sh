@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/08 14:51:22 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/09 14:06:06 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_var	*tvar(void)
 	if (var == NULL)
 	{
 		var = palloc(sizeof(t_var));
-		var->cpy = palloc(sizeof(INPUT_SIZE));
-		var->ret = palloc(sizeof(INPUT_SIZE));
+		var->cpy = palloc(INPUT_SIZE);
+		var->ret = palloc(1); // tention
 		var->buff = palloc(3);
 		var->buff[0] = 0;
 		var->buff[1] = 0;
@@ -58,13 +58,22 @@ void	add_car(t_var *var, int boule, char c)
 	char *tmp;
 
 	var->inputlen += 1;
-	tmp = palloc(4096);
+	tmp = palloc(ft_strlen(var->ret) + 1);
 	tmp[0] = 0;
+	ft_strncat(tmp, var->ret, var->i);
+	tmp[var->i] = boule == 1 ? c : var->buff[0];
+	tmp[var->i + 1] = 0;
 	ft_strcat(tmp, var->ret + var->i);
-	var->ret[var->i] = boule == 1 ? c : var->buff[0];
-	var->ret[var->i + 1] = 0;
-	ft_strcat(var->ret, tmp);
-	free(tmp);
+	free(var->ret);
+	var->ret = tmp;
+
+	// int fd;
+	// int j;
+	// fd = open("./42test", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	// j = -1;
+	// ft_putstr_fd(var->ret, fd);
+	// write(fd, "\n", 1);
+	// close(fd);
 }
 
 void	rem_car(t_var *var)
@@ -154,7 +163,7 @@ void	paste(t_var *var)
 
 	ft_putstr(var->cpy);
 	i = ft_strlen(var->cpy);
-	while (--i >= 0)
+	while (i--)
 		add_car(var, 1, var->cpy[i]);
 	var->i += ft_strlen(var->cpy);
 	i = var->i;
@@ -311,7 +320,7 @@ void	deleteu(t_var *var)
 		var->del = 0;
 	rem_car(var);
 	ft_putstr(tgetstr("cd", NULL));
-	write(1, var->ret + var->i, ft_strlen(var->ret + var->i));
+	ft_putstr(var->ret + var->i);
 	i = ft_strlen(var->ret + var->i);
 	while (i-- > 0)
 		ft_putstr(tgetstr("le", NULL));
@@ -331,17 +340,6 @@ void	replace_w(char *word, t_var *var)
 {
 	char	*tmp;
 
-		// int fd;
-		// int j;
-		// fd = open("./42test", O_CREAT | O_WRONLY, 0777);
-		// j = -1;
-		// while (var->ac[++j])
-		// {
-			// write(fd, word, ft_strlen(word));
-			// write(fd, "\n", 1);
-		// }
-		// close(fd);
-
 	while (var->i && var->ret[var->i - 1] != ' ')
 		backspace(var);
 	while (var->ret[var->i] != ' ' && var->ret[var->i])
@@ -359,7 +357,7 @@ void	put_ac(t_var *var, int p)
 	char	*tmp;
 
 	i = var->i;
-	while (var->i != var->inputlen)
+	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
 	tmp = palloc(1);
 	*tmp = 0;
@@ -425,7 +423,7 @@ void	desel(t_var *var)
 		ft_putstr(tgetstr("le", NULL)); // MOVE CUROR TO LEFT
 		--j;
 	}
-	write(1, var->ret, ft_strlen(var->ret));
+	ft_putstr(var->ret);
 	var->selmode = 0;
 	var->i = var->sovi;
 	var->sovi = 0;
@@ -453,7 +451,7 @@ void	select_mode(t_var *var)
 	else if (var->buff[0] == 68 && var->i > 0 && var->i < (int)ft_strlen(var->ret)) //SHIFT + LEFT ARROW
 	{
 		ft_putstr(tgetstr("mr", NULL)); // MODE REVERSE VIDEO
-		write(1, &var->ret[var->i], 1);
+		write(1, var->ret + var->i, 1);
 		ft_putstr(tgetstr("me", NULL)); // STOP VIDEO MODE
 		left_arrow(var);
 		ft_putstr(tgetstr("le", NULL));
@@ -462,7 +460,7 @@ void	select_mode(t_var *var)
 	else if (var->buff[0] == 67 && var->i < (int)ft_strlen(var->ret)) // SHIFT + RIGHT ARROW
 	{
 		ft_putstr(tgetstr("mr", NULL)); // MODE REVERSE VIDEO
-		write(1, &var->ret[var->i], 1);
+		write(1, var->ret + var->i, 1);
 		ft_putstr(tgetstr("me", NULL)); // STOP VIDEO MODE
 		right_arrow(var);
 		ft_putstr(tgetstr("le", NULL));
@@ -532,6 +530,7 @@ void	exclam(t_var *var)
 	int j;
 	char *tmp;
 
+	write(1, "ca ne devrait pas passer par la", ft_strlen("ca ne devrait pas passer par la"));
 	u = -1;
 	i = ft_strfind(var->ret, '!');
 	while (env()->history[u])
@@ -539,7 +538,7 @@ void	exclam(t_var *var)
 	j = i;
 	while (var->ret[j] && var->ret[j] != ' ')
 		++j;
-	tmp = ft_strcdup(var->ret + i, j- i);
+	tmp = ft_strcdup(var->ret + i, j - i);
 	if (!ft_isdigit(var->ret[i + 1]))
 	{
 		k = u;
@@ -587,7 +586,6 @@ void	touch(t_var *var)
 		++bg;
 	i = 0;
 	var->i = 0;
-	var->ret[0] = 0;
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
 	ft_putstr(tgetstr("bw", NULL));
 	while (var->buff[0] != 10)
@@ -675,7 +673,7 @@ void	touch(t_var *var)
 		var->buff[1] = 0;
 		var->buff[2] = 0;
 	}
-	while (var->i != var->inputlen)
+	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
 	if (ft_strchr(var->ret, '!'))
