@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 18:10:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:21:58 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_fork(t_env *env, char **input)
 	}
 	else
 	{
-		if (waitpid(env->job->pid, &status, WUNTRACED) == -1)
+		if (waitpid(env->i, &status, WUNTRACED) == -1)
 			error(-3, NULL, NULL);
 		env->booljob = 0;
 		retvalue_into_loc(env, WEXITSTATUS(status));

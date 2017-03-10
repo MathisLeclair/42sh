@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 15:24:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:20:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,29 +213,6 @@ void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
 void			builtin_export(t_env *env, char **split);
 void			builtin_history(t_env *env, char **split);
-
-/*
-** builtin_job_control.c
-*/
-
-void			builtin_jobs(t_env *ev, char **split);
-void			builtin_bg(t_env *ev, char **split);
-void			builtin_fg(t_env *ev, char **split, int boule);
-
-
-/*
-** job_control.c
-*/
-
-void			jobctrl_init_shell(void);
-
-/*
-** job_control.c
-*/
-
-void			jobctrl_init_shell(void);
-void			retreive_ctrlz(int i);
-
 
 /*
 ** operator.c

@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/07 16:31:39 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/10 18:18:55 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ FILES 	=						\
 			bquote 				\
 			builtins 			\
 			builtins2 			\
-			builtin_job_control \
 			cmd_env 			\
 			cmd 				\
 			double_array_sort 	\
@@ -42,7 +41,6 @@ FILES 	=						\
 			ft_dollar 			\
 			ft_strsplitquote 	\
 			get_next_line 		\
-			job_control			\
 			main				\
 			operator 			\
 			redirection 		\
