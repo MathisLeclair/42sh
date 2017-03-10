@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/10 11:18:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 15:04:59 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void		rd_input(t_env *env)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-		parse(env, env->inp1);
+		parse(env, env->inp2);
 		exit(env->lastret);
 	}
 	close(fd);
