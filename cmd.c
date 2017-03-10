@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 15:01:29 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/10 11:17:58 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ void	extract_rd_output(t_env *env, char *input)
 {
 	int i;
 	int j;
+	int u;
 
 	i = 0;
 	while (input[i] && input[i] != '<')
@@ -196,11 +197,12 @@ void	extract_rd_output(t_env *env, char *input)
 	j = i + 1;
 	while (input[j] == ' ' || input[j] == '\t')
 		++j;
+	u = j;
 	while (ft_isalpha(input[j]))
 		++j;
 	free(env->inp2);
-	env->inp2 = ft_strcdup(input + i, j);
-	env->inp2[j] = 0;
+	env->inp2 = ft_strcdup(input + u, j - i);
+	env->inp2[j - i] = 0;
 	ft_remstr(input, i, j);
 	free(env->inp1);
 	env->inp1 = ft_strdup(input);

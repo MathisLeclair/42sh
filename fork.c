@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/05 19:13:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 10:57:25 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	ft_child2(t_env *env, char **input, char *pwd, char *tmp)
 		else
 			error(-4, *input, NULL);
 		free(tmp);
-		exit(0);
+		exit(env->lastret);
 	}
 	error(-2, *input, NULL);
 	env_free(env);
-	exit(0);
+	exit(env->lastret);
 }
 
 void	ft_child(t_env *env, char **input, char *pwd)
@@ -88,6 +88,7 @@ void	ft_fork(t_env *env, char **input)
 		tcsetpgrp(env->shell_terminal, env->job->pid);
 		if (waitpid(env->job->pid, &status, WUNTRACED) == -1)
 			error(-3, NULL, NULL);
+		retvalue_into_loc(env, WEXITSTATUS(status));
 		if (env->boolweride == 1)
 		{
 			retreive_ctrlz(env->i);
@@ -97,7 +98,6 @@ void	ft_fork(t_env *env, char **input)
 		if (env->booljob == 0)
 			free_current_job(env);
 		env->booljob = 0;
-		retvalue_into_loc(env, WEXITSTATUS(status));
 		env->i = 1;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 14:47:48 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/10 10:53:50 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	error2(int i, char *str)
 	if (i == -666)
 	{
 		ft_putstr("Malloc error! ABORT! ABORT!!!!!!!!\n");
-		exit(EXIT_FAILURE);
+		exit(env()->lastret);
 	}
 	else if (i == -9)
 		ft_printf("shell: cd: no such file or directory: %s\n", str);
@@ -28,7 +28,7 @@ void	error2(int i, char *str)
 	else if (i == -12)
 	{
 		ft_putstr("\n");
-		exit(EXIT_FAILURE);
+		exit(env()->lastret);
 	}
 	else if (i == -13)
 	{
