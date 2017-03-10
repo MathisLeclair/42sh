@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 12:09:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:10:25 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,15 @@ void	ft_fork(t_env *env, char **input)
 	env->i = fork();
 	if (env->i == 0)
 	{
-		setpgid(getpid(), env->job->pid);
+		env->booljob = 1;
 		ft_child(env, input, pwd);
 	}
 	else
 	{
-		if (env->job->pid != getpid())
-			setpgid(getpid(), env->job->pid);
-		add_job(env->i);
-		env->job->killable = 1;
 		if (waitpid(env->job->pid, &status, WUNTRACED) == -1)
 			error(-3, NULL, NULL);
-		retvalue_into_loc(env, WEXITSTATUS(status));
-		if (env->boolweride == 1)
-		{
-			retreive_ctrlz(env->i);
-			builtin_bg(env, NULL);
-			env->job->killable = 0;
-		}
-		if (env->booljob == 0)
-			free_current_job(env);
 		env->booljob = 0;
+		retvalue_into_loc(env, WEXITSTATUS(status));
 		env->i = 1;
 	}
 }

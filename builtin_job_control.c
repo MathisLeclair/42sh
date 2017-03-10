@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:00:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 13:10:33 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 16:45:53 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	builtin_fg(t_env *ev, char **split, int boule)
 	if (split[1])
 	{
 		i = ft_atoi(split[1]);
+		if (i == 0)
+			return (error(-14, NULL, NULL));
 		supressoldstat(ev, '-');
 		while (ev->job->prev && ev->job->num != i)
 			ev->job = ev->job->prev;
@@ -73,12 +75,11 @@ void	builtin_fg(t_env *ev, char **split, int boule)
 		}
 	}
 	if (boule == 0)
-	{
-		tcsetpgrp(ev->shell_terminal, ev->job->pid);
 		ev->job->killable = 1;
-	}
+	env()->i = env()->job->pid;
 	kill(ev->job->pid, SIGCONT);
-	waitpid(ev->job->pid, NULL, WUNTRACED);
+	if (boule == 0)
+		waitpid(ev->job->pid, NULL, WUNTRACED);
 }
 
 void	builtin_bg(t_env *ev, char **split)

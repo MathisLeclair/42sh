@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 14:54:25 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/09 17:50:03 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/10 15:54:08 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,8 @@ void	add_job(int u)
 void	retreive_ctrlz(int i)
 {
 	(void)i;
-	if (getpid() != env()->job->pid)
-	{
-		kill(env()->job->pid, SIGTSTP);
-		env()->booljob = 1;
-		env()->job->killable = 0;
-		tcsetpgrp(env()->shell_terminal, i);
-		kill(getpid(), SIGCONT);
-		printf("\nSuspended\n");
-	}
+	env()->booljob = 1;
+	env()->job->killable = 0;
 }
 
 void	jobctrl_init_shell(void)
