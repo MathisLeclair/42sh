@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_remstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 11:43:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/25 19:39:33 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:07:19 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 void	ft_remstr(char *str, int start, int end)
 {
 	str[start] = 0;
-	ft_strcat(str, str + end);
+	if (str[end])
+		ft_strcat(str, str + end);
 }

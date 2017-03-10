@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 15:06:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:10:03 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	extract_rd_output(t_env *env, char *input)
 	while (input[j] == ' ' || input[j] == '\t')
 		++j;
 	u = j;
-	while (ft_isascii(input[j]) && (input[j] != ' ' ||
+	while (input[j] && ft_isascii(input[j]) && (input[j] != ' ' ||
 		(input[j] == ' ' && input[j - 1] == '\\')))
 		++j;
 	free(env->inp2);
