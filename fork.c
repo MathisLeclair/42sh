@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 10:57:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 12:09:34 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	ft_fork(t_env *env, char **input)
 			setpgid(getpid(), env->job->pid);
 		add_job(env->i);
 		env->job->killable = 1;
-		tcsetpgrp(env->shell_terminal, env->job->pid);
 		if (waitpid(env->job->pid, &status, WUNTRACED) == -1)
 			error(-3, NULL, NULL);
 		retvalue_into_loc(env, WEXITSTATUS(status));

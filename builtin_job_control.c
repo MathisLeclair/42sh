@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_job_control.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:00:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 15:15:34 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/10 13:10:33 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,19 @@ void	builtin_fg(t_env *ev, char **split, int boule)
 		supressoldstat(ev, '-');
 		while (ev->job->prev && ev->job->num != i)
 			ev->job = ev->job->prev;
-		if (ev->job->num == i)
-		{
-			tcsetpgrp(ev->shell_terminal, ev->job->pid);
-			kill(ev->job->pid, SIGCONT);
-			ev->job->killable = 1;
-			fg_minus(ev);
-			ev->job->stat = '+';
-		}
-		else
+		if (ev->job->num != i)
 		{
 			ev->job->stat = '+';
 			return (error(-14, NULL, NULL));
 		}
 	}
-	else
+	if (boule == 0)
 	{
-		if (boule == 0)
-		{
-			tcsetpgrp(ev->shell_terminal, ev->job->pid);
-			ev->job->killable = 1;
-		}
-		kill(ev->job->pid, SIGCONT);
+		tcsetpgrp(ev->shell_terminal, ev->job->pid);
+		ev->job->killable = 1;
 	}
+	kill(ev->job->pid, SIGCONT);
+	waitpid(ev->job->pid, NULL, WUNTRACED);
 }
 
 void	builtin_bg(t_env *ev, char **split)
