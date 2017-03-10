@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 11:17:58 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 14:29:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	extract_rd_output(t_env *env, char *input)
 	while (input[j] == ' ' || input[j] == '\t')
 		++j;
 	u = j;
-	while (ft_isalpha(input[j]))
+	while (ft_isascii(input[j]))
 		++j;
 	free(env->inp2);
 	env->inp2 = ft_strcdup(input + u, j - i);
