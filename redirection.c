@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/10 15:04:59 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/10 15:28:14 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void		rd_input(t_env *env)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-		parse(env, env->inp2);
+		parse(env, env->inp1);
 		exit(env->lastret);
 	}
 	close(fd);
