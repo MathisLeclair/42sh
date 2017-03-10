@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 14:35:14 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/10 15:06:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,6 @@ void	extract_rd_output(t_env *env, char *input)
 	ft_remstr(input, i, j);
 	free(env->inp1);
 	env->inp1 = ft_strdup(input);
-	env->inp1[ft_strlen(input)] = 0;
 }
 
 void	extract_heredoc(t_env *env, char *input)
