@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/09 15:13:40 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/11 13:27:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -533,7 +533,6 @@ void	exclam(t_var *var)
 	int j;
 	char *tmp;
 
-	write(1, "ca ne devrait pas passer par la", ft_strlen("ca ne devrait pas passer par la"));
 	u = -1;
 	i = ft_strfind(var->ret, '!');
 	while (env()->history[u])

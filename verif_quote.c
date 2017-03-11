@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 12:41:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 13:38:55 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	complete_quote(char **str, int pos)
 	*str = tmp;
 }
 
-void	verif_quote(char **str, int p)
+int		verif_quote(char **str, int p)
 {
 	int quote;
 	int dquote;
@@ -50,12 +50,10 @@ void	verif_quote(char **str, int p)
 
 	quote = 0;
 	dquote = 0;
-	p = -1;
 	pos = 0;
 	while ((*str)[++p])
 	{
-		if (((*str)[p] == '\'' || (*str)[p] == '"') && quote == 0 && dquote == 0 &&
-			((p > 1 && (*str)[p - 1] != '\\') || p < 1))
+		if (((*str)[p] == '\'' || (*str)[p] == '"') && quote == 0 && dquote == 0 && ((p > 1 && (*str)[p - 1] != '\\') || p < 1))
 			pos = p;
 		if ((*str)[p] == '\'' && dquote == 0 &&
 			((p > 1 && (*str)[p - 1] != '\\') || p < 1))
@@ -68,4 +66,7 @@ void	verif_quote(char **str, int p)
 		complete_quote(str, pos);
 	else if (dquote == 1)
 		complete_dquote(str, pos);
+	else if(quote == 0 && dquote == 0)
+		return (0);
+	return (-1);
 }
