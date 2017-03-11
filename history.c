@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:19:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/06 15:09:01 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/11 13:56:17 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	file_history(int i, int j, int k)
 	close(fd);
 }
 
-void	add_history(t_var *var)
+void	add_history(char *str)
 {
 	int		i;
 	char	*tmp;
@@ -94,11 +94,11 @@ void	add_history(t_var *var)
 		free(num);
 		num = tmp;
 	}
-	tmp = malloc(ft_strlen(var->ret) + ft_strlen(num) + 5);
+	tmp = malloc(ft_strlen(str) + ft_strlen(num) + 5);
 	*tmp = 0;
 	ft_strcat(tmp, num);
 	ft_strcat(tmp, "  ");
-	ft_strcat(tmp, var->ret);
+	ft_strcat(tmp, str);
 	i = 0;
 	while (env()->history[i])
 		++i;

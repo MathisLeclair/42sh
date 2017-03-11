@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 13:39:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 13:59:11 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,8 @@ int		ft_read(t_env *env, char *input)
 		env->dir, PROMPT));
 	while(verif_quote(&input, -1) != 0)
 		;
+	// if (input[0])
+	// 	add_history(input);
 	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
 		if (subshell(env, input) == -1)
 			return (0);
