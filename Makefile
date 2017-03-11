@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
+#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/11 16:00:45 by bfrochot         ###   ########.fr        #
+#    Updated: 2017/03/11 18:25:55 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ $(NAME)			: 	$(OBJP)
 					@echo "|                     sub compilation :                     |"
 					@echo "|                           libft                           |"
 					@make -C $(LIBDIR)
-					@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./$(TCAPS)
+					@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./$(TCAPS) -I$HOME/.brew/include
 					@echo "|                            FIN                            |"
 					@echo "-------------------------------------------------------------"
 					@cat cake-v2.ascii

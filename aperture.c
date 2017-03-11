@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aperture.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/07 13:16:56 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:30:38 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	aperture2(void)
 {
+	// Mix_Music *musique;
 	char	buf[5];
+	char	*lol[3];
 	int		fd;
 	int		truc;
 
@@ -27,6 +29,20 @@ void	aperture2(void)
 			ft_putstr("But why delete it ? you monster\n");
 			return ;
 		}
+		truc = fork();
+		if (truc == 0)
+		{
+			lol[0] = "afplay";
+			lol[1] = "stillalive.mp3";
+			lol[2] = NULL;
+			execve("/usr/bin/afplay", lol, env()->ev);
+		}
+		// if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
+		// 	error(-3, NULL, NULL);
+		// musique = Mix_LoadMUS("stillalive.mp3");
+		// Mix_PlayMusic(music, 1)
+		// Mix_FreeMusic(musique);
+		// Mix_CloseAudio();
 		while (read(fd, buf, 1))
 		{
 			write(1, &buf[0], 1);
