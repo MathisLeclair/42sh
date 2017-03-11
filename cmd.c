@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 15:49:54 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/11 15:59:55 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,9 +310,9 @@ int		ft_read(t_env *env, char *input)
 		env->dir, PROMPT));
 	while(verif_quote(&input, -1) != 0)
 		;
-	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
-		if (subshell(env, input) == -1)
-			return (0);
+	// if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
+	// 	if (subshell(env, input) == -1)
+	// 		return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
 	i = -1;
