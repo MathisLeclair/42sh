@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 14:58:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 15:52:39 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct	s_env
 	t_job			*job;
 	int				booljob;
 	int				boolweride;
+	char			**hash;
 }				t_env;
 
 typedef struct	s_var
@@ -311,5 +312,7 @@ void			set_history(void);
 void			file_history(int i, int j, int k);
 void			auto_prop(t_var *var, int p);
 void			ft_join_spaces(char **tmp, int i);
+
+void			builtin_hash(t_env *env, char **split)
 
 #endif

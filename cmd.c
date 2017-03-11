@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 14:58:44 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 15:49:54 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	}
 	else if (ft_strcmp(split[0], "export") == 0)
 		builtin_export(env, split);
+	else if (ft_strcmp(split[0], "hash") == 0)
+		builtin_hash(env, split);
 	else if(ft_strfind(split[0], '=') != -1)
 		add_local(env, split);
 	else
@@ -308,8 +310,6 @@ int		ft_read(t_env *env, char *input)
 		env->dir, PROMPT));
 	while(verif_quote(&input, -1) != 0)
 		;
-	// if (input[0])
-	// 	add_history(input);
 	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
 		if (subshell(env, input) == -1)
 			return (0);
