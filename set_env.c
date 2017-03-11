@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 15:39:07 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:43:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_e3(t_env *e)
 	e->job->next = NULL;
 	e->job->prev = NULL;
 	e->job->num = 0;
-	e->boolweride = 0;
+	e->boolthing = 0;
 	e->job->killable = -1;
 	e->lastret = 0;
 	e->hash = NULL;

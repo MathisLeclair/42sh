@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:32:35 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:42:48 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct	s_env
 	int				shell_terminal;
 	t_job			*job;
 	int				booljob;
-	int				boolweride;
+	int				boolthing;
 	char			**hash;
 }				t_env;
 

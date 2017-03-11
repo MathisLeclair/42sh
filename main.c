@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/10 18:10:50 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:44:36 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ t_env	*env(void)
 
 void	ft_sig(int i)
 {
-	if (env()->booljob == 0)
+	if (env()->boolthing != 0)
+		kill(env()->boolthing, SIGKILL);
+	else if (env()->booljob == 0)
 	{
 		i = tvar()->i;
 		initvar(tvar(), 0);

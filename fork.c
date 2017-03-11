@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:29:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:41:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ void	ft_child(t_env *env, char **input, char *pwd)
 	{
 		tmp = ft_strjoin(env->path[i], "/");
 		tmp2 = ft_strjoin(tmp, *input);
-		printf("test\n");
-		print_split(input);
-		printf("testEND\n");
 		execve(tmp2, input, env->ev);
 		free(tmp);
 		free(tmp2);

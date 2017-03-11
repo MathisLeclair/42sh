@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:30:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:44:23 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	aperture2(void)
 {
-	// Mix_Music *musique;
 	char	buf[5];
 	char	*lol[3];
 	int		fd;
 	int		truc;
 
 	truc = fork();
+	env()->boolthing = truc;
 	if (truc == 0)
 	{
 		env()->i = 0;
@@ -37,12 +37,6 @@ void	aperture2(void)
 			lol[2] = NULL;
 			execve("/usr/bin/afplay", lol, env()->ev);
 		}
-		// if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
-		// 	error(-3, NULL, NULL);
-		// musique = Mix_LoadMUS("stillalive.mp3");
-		// Mix_PlayMusic(music, 1)
-		// Mix_FreeMusic(musique);
-		// Mix_CloseAudio();
 		while (read(fd, buf, 1))
 		{
 			write(1, &buf[0], 1);
