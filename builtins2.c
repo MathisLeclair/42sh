@@ -3,28 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 15:14:41 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/11 14:46:36 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
+void	add_local(t_env *env, char **split)
+{
+	int i;
+	int j;
+
+	(void)env;
+	i = -1;
+	while (split[++i])
+	{
+		if ((j = ft_strfind(split[i], '=')) != -1)
+			if (ft_isalpha(split[i][0]))
+				add_var_to_env(env->loc, split[i]);
+	}
+}
+
 void	builtin_export(t_env *env, char **split)
 {
 	int i;
+	int j;
 
-	i = -1;
+	i = 0;
 	if (!split[1] || (split[1][0] == '-' && split[1][1] == 'p'))
-		while (env->loc->ev[++i])
-			ft_printf("%s %s\n", "export", env->loc->ev[i]);
+		while (env->ev[++i])
+			ft_printf("%s %s\n", "export", env->ev[i]);
 	else if (split[1][1] && split[1][0] == '-' && split[1][1] != 'p')
 		ft_printf("%s %c\n", "export : bad option:", split[1][1]);
 	else
 		while (split[++i])
-			add_var_to_env(env->loc, split[i]);
+			if (ft_strfind(split[i], '=') != -1)
+			{
+				add_local(env, split);
+				add_var_to_env(env, split[i]);
+			}
+			else
+			{
+				j = find_param(env->loc->ev, split[i]);
+				if (j == -1)
+					continue ;
+				add_var_to_env(env, env->loc->ev[j]);
+			}
 }
 
 void	builtin_read(t_env *ev, char **split)
