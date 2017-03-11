@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:44:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 19:16:25 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	aperture2(void)
 {
 	char	buf[5];
+	char	*tmp;
 	char	*lol[3];
-	int		fd;
+	int		fd[2];
 	int		truc;
 
 	truc = fork();
@@ -24,7 +25,12 @@ void	aperture2(void)
 	if (truc == 0)
 	{
 		env()->i = 0;
-		if ((fd = open("stillalive.txt", O_RDONLY)) == -1)
+		if ((fd[0] = open("stillalive.txt", O_RDONLY)) == -1)
+		{
+			ft_putstr("But why delete it ? you monster\n");
+			return ;
+		}
+		if ((fd[1] = open("stillalivetimer.txt", O_RDONLY)) == -1)
 		{
 			ft_putstr("But why delete it ? you monster\n");
 			return ;
@@ -37,10 +43,15 @@ void	aperture2(void)
 			lol[2] = NULL;
 			execve("/usr/bin/afplay", lol, env()->ev);
 		}
-		while (read(fd, buf, 1))
+		while (read(fd[0], buf, 1))
 		{
 			write(1, &buf[0], 1);
-			usleep(80000);
+			if (*buf != '\n')
+			{
+				get_next_line(fd[1], &tmp);
+				usleep(atoi(tmp));
+				free(tmp);
+			}
 		}
 		exit(0);
 	}
