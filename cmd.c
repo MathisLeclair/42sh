@@ -6,7 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2017/03/11 18:27:37 by bfrochot         ###   ########.fr       */
+=======
 /*   Updated: 2017/03/11 17:01:33 by mleclair         ###   ########.fr       */
+>>>>>>> 6a5a4810487539f15ae5b42c05ffe8150bdb0450
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +73,10 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	else if(ft_strfind(split[0], '=') != -1)
 		add_local(env, split);
 	else
+	{
+		gthash(isbin(split[0]));
 		ft_fork(env, split);
+	}
 	if (split)
 		free_double_array(split);
 	return (save_env(env));

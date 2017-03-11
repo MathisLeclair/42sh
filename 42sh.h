@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:21:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:32:35 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,5 +314,7 @@ void			auto_prop(t_var *var, int p);
 void			ft_join_spaces(char **tmp, int i);
 
 void			builtin_hash(t_env *env, char **split);
+void			gthash(char *str);
+char			*isbin(char *str);
 
 #endif
