@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 14:12:36 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 14:58:51 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ void			retvalue_into_loc(t_env *env, int i);
 char			*termcaps(t_ssprintf *prompt);
 t_var			*tvar(void);
 
-void			add_history(t_var *var);
+void			add_history(char *str);
 char			**autocomplete(char *input, int pos, t_env *env);
 void			reset(t_var *var);
 
