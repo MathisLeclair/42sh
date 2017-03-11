@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
+#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/10 18:18:55 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/11 16:00:45 by bfrochot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ FILES 	=						\
 			handle_argv 		\
 			handle_file			\
 			history				\
-			auto_prop
+			auto_prop			\
+			builtins3
 
 OBJ  := 	$(addsuffix .o, $(FILES))
 
