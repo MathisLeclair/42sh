@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 14:46:36 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/11 16:58:23 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,28 @@ void	builtin_export(t_env *env, char **split)
 			}
 }
 
+void	builtin_read2(char *str)
+{
+	int i;
+	char *tmp;
+
+	i = -1;
+	while(str[++i])
+	{
+		if (str[i] == '\\')
+		{
+			tmp = palloc(ft_strlen(str) + 2);
+			*tmp = 0;
+			ft_strncat(tmp, str, i);
+			tmp[i] = '\\';
+			tmp[i + 1] = 0;
+			ft_strcat(tmp, str + i);
+			free(str);
+			str = tmp;
+		}
+	} 
+}
+
 void	builtin_read(t_env *ev, char **split)
 {
 	char	*bufe;
@@ -67,15 +89,16 @@ void	builtin_read(t_env *ev, char **split)
 	bufe = malloc(INPUT_SIZE);
 	read(0, bufe, INPUT_SIZE);
 	if (split[1] && split[1][0] == '-' && split[1][1] == 'r')
+	{
 		r = 1;
+		builtin_read2(bufe);
+	}
 	i = r == 1 ? 2 : 1;
 	while (split[++r])
 	{
-		printf("pOPAWJOHDAW\n");
 		ft_strcat(truc, split[i]);
 		ft_strcat(truc, "=");
 		ft_strcat(truc, bufe);
-		printf("ll=%s\n", truc);
 		add_var_to_env(ev->loc, split[i]);
 		truc[0] = 0;
 	}
