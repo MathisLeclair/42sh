@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 12:18:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 13:32:37 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	else if(ft_strfind(split[0], '=') != -1)
 		add_local(env, split);
 	else
+	{
 		gthash(isbin(split[0]));
 		ft_fork(env, split);
+	}
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
@@ -112,7 +114,10 @@ int		ft_reco_cmd(t_env *env)
 		return (1);
 	split = ft_split_input(env->input);
 	if (split[0] == NULL)
+	{
+		retvalue_into_loc(env, 1);
 		return (0);
+	}
 	if (!(i = 0) && ft_strcmp(split[0], "cd") == 0)
 		ft_cd(split, env, reg, ft_strnew(INPUT_SIZE + 4));
 	else if (ft_strcmp(split[0], "echo") == 0)
