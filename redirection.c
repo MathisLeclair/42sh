@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/12 13:37:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 19:01:55 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	frk_pipe(t_env *env)
 	close(fds[1]);
 	parse(env, env->inp2);
 	wait(&status);
-	retvalue_into_loc(env, WEXITSTATUS(status));
 }
 
 void	rd_pipe(t_env *env)
