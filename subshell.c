@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 14:52:53 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/12 17:27:34 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	int		status;
 	char	*str;
 
-	i = ft_strfind(input, '(');
+	i = ft_strcfind(input, '(');
 	l = ft_strfind(input + i, ')');
 	str = malloc(l);
 	*str = 0;
-	str = ft_strncat(str, input + i + 1, l - i - 1);
+	ft_strncat(str, input + i + 1, input[l - i] == ')' ? l - i - 1 : l - i);
 	child = fork();
 	if (child == 0)
 	{
@@ -46,70 +46,69 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	{
 		waitpid(child, &status, 0);
 		retvalue_into_loc(env, WEXITSTATUS(status));
-		ft_remstr(env->input, i, l + 1);
-		ft_remstr(input, i, l + 1);
+		ft_remstr(input, i, ft_strfind(input, ')') + 1);
 	}
 }
 
-int		verif_par(char *str)
+int		verif_par(char *str, int u, int t)
 {
 	int i;
-	int u;
+	int j;
 
 	i = -1;
-	u = 0;
+	j = 0;
 	while (str[++i])
 	{
 		if (str[i] == '(' && u == 0)
 			u = 1;
 		else if (str[i] == ')' && u == 1)
 		{
-			str[i] = '~';
+			if (t == 1)
+				return (i);
 			u = 0;
 		}
 		else if (str[i] == ')' && u == 0)
 			return (-1);
-		else if (str[i] == '(' && u == 1 && verif_par(str + i) == -1)
+		else if (str[i] == '(' && u == 1)
+			j = verif_par(str + i + 1, 1, 1);
+		else if (j == -1)
 			return (-1);
+		i = j > i ? j + i + 1 : i;
 	}
 	if (u == 1)
 		return (-1);
 	return (0);
 }
 
-int		verif_subshell(char *input)
+int		verif_subshell(char *str)
 {
 	int i;
-	int ok;
-	int u;
 
-	ok = -1;
-	u = -1;
-	i = ft_strfind(input, '(');
-	while (input[++u])
-		if (input[u] == '&' || input[u] == '|' ||
-		input[u] == '>' || input[u] == '<')
-			ok = 0;
-	return (ok);
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '(' && str[i + 1] == ')')
+			return (-1);
+	}
+	return (0);
 }
 
 int		subshell(t_env *env, char *input)
 {
-	char *str;
+	char	*str;
+	int		i;
 
-	if (verif_subshell(input) == -1)
-	{
-		ft_putstr("Wrong use of '()'\n");
-		return (-1);
-	}
+	i = 0;
 	str = ft_strdup(input);
-	if (verif_par(str) == -1)
+	if (verif_par(str, 0, 0) == -1 || verif_subshell(str) == -1)
 	{
 		free(str);
-		ft_printf("Wrong numbers of parenthesis\n");
+		ft_printf("Wrong uses of parenthesis\n");
 		return (-1);
 	}
 	free(str);
 	subshell2(env, 0, 0, input);
+	while (ft_strfind(input, '(') != -1)
+		subshell(env, input);
 	return (0);
 }
