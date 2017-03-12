@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 11:51:24 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 12:18:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,8 @@ int		ft_reco_cmd3(t_env *env, char **split)
 	else if(ft_strfind(split[0], '=') != -1)
 		add_local(env, split);
 	else
-	{
 		gthash(isbin(split[0]));
 		ft_fork(env, split);
-	}
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
@@ -113,6 +111,8 @@ int		ft_reco_cmd(t_env *env)
 	if (*env->input == '\n')
 		return (1);
 	split = ft_split_input(env->input);
+	if (split[0] == NULL)
+		return (0);
 	if (!(i = 0) && ft_strcmp(split[0], "cd") == 0)
 		ft_cd(split, env, reg, ft_strnew(INPUT_SIZE + 4));
 	else if (ft_strcmp(split[0], "echo") == 0)
@@ -126,7 +126,7 @@ int		ft_reco_cmd(t_env *env)
 	else if (ft_strcmp(split[0], "aperture") == 0)
 		ft_aperture();
 	else
-		return (ft_reco_cmd2(env, split));
+		return (ft_reco_cmd2(env, split));	
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
@@ -165,6 +165,8 @@ int		cmprev(char *str, char *tofind)
 	int k;
 
 	i = ft_strlen(str);
+	if (i < (int)ft_strlen(tofind))
+		return (-1);
 	while (str[--i])
 	{
 		k = ft_strlen(tofind);
@@ -236,6 +238,8 @@ void	parse(t_env *env, char *input)
 	env->input = ft_strdup(input);
 	while (ft_strchr(env->input, '`') != 0)
 		bquote(env);
+	if (env->input == NULL)
+		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
 	if (cmprev(input, "&&") != -1)
