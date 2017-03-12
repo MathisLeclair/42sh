@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 19:22:03 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 11:51:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,7 @@ int		ft_reco_cmd2(t_env *env, char **split)
 		exit(0);
 	}
 	else if (ft_strcmp(split[0], "exit") == 0)
-	{
-		free_double_array(split);
-		ft_exit();
-	}
+		ft_exit(split);
 	else if (ft_strcmp(split[0], "env") == 0)
 		reco_env(env, split, 0, 0);
 	else if (ft_strcmp(split[0], "history") == 0)
@@ -230,23 +227,6 @@ void	extract_heredoc(t_env *env, char *input)
 	env->inp1 = ft_strdup(input);
 }
 
-void	handle_weirde(t_env *e)
-{
-	int i;
-
-	i = -1;
-	while (e->input[++i])
-	{
-		if (e->input[i] == '&' && i > 1 && e->input[i - 1] != '<' &&
-			e->input[i - 1] != '>' && e->input[i + 1] != '&'
-			&& e->input[i - 1] != '&')
-		{
-			e->boolweride = 1;
-			e->input[i] = ' ';
-		}
-	}
-}
-
 void	parse(t_env *env, char *input)
 {
 	int i;
@@ -254,7 +234,6 @@ void	parse(t_env *env, char *input)
 	i = -1;
 	free(env->input);
 	env->input = ft_strdup(input);
-	handle_weirde(env);
 	while (ft_strchr(env->input, '`') != 0)
 		bquote(env);
 	if (ft_strchr(env->input, '$'))

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:42:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 11:51:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int				free_double_array(char **t);
 
 void			ft_cd(char **split, t_env *env, char *reg, char *oldpwd);
 void			ft_echo(char **split);
-void			ft_exit(void);
+void			ft_exit(char **split);
 
 void			ft_aperture(void);
 
@@ -302,7 +302,7 @@ void			cut(t_var *var);
 char			ft_strcmp_beg(char *str1, char *str2);
 void			initvar(t_var *var, int i);
 /*
-** END OF TEMCAPS
+** END OF TERMCAPS
 */
 
 void			signblock();

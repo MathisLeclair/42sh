@@ -6,18 +6,27 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/11 11:46:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 11:56:51 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-void	ft_exit(void)
+void	ft_exit(char **split)
 {
+	int i;
+
+	i = -1;
+	if (split[1] && ft_isdigit(split[1][0]) && !split[2])
+		i = ft_atoi(split[1]);
+	else if ((split[1] && !ft_isdigit(split[1][0])) || split[2])
+		error (-14, NULL, NULL);
+	i = (i != -1 ? i : env()->lastret);
+	free_double_array(split);
 	ft_putstr("exit\n");
 	file_history(0, 0, 0);
 	env_free(env());
-	exit(0);
+	exit(i);
 }
 
 char	*ft_cd_regex(char **split, int k)

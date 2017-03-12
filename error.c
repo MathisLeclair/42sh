@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 13:27:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 11:56:27 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	error2(int i, char *str)
 	else if (i == -10)
 		ft_printf("shell: cd: string not in pwd: %s\n", str);
 	else if (i == -11)
-		ft_putstr("shell: No history to display");
+		ft_putstr("shell: No history to display\n");
 	else if (i == -12)
 	{
 		ft_putstr("\n");
@@ -35,6 +35,8 @@ void	error2(int i, char *str)
 		ft_remstr(tvar()->ret, 0, ft_strlen(tvar()->ret));
 		ft_putstr("\nshell: No such event");
 	}
+	else if (i == -14)
+		ft_putstr("exit: take only 1 numeric argument.\n");
 }
 
 void	error(int i, char *str, char *str2)
