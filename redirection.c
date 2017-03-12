@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/10 15:28:14 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/12 13:37:25 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 static void	frk_pipe(t_env *env)
 {
 	pid_t		child;
+	int			status;
 	int			fds[2];
 
 	child = -1;
@@ -40,12 +41,14 @@ static void	frk_pipe(t_env *env)
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
 	parse(env, env->inp2);
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 }
 
 void	rd_pipe(t_env *env)
 {
 	pid_t	child;
+	int		status;
 
 	child = -1;
 	child = fork();
@@ -61,7 +64,8 @@ void	rd_pipe(t_env *env)
 		env->isoperand = 0;
 		exit(env->lastret);
 	}
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 }
 
 /*
@@ -75,6 +79,7 @@ void		rd_output(t_env *env, int i)
 	int		fd;
 	char	n;
 	char	**s;
+	int		status;
 
 	child = -1;
 	fd = -1;
@@ -105,7 +110,8 @@ void		rd_output(t_env *env, int i)
 		exit(env->lastret);
 	}
 	close(fd);
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 }
 
 /*
@@ -155,6 +161,7 @@ void		rd_input(t_env *env)
 	pid_t		child;
 	int			fd;
 	char		n;
+	int			status;
 
 	child = -1;
 	fd = -1;
@@ -183,5 +190,6 @@ void		rd_input(t_env *env)
 		exit(env->lastret);
 	}
 	close(fd);
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 }

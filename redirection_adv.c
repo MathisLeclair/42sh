@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_adv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/09 16:52:18 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/12 13:35:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void		rd_here_doc(t_env *env)
 	int			rsize;
 	char		n;
 	char		*buff;
+	int			status;
 
 	child = -1;
 	fd = -1;
@@ -126,6 +127,7 @@ void		rd_here_doc(t_env *env)
 		parse(env, env->inp1);
 		exit(env->lastret);
 	}
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:38:45 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/10 11:00:32 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 13:35:30 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	rd_closeinput(t_env *env, char n)
 {
 	pid_t		child;
 	int			std_tmp;
+	int			status;
 
 	child = -1;
 	if (n == -1 || (n >= 0 && n <= 2))
@@ -33,7 +34,8 @@ static void	rd_closeinput(t_env *env, char n)
 		parse(env, env->inp1);
 		exit(env->lastret);
 	}
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 	if (n == -1 || (n >= 0 && n <= 2))
 		dup2(std_tmp, (n == -1 ? STDIN_FILENO : (int)n));
 }
@@ -42,6 +44,7 @@ void		rd_dupinput(t_env *env, char n)
 {
 	pid_t		child;
 	char		word;
+	int			status;
 
 	child = -1;
 	word = env->inp2[1] - 48;
@@ -61,7 +64,8 @@ void		rd_dupinput(t_env *env, char n)
 		parse(env, env->inp1);
 		exit(env->lastret);
 	}
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 }
 
 /*
@@ -72,6 +76,7 @@ static void	rd_closeoutput(t_env *env, char n)
 {
 	pid_t		child;
 	int			std_tmp;
+	int			status;
 
 	child = -1;
 	if (n == -1 || (n >= 0 && n <= 2))
@@ -85,7 +90,8 @@ static void	rd_closeoutput(t_env *env, char n)
 		parse(env, env->inp1);
 		exit(env->lastret);
 	}
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 	if (n == -1 || (n >= 0 && n <= 2))
 		dup2(std_tmp, (n == -1 ? STDOUT_FILENO : (int)n));
 }
@@ -94,6 +100,7 @@ void		rd_dupoutput(t_env *env, char n)
 {
 	pid_t		child;
 	char		word;
+	int			status;
 
 	child = -1;
 	word = env->inp2[1] - 48;
@@ -113,5 +120,6 @@ void		rd_dupoutput(t_env *env, char n)
 		parse(env, env->inp1);
 		exit(env->lastret);
 	}
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 }
