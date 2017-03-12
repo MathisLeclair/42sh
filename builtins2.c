@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 16:58:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/12 15:15:33 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,12 @@ void	builtin_read(t_env *ev, char **split)
 
 void	history(t_env *env, char **split)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
+	char	*tmp;
 
+	tmp = malloc(INPUT_SIZE);
+	*tmp = 0;
 	if (split[0] && split[1] && split[2])
 		error(-7, NULL, NULL);
 	else if (!(env->history))
@@ -120,7 +123,9 @@ void	history(t_env *env, char **split)
 			if (split[1][1] == 'c')
 			{
 				free_double_array(env->history);
-				env->history = 0;
+				ft_strcat(ft_strcat(tmp, env->ev[find_param(env->ev,"HOME")] + 5), "/.42shistory");
+				unlink(tmp);
+				set_history();
 				retvalue_into_loc(env, 0);
 			}
 			else
