@@ -131,7 +131,7 @@ int		ft_reco_cmd(t_env *env)
 	else if (ft_strcmp(split[0], "aperture") == 0)
 		ft_aperture();
 	else
-		return (ft_reco_cmd2(env, split));	
+		return (ft_reco_cmd2(env, split));
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
@@ -276,8 +276,15 @@ void	parse(t_env *env, char *input)
 		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
+<<<<<<< HEAD
 	if (cmprevtruc(env, &input))
 		;
+=======
+	if (cmprev(input, "||") != -1)
+		oprt_or(env);
+	if (cmprev(input, "&&") != -1)
+		oprt_and(env);
+>>>>>>> 9abf974501be5925b47d7aa720214d50831bead8
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
 	else if (cmprev(input, "<") != -1)

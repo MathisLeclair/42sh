@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/12 19:01:55 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:32:34 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void		rd_output_apd(t_env *env, int i)
 	int			fd;
 	char		n;
 	char		**s;
+	int			status;
 
 	child = -1;
 	fd = -1;
@@ -148,7 +149,8 @@ void		rd_output_apd(t_env *env, int i)
 		exit(env->lastret);
 	}
 	close(fd);
-	wait(NULL);
+	wait(&status);
+	retvalue_into_loc(env, WEXITSTATUS(status));
 }
 
 /*
@@ -175,7 +177,11 @@ void		rd_input(t_env *env)
 		return ;
 	}
 	if ((fd = open(env->inp2, O_RDONLY)) == -1)
+	{
 		perror("error");
+		close(fd);
+		return ;
+	}
 	child = fork();
 	if ((int)child == -1)
 	{
