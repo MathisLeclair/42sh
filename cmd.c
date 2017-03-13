@@ -1,12 +1,12 @@
-/* ************************************************************************** */
+//* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 14:18:29 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 17:06:16 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,35 @@ void	extracredir(t_env *env)
 	}
 }
 
+int		cmprevtruc(t_env *env, char **input)
+{
+	int i;
+
+	i = ft_strlen(*input);
+	if (i <= 2)
+		return (0);
+	while ((*input)[--i])
+	{
+		if (((*input)[i] == '&' && (*input)[i - 1] == '&') ||
+			((*input)[i] == '|' && (*input)[i - 1] == '|'))
+		{
+			env->inp1 = ft_strcdup((*input), i - 1);
+			env->inp2 = ft_strdup((*input) + i + 1);
+			if ((*input)[i] == '&')
+			{
+				oprt_and(env);
+				return (1);
+			}
+			else
+			{
+				oprt_or(env);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 int		cmprev(char *str, char *tofind)
 {
 	int i;
@@ -247,10 +276,8 @@ void	parse(t_env *env, char *input)
 		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
-	if (cmprev(input, "||") != -1)
-		oprt_or(env);
-	else if (cmprev(input, "&&") != -1)
-		oprt_and(env);
+	if (cmprevtruc(env, &input))
+		;
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
 	else if (cmprev(input, "<") != -1)
