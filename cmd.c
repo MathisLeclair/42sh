@@ -1,4 +1,4 @@
-//* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 17:06:16 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/13 17:23:09 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,15 +276,8 @@ void	parse(t_env *env, char *input)
 		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
-<<<<<<< HEAD
 	if (cmprevtruc(env, &input))
 		;
-=======
-	if (cmprev(input, "||") != -1)
-		oprt_or(env);
-	if (cmprev(input, "&&") != -1)
-		oprt_and(env);
->>>>>>> 9abf974501be5925b47d7aa720214d50831bead8
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
 	else if (cmprev(input, "<") != -1)
