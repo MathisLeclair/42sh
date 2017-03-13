@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:44:36 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:31:35 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		main(int ac, char **av, char **ev)
 	signblock(1);
 	shlvl(env());
 	handle_file(ac, av, env());
+	while (1) ;
 	while (1)
 		if ((ft_read(env(), NULL)) == 0)
 			continue ;
