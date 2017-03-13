@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 13:44:21 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:05:06 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,5 +316,6 @@ int		ft_read(t_env *env, char *input)
 		env->input = NULL;
 	}
 	free_double_array(inputspl);
+	free(input);
 	return (0);
 }
