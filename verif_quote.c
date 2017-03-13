@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 13:43:43 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:46:03 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	complete_dquote(char **str, int pos)
 	char *tmp3;
 
 	tmp = ft_strdup(*str);
+	tmp[pos + 1] == '\\' ? pos += 2 : pos;
 	while (ft_strfind(tmp + pos + 1, '"') == -1)
 	{
 		tmp3 = termcaps(ft_sprintf("dquote>"));
