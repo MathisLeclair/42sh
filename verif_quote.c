@@ -6,11 +6,23 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 13:46:03 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:54:05 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+int	ft_strfind_bq(const char *s, int c)
+{
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (-1);
+	while (s[i] && (s[i] != c || (i > 0 && s[i - 1] == '\\')))
+		i++;
+	return (s[i] == c ? i : -1);
+}
 
 void	complete_dquote(char **str, int pos)
 {
@@ -18,8 +30,7 @@ void	complete_dquote(char **str, int pos)
 	char *tmp3;
 
 	tmp = ft_strdup(*str);
-	tmp[pos + 1] == '\\' ? pos += 2 : pos;
-	while (ft_strfind(tmp + pos + 1, '"') == -1)
+	while (ft_strfind_bq(tmp + pos + 1, '"') == -1)
 	{
 		tmp3 = termcaps(ft_sprintf("dquote>"));
 		tmp = ft_strjoin(tmp, "\n");
@@ -34,8 +45,7 @@ void	complete_quote(char **str, int pos)
 	char *tmp3;
 
 	tmp = ft_strdup(*str);
-	tmp[pos + 1] == '\\' ? pos += 2 : pos;
-	while (ft_strfind(tmp + pos + 1, '\'') == -1)
+	while (ft_strfind_bq(tmp + pos + 1, '\'') == -1)
 	{
 		tmp3 = termcaps(ft_sprintf("quote>"));
 		tmp = ft_strjoin(tmp, "\n");
