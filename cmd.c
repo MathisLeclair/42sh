@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 16:14:14 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:44:21 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,10 +247,10 @@ void	parse(t_env *env, char *input)
 		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
-	if (cmprev(input, "&&") != -1)
-		oprt_and(env);
-	else if (cmprev(input, "||") != -1)
+	if (cmprev(input, "||") != -1)
 		oprt_or(env);
+	else if (cmprev(input, "&&") != -1)
+		oprt_and(env);
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
 	else if (cmprev(input, "<") != -1)
