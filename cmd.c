@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 14:24:26 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:39:59 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,7 @@ int		ft_read(t_env *env, char *input)
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(env, -1, 0);
 		parse(env, env->input);
+		free(env->input);
 		env->input = NULL;
 	}
 	free_double_array(inputspl);

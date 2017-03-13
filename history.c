@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:19:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/11 13:56:17 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:03:01 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	set_history(void)
 		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev,
 		"HOME")] + 5), "/.42shistory");
 	fd = open(tmp, O_RDONLY);
+	free(tmp);
 	if (fd == -1)
 		return ;
 	while (get_next_line(fd, &line))
+	{
 		add_str_to_dstr(&env()->history, line);
+		free(line);
+	}
 	close(fd);
 }
 
@@ -56,6 +60,7 @@ void	file_history(int i, int j, int k)
 		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev,
 		"HOME")] + 5), "/.42shistory");
 	fd = open(tmp, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	free(tmp);
 	while (env()->history[i])
 		++i;
 	i = i > 5000 ? i - 5000 : 0;
@@ -68,6 +73,7 @@ void	file_history(int i, int j, int k)
 			tmp[k] = ' ';
 		tmp[k] = 0;
 		file_history2(fd, tmp, &i, num);
+		free(tmp);
 		++j;
 	}
 	close(fd);
