@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 13:43:33 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/12 12:50:00 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:49:25 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	oprt_and(t_env *env)
 	int		status;
 
 	child = -1;
+	// printf("POUETAN\n");
 	child = fork();
 	if ((int)child == -1)
 		perror("error");
@@ -31,11 +32,13 @@ void	oprt_and(t_env *env)
 		exit(env->lastret);
 	}
 	waitpid(child, &status, 0);
-	retvalue_into_loc(env, WEXITSTATUS(status));
 	if (WEXITSTATUS(status) == 0)
 	{
 		parse(env, env->inp2);
+		retvalue_into_loc(env, env->lastret);
 	}
+	else
+		retvalue_into_loc(env, WEXITSTATUS(status));
 }
 
 /*
@@ -48,21 +51,23 @@ void	oprt_or(t_env *env)
 	int		status;
 
 	child = -1;
+	// printf("POUET\n");
 	child = fork();
 	if ((int)child == -1)
 		perror("error");
 	else if ((int)child == 0)
 	{
+		// printf("%s\n", env->inp1);
 		parse(env, env->inp1);
 		exit(env->lastret);
 	}
 	waitpid(child, &status, 0);
-	retvalue_into_loc(env, WEXITSTATUS(status));
-	if (WEXITSTATUS(status) == 0)
-		return ;
 	if (WEXITSTATUS(status) != 0)
 	{
 		parse(env, env->inp2);
 		env->isoperand = 0;
+		retvalue_into_loc(env, env->lastret);
 	}
+	else
+		retvalue_into_loc(env, WEXITSTATUS(status));
 }
