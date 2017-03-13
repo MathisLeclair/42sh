@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/12 11:56:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/13 11:24:10 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_exit(char **split)
 	i = -1;
 	if (split[1] && ft_isdigit(split[1][0]) && !split[2])
 		i = ft_atoi(split[1]);
-	else if ((split[1] && !ft_isdigit(split[1][0])) || split[2])
+	else if ((split[1] && !ft_isdigit(split[1][0])) ||
+		(split[1] && split[2]) || !split[0])
 		error (-14, NULL, NULL);
 	i = (i != -1 ? i : env()->lastret);
 	free_double_array(split);
