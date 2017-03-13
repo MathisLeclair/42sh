@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 15:21:25 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:27:41 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int		ft_reco_cmd(t_env *env)
 	else if (ft_strcmp(split[0], "aperture") == 0)
 		ft_aperture();
 	else
-		return (ft_reco_cmd2(env, split));	
+		return (ft_reco_cmd2(env, split));
 	if (split)
 		free_double_array(split);
 	return (save_env(env));
@@ -249,7 +249,7 @@ void	parse(t_env *env, char *input)
 		ft_dollar(env, -1, 0);
 	if (cmprev(input, "||") != -1)
 		oprt_or(env);
-	else if (cmprev(input, "&&") != -1)
+	if (cmprev(input, "&&") != -1)
 		oprt_and(env);
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
