@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/13 14:37:32 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:32:34 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void		rd_output_apd(t_env *env, int i)
 	int			fd;
 	char		n;
 	char		**s;
+	int			status;
 
 	child = -1;
 	fd = -1;
