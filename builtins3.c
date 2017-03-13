@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 15:47:09 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/11 18:29:38 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:12:18 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*isbin(char *str)
 {
-	int		i;
-	char	**split_path;
+	int			i;
+	char		**split_path;
 	DIR			*dir;
 	t_dirent	*dirent;
 
@@ -62,6 +62,7 @@ void	gthash(char *str)
 	while (env()->hash[++i])
 		if (ft_strcmp(str, env()->hash[i] + 5) == 0)
 		{
+			free(str);
 			str = ft_itoa(ft_atoi(env()->hash[i]) + 1);
 			j = 3 - ft_strlen(str);
 			k = -1;

@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 14:13:56 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:27:11 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -710,6 +710,7 @@ char	*termcaps(t_ssprintf *prompt)
 	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
 		add_history(var->ret);
 	ft_bzero(prompt->buf, prompt->ret);
+	free(prompt);
 	initvar(var, 1);
 	return (str);
 }
