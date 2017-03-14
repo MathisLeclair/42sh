@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:38:45 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/12 13:35:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 17:59:06 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	rd_closeoutput(t_env *env, char n)
 		perror("error");
 	else if ((int)child == 0)
 	{
-		parse(env, env->inp1);
+		parse(env, env->input);
 		exit(env->lastret);
 	}
 	wait(&status);
@@ -103,7 +103,7 @@ void		rd_dupoutput(t_env *env, char n)
 	int			status;
 
 	child = -1;
-	word = env->inp2[1] - 48;
+	word = env->redir[1] - 48;
 	if (word == ('-' - 48))
 	{
 		rd_closeoutput(env, n);
@@ -117,7 +117,7 @@ void		rd_dupoutput(t_env *env, char n)
 	else if ((int)child == 0)
 	{
 		dup2(word, (n == -1 ? STDOUT_FILENO : n));
-		parse(env, env->inp1);
+		parse(env, env->input);
 		exit(env->lastret);
 	}
 	wait(&status);

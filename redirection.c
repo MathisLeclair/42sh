@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/13 15:32:34 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/14 18:00:14 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	rd_pipe(t_env *env)
 **					   command [n]>| output.txt
 */
 
-void		rd_output(t_env *env, int i)
+void		rd_output(t_env *env)
 {
 	pid_t	child;
 	int		fd;
@@ -83,19 +83,18 @@ void		rd_output(t_env *env, int i)
 	child = -1;
 	fd = -1;
 	n = -1;
-	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
-		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1) - 1] - 48);
-	if (n != -1)
-		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
-	if (env->inp2[0] == '&')
+	if (ft_isdigit(*(env->redir)))
+		n = *(env->redir) - 48;
+	s = ft_strsplitquote(env->redir + (n == -1 ? 1 : 2), ' ', 1);
+	free_swap(&env->redir, ft_strdup(s[0]));
+	free_double_array(s);
+	if (env->redir[0] == '&')
 	{
 		rd_dupoutput(env, n);
 		return ;
 	}
-	s = ft_strsplitquote(env->redir[i], ' ', 0);
-	if ((fd = open(s[1] == 0 ? s[0] + 1 : s[1], O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	if ((fd = open(env->redir, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 		perror("error");
-	free_double_array(s);
 	child = fork();
 	if ((int)child == -1)
 	{
@@ -117,7 +116,7 @@ void		rd_output(t_env *env, int i)
 ** Appending Redirected Output: command [n]>> output.txt
 */
 
-void		rd_output_apd(t_env *env, int i)
+void		rd_output_apd(t_env *env)
 {
 	pid_t		child;
 	int			fd;
@@ -128,14 +127,13 @@ void		rd_output_apd(t_env *env, int i)
 	child = -1;
 	fd = -1;
 	n = -1;
-	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
-		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1) - 1] - 48);
-	if (n != -1)
-		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
-	s = ft_strsplitquote(env->redir[i], ' ', 0);
-	if ((fd = open(s[1] == 0 ? s[0] + 2 : s[1], O_WRONLY | O_CREAT | O_APPEND, 0644)) == -1)
-		perror("error");
+	if (ft_isdigit(*(env->redir)))
+		n = *(env->redir) - 48;
+	s = ft_strsplitquote(env->redir + (n == -1 ? 2 : 3), ' ', 1);
+	free_swap(&env->redir, ft_strdup(s[0]));
 	free_double_array(s);
+	if ((fd = open(env->redir, O_WRONLY | O_CREAT | O_APPEND, 0644)) == -1)
+		perror("error");
 	child = fork();
 	if ((int)child == -1)
 	{
@@ -163,10 +161,14 @@ void		rd_input(t_env *env)
 	int			fd;
 	char		n;
 	int			status;
+	char		**s;
 
 	child = -1;
 	fd = -1;
 	n = -1;
+	s = ft_strsplitquote(env->inp2, ' ', 1);
+	free_swap(&env->inp2, ft_strdup(s[0]));
+	free_double_array(s);
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
 		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 : env->inp1[ft_strlen(env->inp1) - 1] - 48);
 	if (n != -1)

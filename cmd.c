@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 16:05:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 17:42:34 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,23 +143,25 @@ void	extracredir(t_env *env)
 	int		j;
 	char	*temp;
 
-	i = -1;
-	while (env->input[++i])
+	i = ft_strlen(env->input);
+	while (env->input[--i] && i >=0)
 	{
 		j = i;
-		if (env->input[j++] == '>')
+		if (env->input[j] == '>')
 		{
-			if (env->input[j] == '>')
-				++j;
+			if (j - 1 >= 0 && --j && env->input[j] == '>')
+				--i;
+			j += 2;
+			if (i - 1 >= 0 && ft_isdigit(env->input[i - 1]) && i - 2 >= 0 && env->input[i - 2] == ' ')
+				i--;
 			while (env->input[j] && env->input[j] == ' ')
 				++j;
 			while (env->input[j] && ((env->input[j] >= 33 && env->input[j] <= 126) || (env->input[j] == ' ' && j > 0 && env->input[j - 1] == '\\')))
 				++j;
 			temp = ft_strcdup(env->input + i, j - i);
-			add_str_to_dstr(&env->redir, temp);
-			free(temp);
+			env->redir = temp;
 			ft_remstr(env->input, i, j);
-			i = j;
+			return ;
 		}
 	}
 }
@@ -313,16 +315,14 @@ void	parse(t_env *env, char *input)
 	else if (cmprev(input, ">") != -1 || cmprev(input, ">>") != -1)
 	{
 		extracredir(env);
-		while (env->redir[++i])
-		{
-			if (env->redir[i][0] == '>' && env->redir[i][1] == '>')
-				rd_output_apd(env, i);
-			else if (env->redir[i][0] == '>' && env->redir[i][1] != '>')
-				rd_output(env, i);
-		}
-		free_double_array(env->redir);
-		env->redir = malloc(sizeof(char *));
-		env->redir[0] = NULL;
+		while (env->redir[++i] != '>')
+			;
+		if (env->redir[i] == '>' && env->redir[i + 1] == '>')
+			rd_output_apd(env);
+		else if (env->redir[i] == '>' && env->redir[i + 1] != '>')
+			rd_output(env);
+		free(env->redir);
+		env->redir = NULL;
 	}
 	else
 		ft_reco_cmd(env);

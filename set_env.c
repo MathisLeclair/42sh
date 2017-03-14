@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 18:43:18 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 17:27:39 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	set_evloc2(t_env *e)
 	free(tmp);
 	double_array_sort(e->loc->ev);
 	free(buf);
-	e->redir = malloc(sizeof(char *));
-	*e->redir = 0;
+	e->redir = NULL;
 	e->isoperand = 0;
 	set_history();
 	e->job = malloc(sizeof(t_job));

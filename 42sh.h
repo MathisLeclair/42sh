@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 15:57:12 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 17:31:15 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct	s_env
 	int				i;
 	struct s_env	*loc;
 	char			*find;
-	char 			**redir;
+	char 			*redir;
 	char			*inp1;
 	char			*inp2;
 	int				lastret;
@@ -235,8 +235,8 @@ void			rd_dupoutput(t_env *env, char n);
 */
 
 void			rd_pipe(t_env *env);
-void			rd_output(t_env *env, int i);
-void			rd_output_apd(t_env *env, int i);
+void			rd_output(t_env *env);
+void			rd_output_apd(t_env *env);
 void			rd_input(t_env *env);
 
 void			rd_here_doc(t_env *env);
