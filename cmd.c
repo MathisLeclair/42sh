@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 15:05:49 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/14 16:05:30 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,24 @@ void	extract_heredoc(t_env *env, char *input)
 	env->inp1 = ft_strdup(input);
 }
 
+int		parserror(t_env *env)
+{
+	int i;
+
+	i = 0;
+	if (strstr_bool("&&&", ft_strdup(env->input)) == 1)
+		i = -1;
+	if (strstr_bool("|||", ft_strdup(env->input)) == 1)
+		i = -1;
+	if (strstr_bool("|&|", ft_strdup(env->input)) == 1)
+		i = -1;
+	if (strstr_bool("&|&", ft_strdup(env->input)) == 1)
+		i = -1;
+	if (i == -1)
+		error (-15, NULL, NULL);
+	return (i);
+}
+
 void	parse(t_env *env, char *input)
 {
 	int i;
@@ -276,6 +294,8 @@ void	parse(t_env *env, char *input)
 		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
+	if (parserror(env) == -1)
+		return ;
 	if (cmprevtruc(env, &input))
 		;
 	else if (cmprev(input, "|") != -1)

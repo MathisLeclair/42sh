@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 11:56:27 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 15:50:49 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	error2(int i, char *str)
 	}
 	else if (i == -14)
 		ft_putstr("exit: take only 1 numeric argument.\n");
+	else if (i == -15)
+		ft_putstr("shell: parse error\n");
 }
 
 void	error(int i, char *str, char *str2)

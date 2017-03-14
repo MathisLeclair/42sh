@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 15:05:40 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/14 15:57:12 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,5 +316,6 @@ void			ft_join_spaces(char **tmp, int i);
 void			builtin_hash(t_env *env, char **split);
 void			gthash(char *str);
 char			*isbin(char *str);
+int				strstr_bool(char *find, char *search_in_lc);
 
 #endif
