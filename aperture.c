@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/11 19:16:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 17:08:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	aperture2(void)
 				free(tmp);
 			}
 		}
+		ft_printf("\033[0m");
 		exit(0);
 	}
 	else
@@ -61,7 +62,8 @@ void	aperture2(void)
 
 void	ft_aperture(void)
 {
-	ft_printf("\033[01;33m");
+	ft_putstr(tgetstr("cl", NULL));
+	ft_printf("\e[38;5;179m");
 	ft_printf("%s\n", "");
 	ft_printf("%s\n", "              .,-:;//;:=,");
 	ft_printf("%s\n", "          . :H@@@MM@M#H/.,+%;,");
@@ -83,6 +85,5 @@ void	ft_aperture(void)
 	ft_printf("%s\n", "       =%@M@M#@$-.=$@MM@@@M; %M%=");
 	ft_printf("%s\n", "         ,:+$+-,/H#MMMMMMM@= =,");
 	ft_printf("%s\n", "               =++%%%%+/:-.");
-	ft_printf("\033[0m");
 	aperture2();
 }
