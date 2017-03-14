@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 11:51:39 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 15:05:40 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void			ft_aperture(void);
 /*
 ** tilde.c
 */
-void			ft_tilde(t_env *e, int i, char quote);
+void			ft_tilde(char **s, int i, char quote);
 
 
 /*

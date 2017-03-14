@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/13 13:54:22 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 15:22:32 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,6 +366,7 @@ char	**autocomplete(char *input, int pos, t_env *env)
 	}
 	first = pos > i ? 0 : 1;
 	env->find = finder(input, input[pos] == ' ' ? pos - 1 : pos);
+	ft_tilde(&env->find, -1, 0);
 	ac = forest(input, pos, env, first);
 	free(env->find);
 	env->find = NULL;
