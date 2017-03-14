@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 17:08:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 17:21:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	aperture2(void)
 			if (*buf != '\n')
 			{
 				get_next_line(fd[1], &tmp);
-				usleep(atoi(tmp));
+				usleep(atoi(tmp) + 1000);
 				free(tmp);
 			}
 		}
