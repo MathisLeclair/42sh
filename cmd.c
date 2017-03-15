@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/15 11:23:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/15 12:10:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,21 @@ void	extracredir(t_env *env)
 	}
 }
 
+int		isinquote(char *input, int i)
+{
+	int u;
+
+	u = 0;
+	while (input[i])
+	{
+		--i;
+		if ((input[i] == '"' || input[i] == '\'') &&
+			((i > 1 && input[i - 1] != '\\') || i < 1))
+			u = -1;
+	}
+	return (u);
+}
+
 int		cmprevtruc(t_env *env, char **input)
 {
 	int i;
@@ -206,7 +221,8 @@ int		cmprev(char *str, char *tofind)
 	while (str[--i])
 	{
 		k = ft_strlen(tofind);
-		while (k - 1 >= 0 && i >= 0 && str[i] == tofind[k - 1])
+		while (k - 1 >= 0 && i >= 0 && str[i] == tofind[k - 1]
+			&& isinquote(str, i) == 0)
 		{
 			--k;
 			--i;
