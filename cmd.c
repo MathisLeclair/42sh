@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 17:42:34 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/15 18:09:05 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,35 @@ void	ft_suppr_quotes(char *str, int i, int j)
 	str[j] = 0;
 }
 
+void	ft_suppr_bs(char **str)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = -1;
+	j = 0;
+	while ((*str)[++i])
+		if ((*str)[i] == '\\' && (*str)[i + 1])
+		{
+			j++;
+			i++;
+		}
+	new = palloc(ft_strlen(*str) - j + 1);
+	i = 0;
+	j = -1;
+	while ((*str)[i])
+	{
+		if ((*str)[i] == '\\' && (*str)[i + 1])
+			++i;
+		new[++j] = (*str)[i];
+		++i;
+	}
+	new[++j] = 0;
+	free(*str);
+	*str = new;
+}
+
 char	**ft_split_input(char *input)
 {
 	int		i;
@@ -46,7 +75,10 @@ char	**ft_split_input(char *input)
 	a = ft_strsplitquote(input, ' ', 1);
 	i = -1;
 	while (a[++i])
+	{
 		ft_suppr_quotes(a[i], 0, 0);
+		ft_suppr_bs(a + i);
+	}
 	return (a);
 }
 

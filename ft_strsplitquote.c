@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplitquote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/02/06 17:56:46 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/15 17:43:17 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+char		bs_str(const char *str, int i, char c)
+{
+	char t;
+
+	t = 0;
+	if (str[i] != c)
+		return (0);
+	else
+		while (i-- != 0 && str[i] == '\\')
+			t = t == 0 ? 1 : 0;
+	if (t == 1)
+		return (0);
+	return (1);
+}
 
 static int	ft_cnt_parts(const char *s, char c)
 {
@@ -23,11 +38,11 @@ static int	ft_cnt_parts(const char *s, char c)
 	done = 0;
 	while (s[i])
 	{
-		if (i != 0 && (s[i - 1] == '\'' || s[i - 1] == '"') && done == s[i - 1])
+		if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"')) && done == s[i - 1])
 			done = 0;
-		else if (i != 0 && (s[i - 1] == '\'' || s[i - 1] == '"') && done == 0)
+		else if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"')) && done == 0)
 			done = s[i - 1];
-		if (s[i] != c && (i == 0 || s[i - 1] == c) && done == 0)
+		if (s[i] != c && (i == 0 || bs_str(s, i - 1, c)) && done == 0)
 			nw++;
 		++i;
 	}
@@ -38,17 +53,19 @@ static int	ft_wlen(const char *s, char c)
 {
 	int	l;
 	int	done;
+	int i;
 
+	i = 0;
 	l = 0;
 	done = 0;
-	while ((*s != c || (*s == c && done != 0)) && *s)
+	while ((!bs_str(s, i, c) || (bs_str(s, i, c) && done != 0)) && s[i])
 	{
-		if (done == *s)
+		if (done == s[i])
 			done = 0;
-		else if ((*s == '\'' || *s == '"') && done == 0)
-			done = *s;
+		else if ((bs_str(s, i, '\'') || bs_str(s, i, '"')) && done == 0)
+			done = s[i];
 		l++;
-		s++;
+		i++;
 	}
 	return (l);
 }
@@ -69,7 +86,7 @@ char		*ft_tab_space(const char *str, char t)
 		{
 			if (done == ret[i])
 				done = 0;
-			else if ((ret[i] == '\'' || ret[i] == '"') && done == 0)
+			else if ((bs_str(ret, i, '\'') || bs_str(ret, i, '"')) && done == 0)
 				done = ret[i];
 			if (ret[i] == '\t' && done == 0)
 				ret[i] = ' ';
@@ -84,6 +101,7 @@ char		**ft_strsplitquote(char const *s, char c, char t)
 	int		i;
 	char	*input;
 	char	*sv;
+	int		j;
 
 	i = -1;
 	if (s == NULL)
@@ -92,12 +110,13 @@ char		**ft_strsplitquote(char const *s, char c, char t)
 	sv = input;
 	nbw = ft_cnt_parts(input, c);
 	a = palloc(sizeof(char *) * nbw + 1);
+	j = 0;
 	while (nbw-- && ++i != -1)
 	{
-		while (*input == c && *input != '\0')
-			input++;
-		a[i] = ft_strsub(input, 0, ft_wlen(input, c));
-		input += ft_wlen(input, c);
+		while (bs_str(input, j, c) && input[j] != '\0')
+			j++;
+		a[i] = ft_strsub(input + j, 0, ft_wlen(input + j, c));
+		j += ft_wlen(input + j, c);
 	}
 	a[i + 1] = NULL;
 	free(sv);
