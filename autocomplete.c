@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/14 16:04:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:03:28 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+char	*add_bs(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\\' || str[i] == ' ' || str[i] == '\t' || str[i] == '>'
+		|| str[i] == '<' || str[i] == '"'|| str[i] == '\'' || str[i] == ';' ||
+		str[i] == '|' || str[i] == '&' || str[i] == '$' || str[i] == '*')
+		{
+			tmp = palloc(ft_strlen(str) + 2);
+			*tmp = 0;
+			ft_strcat(tmp, str);
+			tmp[i] = '\\';
+			tmp[i + 1] = 0;
+			ft_strcat(tmp, str + i);
+			if (str[i + 1])
+				++i;
+			free(str);
+			str = tmp;
+		}
+	}
+	return (str);
+}
 
 int		strstr_bool(char *find, char *search_in_lc)
 {
@@ -108,14 +135,19 @@ void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
 	DIR			*dir;
 	t_dirent	*dirent;
 	int			i;
+	char		*str;
 
 	i = -1;
 	while (split_path[++i])
 		if ((dir = opendir(split_path[i])))
 		{
 			while ((dirent = readdir(dir)))
-				if (strstr_bool(find, to_lwcase(dirent->d_name)))
-					add_str_to_dstr(ac, dirent->d_name);
+			{
+				str = add_bs(ft_strdup(dirent->d_name));
+				if (strstr_bool(find, to_lwcase(str)))
+					add_str_to_dstr(ac, str);
+				free(str);
+			}
 			closedir(dir);
 		}
 }
@@ -154,14 +186,14 @@ char	**ac_pwd(char *find, int count, char *str, int i)
 	getcwd(str, INPUT_SIZE);
 	dir = opendir(str);
 	while ((td = readdir(dir)))
-		if (strstr_bool(find, to_lwcase(td->d_name)) && td->d_name[0] != '.')
+		if (strstr_bool(find, add_bs(to_lwcase(td->d_name))) && td->d_name[0] != '.')
 		{
 			++count;
 			new = palloc(sizeof(char *) * (count + 1));
 			i = -1;
 			while (sug[++i])
 				new[i] = sug[i];
-			new[i] = ft_strdup(td->d_name);
+			new[i] = add_bs(ft_strdup(td->d_name));
 			new[i + 1] = 0;
 			free(sug);
 			sug = new;
@@ -176,24 +208,27 @@ void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 	int		i;
 	int		len;
 	char	**new;
+	char	*tmp;
 
 	len = 0;
 	while ((*ac)[len])
 		++len;
-	if (strstr_bool(after_path, to_lwcase(td->d_name)) && td->d_name[0] != '.')
+	tmp = add_bs(ft_strdup(td->d_name));
+	if (strstr_bool(after_path, to_lwcase(tmp)) && td->d_name[0] != '.')
 	{
 		new = palloc(sizeof(char *) * (len + 2));
 		i = -1;
 		while ((*ac)[++i])
 			new[i] = (*ac)[i];
-		new[i] = malloc(ft_strlen(find) + ft_strlen(td->d_name) + 1);
+		new[i] = malloc(ft_strlen(find) + ft_strlen(tmp) + 1);
 		new[i][0] = 0;
 		ft_strcat(new[i], find);
-		ft_strcat(new[i], td->d_name);
+		ft_strcat(new[i], tmp);
 		new[i + 1] = 0;
 		free(*ac);
 		(*ac) = new;
 	}
+	free(tmp);
 }
 
 void	ac_target(char *find, char ***ac)
@@ -208,7 +243,7 @@ void	ac_target(char *find, char ***ac)
 	(*ac)[0] = 0;
 	(*ac)[1] = 0;
 	i = ft_strlen(find);
-	while (find[i] != '/')
+	while (!bs_str(find, i, '/'))
 		--i;
 	after_path = palloc(ft_strlen(find) - i);
 	j = -1;
@@ -236,7 +271,7 @@ char	**auto_possibilities(char pwd, t_env *env)
 	env->find = env->input;
 	env->input = find_lwc;
 	save = ft_strdup(env->find);
-	if (env->find[ft_strlen(env->find) - 1] != '/' && (dir = opendir(env->find)))
+	if (!bs_str(env->find, ft_strlen(env->find) - 1, '/') && (dir = opendir(env->find)))
 	{
 		ac = malloc(sizeof(char *) * 2);
 		ac[0] = ft_strdup(ft_strcat(env->find, "/"));
@@ -269,18 +304,18 @@ char	*finder(char *input, int pos)
 	int		i;
 	int		j;
 
-	while (pos != 0 && input[pos] != ' ' && input[pos] != '\t')
+	while (pos != 0 && !bs_str(input, pos, ' ') && !bs_str(input, pos, '\t'))
 		pos--;
 	i = pos == 0 ? 0 : pos + 1;
 	j = 0;
-	while (input[i] && input[i++] != ' ')
+	while (input[i] && !bs_str(input, i++, ' '))
 		++j;
 	find = malloc(j + 2);
 	find[j] = 0;
 	find[j + 1] = 0;
 	i = 0;
 	pos = pos == 0 ? pos - 1 : pos;
-	while (input[++pos] && input[pos] != ' ')
+	while (input[++pos] && !bs_str(input, pos, ' '))
 		find[i++] = input[pos];
 	return (find);
 }
@@ -324,7 +359,7 @@ char	**forest(char *s, int ps, t_env *env, char first)
 {
 	char	**ac;
 
-	if (s[ps] == ' ' || s[ps] == '\0' || s[ps + 1] == ' ' || s[ps + 1] == '\0')
+	if (bs_str(s, ps, ' ') || s[ps] == '\0' || bs_str(s, ps + 1, ' ') || s[ps + 1] == '\0')
 	{
 		if (first)
 			ac = auto_possibilities(0, env);
@@ -354,18 +389,18 @@ char	**autocomplete(char *input, int pos, t_env *env)
 
 	quote = 0;
 	i = 0;
-	while (input[i] && (input[i] == ' ' || input[i] == '\t'))
+	while (input[i] && (bs_str(input, i, ' ') || bs_str(input, i, '\t')))
 		++i;
 	if (i > pos || input[i] == '\0')
 		return (NULL);
-	while (input[i] && (input[i] != ' ' || quote != 0))
+	while (input[i] && (!bs_str(input, i, ' ') || quote != 0))
 	{
-		if (input[i] == '\'' || input[i] == '"')
+		if (bs_str(input, i, '\'') || bs_str(input, i, '"'))
 			quote = input[i] == quote ? 0 : quote;
 		++i;
 	}
 	first = pos > i ? 0 : 1;
-	env->find = finder(input, input[pos] == ' ' ? pos - 1 : pos);
+	env->find = finder(input, bs_str(input, pos, ' ') ? pos - 1 : pos);
 	ft_tilde(&env->find, -1, 0);
 	ac = forest(input, pos, env, first);
 	free(env->find);

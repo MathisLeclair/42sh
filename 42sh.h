@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 17:31:15 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/15 18:12:47 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ void			getpwd(char *pwd);
 **ft_strsplitquote.c
 */
 
+char			bs_str(const char *str, int i, char c);
 char			**ft_strsplitquote(char const *s, char c, char t);
 
 /*

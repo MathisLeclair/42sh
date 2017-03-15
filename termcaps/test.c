@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 15:27:11 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/15 18:53:23 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,13 +161,6 @@ void	paste(t_var *var)
 	i = ft_strlen(var->cpy);
 	while (i--)
 		add_car(var, 1, var->cpy[i]);
-	// int fd;
-	// int j;
-	// fd = open("./42test", O_CREAT | O_WRONLY | O_APPEND, 0777);
-	// j = -1;
-	// ft_putstr_fd(var->ret, fd);
-	// write(fd, "\n", 1);
-	// close(fd);
 	var->i += ft_strlen(var->cpy);
 	i = var->i;
 	ft_putstr(tgetstr("cd", NULL));
@@ -343,9 +336,9 @@ void	replace_w(char *word, t_var *var)
 {
 	char	*tmp;
 
-	while (var->i && var->ret[var->i - 1] != ' ')
+	while (var->i && !bs_str(var->ret, var->i - 1, ' '))
 		backspace(var);
-	while (var->ret[var->i] != ' ' && var->ret[var->i])
+	while (bs_str(var->ret, var->i, ' ') && var->ret[var->i])
 		deleteu(var);
 	tmp = var->cpy;
 	var->cpy = ft_strdup(word);
