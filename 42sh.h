@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 17:31:15 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/15 11:28:09 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,13 @@ void			oprt_and(t_env *env);
 void			oprt_or(t_env *env);
 
 /*
+** redirection_adv.c
+*/
+
+void			rd_here_doc(t_env *env);
+void			rd_here_string(t_env *env);
+
+/*
 ** redirection_fd.c
 */
 
@@ -239,7 +246,6 @@ void			rd_output(t_env *env);
 void			rd_output_apd(t_env *env);
 void			rd_input(t_env *env);
 
-void			rd_here_doc(t_env *env);
 void			parse(t_env *env, char *input);
 
 /*
