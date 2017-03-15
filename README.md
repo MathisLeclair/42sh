@@ -1,8 +1,8 @@
-## 42sh
+# 42sh : Chell
 
-#Features:
+## Features:
 
-**Edition de ligne:
+**Edition de ligne:**
 
     -edition simple en multiligne
     -Selection            : ALT + Fleche
@@ -13,11 +13,43 @@
     -Deplacement par mots : SHIFT + Fleche G/D
     -Deplacement par ligne: SHIFT + Fleche H/B
 
-**Built In:
+**Built In:**
+```
     -Echo
+    -Hash
     -Exit
     -Setenv
     -Unsetenv
     -Export
     -unset
     -Local
+    -Cd
+    -Read
+    -History
+```
+
+**Autre :**
+
+```
+Redirection                  : >   >>  <<  <  <<<   |
+Separateur                   :  ;
+Operateur                    : &&  ||
+Variable Locales             : unset et export
+Historique                   : History et !
+Backquote                    : `
+Recherche dans l'historique  : CTRL + R
+inhibiteurs                  :  "   '
+Subshell                     : (  )
+Gestion CTRL + C et CTRL + D
+Autocompletion dynamique
+Gestion des File descriptor
+
+```
+
+## Bonus:
+
+**Commande :**
+```
+            - Aperture
+            - Patate
+```
