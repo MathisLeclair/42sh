@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/13 11:24:10 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:16:55 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_exit(char **split)
 		i = ft_atoi(split[1]);
 	else if ((split[1] && !ft_isdigit(split[1][0])) ||
 		(split[1] && split[2]) || !split[0])
-		error (-14, NULL, NULL);
+		error(-14, NULL, NULL);
 	i = (i != -1 ? i : env()->lastret);
 	free_double_array(split);
 	ft_putstr("exit\n");

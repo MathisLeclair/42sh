@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 15:15:33 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:48 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,11 @@ void	builtin_export(t_env *env, char **split)
 
 void	builtin_read2(char *str)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = -1;
-	while(str[++i])
-	{
+	while (str[++i])
 		if (str[i] == '\\')
 		{
 			tmp = palloc(ft_strlen(str) + 2);
@@ -73,7 +72,6 @@ void	builtin_read2(char *str)
 			free(str);
 			str = tmp;
 		}
-	} 
 }
 
 void	builtin_read(t_env *ev, char **split)
@@ -123,7 +121,8 @@ void	history(t_env *env, char **split)
 			if (split[1][1] == 'c')
 			{
 				free_double_array(env->history);
-				ft_strcat(ft_strcat(tmp, env->ev[find_param(env->ev,"HOME")] + 5), "/.42shistory");
+				ft_strcat(ft_strcat(tmp, env->ev[find_param(env->ev, "HOME")]
+				+ 5), "/.42shistory");
 				unlink(tmp);
 				set_history();
 				retvalue_into_loc(env, 0);
