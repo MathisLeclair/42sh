@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/15 18:09:05 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:06:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,21 @@ void	extracredir(t_env *env)
 	}
 }
 
+int		isinquote(char *input, int i)
+{
+	int u;
+
+	u = 0;
+	while (input[i])
+	{
+		--i;
+		if ((input[i] == '"' || input[i] == '\'') &&
+			((i > 1 && input[i - 1] != '\\') || i < 1))
+			u = -1;
+	}
+	return (u);
+}
+
 int		cmprevtruc(t_env *env, char **input)
 {
 	int i;
@@ -238,7 +253,8 @@ int		cmprev(char *str, char *tofind)
 	while (str[--i])
 	{
 		k = ft_strlen(tofind);
-		while (k - 1 >= 0 && i >= 0 && str[i] == tofind[k - 1])
+		while (k - 1 >= 0 && i >= 0 && str[i] == tofind[k - 1]
+			&& isinquote(str, i) == 0)
 		{
 			--k;
 			--i;
@@ -334,6 +350,8 @@ void	parse(t_env *env, char *input)
 		;
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
+	else if (cmprev(input, "<<<") != -1)
+		rd_here_string(env);
 	else if (cmprev(input, "<") != -1)
 	{
 		extract_rd_output(env, input);

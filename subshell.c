@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 17:27:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/14 19:00:21 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	retvalue_into_loc(t_env *env, int i)
 {
 	char *tmp;
+	char *rmp2;
 
 	env->lastret = i;
 	tmp = malloc(300);
 	tmp[0] = 0;
 	ft_strcat(tmp, "?=");
-	ft_strcat(tmp, ft_itoa(i));
+	ft_strcat(tmp, rmp2 = ft_itoa(i));
+	free(rmp2);
 	add_var_to_env(env, tmp);
 	free(tmp);
 }
