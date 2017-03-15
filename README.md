@@ -15,17 +15,17 @@
 
 **Built In:**
 ```
-    -Echo
-    -Hash
-    -Exit
-    -Setenv
-    -Unsetenv
-    -Export
-    -unset
-    -Local
-    -Cd
-    -Read
-    -History
+-Echo
+-Hash
+-Exit
+-Setenv
+-Unsetenv
+-Export
+-unset
+-Local
+-Cd
+-Read
+-History
 ```
 
 **Autre :**
