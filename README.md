@@ -1,8 +1,8 @@
 ## 42sh
 
-Features:
+#Features:
 
-Edition de ligne:
+**Edition de ligne:
 
     -edition simple en multiligne
     -Selection            : ALT + Fleche
@@ -13,7 +13,7 @@ Edition de ligne:
     -Deplacement par mots : SHIFT + Fleche G/D
     -Deplacement par ligne: SHIFT + Fleche H/B
 
-Built In:
+**Built In:
     -Echo
     -Exit
     -Setenv
