@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/15 19:06:09 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:30:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,7 +351,7 @@ void	parse(t_env *env, char *input)
 	else if (cmprev(input, "|") != -1)
 		rd_pipe(env);
 	else if (cmprev(input, "<<<") != -1)
-		rd_here_string(env);
+		rd_here_string(env, -1, -1, -1);
 	else if (cmprev(input, "<") != -1)
 	{
 		extract_rd_output(env, input);
@@ -360,7 +360,7 @@ void	parse(t_env *env, char *input)
 	else if (cmprev(input, "<<") != -1)
 	{
 		extract_heredoc(env, input);
-		rd_here_doc(env);
+		rd_here_doc(env, -1, -1);
 	}
 	else if (cmprev(input, ">") != -1 || cmprev(input, ">>") != -1)
 	{
@@ -368,9 +368,9 @@ void	parse(t_env *env, char *input)
 		while (env->redir[++i] != '>')
 			;
 		if (env->redir[i] == '>' && env->redir[i + 1] == '>')
-			rd_output_apd(env);
+			rd_output_apd(env, -1, -1);
 		else if (env->redir[i] == '>' && env->redir[i + 1] != '>')
-			rd_output(env);
+			rd_output(env, -1, -1, -1);
 		free(env->redir);
 		env->redir = NULL;
 	}
@@ -396,7 +396,7 @@ int		ft_read(t_env *env, char *input)
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
 		env->dir, PROMPT));
-	while(verif_quote(&input, -1) != 0)
+	while(verif_quote(&input, -1, 0) != 0)
 		;
 	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
 		if (subshell(env, input) == -1)

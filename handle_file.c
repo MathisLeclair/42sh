@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_file.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:20:45 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/03/06 15:06:44 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 11:51:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		handle_file(int ac, char **av, t_env *env)
 		ft_printf("shell: %s: no such file\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-	handle_argv(ac, av, env);
+	handle_argv(ac - 1, av + 1, env, 0);
 	input = NULL;
 	while (get_next_line(fd, &input))
 	{

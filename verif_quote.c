@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/13 13:54:05 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:30:32 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-int	ft_strfind_bq(const char *s, int c)
+int		ft_strfind_bq(const char *s, int c)
 {
 	int		i;
 
@@ -54,18 +54,17 @@ void	complete_quote(char **str, int pos)
 	*str = tmp;
 }
 
-int		verif_quote(char **str, int p)
+int		verif_quote(char **str, int p, int quote)
 {
-	int quote;
 	int dquote;
 	int pos;
 
-	quote = 0;
 	dquote = 0;
 	pos = 0;
 	while ((*str)[++p])
 	{
-		if (((*str)[p] == '\'' || (*str)[p] == '"') && quote == 0 && dquote == 0 && ((p > 1 && (*str)[p - 1] != '\\') || p < 1))
+		if (((*str)[p] == '\'' || (*str)[p] == '"') && quote == 0 && dquote == 0
+		&& ((p > 1 && (*str)[p - 1] != '\\') || p < 1))
 			pos = p;
 		if ((*str)[p] == '\'' && dquote == 0 &&
 			((p > 1 && (*str)[p - 1] != '\\') || p < 1))

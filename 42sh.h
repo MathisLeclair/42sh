@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/15 19:06:28 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:30:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void			set_env(t_env *env, char **ev);
 void			ft_fork(t_env *env, char **input);
 
 /*
-**setenv.c
+**getpwd.c
 */
 
 void			getpwd(char *pwd);
@@ -178,16 +178,6 @@ void			env_free(t_env *env);
 int				free_double_array(char **t);
 
 /*
-** builtin.c
-*/
-
-void			ft_cd(char **split, t_env *env, char *reg, char *oldpwd);
-void			ft_echo(char **split);
-void			ft_exit(char **split);
-
-void			ft_aperture(void);
-
-/*
 ** tilde.c
 */
 void			ft_tilde(char **s, int i, char quote);
@@ -197,15 +187,23 @@ void			ft_tilde(char **s, int i, char quote);
 ** verif_quote.c
 */
 
-int				verif_quote(char **inp, int k);
+int				verif_quote(char **inp, int k, int quote);
 
 /*
 ** double_array_sort.c
 */
 
 void			double_array_sort(char **t);
-
 void			add_str_to_dstr(char ***dstr, char *str);
+
+/*
+** builtin.c
+*/
+
+void			ft_cd(char **split, t_env *env, char *reg, char *oldpwd);
+void			ft_echo(char **split);
+void			ft_exit(char **split);
+void			ft_aperture(void);
 
 /*
 ** builtin2.c
@@ -214,8 +212,21 @@ void			add_str_to_dstr(char ***dstr, char *str);
 void			history(t_env *env, char **split);
 void			builtin_read(t_env *ev, char **split);
 void			builtin_export(t_env *env, char **split);
-void			builtin_history(t_env *env, char **split);
 void			add_local(t_env *env, char **split);
+
+/*
+** buitin3.c
+*/
+
+void			builtin_hash(t_env *env, char **split);
+void			gthash(char *str);
+char			*isbin(char *str);
+
+/*
+** builtin_history.c
+*/
+
+void			builtin_history(t_env *env, char **split);
 
 /*
 ** operator.c
@@ -228,8 +239,8 @@ void			oprt_or(t_env *env);
 ** redirection_adv.c
 */
 
-void			rd_here_doc(t_env *env);
-void			rd_here_string(t_env *env);
+void			rd_here_doc(t_env *env, int a, int b);
+void			rd_here_string(t_env *env, int a, int b, pid_t x);
 
 /*
 ** redirection_fd.c
@@ -242,18 +253,21 @@ void			rd_dupoutput(t_env *env, char n);
 ** redirection.c
 */
 
-void			rd_pipe(t_env *env);
-void			rd_output(t_env *env);
-void			rd_output_apd(t_env *env);
+void			rd_output(t_env *env, int a, int b, pid_t z);
+void			rd_output_apd(t_env *env, int a, pid_t b);
 void			rd_input(t_env *env);
 
-void			parse(t_env *env, char *input);
+/*
+** pipe.c
+*/
+
+void			rd_pipe(t_env *env);
 
 /*
 ** handle_argv.c
 */
 
-void			handle_argv(int ac, char **av, t_env *loc);
+void			handle_argv(int ac, char **av, t_env *loc, int i);
 
 /*
 ** handle_file.c
@@ -312,17 +326,14 @@ void			initvar(t_var *var, int i);
 ** END OF TERMCAPS
 */
 
+void			parse(t_env *env, char *input);
 void			signblock();
 void			free_current_job(t_env *env);
 void			add_job(int u);
 void			set_history(void);
-void			file_history(int i, int j, int k);
+void			file_history(int i, int j, int k, int fd);
 void			auto_prop(t_var *var, int p);
 void			ft_join_spaces(char **tmp, int i);
-
-void			builtin_hash(t_env *env, char **split);
-void			gthash(char *str);
-char			*isbin(char *str);
 int				strstr_bool(char *find, char *search_in_lc);
 
 #endif

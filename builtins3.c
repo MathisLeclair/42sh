@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   builtins3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 15:47:09 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/13 15:12:18 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 11:35:15 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+void	isbin2(int *i, char ***split_path, t_env *env)
+{
+	if ((*i = find_param(env->ev, "PATH")) == -1)
+	{
+		if ((*i = find_param(env->loc->ev, "PATH")) != -1)
+			*split_path = ft_strsplitquote(env->loc->ev[*i], ':', 0);
+	}
+	else
+		*split_path = ft_strsplitquote(env->ev[*i], ':', 0);
+}
 
 char	*isbin(char *str)
 {
@@ -20,13 +31,7 @@ char	*isbin(char *str)
 	t_dirent	*dirent;
 
 	split_path = NULL;
-	if ((i = find_param(env()->ev, "PATH")) == -1)
-	{
-		if ((i = find_param(env()->loc->ev, "PATH")) != -1)
-			split_path = ft_strsplitquote(env()->loc->ev[i], ':', 0);
-	}
-	else
-		split_path = ft_strsplitquote(env()->ev[i], ':', 0);
+	isbin2(&i, &split_path, env());
 	i = -1;
 	while (split_path && split_path[++i])
 		if ((dir = opendir(split_path[i])))

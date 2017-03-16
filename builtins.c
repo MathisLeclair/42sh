@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/15 19:16:55 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 11:59:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_exit(char **split)
 	i = (i != -1 ? i : env()->lastret);
 	free_double_array(split);
 	ft_putstr("exit\n");
-	file_history(0, 0, 0);
+	file_history(0, 0, 0, 0);
 	env_free(env());
 	exit(i);
 }

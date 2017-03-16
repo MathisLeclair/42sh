@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplitquote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/15 17:43:17 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 11:54:03 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ static int	ft_cnt_parts(const char *s, char c)
 	done = 0;
 	while (s[i])
 	{
-		if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"')) && done == s[i - 1])
+		if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"'))
+			&& done == s[i - 1])
 			done = 0;
-		else if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"')) && done == 0)
+		else if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"'))
+			&& done == 0)
 			done = s[i - 1];
 		if (s[i] != c && (i == 0 || bs_str(s, i - 1, c)) && done == 0)
 			nw++;
@@ -98,27 +100,26 @@ char		**ft_strsplitquote(char const *s, char c, char t)
 {
 	char	**a;
 	int		nbw;
-	int		i;
+	int		i[2];
 	char	*input;
 	char	*sv;
-	int		j;
 
-	i = -1;
+	i[0] = -1;
 	if (s == NULL)
 		return (NULL);
 	input = ft_tab_space(s, t);
 	sv = input;
 	nbw = ft_cnt_parts(input, c);
 	a = palloc(sizeof(char *) * nbw + 1);
-	j = 0;
-	while (nbw-- && ++i != -1)
+	i[1] = 0;
+	while (nbw-- && ++i[0] != -1)
 	{
-		while (bs_str(input, j, c) && input[j] != '\0')
-			j++;
-		a[i] = ft_strsub(input + j, 0, ft_wlen(input + j, c));
-		j += ft_wlen(input + j, c);
+		while (bs_str(input, i[1], c) && input[i[1]] != '\0')
+			i[1]++;
+		a[i[0]] = ft_strsub(input + i[1], 0, ft_wlen(input + i[1], c));
+		i[1] += ft_wlen(input + i[1], c);
 	}
-	a[i + 1] = NULL;
+	a[i[0] + 1] = NULL;
 	free(sv);
 	return (a);
 }

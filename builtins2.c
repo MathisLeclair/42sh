@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/15 19:18:48 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 11:45:25 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,59 +99,5 @@ void	builtin_read(t_env *ev, char **split)
 		ft_strcat(truc, bufe);
 		add_var_to_env(ev->loc, split[i]);
 		truc[0] = 0;
-	}
-}
-
-void	history(t_env *env, char **split)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	tmp = malloc(INPUT_SIZE);
-	*tmp = 0;
-	if (split[0] && split[1] && split[2])
-		error(-7, NULL, NULL);
-	else if (!(env->history))
-		error(-11, 0, 0);
-	else if (split[1])
-	{
-		if (split[1][0] == '-')
-		{
-			if (split[1][1] == 'c')
-			{
-				free_double_array(env->history);
-				ft_strcat(ft_strcat(tmp, env->ev[find_param(env->ev, "HOME")]
-				+ 5), "/.42shistory");
-				unlink(tmp);
-				set_history();
-				retvalue_into_loc(env, 0);
-			}
-			else
-			{
-				ft_putstr("Wrong argument, only -c accepted.\n");
-				retvalue_into_loc(env, 1);
-			}
-		}
-		else if (split[1] && isnumber(split[1][0]))
-		{
-			i = ft_atoi(split[1]);
-			j = 0;
-			while (env->history[j])
-				++j;
-			while (i-- > 0)
-				ft_printf("%s\n", env->history[j - i - 1]);
-			retvalue_into_loc(env, 0);
-		}
-		else
-		{
-			ft_putstr("Is not a number.\n");
-			retvalue_into_loc(env, 1);
-		}
-	}
-	else
-	{
-		print_split(env->history);
-		retvalue_into_loc(env, 0);
 	}
 }

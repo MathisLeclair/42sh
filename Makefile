@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/11 18:25:55 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/16 13:30:47 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,10 @@ FILES 	=						\
 			handle_file			\
 			history				\
 			auto_prop			\
-			builtins3
+			builtins3			\
+			builtin_history		\
+			pipe				\
+			getpwd
 
 OBJ  := 	$(addsuffix .o, $(FILES))
 

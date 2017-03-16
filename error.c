@@ -6,11 +6,21 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 15:50:49 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:08:29 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
+
+void	error3(int i)
+{
+	if (i == -15)
+		ft_putstr("shell: parse error\n");
+	else if (i == -16)
+		ft_putstr("shell: fork error");
+	else if (i == -17)
+		ft_putstr("shell: open error");
+}
 
 void	error2(int i, char *str)
 {
@@ -37,8 +47,8 @@ void	error2(int i, char *str)
 	}
 	else if (i == -14)
 		ft_putstr("exit: take only 1 numeric argument.\n");
-	else if (i == -15)
-		ft_putstr("shell: parse error\n");
+	else
+		error3(i);
 }
 
 void	error(int i, char *str, char *str2)
@@ -59,7 +69,7 @@ void	error(int i, char *str, char *str2)
 	else if (i == -6)
 	{
 		ft_putstr("\n");
-		file_history(0, 0, 0);
+		file_history(0, 0, 0, 0);
 		exit(EXIT_SUCCESS);
 	}
 	else if (i == -7)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:19:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/13 14:03:01 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 12:53:55 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ void	file_history2(int fd, char *tmp, int *i, char *num)
 	*i += 1;
 }
 
-void	file_history(int i, int j, int k)
+void	file_history(int i, int j, int k, int fd)
 {
-	int		fd;
 	char	*tmp;
 	char	*num;
 
@@ -67,16 +66,27 @@ void	file_history(int i, int j, int k)
 	while (env()->history[i])
 	{
 		tmp = malloc(6);
-		num = ft_itoa(j);
+		num = ft_itoa(j++);
 		k = -1;
 		while (++k < 5 - (int)ft_strlen(num))
 			tmp[k] = ' ';
 		tmp[k] = 0;
 		file_history2(fd, tmp, &i, num);
 		free(tmp);
-		++j;
 	}
 	close(fd);
+}
+
+void	add_history2(char *tmp, int i, char **num)
+{
+	tmp = malloc(6);
+	i = -1;
+	while (++i < 5 - (int)ft_strlen(*num))
+		tmp[i] = ' ';
+	tmp[i] = 0;
+	ft_strcat(tmp, *num);
+	free(*num);
+	*num = tmp;
 }
 
 void	add_history(char *str)
@@ -86,20 +96,12 @@ void	add_history(char *str)
 	char	*num;
 
 	i = 0;
+	tmp = NULL;
 	while (env()->history[i])
 		++i;
 	num = ft_itoa(i);
 	if (ft_strlen(num) < 5)
-	{
-		tmp = malloc(6);
-		i = -1;
-		while (++i < 5 - (int)ft_strlen(num))
-			tmp[i] = ' ';
-		tmp[i] = 0;
-		ft_strcat(tmp, num);
-		free(num);
-		num = tmp;
-	}
+		add_history2(tmp, i, &num);
 	tmp = malloc(ft_strlen(str) + ft_strlen(num) + 5);
 	*tmp = 0;
 	ft_strcat(tmp, num);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:39:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 15:05:57 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:27:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	strreeplace(char **s, char *str, int start)
 	ft_strlcat(newinp, *s, start + 1);
 	ft_strcat(newinp, str);
 	ft_strcat(newinp, *s + start + 1);
-	// if (*s)
-		// free(*s);
 	*s = newinp;
 }
 
