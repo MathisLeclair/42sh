@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 13:30:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/16 16:42:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_suppr_quotes(char *str, int i, int j)
 
 	while (str[i] && (quote = str[i]))
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (bs_str(str, i, '\'') || bs_str(str, i, '\"'))
 		{
 			while (str[++i] && str[i] != quote)
 				str[j++] = str[i];
@@ -27,7 +27,7 @@ void	ft_suppr_quotes(char *str, int i, int j)
 			else
 				break ;
 		}
-		if (str[i] != '\'' && str[i] != '\"')
+		if (!bs_str(str, i, '\'') && !bs_str(str, i, '\"'))
 		{
 			str[j] = str[i];
 			++i;
