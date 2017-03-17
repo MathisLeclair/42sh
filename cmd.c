@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 15:05:49 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:06:43 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ int		cmprev(char *str, char *tofind)
 	while (str[--i])
 	{
 		k = ft_strlen(tofind);
-		while (k - 1 >= 0 && i >= 0 && str[i] == tofind[k - 1]
+		while (k - 1 >= 0 && i >= 0 && bs_str(str, i, tofind[k - 1])
 			&& isinquote(str, i) == 0)
 		{
 			--k;
@@ -349,6 +349,9 @@ void	parse(t_env *env, char *input)
 		ft_dollar(env, -1, 0);
 	if (parserror(env) == -1)
 		return ;
+	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
+		if (subshell(env, input) == -1)
+			return ;
 	if (cmprevtruc(env, &input))
 		;
 	else if (cmprev(input, "|") != -1)
@@ -401,9 +404,6 @@ int		ft_read(t_env *env, char *input)
 		env->dir, PROMPT));
 	while(verif_quote(&input, -1, 0) != 0)
 		;
-	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
-		if (subshell(env, input) == -1)
-			return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
 	i = -1;

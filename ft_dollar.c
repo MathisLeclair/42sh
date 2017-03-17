@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:39:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/30 17:44:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 13:01:20 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	ft_dollar(t_env *e, int i, char quote)
 	str = palloc(INPUT_SIZE);
 	while (++i != (int)ft_strlen(e->input) && (k = -1))
 	{
-		if (e->input[i] == '\'' && quote == 0)
+		if (bs_str(e->input, i, '\'') && quote == 0)
 			while (e->input[i + 1] && e->input[i + 1] != '\'')
 				++i;
-		if (e->input[i] == '$')
+		if (bs_str(e->input, i, '$'))
 		{
 			sav = i;
 			while (e->input[++i] && e->input[i] != ' ' && e->input[i] != '\t'
