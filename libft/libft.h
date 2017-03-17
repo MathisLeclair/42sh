@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 18:14:23 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:31:54 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ char			*ft_strcdup(const char *src, int k);
 void			free_swap(char **src, char *dst);
 int				ft_strfind(const char *s, int c);
 int				ft_power(long long int value, int power);
+char			bs_str(const char *str, int i, char c);
 
 #endif

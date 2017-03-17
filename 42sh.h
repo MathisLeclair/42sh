@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 15:51:51 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:32:49 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ void			getpwd(char *pwd);
 **ft_strsplitquote.c
 */
 
-char			bs_str(const char *str, int i, char c);
 char			**ft_strsplitquote(char const *s, char c, char t);
 
 /*

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
+#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/07 16:33:08 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/03/17 17:32:09 by bfrochot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,8 @@ FILE =	free_swap \
 		$(PATH)sptf_array_ptr \
 		ft_remstr \
 		ft_strcdup \
-		ft_power
+		ft_power \
+		bs_str
 
 OBJ  := $(addsuffix .o, $(FILE))
 

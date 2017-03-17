@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 12:20:21 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/12 12:17:08 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:36:52 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strfind(const char *s, int c)
 	i = 0;
 	if (!s)
 		return (-1);
-	while (s[i] && s[i] != c)
+	while (s[i] && !bs_str(s, i, c))
 		i++;
-	return (s[i] == c ? i : -1);
+	return (s[i] ? i : -1);
 }
