@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 13:30:18 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 14:58:51 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char			*ft_super_strstr(const char *str1, const char *str2);
 
 int				ft_read(t_env *env, char *input);
 int				ft_reco_cmd(t_env *env);
-void			ft_suppr_quotes(char *str, int i, int j);
+void			ft_suppr_quotes(char **str, int i, int j);
 
 /*
 **error.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_adv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/16 13:11:24 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 14:59:48 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		rd_here_string(t_env *env, int fd, int n, pid_t child)
 	if (n != -1)
 		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
 	s = ft_strsplitquote(env->inp2, ' ', 1);
-	ft_suppr_quotes(s[0], 0, 0);
+	ft_suppr_quotes(s, 0, 0);
 	free_swap(&env->inp2, ft_strdup(s[0]));
 	free_double_array(s);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600))

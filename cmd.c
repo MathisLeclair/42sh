@@ -3,38 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 16:42:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:05:49 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42sh.h"
 
-void	ft_suppr_quotes(char *str, int i, int j)
+void	ft_suppr_quotes(char **str, int i, int j)
 {
 	char	quote;
+	char	*tmp;
 
-	while (str[i] && (quote = str[i]))
+	tmp = ft_strdup(*str);
+	while ((*str)[i])
 	{
-		if (bs_str(str, i, '\'') || bs_str(str, i, '\"'))
+		if (bs_str(*str, i, '\'') || bs_str(*str, i, '\"'))
 		{
-			while (str[++i] && str[i] != quote)
-				str[j++] = str[i];
-			if (str[i] && str[i + 1])
+			quote = (*str)[i];
+			while ((*str)[++i] && !bs_str(*str, i, quote))
+				tmp[j++] = (*str)[i];
+			if ((*str)[i])
 				++i;
-			else
-				break ;
 		}
-		if (!bs_str(str, i, '\'') && !bs_str(str, i, '\"'))
+		else
 		{
-			str[j] = str[i];
+			tmp[j] = (*str)[i];
 			++i;
 			++j;
 		}
 	}
-	str[j] = 0;
+	tmp[j] = 0;
+	free(*str);
+	*str = tmp;
 }
 
 void	ft_suppr_bs(char **str)
@@ -76,7 +79,7 @@ char	**ft_split_input(char *input)
 	i = -1;
 	while (a[++i])
 	{
-		ft_suppr_quotes(a[i], 0, 0);
+		ft_suppr_quotes(a + i, 0, 0);
 		ft_suppr_bs(a + i);
 	}
 	return (a);
