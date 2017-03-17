@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/14 19:00:21 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 14:54:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	char	*str;
 
 	i = ft_strcfind(input, '(');
-	l = ft_strfind(input + i, ')');
+	l = ft_strcfind(input + i, ')');
 	str = malloc(l);
 	*str = 0;
-	ft_strncat(str, input + i + 1, input[l - i] == ')' ? l - i - 1 : l - i);
+	ft_strncat(str, input + i + 1, l - 1);
 	child = fork();
 	if (child == 0)
 	{
-		parse(env, str);
+		ft_read(env, str);
 		exit(env->lastret);
 	}
 	else

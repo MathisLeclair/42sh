@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 17:27:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/16 17:29:13 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,24 +315,16 @@ void	deleteu(t_var *var)
 	if (var->del == 1)
 		var->del = 0;
 	rem_car(var);
-	// ft_putstr(tgetstr("cd", NULL));
 	ft_putstr(tgetstr("cd", NULL));
 	ft_putstr(var->ret + var->i);
 	j = ft_strlen(var->ret + var->i);
-	// ft_printf("l = %d et p = %d\n", var->inputlen + var->lenprompt, tgetnum("co"));
 	while (j-- > 0)
-	{
 		if ((var->lenligne + j) % tgetnum("co") == 0 && (var->inputlen + var->lenprompt) % tgetnum("co") == 2)
 			;
 		else
 			ft_putstr(tgetstr("le", NULL));
-	}
 	left_arrow(var);
 	right_arrow(var);
-	// ft_putstr(var->ret + var->i);
-	// i = ft_strlen(var->ret + var->i);
-	// while (i-- > 0)
-		// ft_putstr(tgetstr("le", NULL));
 	--var->inputlen;
 }
 
