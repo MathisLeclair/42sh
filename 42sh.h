@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 14:58:51 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:51:51 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct	s_env
 	int				i;
 	struct s_env	*loc;
 	char			*find;
-	char 			*redir;
+	char			*redir;
 	char			*inp1;
 	char			*inp2;
 	int				lastret;
@@ -111,7 +111,7 @@ char			*ft_super_strstr(const char *str1, const char *str2);
 */
 
 int				ft_read(t_env *env, char *input);
-int				ft_reco_cmd(t_env *env);
+int				ft_reco_cmd(t_env *env, int i);
 void			ft_suppr_quotes(char **str, int i, int j);
 
 /*
@@ -181,7 +181,6 @@ int				free_double_array(char **t);
 ** tilde.c
 */
 void			ft_tilde(char **s, int i, char quote);
-
 
 /*
 ** verif_quote.c

@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/15 19:03:28 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:41:20 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*add_bs(char *str)
 	while (str[++i])
 	{
 		if (str[i] == '\\' || str[i] == ' ' || str[i] == '\t' || str[i] == '>'
-		|| str[i] == '<' || str[i] == '"'|| str[i] == '\'' || str[i] == ';' ||
+		|| str[i] == '<' || str[i] == '"' || str[i] == '\'' || str[i] == ';' ||
 		str[i] == '|' || str[i] == '&' || str[i] == '$' || str[i] == '*')
 		{
 			tmp = palloc(ft_strlen(str) + 2);
@@ -102,8 +102,6 @@ void	add_str_to_dstr(char ***dstr, char *str)
 
 void	ft_ac_cmd_build(char ***ac, char *find)
 {
-	if (strstr_bool(find, ft_strdup("echo")))
-		add_str_to_dstr(ac, "echo");
 	if (strstr_bool(find, ft_strdup("cd")))
 		add_str_to_dstr(ac, "cd");
 	if (strstr_bool(find, ft_strdup("aperture")))
@@ -258,41 +256,42 @@ void	ac_target(char *find, char ***ac)
 		closedir(dir);
 }
 
-char	**auto_possibilities(char pwd, t_env *env)
+char	**auto_possibilities(char pwd, t_env *ev)
 {
 	char	**ac;
 	char	*find_lwc;
 	char	*save;
 	DIR		*dir;
 
-	find_lwc = env->input;
-	env->input = env->find;
-	ft_dollar(env, -1, 0);
-	env->find = env->input;
-	env->input = find_lwc;
-	save = ft_strdup(env->find);
-	if (!bs_str(env->find, ft_strlen(env->find) - 1, '/') && (dir = opendir(env->find)))
+	find_lwc = ev->input;
+	ev->input = ev->find;
+	ft_dollar(ev, -1, 0);
+	ev->find = ev->input;
+	ev->input = find_lwc;
+	save = ft_strdup(ev->find);
+	if (!bs_str(ev->find, ft_strlen(ev->find) - 1, '/')
+		&& (dir = opendir(ev->find)))
 	{
 		ac = malloc(sizeof(char *) * 2);
-		ac[0] = ft_strdup(ft_strcat(env->find, "/"));
+		ac[0] = ft_strdup(ft_strcat(ev->find, "/"));
 		ac[1] = 0;
 		closedir(dir);
 		return (ac);
 	}
-	if (env->find[0] == '/' || env->find[0] == '.' || (dir = opendir(env->find)))
+	if (ev->find[0] == '/' || ev->find[0] == '.' || (dir = opendir(ev->find)))
 	{
 		ac_target(save, &ac);
 		if (ac[0] == 0 && dir)
 		{
-			ac[0] = ft_strdup(env->find);
+			ac[0] = ft_strdup(ev->find);
 			closedir(dir);
 		}
 		return (ac);
 	}
 	free(save);
-	find_lwc = to_lwcase(env->find);
+	find_lwc = to_lwcase(ev->find);
 	if (pwd == 0)
-		ac = ac_cmd(find_lwc, env);
+		ac = ac_cmd(find_lwc, ev);
 	else
 		ac = ac_pwd(find_lwc, 0, palloc(INPUT_SIZE), 0);
 	return (ac);

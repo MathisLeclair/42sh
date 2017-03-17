@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 15:06:43 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:53:34 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		ft_reco_cmd3(t_env *env, char **split)
 		builtin_export(env, split);
 	else if (ft_strcmp(split[0], "hash") == 0)
 		builtin_hash(env, split);
-	else if(ft_strfind(split[0], '=') != -1)
+	else if (ft_strfind(split[0], '=') != -1)
 		add_local(env, split);
 	else
 	{
@@ -138,13 +138,10 @@ int		ft_reco_cmd2(t_env *env, char **split)
 	return (save_env(env));
 }
 
-int		ft_reco_cmd(t_env *env)
+int		ft_reco_cmd(t_env *env, int i)
 {
 	char	**split;
-	int		i;
-	char	*reg;
 
-	reg = 0;
 	if (*env->input == '\n')
 		return (1);
 	split = ft_split_input(env->input);
@@ -153,8 +150,8 @@ int		ft_reco_cmd(t_env *env)
 		retvalue_into_loc(env, 1);
 		return (0);
 	}
-	if (!(i = 0) && ft_strcmp(split[0], "cd") == 0)
-		ft_cd(split, env, reg, ft_strnew(INPUT_SIZE + 4));
+	if (ft_strcmp(split[0], "cd") == 0)
+		ft_cd(split, env, NULL, ft_strnew(INPUT_SIZE + 4));
 	else if (ft_strcmp(split[0], "echo") == 0)
 		ft_echo(split);
 	else if (ft_strcmp(split[0], "setenv") == 0)
@@ -172,30 +169,30 @@ int		ft_reco_cmd(t_env *env)
 	return (save_env(env));
 }
 
-void	extracredir(t_env *env)
+void	extracredir(t_env *e, int i, int j)
 {
-	int		i;
-	int		j;
 	char	*temp;
 
-	i = ft_strlen(env->input);
-	while (env->input[--i] && i >=0)
+	i = ft_strlen(e->input);
+	while (e->input[--i] && i >= 0)
 	{
 		j = i;
-		if (env->input[j] == '>')
+		if (e->input[j] == '>')
 		{
-			if (j - 1 >= 0 && --j && env->input[j] == '>')
+			if (j - 1 >= 0 && --j && e->input[j] == '>')
 				--i;
 			j += 2;
-			if (i - 1 >= 0 && ft_isdigit(env->input[i - 1]) && i - 2 >= 0 && env->input[i - 2] == ' ')
+			if (i - 1 >= 0 && ft_isdigit(e->input[i - 1]) && i - 2 >= 0
+				&& e->input[i - 2] == ' ')
 				i--;
-			while (env->input[j] && env->input[j] == ' ')
+			while (e->input[j] && e->input[j] == ' ')
 				++j;
-			while (env->input[j] && ((env->input[j] >= 33 && env->input[j] <= 126) || (env->input[j] == ' ' && j > 0 && env->input[j - 1] == '\\')))
+			while (e->input[j] && ((e->input[j] >= 33 && e->input[j] <= 126)
+				|| (e->input[j] == ' ' && j > 0 && e->input[j - 1] == '\\')))
 				++j;
-			temp = ft_strcdup(env->input + i, j - i);
-			env->redir = temp;
-			ft_remstr(env->input, i, j);
+			temp = ft_strcdup(e->input + i, j - i);
+			e->redir = temp;
+			ft_remstr(e->input, i, j);
 			return ;
 		}
 	}
@@ -330,7 +327,7 @@ int		parserror(t_env *env)
 	if (strstr_bool("&|&", ft_strdup(env->input)) == 1)
 		i = -1;
 	if (i == -1)
-		error (-15, NULL, NULL);
+		error(-15, NULL, NULL);
 	return (i);
 }
 
@@ -370,7 +367,7 @@ void	parse(t_env *env, char *input)
 	}
 	else if (cmprev(input, ">") != -1 || cmprev(input, ">>") != -1)
 	{
-		extracredir(env);
+		extracredir(env, 0, 0);
 		while (env->redir[++i] != '>')
 			;
 		if (env->redir[i] == '>' && env->redir[i + 1] == '>')
@@ -381,7 +378,7 @@ void	parse(t_env *env, char *input)
 		env->redir = NULL;
 	}
 	else
-		ft_reco_cmd(env);
+		ft_reco_cmd(env, 0);
 	if (env->inp1)
 	{
 		free(env->inp1);
@@ -402,7 +399,7 @@ int		ft_read(t_env *env, char *input)
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
 		env->dir, PROMPT));
-	while(verif_quote(&input, -1, 0) != 0)
+	while (verif_quote(&input, -1, 0) != 0)
 		;
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);

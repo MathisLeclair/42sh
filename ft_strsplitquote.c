@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/17 15:31:03 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:38:39 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int	ft_cnt_parts(const char *s, char c)
 	{
 		if (i != 0 && bs_str(s, i - 1, done == '(' ? ')' : done))
 			done = 0;
-		else if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"') || bs_str(s, i - 1, '(')) && done == 0)
+		else if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"')
+				|| bs_str(s, i - 1, '(')) && done == 0)
 			done = s[i - 1];
 		if (!bs_str(s, i, c) && (i == 0 || bs_str(s, i - 1, c)) && done == 0)
 			nw++;
@@ -62,7 +63,8 @@ static int	ft_wlen(const char *s, char c)
 	{
 		if (bs_str(s, i, done == '(' ? ')' : done))
 			done = 0;
-		else if ((bs_str(s, i, '\'') || bs_str(s, i, '"') || bs_str(s, i, '(')) && done == 0)
+		else if ((bs_str(s, i, '\'') || bs_str(s, i, '"') || bs_str(s, i, '('))
+				&& done == 0)
 			done = s[i];
 		l++;
 		i++;
@@ -86,7 +88,8 @@ char		*ft_tab_space(const char *str, char t)
 		{
 			if (bs_str(ret, i, done == '(' ? ')' : done))
 				done = 0;
-			else if ((bs_str(ret, i, '\'') || bs_str(ret, i, '"') || bs_str(ret, i, '(')) && done == 0)
+			else if ((bs_str(ret, i, '\'') || bs_str(ret, i, '"')
+					|| bs_str(ret, i, '(')) && done == 0)
 				done = ret[i];
 			if (bs_str(ret, i, '\t') && done == 0)
 				ret[i] = ' ';
