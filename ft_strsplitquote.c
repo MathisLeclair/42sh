@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplitquote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/16 11:54:03 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:31:03 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ static int	ft_cnt_parts(const char *s, char c)
 	done = 0;
 	while (s[i])
 	{
-		if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"'))
-			&& done == s[i - 1])
+		if (i != 0 && bs_str(s, i - 1, done == '(' ? ')' : done))
 			done = 0;
-		else if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"'))
-			&& done == 0)
+		else if (i != 0 && (bs_str(s, i - 1, '\'') || bs_str(s, i - 1, '"') || bs_str(s, i - 1, '(')) && done == 0)
 			done = s[i - 1];
-		if (s[i] != c && (i == 0 || bs_str(s, i - 1, c)) && done == 0)
+		if (!bs_str(s, i, c) && (i == 0 || bs_str(s, i - 1, c)) && done == 0)
 			nw++;
 		++i;
 	}
@@ -62,9 +60,9 @@ static int	ft_wlen(const char *s, char c)
 	done = 0;
 	while ((!bs_str(s, i, c) || (bs_str(s, i, c) && done != 0)) && s[i])
 	{
-		if (done == s[i])
+		if (bs_str(s, i, done == '(' ? ')' : done))
 			done = 0;
-		else if ((bs_str(s, i, '\'') || bs_str(s, i, '"')) && done == 0)
+		else if ((bs_str(s, i, '\'') || bs_str(s, i, '"') || bs_str(s, i, '(')) && done == 0)
 			done = s[i];
 		l++;
 		i++;
@@ -86,11 +84,11 @@ char		*ft_tab_space(const char *str, char t)
 	if (t)
 		while (ret[++i])
 		{
-			if (done == ret[i])
+			if (bs_str(ret, i, done == '(' ? ')' : done))
 				done = 0;
-			else if ((bs_str(ret, i, '\'') || bs_str(ret, i, '"')) && done == 0)
+			else if ((bs_str(ret, i, '\'') || bs_str(ret, i, '"') || bs_str(ret, i, '(')) && done == 0)
 				done = ret[i];
-			if (ret[i] == '\t' && done == 0)
+			if (bs_str(ret, i, '\t') && done == 0)
 				ret[i] = ' ';
 		}
 	return (ret);
