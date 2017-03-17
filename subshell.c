@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 14:54:19 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:25:21 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	}
 	else
 	{
+		free(str);
 		waitpid(child, &status, 0);
 		retvalue_into_loc(env, WEXITSTATUS(status));
 		ft_remstr(input, i, ft_strfind(input, ')') + 1);
@@ -88,10 +89,8 @@ int		verif_subshell(char *str)
 
 	i = -1;
 	while (str[++i])
-	{
-		if (str[i] == '(' && str[i + 1] == ')')
+		if (bs_str(str, i, '(') && bs_str(str, i + 1, ')'))
 			return (-1);
-	}
 	return (0);
 }
 

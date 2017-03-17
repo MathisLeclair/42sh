@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 15:53:34 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:21:46 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,7 +346,7 @@ void	parse(t_env *env, char *input)
 		ft_dollar(env, -1, 0);
 	if (parserror(env) == -1)
 		return ;
-	if (ft_strchr(input, '(') != 0 || ft_strchr(input, ')') != 0)
+	if (ft_strfind(input, '(') != -1 || ft_strfind(input, ')') != -1)
 		if (subshell(env, input) == -1)
 			return ;
 	if (cmprevtruc(env, &input))
@@ -395,6 +395,7 @@ int		ft_read(t_env *env, char *input)
 {
 	char	**inputspl;
 	int		i;
+	char	*tmp;
 
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
@@ -409,7 +410,8 @@ int		ft_read(t_env *env, char *input)
 		env->input = ft_strdup(inputspl[i]);
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(&env->input, -1, 0);
-		parse(env, env->input);
+		parse(env, tmp = ft_strdup(env->input));
+		free(tmp);
 		free(env->input);
 		env->input = NULL;
 	}
