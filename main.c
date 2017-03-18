@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 11:50:49 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/18 18:02:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	ft_sig(int i)
 		i = tvar()->i;
 		initvar(tvar(), 0);
 		write(1, "\n", 1);
-		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env()->dir,
-		PROMPT);
+		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m$\e[0;31m%s\e[0m>", L'✈',
+		env()->dir, env()->name);
 		env()->i = 0;
 	}
 }
@@ -72,12 +72,19 @@ void	signblock(int i)
 
 int		main(int ac, char **av, char **ev)
 {
+	char *tmp;
+
 	set_env(env(), ev);
 	signal(SIGINT, ft_sig);
 	signal(SIGCONT, ft_sig);
 	signblock(1);
 	shlvl(env());
 	handle_file(ac, av, env());
+	tmp = ft_strdup("NAME=");
+	ft_strcat(tmp, av[0]);
+	add_var_to_env(env(), tmp);
+	free(tmp);
+	env()->name = ft_strdup(av[0]);
 	while (1)
 		if ((ft_read(env(), NULL)) == 0)
 			continue ;

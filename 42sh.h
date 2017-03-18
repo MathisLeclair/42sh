@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 16:41:00 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/18 18:02:01 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_env
 	char			*redir;
 	char			*inp1;
 	char			*inp2;
+	char			*name;
 	int				lastret;
 	int				isoperand;
 	int				shell_terminal;
