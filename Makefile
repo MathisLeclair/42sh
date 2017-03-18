@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/16 13:30:47 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/18 16:43:56 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,41 +24,56 @@ LIBDIR	= 	./libft/
 # Files && Objs
 TCAPS	=	termcaps
 
-FILES 	=						\
-			aperture 			\
-			autocomplete 		\
-			bquote 				\
-			builtins 			\
-			builtins2 			\
-			cmd_env 			\
-			cmd 				\
-			double_array_sort 	\
-			env_mod 			\
-			error 				\
-			fork 				\
-			free 				\
-			ft_cmpspec 			\
-			ft_dollar 			\
-			ft_strsplitquote 	\
-			get_next_line 		\
-			main				\
-			operator 			\
-			redirection 		\
-			redirection_adv		\
-			redirection_fd		\
-			set_env 			\
-			subshell			\
-			$(TCAPS)/test 		\
-			tilde 				\
-			verif_quote 		\
-			handle_argv 		\
-			handle_file			\
-			history				\
-			auto_prop			\
-			builtins3			\
-			builtin_history		\
-			pipe				\
-			getpwd
+FILES 	=							\
+			aperture				\
+			autocomplete			\
+			bquote					\
+			builtins				\
+			builtins2				\
+			cmd_env					\
+			cmd						\
+			double_array_sort 		\
+			env_mod					\
+			error					\
+			fork					\
+			free					\
+			ft_cmpspec				\
+			ft_dollar				\
+			ft_strsplitquote		\
+			get_next_line			\
+			main					\
+			operator				\
+			redirection				\
+			redirection_adv			\
+			redirection_fd			\
+			set_env					\
+			subshell				\
+			$(TCAPS)/test			\
+			tilde					\
+			verif_quote				\
+			handle_argv				\
+			handle_file				\
+			history					\
+			auto_prop				\
+			builtins3				\
+			builtin_history			\
+			pipe					\
+			getpwd					\
+			reco_cmd				\
+			cmd2					\
+			cmd3					\
+			$(TCAPS)/arrow			\
+			$(TCAPS)/copy_paste		\
+			$(TCAPS)/ctrl_r			\
+			$(TCAPS)/del_backspace	\
+			$(TCAPS)/home_end		\
+			$(TCAPS)/sel_desel		\
+			$(TCAPS)/shift_arrow	\
+			$(TCAPS)/utils			\
+			$(TCAPS)/tab			\
+			$(TCAPS)/touch			\
+			$(TCAPS)/touch2			\
+			$(TCAPS)/exclam			
 
 OBJ  := 	$(addsuffix .o, $(FILES))
 

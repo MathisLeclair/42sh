@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 17:32:49 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/18 16:41:00 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,38 @@ int				ft_cmpspec(char *s1, char *str);
 char			*ft_super_strstr(const char *str1, const char *str2);
 
 /*
+** reco_cmd.c
+*/
+
+int				ft_reco_cmd(t_env *env, int i);
+
+/*
 **cmd.c
 */
 
 int				ft_read(t_env *env, char *input);
-int				ft_reco_cmd(t_env *env, int i);
+char			**ft_split_input(char *input);
+
+/*
+**cmd2.c
+*/
+
 void			ft_suppr_quotes(char **str, int i, int j);
+void			ft_suppr_bs(char **str);
+char			**ft_split_input(char *input);
+void			extracredir(t_env *e, int i, int j);
+int				isinquote(char *input, int i);
+
+/*
+**cmd3.c
+*/
+
+int				cmprevtruc(t_env *env, char **input);
+int				cmprev(char *str, char *tofind);
+void			extract_rd_output(t_env *env, char *input);
+void			extract_heredoc(t_env *env, char *input);
+int				parserror(t_env *env);
+
 
 /*
 **error.c
@@ -287,41 +313,107 @@ int				subshell(t_env *env, char *input);
 void			retvalue_into_loc(t_env *env, int i);
 
 /*
-** termcaps.c
+**** termcaps.c
 */
 
-char			*termcaps(t_ssprintf *prompt);
-t_var			*tvar(void);
 
-void			add_history(char *str);
-char			**autocomplete(char *input, int pos, t_env *env);
-void			reset(t_var *var);
-
-void			add_car(t_var *var, int boule, char c);
-void			rem_car(t_var *var);
+/*
+** arrow.c
+*/
 
 void			left_arrow(t_var *var);
 void			right_arrow(t_var *var);
+void			up_arrow(t_var *var, int *bg);
+void			down_arrow(t_var *var, int *bg);
+
+
+/*
+** shift_arrow.c
+*/
+
 void			shift_arrow_r(t_var *var);
 void			shift_arrow_l(t_var *var);
-
 void			shift_down(t_var *var);
 void			shift_up(t_var *var);
 
-void			home(t_var *var);
-void			end(t_var *var);
-void			deleteu(t_var *var);
-void			backspace(t_var *var);
+/*
+** copy_paste.c
+*/
 
-void			select_mode(t_var *var);
-void			desel(t_var *var);
+void			paste(t_var *var);
 void			copy(t_var *var, int p);
 void			cut(t_var *var);
 
-char			ft_strcmp_beg(char *str1, char *str2);
-void			initvar(t_var *var, int i);
 /*
-** END OF TERMCAPS
+** sel_desel.c
+*/
+
+void			select_mode(t_var *var);
+void			desel(t_var *var);
+
+/*
+** del_backspace.c
+*/
+
+void			deleteu(t_var *var);
+void			backspace(t_var *var);
+
+/*
+** home_end.c
+*/
+
+void			home(t_var *var);
+void			end(t_var *var);
+
+/*
+** utils.c
+*/
+
+t_var			*tvar(void);
+void			add_car(t_var *var, int boule, char c);
+void			rem_car(t_var *var);
+void			initvar(t_var *var, int i);
+void			replace_w(char *word, t_var *var);
+
+/*
+** ctrl_r.c
+*/
+
+void			control_r(t_var *var, char *tmp, char *tmp2, int j);
+
+/*
+** tab.c
+*/
+
+void			tabu(t_var *var, int *j);
+
+/*
+** exlam.c
+*/
+
+void			exclam(t_var *var);
+
+/*
+** touch.c
+*/
+
+void			touch(t_var *var);
+void			touch5(t_var *var);
+
+/*
+** exlam.c
+*/
+
+void			exclam(t_var *var);
+
+char			*termcaps(t_ssprintf *prompt);
+void			add_history(char *str);
+char			**autocomplete(char *input, int pos, t_env *env);
+void			reset(t_var *var);
+char			ft_strcmp_beg(char *str1, char *str2);
+
+/*
+**** END OF TERMCAPS
 */
 
 void			parse(t_env *env, char *input);

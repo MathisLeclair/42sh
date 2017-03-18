@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 17:31:54 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/18 16:52:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void			ft_print_numbers(void);
 void			ft_swap(int *a, int *b);
 int				ft_iterative_factorial(int nb);
 int				ft_strcfind(const char *s, int c);
+void			ft_strdel2(char **as, char **av);
 
 void			ft_error(void);
 t_fun			*ft_type(void);

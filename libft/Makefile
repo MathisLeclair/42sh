@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+         #
+#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/17 17:32:09 by bfrochot         ###   ########.fr        #
+#    Updated: 2017/03/18 16:53:04 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ FILE =	free_swap \
 		ft_putendl_fd \
 		ft_putnbr \
 		ft_putnbr_fd \
+		ft_strdel2 \
 		ft_putstr \
 		ft_putstr_fd \
 		ft_strcat \

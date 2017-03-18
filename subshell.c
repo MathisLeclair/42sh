@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 17:41:57 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/18 16:28:34 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	}
 }
 
-int		verif_par(char *str, int u, int t)
+int		verif_par(char *str, int u, int t, int i)
 {
-	int i;
 	int j;
 
-	i = -1;
 	j = 0;
 	while (str[++i])
 	{
@@ -73,7 +71,7 @@ int		verif_par(char *str, int u, int t)
 		else if (bs_str(str, i, ')') && u == 0)
 			return (-1);
 		else if (bs_str(str, i, '(') && u == 1)
-			j = verif_par(str + i + 1, 1, 1);
+			j = verif_par(str + i + 1, 1, 1, -1);
 		else if (j == -1)
 			return (-1);
 		i = j > i ? j + i + 1 : i;
@@ -101,7 +99,7 @@ int		subshell(t_env *env, char *input)
 
 	i = 0;
 	str = ft_strdup(input);
-	if (verif_par(str, 0, 0) == -1 || verif_subshell(str) == -1)
+	if (verif_par(str, 0, 0, -1) == -1 || verif_subshell(str) == -1)
 	{
 		free(str);
 		ft_printf("Wrong uses of parenthesis\n");
