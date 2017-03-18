@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 17:29:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/18 13:25:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,8 +454,10 @@ void	select_mode(t_var *var)
 		ft_putstr(tgetstr("mr", NULL)); // MODE REVERSE VIDEO
 		write(1, var->ret + var->i, 1);
 		ft_putstr(tgetstr("me", NULL)); // STOP VIDEO MODE
-		left_arrow(var);
+		if (var->i + var->lenprompt != tgetnum("co"))
+			ft_putstr(tgetstr("le", NULL));
 		ft_putstr(tgetstr("le", NULL));
+		var->i -= 1;
 		var->selstart = var->i < var->selstart ? var->i : var->selstart;
 	}
 	else if (var->buff[0] == 67 && var->i < (int)ft_strlen(var->ret)) // SHIFT + RIGHT ARROW
@@ -463,8 +465,7 @@ void	select_mode(t_var *var)
 		ft_putstr(tgetstr("mr", NULL)); // MODE REVERSE VIDEO
 		write(1, var->ret + var->i, 1);
 		ft_putstr(tgetstr("me", NULL)); // STOP VIDEO MODE
-		right_arrow(var);
-		ft_putstr(tgetstr("le", NULL));
+		var->i += 1;
 		var->selend = var->i > var->selend ? var->i : var->selend;
 	}
 	ft_putstr(tgetstr("im", NULL)); // START OF INSERTE MODE
