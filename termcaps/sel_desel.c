@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sel_desel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:35:14 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 13:38:07 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/18 18:21:57 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,23 @@ void	desel(t_var *var)
 
 void	select_left(t_var *var)
 {
+	int i;
+
 	ft_putstr(tgetstr("mr", NULL));
 	write(1, var->ret + var->i, 1);
 	ft_putstr(tgetstr("me", NULL));
-	if (var->i + var->lenprompt != tgetnum("co"))
+	if ((var->i + var->lenprompt) % tgetnum("co") != 0)
 		ft_putstr(tgetstr("le", NULL));
-	ft_putstr(tgetstr("le", NULL));
 	var->i -= 1;
+	if (var->i + var->lenprompt % tgetnum("co") == 0)
+	{
+		ft_putstr(tgetstr("up", NULL));
+		i = -1;
+		while (++i < tgetnum("co"))
+			ft_putstr(tgetstr("nd", NULL));
+	}
+	else
+		ft_putstr(tgetstr("le", NULL));
 	var->selstart = var->i < var->selstart ? var->i : var->selstart;
 }
 

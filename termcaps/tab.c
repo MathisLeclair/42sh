@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 16:54:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/18 17:42:51 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	tabu2(t_var *var, int *i)
 {
 	replace_w(var->ac[*i], var);
 	put_ac(var, 0);
-	++*i;
+	++(*i);
 }
 
 void	tabu(t_var *var, int *j)

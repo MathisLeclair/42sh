@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/17 15:43:22 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/18 18:09:29 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	auto_prop(t_var *var, int p)
 	i = m == -1 ? m : i;
 	l = 0;
 	while (var->ac[++i] && (i - m) / (tgetnum("co") / (int)max) + 1
-			< tgetnum("li"))
+			< (tgetnum("li") - var->lenligne / tgetnum("co")))
 	{
 		len = ft_strlen(var->ac[i]);
 		tmp = ft_strjoinfree(tmp, var->ac[i], 1);

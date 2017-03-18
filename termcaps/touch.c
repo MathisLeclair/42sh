@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 15:00:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/18 18:06:31 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	touch3(t_var *var, int *i, int *bg)
 			free_double_array(var->ac);
 		if (var->ac)
 			var->ac = NULL;
-		i = 0;
+		*i = 0;
 	}
 }
 
@@ -71,11 +71,8 @@ void	touch2(t_var *var)
 		home(var);
 }
 
-void	touch1(t_var *var, int bg)
+void	touch1(t_var *var, int bg, int *i)
 {
-	int i;
-
-	i = 0;
 	read(0, var->buff, 3);
 	if (var->buff[0] == 27 && var->buff[2] == 91)
 		select_mode(var);
@@ -88,7 +85,7 @@ void	touch1(t_var *var, int bg)
 	if (var->buff[0] == 3 && var->buff[1] == 0)
 		return ;
 	touch2(var);
-	touch3(var, &i, &bg);
+	touch3(var, i, &bg);
 	touch4(var);
 	touch5(var);
 }
@@ -96,7 +93,9 @@ void	touch1(t_var *var, int bg)
 void	touch(t_var *var)
 {
 	int bg;
+	int i;
 
+	i = 0;
 	bg = 0;
 	while (env()->history[bg])
 		++bg;
@@ -104,7 +103,7 @@ void	touch(t_var *var)
 	ft_putstr(tgetstr("im", NULL));
 	ft_putstr(tgetstr("bw", NULL));
 	while (var->buff[0] != 10)
-		touch1(var, bg);
+		touch1(var, bg, &i);
 	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
