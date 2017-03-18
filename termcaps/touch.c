@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 19:06:34 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/18 19:14:30 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	touch3(t_var *var, int *i, int *bg)
 		free(var->arr);
 		var->arr = NULL;
 		while (env()->history[*bg])
-			++bg;
+			++(*bg);
 		if (var->ac)
 			free_double_array(var->ac);
 		if (var->ac)
