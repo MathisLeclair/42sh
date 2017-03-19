@@ -6,13 +6,13 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/18 18:09:29 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/19 17:50:11 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
 
-void	ft_join_spaces(char **tmp, int i)
+void			ft_join_spaces(char **tmp, int i)
 {
 	char	*str;
 	int		j;
@@ -29,52 +29,53 @@ void	ft_join_spaces(char **tmp, int i)
 	*tmp = str;
 }
 
-void	auto_prop(t_var *var, int p)
+static void		auto_prop_core(t_var *var, int *i, size_t (*ml)[3], char **tmp)
+{
+	int			k;
+
+	(*ml)[1] = ft_strlen(var->ac[*i]);
+	*tmp = ft_strjoinfree(*tmp, var->ac[*i], 1);
+	var->i += (*ml)[1];
+	var->lenligne += 1;
+	k = 0;
+	while ((*ml)[1] + k++ < (*ml)[0] + 2)
+		var->i += 1;
+	ft_join_spaces(&(*tmp), k - 1);
+	(*ml)[2] += (*ml)[0] + 2;
+	if ((*ml)[2] - tgetnum("co") > -(*ml)[0])
+	{
+		k = 0;
+		while ((*ml)[2]++ < (size_t)tgetnum("co") && ++k)
+			var->i += 1;
+		ft_join_spaces(&(*tmp), k);
+		(*ml)[2] = 0;
+	}
+}
+
+void			auto_prop(t_var *var, int p)
 {
 	int			i;
-	int			k;
-	size_t		l;
-	size_t		max;
-	size_t		len;
+	size_t 		ml[3];
 	char		*tmp;
 	static int	m = -1;
 
-	m = p == 1 ? -1 : m;
-	tmp = palloc(1);
-	*tmp = 0;
+	m = (p == 1 ? -1 : m);
 	i = -1;
-	max = 0;
+	ml[2] = 0;
+	tmp = ft_strdup("");
 	while (var->ac[++i])
-		max = ft_strlen(var->ac[i]) > max ? ft_strlen(var->ac[i]) : max;
-	if (tgetnum("li") - 2 < i / (tgetnum("co") / (int)max) && p == 0)
+		ml[0] = ft_strlen(var->ac[i]) > ml[0] ? ft_strlen(var->ac[i]) : ml[0];
+	if (tgetnum("li") - 2 < i / (tgetnum("co") / (int)ml[0]) && p == 0)
 		m = m == i - 2 ? -1 : m + 1;
-	i = (i - m) / (tgetnum("co") / (int)max) < tgetnum("li") - 1 ? i
-	- (tgetnum("li") - 1) * (tgetnum("co") / (int)max) : m;
+	i = (i - m) / (tgetnum("co") / (int)ml[0]) < tgetnum("li") - 1 ? i
+		- (tgetnum("li") - 1) * (tgetnum("co") / (int)ml[0]) : m;
 	i = m == -1 ? m : i;
-	l = 0;
-	while (var->ac[++i] && (i - m) / (tgetnum("co") / (int)max) + 1
+	while (var->ac[++i] && (i - m) / (tgetnum("co") / (int)ml[0]) + 1
 			< (tgetnum("li") - var->lenligne / tgetnum("co")))
 	{
-		len = ft_strlen(var->ac[i]);
-		tmp = ft_strjoinfree(tmp, var->ac[i], 1);
-		var->i += len;
-		var->lenligne += 1;
-		k = 0;
-		while (len + k++ < max + 2)
-			var->i += 1;
-		ft_join_spaces(&tmp, k - 1);
-		l += max + 2;
-		if (l - tgetnum("co") > -max)
-		{
-			k = 0;
-			while (l++ < (size_t)tgetnum("co") && ++k)
-				var->i += 1;
-			ft_join_spaces(&tmp, k);
-			l = 0;
-		}
+		auto_prop_core(var, &i, &ml, &tmp);
 	}
-	write(1, tmp, ft_strlen(tmp));
-	write(1, " ", 1);
+	ft_printf("%s ", tmp);
 	var->i += 1;
 	free(tmp);
 }
