@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../42sh.h"
+#include "../chell.h"
 
 void	control_r2(char *str, char *tmp, char *tmp2, int i)
 {

@@ -16,7 +16,7 @@
 #include <curses.h>
 #include <stdlib.h>
 
-#include "../42sh.h"
+#include "../chell.h"
 
 void	reset(t_var *var)
 {
