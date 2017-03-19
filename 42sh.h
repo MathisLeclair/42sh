@@ -6,12 +6,12 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 15:27:16 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:37:37 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef 42SH_H
-# define 42SH_H
+#ifndef CHELL_H
+# define CHELL_H
 
 # define FALSE	0
 # define PROMPT "$\e[0;31m42sh\e[0m>"

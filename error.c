@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 15:18:15 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:37:56 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void		error2(int i, char *str)
 	}
 	else if (i == -9)
 		ft_putstr_fd(ft_sprintf("chell: cd: no such file or directory: %s\n", \
-								str)->buff, 2);
+								str)->buf, 2);
 	else if (i == -10)
 		ft_putstr_fd(ft_sprintf("chell: cd: string not in pwd: %s\n", \
-								str)->buff, 2);
+								str)->buf, 2);
 	else if (i == -11)
 		ft_putstr_fd("chell: No history to display\n", 2);
 	else if (i == -12)
@@ -68,15 +68,15 @@ void			error(int i, char *str, char *str2)
 		ft_putstr_fd("No such file or directory\n", 2);
 	else if (i == -2)
 		ft_putstr_fd(ft_sprintf("chell: command not found : %s\n", \
-								str)->buff, 2);
+								str)->buf, 2);
 	else if (i == -3)
-		ft_putstr_fd(ft_sprintf("chell error\n")->buff, 2);
+		ft_putstr_fd(ft_sprintf("chell error\n")->buf, 2);
 	else if (i == -4)
 		ft_putstr_fd(ft_sprintf("chell: exec format error: %s\n", \
-								str)->buff, 2);
+								str)->buf, 2);
 	else if (i == -5)
 		ft_putstr_fd(ft_sprintf("chell: permission denied: %s\n", \
-								str)->buff, 2);
+								str)->buf, 2);
 	else if (i == -6)
 	{
 		ft_putstr_fd("\n", 2);
