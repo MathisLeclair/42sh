@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 15:02:48 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/19 17:46:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void		remove_nl(char **str)
 	(*str)[ft_strlen(*str) - 1] = 0;
 }
 
-void		realoc(char *str, char **tmp)
+void		realoc(char *str, char **tmp, int ret)
 {
 	char	*toto;
 
+	str[ret] = 0;
 	toto = malloc(ft_strlen(*tmp) + INPUT_SIZE);
 	*toto = 0;
 	if (*tmp)
@@ -45,13 +46,14 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	char	*tmp;
 	char	*buf;
 	int		fd;
+	int		ret;
 
 	tmp = NULL;
 	fd = open("/tmp/42sh_the_silence", O_RDONLY);
 	unlink("/tmp/42sh_the_silence");
 	buf = malloc(INPUT_SIZE);
-	while (read(fd, buf, INPUT_SIZE - 1))
-		realoc(buf, &tmp);
+	while ((ret = read(fd, buf, INPUT_SIZE - 1)))
+		realoc(buf, &tmp, ret);
 	close(fd);
 	free(env->input);
 	env->input = malloc(ft_strlen(tmp));
@@ -92,6 +94,29 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	bquote3(env, sav, i, k);
 }
 
+void		verbquote(t_env *env)
+{
+	int i;
+	int u;
+	char *tmp;
+
+	i = -1;
+	u = 0;
+	while (env->input[++i])
+	{
+		if (env->input[i] == '`')
+			++u;
+	}
+	if (u % 2 == 1)
+	{
+		tmp = termcaps(ft_sprintf("bquote>"));
+		env->input = ft_strjoin(env->input, " ");
+		env->input = ft_strjoinfree(env->input, tmp, 2);
+		verbquote(env);
+	}
+	return ;
+}
+
 void		bquote(t_env *env)
 {
 	int		i;
@@ -100,18 +125,8 @@ void		bquote(t_env *env)
 
 	i = -1;
 	k = 0;
+	verbquote(env);
 	env->inp1 = ft_strdup(env->input);
-	while (env->input[++i])
-		if (env->input[i] == '`')
-			++k;
-	if (k % 2 == 1)
-	{
-		free(env->inp1);
-		env->input[0] = 0;
-		ft_putstr("unmatched `\n");
-		env->inp1 = NULL;
-		return ;
-	}
 	i = ft_strfind(env->inp1, '`');
 	k = ft_strfind(env->inp1 + i + 1, '`');
 	sav = ft_strdup(env->input);
