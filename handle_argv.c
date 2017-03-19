@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "chell.h"
 
 static void	ft_strcat2(char *dest, char *s1, char *s2)
 {

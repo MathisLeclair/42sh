@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "chell.h"
 
 static void	strip_comments(char *str)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "chell.h"
 
 void	isbin2(int *i, char ***split_path, t_env *env)
 {

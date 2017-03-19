@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "chell.h"
 
 /*
 ** Duplicating an Input File Descriptor: command [n]<&word

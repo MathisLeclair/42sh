@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "chell.h"
 
 void	aperture3(int truc, char *buf, int *fd, char *tmp)
 {

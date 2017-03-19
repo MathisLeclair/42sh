@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "chell.h"
 
 void	ft_child2(t_env *env, char **input, char *pwd, char *tmp)
 {
