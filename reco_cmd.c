@@ -21,6 +21,8 @@ int		ft_reco_cmd4(t_env *env, char **split)
 		print_split(env->loc->ev);
 	else if (ft_strcmp(split[0], "aperture") == 0)
 		ft_aperture();
+	else if (do_if_condition(env, split))
+		;
 	else
 	{
 		gthash(isbin(split[0]));

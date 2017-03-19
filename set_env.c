@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/29 16:35:44 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/27 19:29:39 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	set_env(t_env *env, char **ev)
 	env->input = NULL;
 	env->path = NULL;
 	env->history = NULL;
+	env->cond = NULL;
 	while (ev[i])
 		++i;
 	env->ev = palloc(sizeof(char *) * (i + 1));

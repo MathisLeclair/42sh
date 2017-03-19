@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
+#    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/05/02 14:52:25 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/04/01 16:54:07 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ FILES 	=							\
 			bs_eol					\
 			cmd2					\
 			cmd3					\
+			condition				\
 			$(TCAPS)/arrow			\
 			$(TCAPS)/copy_paste		\
 			$(TCAPS)/ctrl_r			\

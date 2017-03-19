@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/01 15:18:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:57:55 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,26 @@ typedef struct	s_job
 	struct s_job	*next;
 }				t_job;
 
+# define IS_LINE 0
+# define IS_COND 1
+# define COND_IF 2
+# define COND_WHILE 4
+# define COND_FOR 8
+
+# define PROMPT_IF "$\e[0;31mif\e[0m>"
+# define PROMPT_WHILE "$\e[0;31mwhile\e[0m>"
+# define PROMPT_FOR "$\e[0;31mfor\e[0m>"
+# define PROMPT_COND "$\e[0;31mcond?\e[0m>"
+
+typedef struct	s_cond
+{
+	int				type;
+	void			*content;
+	struct s_cond	*block;
+	int				has_block;
+	struct s_cond	*parent;
+}				t_cond;
+
 typedef struct	s_env
 {
 	char			**history;
@@ -68,6 +88,7 @@ typedef struct	s_env
 	int				bool2;
 	int				bool3;
 	int				fdout;
+	t_cond			*cond;
 }				t_env;
 
 typedef struct	s_var
@@ -227,6 +248,14 @@ void			ft_tilde(char **s, int i, char quote);
 
 int				verif_quote(char **str, int p, int quote, int dquote);
 void			add_bs_q(char **str, int i, char c, int l);
+
+/*
+** condition.c
+*/
+
+int				do_if_condition(t_env *env, char **split);
+void			handle_condition(t_env *env, char **split);
+
 
 /*
 ** double_array_sort.c

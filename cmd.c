@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
 /*   Updated: 2017/05/01 17:11:30 by mleclair         ###   ########.fr       */
@@ -80,6 +80,22 @@ void	parse(t_env *env, char **input)
 		ft_strdel(&env->inp2);
 }
 
+char	*hijack_prompt(t_env *env)
+{
+	// if (env->cond != NULL)
+	// 	printf("Current condition is: %d", env->cond->type);
+	if (env->cond == NULL)
+		return (PROMPT);
+	else if (env->cond->type == COND_IF)
+		return (PROMPT_IF);
+	else if (env->cond->type == COND_WHILE)
+		return (PROMPT_WHILE);
+	else if (env->cond->type == COND_FOR)
+		return (PROMPT_FOR);
+	else
+		return (PROMPT_COND);
+}
+
 void	bsquote(char **input)
 {
 	int		i;
@@ -116,7 +132,7 @@ int		ft_read(t_env *env, char *input, int i, int u)
 	env->bool2 = 0;
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
-		env->dir, PROMPT), 10, 0);
+		env->dir, hijack_prompt(env)), 10, 0);
 	if (ft_read2(u, &input, env) == 0)
 		return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);
@@ -128,7 +144,10 @@ int		ft_read(t_env *env, char *input, int i, int u)
 			ft_tilde(&env->input, -1, 0);
 		bs_eol(env);
 		tmp = ft_strdup(env->input);
-		parse(env, &tmp);
+		if (env->cond == NULL)
+			parse(env, &tmp);
+		else
+			handle_condition(env, ft_split_input(env->input));
 		free(tmp);
 		free(env->input);
 		env->input = NULL;
