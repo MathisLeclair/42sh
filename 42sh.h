@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 18:37:36 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:27:16 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#ifndef 42SH_H
+# define 42SH_H
 
 # define FALSE	0
 # define PROMPT "$\e[0;31m42sh\e[0m>"
@@ -139,7 +139,6 @@ int				cmprev(char *str, char *tofind);
 void			extract_rd_output(t_env *env, char *input);
 void			extract_heredoc(t_env *env, char *input);
 int				parserror(t_env *env);
-
 
 /*
 **error.c
@@ -314,11 +313,7 @@ int				subshell(t_env *env, char *input);
 void			retvalue_into_loc(t_env *env, int i);
 
 /*
-**** termcaps.c
-*/
-
-
-/*
+**							TERMCAPS
 ** arrow.c
 */
 
@@ -326,7 +321,6 @@ void			left_arrow(t_var *var);
 void			right_arrow(t_var *var);
 void			up_arrow(t_var *var, int *bg);
 void			down_arrow(t_var *var, int *bg);
-
 
 /*
 ** shift_arrow.c
@@ -414,7 +408,7 @@ void			reset(t_var *var);
 char			ft_strcmp_beg(char *str1, char *str2);
 
 /*
-**** END OF TERMCAPS
+**					 END OF TERMCAPS
 */
 
 void			parse(t_env *env, char *input);

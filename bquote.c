@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/06 15:15:02 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:02:48 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	fd = -1;
 	if ((fd = open("/tmp/42sh_the_silence",
 		O_WRONLY | O_CREAT | O_TRUNC, 0600)) == -1)
-		perror("error");
+		error(-17, NULL, NULL);
 	child = fork();
 	if ((int)child == -1)
 	{
 		close(fd);
-		perror("error");
+		error(-16, NULL, NULL);
 	}
 	else if ((int)child == 0)
 	{

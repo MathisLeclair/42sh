@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 18:38:41 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:20:12 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	signblock(int i)
 
 int		main(int ac, char **av, char **ev)
 {
-
 	set_env(env(), ev);
 	signal(SIGINT, ft_sig);
 	signal(SIGCONT, ft_sig);

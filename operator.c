@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 13:43:33 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/13 17:15:44 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:04:00 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	oprt_and(t_env *env)
 	child = -1;
 	child = fork();
 	if ((int)child == -1)
-		perror("error");
+		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
 		parse(env, env->inp1);
@@ -52,7 +52,7 @@ void	oprt_or(t_env *env)
 	child = -1;
 	child = fork();
 	if ((int)child == -1)
-		perror("error");
+		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
 		parse(env, env->inp1);

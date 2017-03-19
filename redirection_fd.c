@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:38:45 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/14 17:59:06 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:05:23 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	rd_closeinput(t_env *env, char n)
 	close(n == -1 ? STDIN_FILENO : (int)n);
 	child = fork();
 	if ((int)child == -1)
-		perror("error");
+		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
 		parse(env, env->inp1);
@@ -54,10 +54,10 @@ void		rd_dupinput(t_env *env, char n)
 		return ;
 	}
 	if (fcntl((int)word, F_GETFD) == -1)
-		perror("error");
+		error(-18, NULL, NULL);
 	child = fork();
 	if ((int)child == -1)
-		perror("error");
+		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
 		dup2(word, (n == -1 ? STDIN_FILENO : n));
@@ -84,7 +84,7 @@ static void	rd_closeoutput(t_env *env, char n)
 	close(n == -1 ? STDOUT_FILENO : (int)n);
 	child = fork();
 	if ((int)child == -1)
-		perror("error");
+		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
 		parse(env, env->input);
@@ -110,10 +110,10 @@ void		rd_dupoutput(t_env *env, char n)
 		return ;
 	}
 	if (fcntl((int)word, F_GETFD) == -1)
-		perror("error");
+		error(-18, NULL, NULL);
 	child = fork();
 	if ((int)child == -1)
-		perror("error");
+		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
 		dup2(word, (n == -1 ? STDOUT_FILENO : n));
