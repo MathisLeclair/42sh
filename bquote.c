@@ -6,24 +6,11 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 17:46:31 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 14:40:23 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
-
-void		remove_nl(char **str)
-{
-	int i;
-
-	if (!(*str))
-		return ;
-	i = -1;
-	while ((*str)[++i])
-		if ((*str)[i] == '\n')
-			(*str)[i] = ' ';
-	(*str)[ft_strlen(*str) - 1] = 0;
-}
 
 void		realoc(char *str, char **tmp, int ret)
 {
@@ -36,8 +23,7 @@ void		realoc(char *str, char **tmp, int ret)
 		ft_strcat(toto, *tmp);
 	ft_strcat(toto, str);
 	free(*tmp);
-	str[0] = 0;
-	free(str);
+	*str = 0;
 	*tmp = toto;
 }
 
@@ -52,7 +38,7 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	fd = open("/tmp/42sh_the_silence", O_RDONLY);
 	unlink("/tmp/42sh_the_silence");
 	buf = malloc(INPUT_SIZE);
-	while ((ret = read(fd, buf, INPUT_SIZE - 1)))
+	while ((ret = read(fd, buf, INPUT_SIZE - 1)) > 0)
 		realoc(buf, &tmp, ret);
 	close(fd);
 	free(env->input);
@@ -72,6 +58,7 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	int		fd;
 
 	ft_strncat(env->input, env->inp1 + i + 1, k);
+	ft_suppr_bs(&env->input);
 	child = -1;
 	fd = -1;
 	if ((fd = open("/tmp/42sh_the_silence",
@@ -96,15 +83,15 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 
 void		verbquote(t_env *env)
 {
-	int i;
-	int u;
-	char *tmp;
+	int		i;
+	int		u;
+	char	*tmp;
 
 	i = -1;
 	u = 0;
 	while (env->input[++i])
 	{
-		if (env->input[i] == '`')
+		if (bs_str(env->input, i, '`'))
 			++u;
 	}
 	if (u % 2 == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/17 15:41:20 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/20 14:07:14 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,8 @@ char	**ac_pwd(char *find, int count, char *str, int i)
 	getcwd(str, INPUT_SIZE);
 	dir = opendir(str);
 	while ((td = readdir(dir)))
-		if (strstr_bool(find, add_bs(to_lwcase(td->d_name))) && td->d_name[0] != '.')
+		if (strstr_bool(find, add_bs(to_lwcase(td->d_name)))
+			&& td->d_name[0] != '.')
 		{
 			++count;
 			new = palloc(sizeof(char *) * (count + 1));
@@ -358,7 +359,8 @@ char	**forest(char *s, int ps, t_env *env, char first)
 {
 	char	**ac;
 
-	if (bs_str(s, ps, ' ') || s[ps] == '\0' || bs_str(s, ps + 1, ' ') || s[ps + 1] == '\0')
+	if (bs_str(s, ps, ' ') || s[ps] == '\0' || bs_str(s, ps + 1, ' ') ||
+		s[ps + 1] == '\0')
 	{
 		if (first)
 			ac = auto_possibilities(0, env);
