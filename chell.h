@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 14:08:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 16:29:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,6 @@ int				verif_quote(char **inp, int k, int quote);
 */
 
 void			double_array_sort(char **t);
-void			add_str_to_dstr(char ***dstr, char *str);
 
 /*
 ** builtin.c
@@ -404,22 +403,52 @@ void			exclam(t_var *var);
 
 char			*termcaps(t_ssprintf *prompt);
 void			add_history(char *str);
-char			**autocomplete(char *input, int pos, t_env *env);
 void			reset(t_var *var);
-char			ft_strcmp_beg(char *str1, char *str2);
 
 /*
 **					 END OF TERMCAPS
 */
 
+/*
+** autocomplete.c
+*/
+
+char			**dstr_palloc(int i);
+void			startfind(char **ac, t_env *env, int boolean, int i);
+char			**forest(char *s, int ps, t_env *env, char first);
+char			**autocomplete(char *input, int pos, t_env *env);
+
+/*
+** autocomplete2.c
+*/
+char			*add_bs(char *str);
+int				strstr_bool(char *find, char *search_in_lc, int i);
+char			*to_lwcase(char *str);
+void			add_str_to_dstr(char ***dstr, char *str);
+void			ft_ac_cmd_build(char ***ac, char *find);
+
+/*
+** autocomplete3.c
+*/
+void			ft_ac_cmd_path(char **split_path, char *find, char ***ac);
+char			**ac_cmd(char *find, t_env *env);
+void			ac_target2(char *a, t_dirent *td, char *f, char ***ac);
+char			**ac_pwd(char *find, int count, char *str, int i);
+void			ac_target(char *find, char ***ac);
+
+/*
+** autocomplete4.c
+*/
+char			**auto_possibilities(char pwd, t_env *ev);
+char			*finder(char *input, int pos);
+char			ft_strcmp_beg(char *str1, char *str2);
+
 void			parse(t_env *env, char *input);
 void			signblock();
-void			free_current_job(t_env *env);
-void			add_job(int u);
 void			set_history(void);
 void			file_history(int i, int j, int k, int fd);
 void			auto_prop(t_var *var, int p);
 void			ft_join_spaces(char **tmp, int i);
-int				strstr_bool(char *find, char *search_in_lc);
+int				strstr_bool(char *find, char *search_in_lc, int i);
 
 #endif

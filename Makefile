@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/18 16:43:56 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/20 16:22:19 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,9 @@ TCAPS	=	termcaps
 FILES 	=							\
 			aperture				\
 			autocomplete			\
+			autocomplete2			\
+			autocomplete3			\
+			autocomplete4			\
 			bquote					\
 			builtins				\
 			builtins2				\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   auto_prop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/20 15:04:44 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/20 16:04:16 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		auto_prop_core(t_var *var, int *i, size_t (*ml)[3], char **tmp)
 void			auto_prop(t_var *var, int p)
 {
 	int			i;
-	size_t 		ml[3];
+	size_t		ml[3];
 	char		*tmp;
 	static int	m = -1;
 
