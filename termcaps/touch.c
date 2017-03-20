@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 19:14:30 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:58:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	touch(t_var *var)
 	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
+	bsquote(&var->ret);
 	if (ft_strchr(var->ret, '!'))
 		exclam(var);
 	write(1, "\n", 1);
