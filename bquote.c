@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 14:40:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 16:25:05 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 
 	tmp = NULL;
 	fd = open("/tmp/42sh_the_silence", O_RDONLY);
-	unlink("/tmp/42sh_the_silence");
 	buf = malloc(INPUT_SIZE);
 	while ((ret = read(fd, buf, INPUT_SIZE - 1)) > 0)
 		realoc(buf, &tmp, ret);
@@ -50,6 +49,7 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	if (tmp)
 		ft_strcat(env->input, tmp);
 	ft_strcat(env->input, sav + k + i + 2);
+	unlink("/tmp/42sh_the_silence");
 }
 
 void		bquote2(t_env *env, char *sav, int i, int k)
@@ -58,7 +58,6 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	int		fd;
 
 	ft_strncat(env->input, env->inp1 + i + 1, k);
-	ft_suppr_bs(&env->input);
 	child = -1;
 	fd = -1;
 	if ((fd = open("/tmp/42sh_the_silence",

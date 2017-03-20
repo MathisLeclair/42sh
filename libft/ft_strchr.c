@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 21:39:38 by mleclair          #+#    #+#             */
-/*   Updated: 2016/11/06 10:32:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 16:01:16 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchr(const char *s, int c)
 
 	tu = ft_strlen(s);
 	i = 0;
-	while (s[i] != c && i < tu)
+	while (!bs_str(s, i, c) && i < tu)
 		i++;
 	if (s[i] == c)
 		return (&((char *)s)[i]);
