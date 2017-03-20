@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/19 17:50:11 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:04:44 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static void		auto_prop_core(t_var *var, int *i, size_t (*ml)[3], char **tmp)
 	k = 0;
 	while ((*ml)[1] + k++ < (*ml)[0] + 2)
 		var->i += 1;
-	ft_join_spaces(&(*tmp), k - 1);
+	ft_join_spaces(tmp, k - 1);
 	(*ml)[2] += (*ml)[0] + 2;
 	if ((*ml)[2] - tgetnum("co") > -(*ml)[0])
 	{
 		k = 0;
 		while ((*ml)[2]++ < (size_t)tgetnum("co") && ++k)
 			var->i += 1;
-		ft_join_spaces(&(*tmp), k);
+		ft_join_spaces(tmp, k);
 		(*ml)[2] = 0;
 	}
 }
@@ -72,9 +72,7 @@ void			auto_prop(t_var *var, int p)
 	i = m == -1 ? m : i;
 	while (var->ac[++i] && (i - m) / (tgetnum("co") / (int)ml[0]) + 1
 			< (tgetnum("li") - var->lenligne / tgetnum("co")))
-	{
 		auto_prop_core(var, &i, &ml, &tmp);
-	}
 	ft_printf("%s ", tmp);
 	var->i += 1;
 	free(tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 17:41:54 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:31:55 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	put_ac(t_var *var, int p)
 		var->i += 1;
 	}
 	ft_putstr(tmp);
+	free(tmp);
 	auto_prop(var, p);
 	while (var->i / tgetnum("co") > 0)
 		put_ac2(var);
