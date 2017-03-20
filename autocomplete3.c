@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 16:28:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 16:57:27 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	**ac_cmd(char *find, t_env *env)
 		split_path = ft_strsplitquote(env->ev[i], ':', 0);
 	if (split_path)
 		ft_ac_cmd_path(split_path, find, &ac);
+	free_double_array(split_path);
 	ft_ac_cmd_build(&ac, find);
 	return (ac);
 }
@@ -108,7 +109,7 @@ void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 		ft_strcat(new[i], tmp);
 		new[i + 1] = 0;
 		free(*ac);
-		(*ac) = new;
+		*ac = new;
 	}
 	free(tmp);
 }
@@ -136,6 +137,7 @@ void	ac_target(char *find, char ***ac)
 	if ((dir = opendir(find)))
 		while ((dirent = readdir(dir)))
 			ac_target2(after_path, dirent, find, ac);
+	free(after_path);
 	if (dir)
 		closedir(dir);
 }
