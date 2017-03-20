@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 18:00:46 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/20 18:38:42 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void	put_ac(t_var *var, int p)
 
 void	tabu2(t_var *var, int *i)
 {
+	if (var->ac == NULL || var->ac[0] == 0)
+			return ;
+	if (var->ac[*i] == 0)
+			i = 0;
 	replace_w(var->ac[*i], var);
 	put_ac(var, 0);
 	++(*i);
@@ -57,20 +61,17 @@ void	tabu(t_var *var, int *j)
 		if (var->ac == NULL || var->ac[0] == 0)
 			return ;
 		if (var->ac[1] == 0)
+		{
 			replace_w(var->ac[0], var);
-		if (var->ac[1] == 0)
 			*j = 0;
+			free_double_array(var->ac);
+			var->ac = NULL;
+		}
 		else
 			put_ac(var, 1);
 		i = 0;
 	}
 	else
-	{
-		if (var->ac == NULL || var->ac[0] == 0)
-			return ;
-		if (var->ac[i] == 0)
-			i = 0;
 		tabu2(var, &i);
-	}
 	var->buff[0] = 0;
 }
