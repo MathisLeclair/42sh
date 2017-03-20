@@ -6,17 +6,11 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 15:31:55 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/20 18:00:46 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../chell.h"
-
-void	put_ac2(t_var *var)
-{
-	ft_putstr(tgetstr("up", NULL));
-	var->i -= tgetnum("co");
-}
 
 void	put_ac(t_var *var, int p)
 {
@@ -36,8 +30,6 @@ void	put_ac(t_var *var, int p)
 	ft_putstr(tmp);
 	free(tmp);
 	auto_prop(var, p);
-	while (var->i / tgetnum("co") > 0)
-		put_ac2(var);
 	while (var->i != i)
 	{
 		var->i > i ? ft_putstr(tgetstr("le", NULL)) :

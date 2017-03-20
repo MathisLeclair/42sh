@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/20 16:27:19 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:35:34 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
-
-char	**dstr_palloc(int i)
-{
-	char **tmp;
-
-	tmp = palloc(i);
-	tmp[0] = 0;
-	return (tmp);
-}
 
 void	startfind(char **ac, t_env *env, int boolean, int i)
 {

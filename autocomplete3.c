@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 16:28:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:59:45 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,29 @@ char	**ac_cmd(char *find, t_env *env)
 		split_path = ft_strsplitquote(env->ev[i], ':', 0);
 	if (split_path)
 		ft_ac_cmd_path(split_path, find, &ac);
+	free_double_array(split_path);
 	ft_ac_cmd_build(&ac, find);
 	return (ac);
 }
 
-char	**ac_pwd(char *find, int count, char *str, int i)
+char	**ac_pwd(char *find, char *str)
 {
 	DIR			*dir;
 	t_dirent	*td;
 	char		**sug;
-	char		**new;
+	char		*tmp;
 
-	sug = dstr_palloc(sizeof(char *));
+	sug = palloc(sizeof(char *));
+	*sug = 0;
 	getcwd(str, INPUT_SIZE);
 	dir = opendir(str);
 	while ((td = readdir(dir)))
 		if (strstr_bool(find, add_bs(to_lwcase(td->d_name)), 0)
 			&& td->d_name[0] != '.')
 		{
-			++count;
-			new = palloc(sizeof(char *) * (count + 1));
-			i = -1;
-			while (sug[++i])
-				new[i] = sug[i];
-			new[i] = add_bs(ft_strdup(td->d_name));
-			new[i + 1] = 0;
-			free(sug);
-			sug = new;
+			tmp = add_bs(ft_strdup(td->d_name));
+			add_str_to_dstr(&sug, tmp);
+			free(tmp);
 		}
 	closedir(dir);
 	free(str);
@@ -108,7 +104,7 @@ void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 		ft_strcat(new[i], tmp);
 		new[i + 1] = 0;
 		free(*ac);
-		(*ac) = new;
+		*ac = new;
 	}
 	free(tmp);
 }
@@ -136,6 +132,7 @@ void	ac_target(char *find, char ***ac)
 	if ((dir = opendir(find)))
 		while ((dirent = readdir(dir)))
 			ac_target2(after_path, dirent, find, ac);
+	free(after_path);
 	if (dir)
 		closedir(dir);
 }

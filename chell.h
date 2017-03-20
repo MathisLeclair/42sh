@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 17:58:10 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 18:05:15 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,7 +413,6 @@ void			reset(t_var *var);
 ** autocomplete.c
 */
 
-char			**dstr_palloc(int i);
 void			startfind(char **ac, t_env *env, int boolean, int i);
 char			**forest(char *s, int ps, t_env *env, char first);
 char			**autocomplete(char *input, int pos, t_env *env);
@@ -433,7 +432,7 @@ void			ft_ac_cmd_build(char ***ac, char *find);
 void			ft_ac_cmd_path(char **split_path, char *find, char ***ac);
 char			**ac_cmd(char *find, t_env *env);
 void			ac_target2(char *a, t_dirent *td, char *f, char ***ac);
-char			**ac_pwd(char *find, int count, char *str, int i);
+char			**ac_pwd(char *find, char *str);
 void			ac_target(char *find, char ***ac);
 
 /*
