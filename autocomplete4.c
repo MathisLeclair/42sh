@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:13:00 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 16:21:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:20:43 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char	**auto_possibilities3(char **ac, t_env *ev, DIR *dir)
 	return (ac);
 }
 
-char	**auto_possibilities2(char **ac, char *save, DIR *dir, t_env *ev)
+char	**auto_possibilities2(char **ac, DIR *dir, t_env *ev)
 {
-	ac_target(save, &ac);
+	ac_target(ev->find, &ac);
 	if (ac[0] == 0 && dir)
 	{
 		ac[0] = ft_strdup(ev->find);
@@ -36,7 +36,6 @@ char	**auto_possibilities(char pwd, t_env *ev)
 {
 	char	**ac;
 	char	*find_lwc;
-	char	*save;
 	DIR		*dir;
 
 	ac = 0;
@@ -45,18 +44,16 @@ char	**auto_possibilities(char pwd, t_env *ev)
 	ft_dollar(ev, -1, 0);
 	ev->find = ev->input;
 	ev->input = find_lwc;
-	save = ft_strdup(ev->find);
 	if (!bs_str(ev->find, ft_strlen(ev->find) - 1, '/')
 		&& (dir = opendir(ev->find)))
 		return (auto_possibilities3(ac, ev, dir));
 	if (ev->find[0] == '/' || ev->find[0] == '.' || (dir = opendir(ev->find)))
-		return (auto_possibilities2(ac, save, dir, ev));
-	free(save);
+		return (auto_possibilities2(ac, dir, ev));
 	find_lwc = to_lwcase(ev->find);
 	if (pwd == 0)
 		ac = ac_cmd(find_lwc, ev);
 	else
-		ac = ac_pwd(find_lwc, 0, palloc(INPUT_SIZE), 0);
+		ac = ac_pwd(find_lwc, palloc(INPUT_SIZE));
 	free(find_lwc);
 	return (ac);
 }

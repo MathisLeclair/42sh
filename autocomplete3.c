@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 16:57:27 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:59:45 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,24 @@ char	**ac_cmd(char *find, t_env *env)
 	return (ac);
 }
 
-char	**ac_pwd(char *find, int count, char *str, int i)
+char	**ac_pwd(char *find, char *str)
 {
 	DIR			*dir;
 	t_dirent	*td;
 	char		**sug;
-	char		**new;
+	char		*tmp;
 
-	sug = dstr_palloc(sizeof(char *));
+	sug = palloc(sizeof(char *));
+	*sug = 0;
 	getcwd(str, INPUT_SIZE);
 	dir = opendir(str);
 	while ((td = readdir(dir)))
 		if (strstr_bool(find, add_bs(to_lwcase(td->d_name)), 0)
 			&& td->d_name[0] != '.')
 		{
-			++count;
-			new = palloc(sizeof(char *) * (count + 1));
-			i = -1;
-			while (sug[++i])
-				new[i] = sug[i];
-			new[i] = add_bs(ft_strdup(td->d_name));
-			new[i + 1] = 0;
-			free(sug);
-			sug = new;
+			tmp = add_bs(ft_strdup(td->d_name));
+			add_str_to_dstr(&sug, tmp);
+			free(tmp);
 		}
 	closedir(dir);
 	free(str);
