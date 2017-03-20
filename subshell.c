@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 15:58:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 16:49:16 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	subshell2(t_env *env, int i, int l, char *input)
 		waitpid(child, &status, 0);
 		retvalue_into_loc(env, WEXITSTATUS(status));
 		ft_remstr(input, i, ft_strfind(input + i, ')') + i + 1);
-		ft_remstr(env->input, i, ft_strfind(env->input, ')') + i + 1);
+		ft_remstr(env->input, i, ft_strfind(env->input + i, ')') + i + 1);
 	}
 }
 
