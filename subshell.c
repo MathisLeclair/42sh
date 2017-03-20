@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 13:53:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:54:23 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,59 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	}
 }
 
-int		verif_par(char *str, int u, int t, int i)
+int		verif_par(char **str, int u, int t, int i)
 {
-	int j;
+	char *tmp;
 
-	while (str[++i])
+	while ((*str)[++i])
 	{
-		j = 0;
-		if (bs_str(str, i, '(') && u == 0)
-			u = 1;
-		else if (bs_str(str, i, ')') && u == 1)
-		{
-			if (t == 1)
-				return (i);
-			u = 0;
-		}
-		else if (bs_str(str, i, ')') && u == 0)
-			return (-1);
-		else if (bs_str(str, i, '(') && u == 1)
-			j = verif_par(str + i + 1, 1, 1, -1);
-		else if (j == -1)
-			return (-1);
-		i = j > 0 ? j + i + 1 : i;
+		if (bs_str(*str, i, '('))
+			++u;
+		else if (bs_str(*str, i, ')'))
+			++t;
 	}
-	if (u == 1)
+	if (t > u)
 		return (-1);
+	else if (t == u)
+		return (0);
+	else
+	{
+		tmp = termcaps(ft_sprintf("subshell>"));
+		*str = ft_strjoin(*str, " ");
+		*str = ft_strjoinfree(*str, tmp, 3);
+		verif_par(str, 0, 0, -1);
+	}
 	return (0);
 }
+
+
+// int		verif_par(char *str, int u, int t, int i)
+// {
+// 	int j;
+
+// 	while (str[++i])
+// 	{
+// 		j = 0;
+// 		if (bs_str(str, i, '(') && u == 0)
+// 			u = 1;
+// 		else if (bs_str(str, i, ')') && u == 1)
+// 		{
+// 			if (t == 1)
+// 				return (i);
+// 			u = 0;
+// 		}
+// 		else if (bs_str(str, i, ')') && u == 0)
+// 			return (-1);
+// 		else if (bs_str(str, i, '(') && u == 1)
+// 			j = verif_par(str + i + 1, 1, 1, -1);
+// 		else if (j == -1)
+// 			return (-1);
+// 		i = j > 0 ? j + i + 1 : i;
+// 	}
+// 	if (u == 1)
+// 		return (-1);
+// 	return (0);
+// }
 
 int		verif_subshell(char *str)
 {
@@ -95,20 +121,17 @@ int		verif_subshell(char *str)
 
 int		subshell(t_env *env, char *input)
 {
-	char	*str;
 	int		i;
 
 	i = 0;
-	str = ft_strdup(input);
-	if (verif_par(str, 0, 0, -1) == -1 || verif_subshell(str) == -1)
+	if (verif_par(&input, 0, 0, -1) == -1 ||
+		verif_subshell(input) == -1)
 	{
-		free(str);
 		ft_printf("Wrong uses of parenthesis\n");
 		return (-1);
 	}
-	free(str);
 	subshell2(env, 0, 0, input);
-	if (verif_par(str, 0, 0, -1) == -1)
+	if (verif_par(&input, 0, 0, -1) == -1)
 		return (-1);
 	i = 0;
 	while (ft_strfind(input, '(') != -1 && i != -1)
