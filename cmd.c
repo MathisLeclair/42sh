@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 16:18:27 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:32:08 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,33 @@ void	parse(t_env *env, char *input)
 		ft_strdel(&env->inp2);
 }
 
+void	bsquote(char **input)
+{
+	int i;
+	int u;
+	char *tmp;
+
+	u = 0;
+	i = -1;
+	while ((*input)[++i])
+	{
+		if (bs_str(*input, i, '\''))
+			u = (u == 1 ? 0 : 1);
+		if ((bs_str(*input, i, '(') || bs_str(*input, i, ')') ||
+			bs_str(*input, i, '!') || bs_str(*input, i, '$') ||
+			bs_str(*input, i, '~')) && u == 1)
+		{
+			tmp = ft_strnew(ft_strlen(*input));
+			ft_strncat(tmp, *input, i);
+			ft_strcat(tmp, "\\");
+			ft_strcat(tmp, *input + i);
+			free(*input);
+			*input = tmp;
+			++i;
+		}
+	}
+}
+
 int		ft_read(t_env *env, char *input)
 {
 	char	**inputspl;
@@ -85,6 +112,7 @@ int		ft_read(t_env *env, char *input)
 		env->dir, PROMPT));
 	while (verif_quote(&input, -1, 0) != 0)
 		;
+	bsquote(&input);
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
 	i = -1;
