@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 16:50:50 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:56:16 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	exlam1(int *k, int *u, char **tmp)
 
 void	exclam2(int *k, int *u, int *i, char **tmp)
 {
-	if (!ft_isdigit(tvar()->ret[*i + 1]) && tvar()->ret[*i + 1] != '!')
+	if (!ft_isdigit(tvar()->ret[*i + 1]) && !bs_str(tvar()->ret,*i + 1, '!'))
 		exlam1(k, u, tmp);
-	else if (tvar()->ret[*i + 1] == '!')
+	else if (bs_str(tvar()->ret, *i + 1, '!'))
 		*k = (env()->history[*u] == NULL ? *u - 1 : *u);
 	else
 	{
