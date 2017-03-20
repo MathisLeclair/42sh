@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/20 14:07:14 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:30:30 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int		strstr_bool(char *find, char *search_in_lc)
 	long int	f_len;
 
 	if ((f_len = ft_strlen(find)) == 0)
+	{
+		free(search_in_lc);
 		return (1);
+	}
 	i = 0;
 	while (search_in_lc[i])
 		if (search_in_lc[i] == find[0])
@@ -295,6 +298,7 @@ char	**auto_possibilities(char pwd, t_env *ev)
 		ac = ac_cmd(find_lwc, ev);
 	else
 		ac = ac_pwd(find_lwc, 0, palloc(INPUT_SIZE), 0);
+	free(find_lwc);
 	return (ac);
 }
 
