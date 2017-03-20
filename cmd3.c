@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 16:39:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/20 16:34:29 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,13 @@ int		parserror(t_env *env)
 	int i;
 
 	i = 0;
-	if (strstr_bool("&&&", ft_strdup(env->input)) == 1)
+	if (strstr_bool("&&&", ft_strdup(env->input), 0) == 1)
 		i = -1;
-	if (strstr_bool("|||", ft_strdup(env->input)) == 1)
+	if (strstr_bool("|||", ft_strdup(env->input), 0) == 1)
 		i = -1;
-	if (strstr_bool("|&|", ft_strdup(env->input)) == 1)
+	if (strstr_bool("|&|", ft_strdup(env->input), 0) == 1)
 		i = -1;
-	if (strstr_bool("&|&", ft_strdup(env->input)) == 1)
+	if (strstr_bool("&|&", ft_strdup(env->input), 0) == 1)
 		i = -1;
 	if (i == -1)
 		error(-15, NULL, NULL);
