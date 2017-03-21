@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 16:25:05 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 11:09:53 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	buf = malloc(INPUT_SIZE);
 	while ((ret = read(fd, buf, INPUT_SIZE - 1)) > 0)
 		realoc(buf, &tmp, ret);
+	free(buf);
 	close(fd);
 	free(env->input);
 	env->input = malloc(ft_strlen(tmp));
@@ -48,8 +49,10 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	ft_strncat(env->input, sav, i);
 	if (tmp)
 		ft_strcat(env->input, tmp);
+	free(tmp);
 	ft_strcat(env->input, sav + k + i + 2);
 	unlink("/tmp/42sh_the_silence");
+	free(sav);
 }
 
 void		bquote2(t_env *env, char *sav, int i, int k)
