@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 12:39:55 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 13:49:11 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int		subshell(t_env *env, char *input)
 	int		i;
 
 	i = 0;
-	printf("%p\n", env);
 	if (verif_par(&input, 0, 0, -1) == -1 ||
 		verif_subshell(input) == -1)
 	{
