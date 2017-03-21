@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 18:13:21 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 19:46:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,34 @@ void		verbquote(t_env *env)
 		tmp = termcaps(ft_sprintf("bquote>"));
 		env->input = ft_strjoinfree(env->input, " ", 1);
 		env->input = ft_strjoinfree(env->input, tmp, 3);
-		while (verif_quote(&env->input, -1, 0) != 0)
-			;
 		verbquote(env);
 	}
 	return ;
 }
 
-void		bquote(t_env *env)
+int			ver_sub_2(t_env *env)
+{
+	int i;
+	int u;
+
+	i = -1;
+	u = 0;
+	while (env->input[++i])
+	{
+		if (env->input[i] == '(')
+			u += 1;
+		else if(env->input[i] == ')' && u == 1)
+			u -= 1;
+		if (u != 0)
+		{
+			error(-15, NULL, NULL);
+			return (-1);
+		}
+	}
+	return (0);
+}
+
+int			bquote(t_env *env)
 {
 	int		i;
 	int		k;
@@ -117,6 +137,8 @@ void		bquote(t_env *env)
 	i = -1;
 	k = 0;
 	verbquote(env);
+	if (ver_sub_2(env) == -1)
+		return (-1);
 	env->inp1 = ft_strdup(env->input);
 	i = ft_strfind(env->inp1, '`');
 	k = ft_strfind(env->inp1 + i + 1, '`');
@@ -125,5 +147,5 @@ void		bquote(t_env *env)
 	env->input = malloc(INPUT_SIZE);
 	env->input[0] = 0;
 	bquote2(env, sav, i, k);
-
+	return (0);
 }

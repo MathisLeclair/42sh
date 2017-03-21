@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 18:58:46 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 19:45:03 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,7 +304,7 @@ void			handle_file(int ac, char **av, t_env *env);
 ** bquote.c
 */
 
-void			bquote(t_env *env);
+int				bquote(t_env *env);
 
 /*
 ** subshell.c
