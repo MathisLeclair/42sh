@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 17:14:10 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 18:58:50 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,10 @@ int		verif_par(char **str, int u, int t, int i)
 	char *tmp;
 
 	while ((*str)[++i])
-	{
 		if (bs_str(*str, i, '('))
 			++u;
 		else if (bs_str(*str, i, ')'))
 			++t;
-	}
 	if (t > u)
 		return (-1);
 	else if (t == u)
@@ -74,6 +72,8 @@ int		verif_par(char **str, int u, int t, int i)
 		tmp = termcaps(ft_sprintf("subshell>"));
 		*str = ft_strjoinfree(*str, " ", 1);
 		*str = ft_strjoinfree(*str, tmp, 3);
+		while (verif_quote(str, -1, 0) != 0)
+			;
 		verif_par(str, 0, 0, -1);
 	}
 	ft_remstr(env()->input, ft_strfind(env()->input, '('),

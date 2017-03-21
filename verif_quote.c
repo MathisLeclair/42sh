@@ -6,11 +6,40 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 16:46:55 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 19:02:15 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
+
+void	add_bs_q(char **str, int i, char c)
+{
+	int		j;
+	int		k;
+	char	*tmp;
+
+	while ((*str)[++i])
+	{
+		if (bs_str(*str, i, c))
+		{
+			k = 0;
+			j = 0;
+			tmp = palloc(INPUT_SIZE);
+			(*str)[i] = 0;
+			while (!bs_str(*str, ++i, c))
+			{
+				tmp[j++] = '\\';
+				tmp[j++] = (*str)[i];
+			}
+			k = j;
+			while ((*str)[i])
+				tmp[j++] = (*str)[i++];
+			tmp[j] = 0;
+			*str = ft_strjoinfree(*str, tmp, 3);
+			i += k;
+		}
+	}
+}
 
 int		ft_strfind_bq(const char *s, int c)
 {

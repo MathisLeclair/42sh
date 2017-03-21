@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 16:06:13 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 18:58:46 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ void			ft_tilde(char **s, int i, char quote);
 */
 
 int				verif_quote(char **inp, int k, int quote);
+void			add_bs_q(char **str, int i, char c);
 
 /*
 ** double_array_sort.c
@@ -450,5 +451,7 @@ void			auto_prop(t_var *var, int p);
 void			ft_join_spaces(char **tmp, int i);
 int				strstr_bool(char *find, char *search_in_lc, int i);
 void			bsquote(char **input);
+int				verif_par(char **str, int u, int t, int i);
+void			verbquote(t_env *env);
 
 #endif

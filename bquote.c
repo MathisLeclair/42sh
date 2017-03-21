@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 17:02:34 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 18:13:21 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void		verbquote(t_env *env)
 		tmp = termcaps(ft_sprintf("bquote>"));
 		env->input = ft_strjoinfree(env->input, " ", 1);
 		env->input = ft_strjoinfree(env->input, tmp, 3);
+		while (verif_quote(&env->input, -1, 0) != 0)
+			;
 		verbquote(env);
 	}
 	return ;
