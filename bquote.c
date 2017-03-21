@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 11:09:53 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 17:02:34 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	else if ((int)child == 0)
 	{
 		dup2(fd, STDOUT_FILENO);
-		parse(env, env->input);
+		parse(env, &env->input);
 		exit(EXIT_SUCCESS);
 	}
 	close(fd);
@@ -99,8 +99,8 @@ void		verbquote(t_env *env)
 	if (u % 2 == 1)
 	{
 		tmp = termcaps(ft_sprintf("bquote>"));
-		env->input = ft_strjoin(env->input, " ");
-		env->input = ft_strjoinfree(env->input, tmp, 2);
+		env->input = ft_strjoinfree(env->input, " ", 1);
+		env->input = ft_strjoinfree(env->input, tmp, 3);
 		verbquote(env);
 	}
 	return ;
@@ -123,4 +123,5 @@ void		bquote(t_env *env)
 	env->input = malloc(INPUT_SIZE);
 	env->input[0] = 0;
 	bquote2(env, sav, i, k);
+
 }

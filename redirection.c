@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/16 13:25:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:33:21 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		rd_output(t_env *env, int fd, int n, pid_t child)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDOUT_FILENO : (int)n));
-		parse(env, env->input);
+		parse(env, &env->input);
 		exit(env->lastret);
 	}
 	close(fd);
@@ -69,7 +69,7 @@ void		rd_output_apd(t_env *env, int fd, pid_t child)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDOUT_FILENO : (int)n));
-		parse(env, env->input);
+		parse(env, &env->input);
 		exit(env->lastret);
 	}
 	close(fd);
@@ -118,7 +118,7 @@ void		rd_input(t_env *env)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-		parse(env, env->inp1);
+		parse(env, &env->inp1);
 		exit(env->lastret);
 	}
 	close(fd);

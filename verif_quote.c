@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 18:16:14 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:46:55 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	complete_dquote(char **str, int pos)
 	while (ft_strfind_bq(tmp + pos + 1, '"') == -1)
 	{
 		tmp3 = termcaps(ft_sprintf("dquote>"));
-		tmp = ft_strjoin(tmp, "\n");
+		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, tmp3, 3);
 	}
+	free(*str);
 	*str = tmp;
 }
 
@@ -48,9 +49,10 @@ void	complete_quote(char **str, int pos)
 	while (ft_strfind_bq(tmp + pos + 1, '\'') == -1)
 	{
 		tmp3 = termcaps(ft_sprintf("quote>"));
-		tmp = ft_strjoin(tmp, "\n");
+		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, tmp3, 3);
 	}
+	free(*str);
 	*str = tmp;
 }
 

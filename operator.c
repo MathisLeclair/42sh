@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 13:43:33 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/19 15:04:00 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:32:47 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	oprt_and(t_env *env)
 		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
-		parse(env, env->inp1);
+		parse(env, &env->inp1);
 		exit(env->lastret);
 	}
 	waitpid(child, &status, 0);
 	if (WEXITSTATUS(status) == 0)
 	{
-		parse(env, env->inp2);
+		parse(env, &env->inp2);
 		retvalue_into_loc(env, env->lastret);
 	}
 	else
@@ -55,13 +55,13 @@ void	oprt_or(t_env *env)
 		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
-		parse(env, env->inp1);
+		parse(env, &env->inp1);
 		exit(env->lastret);
 	}
 	waitpid(child, &status, 0);
 	if (WEXITSTATUS(status) != 0)
 	{
-		parse(env, env->inp2);
+		parse(env, &env->inp2);
 		env->isoperand = 0;
 		retvalue_into_loc(env, env->lastret);
 	}

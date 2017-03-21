@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 13:24:11 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 13:24:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:35:15 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void	frk_pipe(t_env *env)
 	{
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[0]);
-		parse(env, env->inp1);
+		parse(env, &env->inp1);
 		exit(env->lastret);
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
-	parse(env, env->inp2);
+	parse(env, &env->inp2);
 	wait(&status);
 }
 

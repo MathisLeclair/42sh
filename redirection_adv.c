@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/17 14:59:48 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:33:39 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		rd_here_doc2(t_env *env, int fd, int n)
 		error(-17, NULL, NULL);
 	unlink("/tmp/42sh-the-silence");
 	dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-	parse(env, env->inp1);
+	parse(env, &env->inp1);
 	exit(env->lastret);
 }
 
@@ -77,7 +77,7 @@ void		rd_here_string2(t_env *env, int fd, int n)
 		error(-17, NULL, NULL);
 	unlink("/tmp/42sh-the-silence");
 	dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-	parse(env, env->inp1);
+	parse(env, &env->inp1);
 	ft_putchar('\n');
 	exit(env->lastret);
 }
