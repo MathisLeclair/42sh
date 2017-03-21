@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 15:58:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:03:58 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		verif_par(char **str, int u, int t, int i)
 	else
 	{
 		tmp = termcaps(ft_sprintf("subshell>"));
-		*str = ft_strjoin(*str, " ");
+		*str = ft_strjoinfree(*str, " ", 1);
 		*str = ft_strjoinfree(*str, tmp, 3);
 		verif_par(str, 0, 0, -1);
 	}
@@ -92,22 +92,22 @@ int		verif_subshell(char *str)
 	return (0);
 }
 
-int		subshell(t_env *env, char *input)
+int		subshell(t_env *env, char **input)
 {
 	int		i;
 
 	i = 0;
-	if (verif_par(&input, 0, 0, -1) == -1 ||
-		verif_subshell(input) == -1)
+	if (verif_par(input, 0, 0, -1) == -1 ||
+		verif_subshell(*input) == -1)
 	{
 		ft_printf("Wrong uses of parenthesis\n");
 		return (-1);
 	}
-	subshell2(env, 0, 0, input);
-	if (verif_par(&input, 0, 0, -1) == -1)
+	subshell2(env, 0, 0, *input);
+	if (verif_par(input, 0, 0, -1) == -1)
 		return (-1);
 	i = 0;
-	while (ft_strfind(input, '(') != -1 && i != -1)
+	while (ft_strfind(*input, '(') != -1 && i != -1)
 		i = subshell(env, input);
 	return (i);
 }

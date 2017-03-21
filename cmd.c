@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 15:19:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:06:16 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,37 @@ void	parse3(t_env *env, int i)
 	env->redir = NULL;
 }
 
-void	parse2(t_env *env, char *input, int i)
+void	parse2(t_env *env, char **input, int i)
 {
-	if (cmprevtruc(env, &input))
+	if (cmprevtruc(env, input))
 		;
-	else if (cmprev(input, "|") != -1)
+	else if (cmprev(*input, "|") != -1)
 		rd_pipe(env);
-	else if (cmprev(input, "<<<") != -1)
+	else if (cmprev(*input, "<<<") != -1)
 		rd_here_string(env, -1, -1, -1);
-	else if (cmprev(input, "<") != -1)
+	else if (cmprev(*input, "<") != -1)
 	{
-		extract_rd_output(env, input);
+		extract_rd_output(env, *input);
 		rd_input(env);
 	}
-	else if (cmprev(input, "<<") != -1)
+	else if (cmprev(*input, "<<") != -1)
 	{
-		extract_heredoc(env, input);
+		extract_heredoc(env, *input);
 		rd_here_doc(env, -1, -1);
 	}
-	else if (cmprev(input, ">") != -1 || cmprev(input, ">>") != -1)
+	else if (cmprev(*input, ">") != -1 || cmprev(*input, ">>") != -1)
 		parse3(env, i);
 	else
 		ft_reco_cmd(env, 0);
 }
 
-void	parse(t_env *env, char *input)
+void	parse(t_env *env, char **input)
 {
 	int i;
 
 	i = -1;
 	free(env->input);
-	env->input = ft_strdup(input);
+	env->input = ft_strdup(*input);
 	while (ft_strchr(env->input, '`') != 0)
 		bquote(env);
 	if (env->input == NULL)
@@ -64,7 +64,7 @@ void	parse(t_env *env, char *input)
 		ft_dollar(env, -1, 0);
 	if (parserror(env) == -1)
 		return ;
-	if (ft_strfind(input, '(') != -1 || ft_strfind(input, ')') != -1)
+	if (ft_strfind(*input, '(') != -1 || ft_strfind(*input, ')') != -1)
 		if (subshell(env, input) == -1)
 			return ;
 	parse2(env, input, i);
@@ -120,7 +120,8 @@ int		ft_read(t_env *env, char *input)
 		env->input = ft_strdup(inputspl[i]);
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(&env->input, -1, 0);
-		parse(env, tmp = ft_strdup(env->input));
+		tmp = ft_strdup(env->input);
+		parse(env, &tmp);
 		free(tmp);
 		free(env->input);
 		env->input = NULL;

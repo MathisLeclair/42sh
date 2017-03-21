@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 18:05:15 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 16:06:13 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,7 @@ void			bquote(t_env *env);
 ** subshell.c
 */
 
-int				subshell(t_env *env, char *input);
+int				subshell(t_env *env, char **input);
 void			retvalue_into_loc(t_env *env, int i);
 
 /*
@@ -442,7 +442,7 @@ char			**auto_possibilities(char pwd, t_env *ev);
 char			*finder(char *input, int pos);
 char			ft_strcmp_beg(char *str1, char *str2);
 
-void			parse(t_env *env, char *input);
+void			parse(t_env *env, char **input);
 void			signblock();
 void			set_history(void);
 void			file_history(int i, int j, int k, int fd);
