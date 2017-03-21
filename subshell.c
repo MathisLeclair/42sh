@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 13:49:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/21 15:58:02 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		verif_par(char **str, int u, int t, int i)
 		*str = ft_strjoinfree(*str, tmp, 3);
 		verif_par(str, 0, 0, -1);
 	}
+	ft_remstr(env()->input, ft_strfind(env()->input, '('),
+		ft_strcfind(env()->input, ')'));
 	return (0);
 }
 
