@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:29:49 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 19:05:01 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 17:41:51 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	up_arrow(t_var *var, int *bg)
 	char *tmp;
 
 	if (env()->history[*bg] == 0)
+	{
+		free_double_array(var->ac);
 		ft_asdf(var, -1, bg, 0);
+	}
 	if (var->arr == NULL)
 		var->arr = ft_strdup(var->ret);
 	if (var->ac[0])

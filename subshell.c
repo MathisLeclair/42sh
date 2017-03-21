@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 16:24:38 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/21 17:14:10 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int		verif_par(char **str, int u, int t, int i)
 		verif_par(str, 0, 0, -1);
 	}
 	ft_remstr(env()->input, ft_strfind(env()->input, '('),
+		ft_strcfind(env()->input, ')') == -1 ? ft_strlen(env()->input) :
 		ft_strcfind(env()->input, ')'));
-	printf("env->input = %s\n", env()->input);
 	return (0);
 }
 
