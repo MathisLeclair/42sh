@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 15:47:09 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/16 11:35:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 19:00:07 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	go_away(char *str)
 
 	i = 0;
 	while (env()->hash[++i])
-		if (ft_strcmp(str, env()->hash[i] + 8))
+		if (ft_strcmp(str, env()->hash[i] + 5) == 0)
 		{
 			env()->hash[i][0] = ' ';
 			env()->hash[i][1] = ' ';
