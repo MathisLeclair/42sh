@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 17:09:15 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 17:44:55 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
-
-void	retvalue_into_loc(t_env *env, int i)
-{
-	char *tmp;
-	char *rmp2;
-
-	env->lastret = i;
-	tmp = malloc(300);
-	tmp[0] = 0;
-	ft_strcat(tmp, "?=");
-	ft_strcat(tmp, rmp2 = ft_itoa(i));
-	free(rmp2);
-	add_var_to_env(env, tmp);
-	free(tmp);
-}
 
 void	subshell2(t_env *env, int i, int l, char *input)
 {
@@ -54,6 +39,16 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	}
 }
 
+int		verif_par2(char **str, char *tmp)
+{
+	free(*str);
+	*str = tmp;
+	free(env()->input);
+	env()->input = NULL;
+	env()->bool2 = 1;
+	return (-2);
+}
+
 int		verif_par(char **str, int u, int t, int i)
 {
 	char *tmp;
@@ -71,14 +66,7 @@ int		verif_par(char **str, int u, int t, int i)
 	{
 		tmp = termcaps(ft_sprintf("subshell>"));
 		if (env()->bool1 == 1)
-		{
-			free(*str);
-			*str = tmp;
-			free(env()->input);
-			env()->input = NULL;
-			env()->bool2 = 1;
-			return (-2);
-		}
+			return (verif_par2(str, tmp));
 		*str = ft_strjoinfree(*str, " ", 1);
 		*str = ft_strjoinfree(*str, tmp, 3);
 		if (verif_par(str, 0, 0, -1) == -2)

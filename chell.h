@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 17:21:35 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 17:51:42 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct	s_env
 	int				boolthing;
 	char			**hash;
 	int				bool1;
-	int				bool2;	
+	int				bool2;
 }				t_env;
 
 typedef struct	s_var
@@ -456,5 +456,6 @@ void			bsquote(char **input);
 int				verif_par(char **str, int u, int t, int i);
 int				ver_dquote_t2(char *str);
 int				ver_sub_2(t_env *env);
+int				ft_read2(int u, char *input, t_env *env);
 
 #endif

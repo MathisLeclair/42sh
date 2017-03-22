@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 17:36:48 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 17:47:07 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,11 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	bquote3(env, sav, i, k);
 }
 
-char		verbquote(t_env *env)
+char		verbquote(t_env *env, int i)
 {
-	int		i;
 	int		u;
 	char	*tmp;
 
-	i = -1;
 	u = 0;
 	while (env->input[++i])
 	{
@@ -108,7 +106,7 @@ char		verbquote(t_env *env)
 		}
 		env->input = ft_strjoinfree(env->input, " ", 1);
 		env->input = ft_strjoinfree(env->input, tmp, 3);
-		if (verbquote(env))
+		if (verbquote(env, -1))
 			return (1);
 	}
 	return (0);
@@ -122,7 +120,7 @@ int			bquote(t_env *env)
 
 	i = -1;
 	k = 0;
-	if (verbquote(env))
+	if (verbquote(env, -1))
 		return (0);
 	if (ver_sub_2(env) == -1)
 		return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 17:32:17 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 17:50:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	parse(t_env *env, char **input)
 	while (ft_strchr(env->input, '`') != 0)
 		if (bquote(env) == -1)
 			return ;
-	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0)) || env->input == NULL)
+	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0))
+		|| env->input == NULL)
 		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
@@ -114,10 +115,7 @@ int		ft_read(t_env *env, char *input, int i, int u)
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
 		env->dir, PROMPT));
-	while ((u = verif_quote(&input, -1, 0)) != 0)
-		if (u == -1)
-			return (0);
-	if (env->bool2 == 1 && !ft_read(env, input, -1, 0))
+	if (ft_read2(u, input, env) == 0)
 		return (0);
 	add_bs_q(&input, -1, '\'');
 	inputspl = ft_strsplitquote(input, ';', 0);
@@ -133,6 +131,5 @@ int		ft_read(t_env *env, char *input, int i, int u)
 		free(env->input);
 		env->input = NULL;
 	}
-	free_double_array(inputspl);
-	return (0);
+	return (free_double_array(inputspl));
 }
