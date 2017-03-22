@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 15:38:00 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 18:04:29 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ char	*termcaps(t_ssprintf *prompt)
 	var = tvar();
 	initvar(var, 1);
 	if ((str = getenv("TERM")) == NULL)
-		str = ft_strdup("xterm-256color");
-	tgetent(NULL, str);
+		tgetent(NULL, "xterm-256color");
+	else
+		tgetent(NULL, str);
 	if (tcgetattr(0, &var->term) == -1)
 		error(-6, 0, 0);
 	initterm(var);
