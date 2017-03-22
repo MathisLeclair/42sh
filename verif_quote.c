@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 14:23:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 15:14:30 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ int		complete_dquote(char **str, int pos)
 	char	*tmp3;
 
 	tmp = ft_strdup(*str);
-	while (ft_strfind_bq(tmp + pos + 1, '"') == -1)
+	while (ft_strfind_bq(tmp + pos + 1, '"') == -1 && env()->bool1 == 0)
 	{
 		tmp3 = termcaps(ft_sprintf("dquote>"));
 		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, tmp3, 3);
 	}
+	if (env()->bool1 == 1)
+		*tmp = 0;
 	free(*str);
 	*str = tmp;
 	if (ver_dquote_t2(*str) == -1)
@@ -78,12 +80,14 @@ void	complete_quote(char **str, int pos)
 	char *tmp3;
 
 	tmp = ft_strdup(*str);
-	while (ft_strfind_bq(tmp + pos + 1, '\'') == -1)
+	while (ft_strfind_bq(tmp + pos + 1, '\'') == -1 && env()->bool1 == 0)
 	{
 		tmp3 = termcaps(ft_sprintf("quote>"));
 		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, tmp3, 3);
 	}
+	if (env()->bool1 == 1)
+		*tmp = 0;
 	free(*str);
 	*str = tmp;
 }

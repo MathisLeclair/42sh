@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 17:58:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 15:54:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	touch2(t_var *var)
 void	touch1(t_var *var, int *bg, int *i)
 {
 	read(0, var->buff, 3);
+	if (env()->bool1 == 1)
+		return ;
 	if (var->buff[0] == 27 && var->buff[2] == 91)
 		select_mode(var);
 	else if (var->buff[1] == -119)
@@ -102,7 +104,7 @@ void	touch(t_var *var)
 	var->i = 0;
 	ft_putstr(tgetstr("im", NULL));
 	ft_putstr(tgetstr("bw", NULL));
-	while (var->buff[0] != 10)
+	while (var->buff[0] != 10 && env()->bool1 == 0)
 		touch1(var, &bg, &i);
 	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);

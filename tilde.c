@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:39:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 15:45:22 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 14:34:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	strreeplace(char **s, char *str, int start)
 	ft_strlcat(newinp, *s, start + 1);
 	ft_strcat(newinp, str);
 	ft_strcat(newinp, *s + start + 1);
+	free(*s);
 	*s = newinp;
 }
 

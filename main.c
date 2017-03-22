@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 14:24:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 15:53:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	ft_sig(int i)
 		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env()->dir,
 		PROMPT);
 		env()->i = 0;
+		env()->bool1 = 1;
+		write(0, " ", 1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 12:05:12 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 14:40:49 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		verbquote(t_env *env)
 		if (bs_str(env->input, i, '`'))
 			++u;
 	}
-	if (u % 2 == 1)
+	if (u % 2 == 1 && env->bool1 == 0)
 	{
 		tmp = termcaps(ft_sprintf("bquote>"));
 		env->input = ft_strjoinfree(env->input, " ", 1);

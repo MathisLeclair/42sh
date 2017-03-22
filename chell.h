@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 14:30:32 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 14:39:08 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct	s_env
 	int				booljob;
 	int				boolthing;
 	char			**hash;
+	int				bool1;
+	int				bool2;	
 }				t_env;
 
 typedef struct	s_var
