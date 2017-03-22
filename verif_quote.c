@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 18:20:28 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 18:40:04 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	add_bs_q(char **str, int i, char c)
 	char	*tmp;
 
 	while ((*str)[++i])
-	{
 		if (bs_str(*str, i, c))
 		{
 			k = 0;
 			j = 0;
 			tmp = palloc(INPUT_SIZE);
+			tmp[j++] = (*str)[i];
 			(*str)[i] = 0;
-			while (!bs_str(*str, ++i, c))
+			while (!bs_str(*str, ++i, c) && (*str)[i])
 			{
 				tmp[j++] = '\\';
 				tmp[j++] = (*str)[i];
@@ -38,7 +38,6 @@ void	add_bs_q(char **str, int i, char c)
 			*str = ft_strjoinfree(*str, tmp, 3);
 			i += k;
 		}
-	}
 }
 
 int		ft_strfind_bq(const char *s, int c)
