@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 13:50:27 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/22 14:23:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int		ft_strfind_bq(const char *s, int c)
 	return (s[i] == c ? i : -1);
 }
 
-void	complete_dquote(char **str, int pos)
+int		complete_dquote(char **str, int pos)
 {
-	char *tmp;
-	char *tmp3;
+	char	*tmp;
+	char	*tmp3;
 
 	tmp = ft_strdup(*str);
 	while (ft_strfind_bq(tmp + pos + 1, '"') == -1)
@@ -67,6 +67,9 @@ void	complete_dquote(char **str, int pos)
 	}
 	free(*str);
 	*str = tmp;
+	if (ver_dquote_t2(*str) == -1)
+		return (-1);
+	return (0);
 }
 
 void	complete_quote(char **str, int pos)
@@ -105,8 +108,11 @@ int		verif_quote(char **str, int p, int quote)
 	if (quote == 1)
 		complete_quote(str, pos);
 	else if (dquote == 1)
-		complete_dquote(str, pos);
+	{
+		if (complete_dquote(str, pos))
+			return (-1);
+	}
 	else
 		return (0);
-	return (-1);
+	return (0);
 }

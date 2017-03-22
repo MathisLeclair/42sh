@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 13:47:31 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/22 14:24:27 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	bsquote(char **input)
 	}
 }
 
-int		ft_read(t_env *env, char *input, int i)
+int		ft_read(t_env *env, char *input, int i, int u)
 {
 	char	**inputspl;
 	char	*tmp;
@@ -110,8 +110,9 @@ int		ft_read(t_env *env, char *input, int i)
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
 		env->dir, PROMPT));
-	while (verif_quote(&input, -1, 0) != 0)
-		;
+	while ((u = verif_quote(&input, -1, 0)) != 0)
+		if (u == -1)
+			return (0);
 	add_bs_q(&input, -1, '\'');
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
