@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 17:30:26 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 18:20:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int		complete_dquote(char **str, int pos)
 		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, tmp3, 3);
 	}
-	if (env()->bool1 == 1)
-		*tmp = 0;
 	free(*str);
 	*str = tmp;
 	if (ver_dquote_t2(*str) == -1)
@@ -102,8 +100,6 @@ void	complete_quote(char **str, int pos)
 		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, tmp3, 3);
 	}
-	if (env()->bool1 == 1)
-		*tmp = 0;
 	free(*str);
 	*str = tmp;
 }

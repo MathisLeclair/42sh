@@ -6,18 +6,18 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 11:58:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 17:50:31 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 18:22:16 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
 
-int		ft_read2(int u, char *input, t_env *env)
+int		ft_read2(int u, char **input, t_env *env)
 {
-	while ((u = verif_quote(&input, -1, 0)) != 0)
+	while ((u = verif_quote(input, -1, 0)) != 0)
 		if (u == -1)
 			return (0);
-	if (env->bool2 == 1 && !ft_read(env, input, -1, 0))
+	if (env->bool2 == 1 && !ft_read(env, *input, -1, 0))
 		return (0);
 	return (666);
 }
