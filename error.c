@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 15:37:56 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/22 13:26:58 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void		error3(int i)
 		ft_putstr_fd("chell: open error\n", 2);
 	else if (i == -18)
 		ft_putstr_fd("chell: fcntl error\n", 2);
+	else if (i == -19)
+		ft_putstr_fd("Wrong uses of parenthesis\n", 2);
 }
 
 static void		error2(int i, char *str)

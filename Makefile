@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/20 16:22:19 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/22 12:13:05 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ FILES 	=							\
 			verif_quote				\
 			handle_argv				\
 			handle_file				\
+			bquote2					\
 			history					\
 			auto_prop				\
 			builtins3				\

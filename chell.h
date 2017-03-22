@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 19:45:03 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 11:58:22 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,5 +453,6 @@ int				strstr_bool(char *find, char *search_in_lc, int i);
 void			bsquote(char **input);
 int				verif_par(char **str, int u, int t, int i);
 void			verbquote(t_env *env);
+int				ver_sub_2(t_env *env);
 
 #endif

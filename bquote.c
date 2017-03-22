@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 19:46:19 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 12:05:12 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,6 @@ void		verbquote(t_env *env)
 		verbquote(env);
 	}
 	return ;
-}
-
-int			ver_sub_2(t_env *env)
-{
-	int i;
-	int u;
-
-	i = -1;
-	u = 0;
-	while (env->input[++i])
-	{
-		if (env->input[i] == '(')
-			u += 1;
-		else if(env->input[i] == ')' && u == 1)
-			u -= 1;
-		if (u != 0)
-		{
-			error(-15, NULL, NULL);
-			return (-1);
-		}
-	}
-	return (0);
 }
 
 int			bquote(t_env *env)
