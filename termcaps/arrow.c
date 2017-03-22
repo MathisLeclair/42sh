@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arrow.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:29:49 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 17:41:51 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 19:34:06 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_asdf(t_var *var, int i, int *bg, int j)
 	var->ac = palloc(sizeof(char *));
 	var->ac[0] = 0;
 	while (env()->history[++i])
-		if (strstr(env()->history[i], var->ret))
+		if (ft_strstr(env()->history[i], var->ret))
 			add_str_to_dstr(&var->ac, env()->history[i] + 7);
 	i = 0;
 	while (var->ac[i])

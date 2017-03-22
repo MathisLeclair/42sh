@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 11:45:37 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 11:48:31 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 19:33:17 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	history(t_env *env, char **split)
 	{
 		if (split[1][0] == '-')
 			history2(split, env);
-		else if (split[1] && isnumber(split[1][0]))
+		else if (split[1] && ft_isdigit(split[1][0]))
 			history3(split, env);
 		else
 		{

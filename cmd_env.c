@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 19:16:47 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/17 15:51:39 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 19:33:38 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**ft_cpy_double_array(char **a)
 	b = malloc(sizeof(char*) * i + 1);
 	b[i] = 0;
 	while (i--)
-		b[i] = strdup(a[i]);
+		b[i] = ft_strdup(a[i]);
 	return (b);
 }
 

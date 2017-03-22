@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 11:47:50 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 19:32:42 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	aperture3(int truc, char *buf, int *fd, char *tmp)
 		if (*buf != '\n')
 		{
 			get_next_line(fd[1], &tmp);
-			usleep(atoi(tmp) + 1000);
+			usleep(ft_atoi(tmp) + 1000);
 			free(tmp);
 		}
 	}
