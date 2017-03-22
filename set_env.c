@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 14:39:27 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 16:38:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_e3(t_env *e)
 	e->lastret = 0;
 	e->hash = NULL;
 	e->bool1 = 0;
-	e->bool1 = 0;
+	e->bool2 = 0;
 }
 
 void	set_evloc2(t_env *e)

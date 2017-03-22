@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 14:40:49 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 17:36:48 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	bquote3(env, sav, i, k);
 }
 
-void		verbquote(t_env *env)
+char		verbquote(t_env *env)
 {
 	int		i;
 	int		u;
@@ -99,11 +99,19 @@ void		verbquote(t_env *env)
 	if (u % 2 == 1 && env->bool1 == 0)
 	{
 		tmp = termcaps(ft_sprintf("bquote>"));
+		if (env->bool1 == 1)
+		{
+			env->bool2 = 1;
+			free(env->input);
+			env->input = tmp;
+			return (1);
+		}
 		env->input = ft_strjoinfree(env->input, " ", 1);
 		env->input = ft_strjoinfree(env->input, tmp, 3);
-		verbquote(env);
+		if (verbquote(env))
+			return (1);
 	}
-	return ;
+	return (0);
 }
 
 int			bquote(t_env *env)
@@ -114,7 +122,8 @@ int			bquote(t_env *env)
 
 	i = -1;
 	k = 0;
-	verbquote(env);
+	if (verbquote(env))
+		return (0);
 	if (ver_sub_2(env) == -1)
 		return (-1);
 	env->inp1 = ft_strdup(env->input);

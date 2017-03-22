@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 15:10:39 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 17:09:15 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,23 @@ int		verif_par(char **str, int u, int t, int i)
 	else
 	{
 		tmp = termcaps(ft_sprintf("subshell>"));
+		if (env()->bool1 == 1)
+		{
+			free(*str);
+			*str = tmp;
+			free(env()->input);
+			env()->input = NULL;
+			env()->bool2 = 1;
+			return (-2);
+		}
 		*str = ft_strjoinfree(*str, " ", 1);
 		*str = ft_strjoinfree(*str, tmp, 3);
-		if (env()->bool1 == 0)
-			verif_par(str, 0, 0, -1);
+		if (verif_par(str, 0, 0, -1) == -2)
+			return (-2);
 	}
-	if (env()->bool1 == 1)
-	{
-		**str = 0;
-		env()->input[0] = 0;
-		return (-1);
-	}
-	else
-		ft_remstr(env()->input, ft_strfind(env()->input, '('),
-		ft_strcfind(env()->input, ')') == -1 ? ft_strlen(env()->input) :
-		ft_strcfind(env()->input, ')'));
+	ft_remstr(env()->input, ft_strfind(env()->input, '('),
+	ft_strcfind(env()->input, ')') == -1 ? ft_strlen(env()->input) :
+	ft_strcfind(env()->input, ')'));
 	return (0);
 }
 
@@ -119,13 +121,14 @@ int		subshell(t_env *env, char **input)
 {
 	int		i;
 
-	i = 0;
-	if (verif_par(input, 0, 0, -1) == -1 ||
-		verif_subshell(*input) == -1)
+	i = verif_par(input, 0, 0, -1);
+	if (i == -1 || verif_subshell(*input) == -1)
 	{
 		error(-19, NULL, NULL);
 		return (-1);
 	}
+	if (i == -2)
+		return (0);
 	if (verif_subshell(*input) == -2)
 	{
 		error(-15, NULL, NULL);

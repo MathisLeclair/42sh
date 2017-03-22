@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 15:46:17 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 17:32:17 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	parse(t_env *env, char **input)
 	while (ft_strchr(env->input, '`') != 0)
 		if (bquote(env) == -1)
 			return ;
-	if (env->input == NULL)
+	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0)) || env->input == NULL)
 		return ;
 	if (ft_strchr(env->input, '$'))
 		ft_dollar(env, -1, 0);
@@ -68,6 +68,8 @@ void	parse(t_env *env, char **input)
 	if (ft_strfind(*input, '(') != -1 || ft_strfind(*input, ')') != -1)
 		if (subshell(env, input) == -1)
 			return ;
+	if (env->bool2 == 1 && !ft_read(env, ft_strdup(*input), -1, 0))
+		return ;
 	parse2(env, input, i);
 	if (env->inp1)
 		ft_strdel(&env->inp1);
@@ -108,12 +110,15 @@ int		ft_read(t_env *env, char *input, int i, int u)
 	char	*tmp;
 
 	env->bool1 = 0;
+	env->bool2 = 0;
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
 		env->dir, PROMPT));
 	while ((u = verif_quote(&input, -1, 0)) != 0)
 		if (u == -1)
 			return (0);
+	if (env->bool2 == 1 && !ft_read(env, input, -1, 0))
+		return (0);
 	add_bs_q(&input, -1, '\'');
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
