@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:14:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/02/06 18:33:09 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 18:01:42 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ int		free_double_array(char **t)
 			free(t[i]);
 		free(t);
 	}
-	return (1);
+	return (0);
 }
