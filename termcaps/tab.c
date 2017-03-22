@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 18:38:42 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 13:49:23 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	put_ac(t_var *var, int p)
 void	tabu2(t_var *var, int *i)
 {
 	if (var->ac == NULL || var->ac[0] == 0)
-			return ;
+		return ;
 	if (var->ac[*i] == 0)
-			i = 0;
+		i = 0;
 	replace_w(var->ac[*i], var);
 	put_ac(var, 0);
 	++(*i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_file.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:20:45 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/03/16 11:51:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 13:46:44 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		handle_file(int ac, char **av, t_env *env)
 	while (get_next_line(fd, &input))
 	{
 		strip_comments(input);
-		if (ft_read(env, input) != 0)
+		if (ft_read(env, input, -1) != 0)
 		{
 			env_free(env);
 			break ;

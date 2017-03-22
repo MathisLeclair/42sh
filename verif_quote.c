@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 19:02:15 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/22 13:50:27 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		verif_quote(char **str, int p, int quote)
 	pos = 0;
 	while ((*str)[++p])
 	{
-		if ((bs_str((*str), p, '\'') || bs_str((*str), p, '"')) && quote == 0 
+		if ((bs_str((*str), p, '\'') || bs_str((*str), p, '"')) && quote == 0 \
 			&& dquote == 0)
 			pos = p;
 		if (bs_str((*str), p, '\'') && dquote == 0)

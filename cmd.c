@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 19:44:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/22 13:47:31 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	parse2(t_env *env, char **input, int i)
 
 void	parse(t_env *env, char **input)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	free(env->input);
@@ -77,9 +77,9 @@ void	parse(t_env *env, char **input)
 
 void	bsquote(char **input)
 {
-	int i;
-	int u;
-	char *tmp;
+	int		i;
+	int		u;
+	char	*tmp;
 
 	u = 0;
 	i = -1;
@@ -102,10 +102,9 @@ void	bsquote(char **input)
 	}
 }
 
-int		ft_read(t_env *env, char *input)
+int		ft_read(t_env *env, char *input, int i)
 {
 	char	**inputspl;
-	int		i;
 	char	*tmp;
 
 	if (input == NULL)
@@ -116,7 +115,6 @@ int		ft_read(t_env *env, char *input)
 	add_bs_q(&input, -1, '\'');
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
-	i = -1;
 	while (inputspl && inputspl[++i])
 	{
 		env->input = ft_strdup(inputspl[i]);

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/19 15:20:12 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/22 13:45:38 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		main(int ac, char **av, char **ev)
 	handle_file(ac, av, env());
 	env()->name = ft_strdup(av[0]);
 	while (1)
-		if ((ft_read(env(), NULL)) == 0)
+		if ((ft_read(env(), NULL, -1)) == 0)
 			continue ;
 		else
 		{
