@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/23 10:57:14 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:25:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	startfind(char **ac, t_env *env, int boolean, int i)
 	{
 		tmp = to_lwcase(ac[i]);
 		tmp2 = to_lwcase(env->find);
+		printf("tmp = %s tmp2 = %s\n", tmp, tmp2);
 		if (!ft_strcmp_beg(tmp, tmp2))
 		{
 			free(ac[i]);
@@ -82,6 +83,7 @@ char	**autocomplete(char *input, int pos, t_env *env)
 	}
 	first = pos > i ? 0 : 1;
 	env->find = finder(input, bs_str(input, pos, ' ') ? pos - 1 : pos);
+	ft_suppr_bs(&env->find);
 	ft_tilde(&env->find, -1, 0);
 	ac = forest(input, pos, env, first);
 	free(env->find);

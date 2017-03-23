@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 18:45:23 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:21:23 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,23 @@ char	**ac_pwd(char *find, char *str)
 	t_dirent	*td;
 	char		**sug;
 	char		*tmp;
+	int			i;
 
 	sug = palloc(sizeof(char *));
 	*sug = 0;
+	i = ft_strlen(find);
+	while (i > 0 && !bs_str(find, i - 1, '/'))
+		--i;
 	getcwd(str, INPUT_SIZE);
+	ft_strncat(ft_strcat(str, "/"), find, i);
 	dir = opendir(str);
 	while ((td = readdir(dir)))
-		if (strstr_bool(find, add_bs(to_lwcase(td->d_name)), 0)
+		if (strstr_bool(find + i, add_bs(to_lwcase(td->d_name)), 0)
 			&& td->d_name[0] != '.')
 		{
-			tmp = add_bs(ft_strdup(td->d_name));
+			tmp = palloc(INPUT_SIZE);
+			*tmp = 0;
+			tmp = add_bs(ft_strcat(ft_strncat(tmp, find, i), td->d_name));
 			add_str_to_dstr(&sug, tmp);
 			free(tmp);
 		}
@@ -91,7 +98,9 @@ void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 	len = 0;
 	while ((*ac)[len])
 		++len;
+	find = add_bs(ft_strdup(find));
 	tmp = add_bs(ft_strdup(td->d_name));
+	// printf("ap = %s tmp = %s\n", after_path, tmp);
 	if (strstr_bool(after_path, to_lwcase(tmp), 0) && td->d_name[0] != '.')
 	{
 		new = palloc(sizeof(char *) * (len + 2));
@@ -106,7 +115,9 @@ void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 		free(*ac);
 		*ac = new;
 	}
+	free(find);
 	free(tmp);
+	free(after_path);
 }
 
 void	ac_target(char *find, char ***ac)
@@ -131,7 +142,7 @@ void	ac_target(char *find, char ***ac)
 	find[i - j - 1] = 0;
 	if ((dir = opendir(find)))
 		while ((dirent = readdir(dir)))
-			ac_target2(after_path, dirent, find, ac);
+			ac_target2(to_lwcase(after_path), dirent, find, ac);
 	free(after_path);
 	if (dir)
 		closedir(dir);

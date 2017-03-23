@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:13:00 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 11:07:36 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:03:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	**auto_possibilities3(char **ac, t_env *ev, DIR *dir)
 {
+	ev->find = add_bs(ev->find);
 	ac = malloc(sizeof(char *) * 2);
 	ac[0] = ft_strdup(ft_strcat(ev->find, "/"));
 	ac[1] = 0;
@@ -47,7 +48,7 @@ char	**auto_possibilities(char pwd, t_env *ev)
 	if (!bs_str(ev->find, ft_strlen(ev->find) - 1, '/')
 		&& (dir = opendir(ev->find)))
 		return (auto_possibilities3(ac, ev, dir));
-	if (ev->find[0] == '/' || ev->find[0] == '.' || (dir = opendir(ev->find)))
+	if (ev->find[0] == '/' || (ev->find[0] == '.' && ev->find[1] == '/') || (dir = opendir(ev->find)))
 		return (auto_possibilities2(ac, dir, ev));
 	find_lwc = to_lwcase(ev->find);
 	if (pwd == 0)
