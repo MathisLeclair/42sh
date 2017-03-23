@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 11:58:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 18:22:16 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:34:27 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ver_dquote_t2(char *str)
 	return (0);
 }
 
-int		ver_sub_2(t_env *env)
+int		ver_sub_2(t_env *env, char **input)
 {
 	int i;
 	int u;
@@ -68,6 +68,8 @@ int		ver_sub_2(t_env *env)
 		error(-15, NULL, NULL);
 		return (-1);
 	}
+	*input[0] = 0;
+	ft_strcat(*input, env->input);
 	return (0);
 }
 
