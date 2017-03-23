@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 14:31:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:41:50 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,14 @@ int		verif_par(char **str, int u, int t, int i)
 	char *tmp;
 
 	while ((*str)[++i])
+	{
+		if (bs_str(*str, i, ')') && u == 0)
+			return (-1);
 		if (bs_str(*str, i, '('))
 			++u;
 		else if (bs_str(*str, i, ')'))
 			++t;
+	}
 	if (t > u)
 		return (-1);
 	else if (t == u)
