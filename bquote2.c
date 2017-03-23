@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 11:58:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 14:34:27 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/23 15:54:29 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int		ver_sub_2(t_env *env, char **input)
 	u = 0;
 	while (env->input[++i])
 	{
+		if (env->input[i] == ')' && u == 0)
+			return (-1);
 		if (env->input[i] == '(')
 			u += 1;
 		else if (env->input[i] == ')')
