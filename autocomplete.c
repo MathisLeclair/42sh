@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/20 18:58:35 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 10:57:14 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**forest(char *s, int ps, t_env *env, char first)
 			ac = auto_possibilities(0, env);
 		else
 			ac = auto_possibilities(1, env);
-		if (s[ps - 1] != ' ' && env->find[0] != '/')
+		if ((ps == 0 || s[ps - 1] != ' ') && env->find[0] != '/')
 			startfind(ac, env, 1, 0);
 	}
 	else

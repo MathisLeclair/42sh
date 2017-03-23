@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:13:00 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 19:09:13 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 11:07:36 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**auto_possibilities(char pwd, t_env *ev)
 	char	*find_lwc;
 	DIR		*dir;
 
+	dir = NULL;
 	ac = 0;
 	find_lwc = ev->input;
 	ev->input = ev->find;

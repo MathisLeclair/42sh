@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 13:49:23 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/23 11:19:04 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	tabu2(t_var *var, int *i)
 	if (var->ac == NULL || var->ac[0] == 0)
 		return ;
 	if (var->ac[*i] == 0)
-		i = 0;
+		*i = 0;
 	replace_w(var->ac[*i], var);
 	put_ac(var, 0);
 	++(*i);
