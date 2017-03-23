@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 18:22:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:31:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,7 @@ void			handle_file(int ac, char **av, t_env *env);
 ** bquote.c
 */
 
-int				bquote(t_env *env);
+int				bquote(t_env *env, char **input);
 
 /*
 ** subshell.c
@@ -455,7 +455,7 @@ int				strstr_bool(char *find, char *search_in_lc, int i);
 void			bsquote(char **input);
 int				verif_par(char **str, int u, int t, int i);
 int				ver_dquote_t2(char *str);
-int				ver_sub_2(t_env *env);
+int				ver_sub_2(t_env *env, char **input);
 int				ft_read2(int u, char **input, t_env *env);
 
 #endif

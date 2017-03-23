@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 18:22:32 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:30:47 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	parse(t_env *env, char **input)
 	free(env->input);
 	env->input = ft_strdup(*input);
 	while (ft_strchr(env->input, '`') != 0)
-		if (bquote(env) == -1)
+		if (bquote(env, input) == -1)
 			return ;
 	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0))
 		|| env->input == NULL)
