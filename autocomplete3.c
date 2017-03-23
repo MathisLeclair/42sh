@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 15:59:18 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 16:27:35 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	ac_target(char *find, char ***ac)
 	while (find[++i])
 		after_path[++j] = find[i];
 	after_path[j + 1] = 0;
+	after_path = add_bs(after_path);
 	find[i - j - 1] = 0;
 	if ((dir = opendir(find)))
 		while ((dirent = readdir(dir)))
