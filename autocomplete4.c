@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:13:00 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 14:03:09 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 16:01:56 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ char	**auto_possibilities3(char **ac, t_env *ev, DIR *dir)
 char	**auto_possibilities2(char **ac, DIR *dir, t_env *ev)
 {
 	ac_target(ev->find, &ac);
+	// ft_putstr("\nLa");
+	// print_split(ac);
+	// ft_putstr("La\n");
 	if (ac[0] == 0)
 		ac[0] = ft_strdup(ev->find);
 	if (dir)

@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/23 14:25:09 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 15:58:16 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	startfind(char **ac, t_env *env, int boolean, int i)
 	{
 		tmp = to_lwcase(ac[i]);
 		tmp2 = to_lwcase(env->find);
-		printf("tmp = %s tmp2 = %s\n", tmp, tmp2);
 		if (!ft_strcmp_beg(tmp, tmp2))
 		{
 			free(ac[i]);

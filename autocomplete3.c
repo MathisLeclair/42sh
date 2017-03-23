@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 14:21:23 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/23 15:59:18 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 		++len;
 	find = add_bs(ft_strdup(find));
 	tmp = add_bs(ft_strdup(td->d_name));
-	// printf("ap = %s tmp = %s\n", after_path, tmp);
 	if (strstr_bool(after_path, to_lwcase(tmp), 0) && td->d_name[0] != '.')
 	{
 		new = palloc(sizeof(char *) * (len + 2));
