@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:46:09 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 14:18:33 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:44:50 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	control_r(t_var *var, char *tmp, char *tmp2, int j)
 	truc = palloc(sizeof(t_ssprintf));
 	truc->buf = ft_strdup("\nhist-i-search : ");
 	truc->ret = ft_strlen("\nhist-i-search : ");
-	str = termcaps(truc);
+	str = termcaps(truc, 16);
 	i = ft_strlen(str) / tgetnum("co") + 2;
 	while (i--)
 		ft_putstr(tgetstr("up", NULL));
 	while (--j)
 		ft_putstr(tgetstr("nd", NULL));
-	initvar(var, 1);
+	initvar(var, 1, 10);
 	ft_putstr(tgetstr("cd", NULL));
 	i = 0;
 	while (env()->history[i])

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 14:31:24 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:42:30 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,7 +370,7 @@ void			end(t_var *var);
 t_var			*tvar(void);
 void			add_car(t_var *var, int boule, char c);
 void			rem_car(t_var *var);
-void			initvar(t_var *var, int i);
+void			initvar(t_var *var, int i, int u);
 void			replace_w(char *word, t_var *var);
 
 /*
@@ -404,7 +404,7 @@ void			touch5(t_var *var);
 
 void			exclam(t_var *var);
 
-char			*termcaps(t_ssprintf *prompt);
+char			*termcaps(t_ssprintf *prompt, int i);
 void			add_history(char *str);
 void			reset(t_var *var);
 

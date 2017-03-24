@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 18:04:29 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:44:10 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	initterm(t_var *var)
 	var->term.c_cc[VTIME] = 0;
 }
 
-char	*termcaps(t_ssprintf *prompt)
+char	*termcaps(t_ssprintf *prompt, int u)
 {
 	char			*str;
 	t_var			*var;
 
 	ft_putstr(prompt->buf);
 	var = tvar();
-	initvar(var, 1);
+	initvar(var, 1, u);
 	if ((str = getenv("TERM")) == NULL)
 		tgetent(NULL, "xterm-256color");
 	else
@@ -63,6 +63,6 @@ char	*termcaps(t_ssprintf *prompt)
 		add_history(var->ret);
 	ft_bzero(prompt->buf, prompt->ret);
 	free(prompt);
-	initvar(var, 1);
+	initvar(var, 1, u);
 	return (str);
 }

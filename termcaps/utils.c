@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:44:16 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 16:54:28 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:51:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ t_var	*tvar(void)
 	return (var);
 }
 
-void	initvar(t_var *var, int i)
+void	initvar(t_var *var, int i, int u)
 {
 	if (i == 1)
 		bzero(var->buff, 3);
-	var->lenprompt = 10 + ft_strlen(env()->dir);
+	var->lenprompt = u + (u == 10 ? ft_strlen(env()->dir) : 1);
 	var->lenligne = var->lenprompt;
 	var->i = 0;
 	var->sovi = 0;
