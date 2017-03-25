@@ -6,7 +6,7 @@
 /*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:13:00 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/25 12:28:15 by cosi             ###   ########.fr       */
+/*   Updated: 2017/03/25 12:39:21 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ char	**auto_possibilities(char pwd, t_env *ev)
 	ev->find = ev->input;
 	ev->input = find_lwc;
 	if (!bs_str(ev->find, ft_strlen(ev->find) - 1, '/')
-		&& ft_strcmp(ev->find, ".") && (dir = opendir(ev->find)))
+		&& !bs_str(ev->find, ft_strlen(ev->find) - 1, '.') && (dir = opendir(ev->find)))
 		return (auto_possibilities3(ac, ev, dir));
 	if (ev->find[0] == '/' || (ev->find[0] == '.' && ev->find[1] == '/')
-		|| (ft_strcmp(ev->find, ".") && (dir = opendir(ev->find))))
+		|| (!bs_str(ev->find, ft_strlen(ev->find) - 1, '.') && (dir = opendir(ev->find))))
 		return (auto_possibilities2(ac, dir, ev));
 	find_lwc = to_lwcase(ev->find);
 	if (pwd == 0)

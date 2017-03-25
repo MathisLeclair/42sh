@@ -6,7 +6,7 @@
 /*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/25 12:28:01 by cosi             ###   ########.fr       */
+/*   Updated: 2017/03/25 12:42:09 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ char	**ac_pwd(char *find, char *str)
 	while ((td = readdir(dir)))
 	{
 		if (strstr_bool(find + i, add_bs(to_lwcase(td->d_name)), 0)
-			&& (td->d_name[0] != '.' || find[0] == '.'))
+			&& (td->d_name[0] != '.' || bs_str(find, ft_strlen(find) - 1, '.'))
+			&& ft_strcmp(td->d_name, ".."))
 		{
 			tmp = palloc(INPUT_SIZE);
 			*tmp = 0;
