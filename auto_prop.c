@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   auto_prop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/24 17:32:45 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/25 10:23:47 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,30 @@ void			ft_join_spaces(char **tmp, int i)
 	*tmp = str;
 }
 
+char			*ft_auto(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (str[i])
+		++i;
+	while (i > 0 && !bs_str(str, i, '/'))
+		--i;
+	tmp = ft_strdup(str + (i == 0 ? 0 : i + 1));
+	return (tmp);
+}
+
 static void		auto_prop_core(t_var *var, int i, size_t (*ml)[4], char **tmp)
 {
 	int		k;
 	size_t	j;
+	char	*new;
 
 	(*ml)[3]++;
-	j = ft_strlen(var->ac[i]);
-	*tmp = ft_strjoinfree(*tmp, var->ac[i], 1);
+	new = ft_auto(var->ac[i]);
+	j = ft_strlen(new);
+	*tmp = ft_strjoinfree(*tmp, new, 1);
 	var->i += j;
 	var->lenligne += 1;
 	k = 0;
@@ -52,6 +68,7 @@ static void		auto_prop_core(t_var *var, int i, size_t (*ml)[4], char **tmp)
 		ft_join_spaces(tmp, k);
 		(*ml)[2] = 0;
 	}
+	free(new);
 }
 
 void			auto_prop(t_var *var, int p)
