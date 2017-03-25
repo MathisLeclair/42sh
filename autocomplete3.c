@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 16:27:35 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/25 12:19:04 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**ac_pwd(char *find, char *str)
 	dir = opendir(str);
 	while ((td = readdir(dir)))
 		if (strstr_bool(find + i, add_bs(to_lwcase(td->d_name)), 0)
-			&& td->d_name[0] != '.')
+			&& (td->d_name[0] != '.' || find[0] == '.'))
 		{
 			tmp = palloc(INPUT_SIZE);
 			*tmp = 0;
