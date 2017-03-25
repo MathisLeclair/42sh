@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   auto_prop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/25 10:23:47 by cosi             ###   ########.fr       */
+/*   Updated: 2017/03/25 13:46:08 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,13 @@ static void		auto_prop_core(t_var *var, int i, size_t (*ml)[4], char **tmp)
 	free(new);
 }
 
-void			auto_prop(t_var *var, int p)
+void			auto_prop(t_var *var, int p, int i)
 {
-	int			i;
 	size_t		ml[4];
 	char		*tmp;
 	static int	m = -2;
 
 	m = (p == 1 ? -2 : m);
-	i = -1;
 	ml[2] = 0;
 	ml[1] = tgetnum("li");
 	tmp = ft_strdup("");
@@ -87,12 +85,14 @@ void			auto_prop(t_var *var, int p)
 	while (var->ac[++i])
 		ml[0] = ft_strlen(var->ac[i]) > ml[0] ? ft_strlen(var->ac[i]) : ml[0];
 	m = m == i - 2 ? -1 : m + 1;
-	i = (i - m) / (tgetnum("co") / (int)ml[0]) + 1 < (int)ml[1] - 1 - var->inputlen
-	/ tgetnum("co") ? i - ((int)ml[1] - var->inputlen / tgetnum("co") - 2) * (tgetnum("co") / (int)ml[0]) : m;
+	i = (i - m) / (tgetnum("co") / (int)ml[0]) + 1 < (int)ml[1] - 1 -
+	var->inputlen / tgetnum("co") ? i - ((int)ml[1] - var->inputlen /
+	tgetnum("co") - 2) * (tgetnum("co") / (int)ml[0]) : m;
 	i = m == -1 ? m : i;
 	i = i < -1 ? -1 : i;
 	ml[3] = 1;
-	while (var->ac[++i] && ml[3] / (tgetnum("co") / ml[0]) + 2 < (ml[1] - var->inputlen / tgetnum("co")))
+	while (var->ac[++i] && ml[3] / (tgetnum("co") / ml[0]) + 2 < (ml[1] -
+		var->inputlen / tgetnum("co")))
 		auto_prop_core(var, i, &ml, &tmp);
 	ft_printf("%s ", tmp);
 	var->i += 1;

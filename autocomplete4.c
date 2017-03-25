@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:13:00 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/25 12:39:21 by cosi             ###   ########.fr       */
+/*   Updated: 2017/03/25 13:46:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ char	**auto_possibilities(char pwd, t_env *ev)
 	ft_dollar(ev, -1, 0);
 	ev->find = ev->input;
 	ev->input = find_lwc;
-	if (!bs_str(ev->find, ft_strlen(ev->find) - 1, '/')
-		&& !bs_str(ev->find, ft_strlen(ev->find) - 1, '.') && (dir = opendir(ev->find)))
+	if (!bs_str(ev->find, ft_strlen(ev->find) - 1, '/') && !bs_str(ev->find,
+		ft_strlen(ev->find) - 1, '.') && (dir = opendir(ev->find)))
 		return (auto_possibilities3(ac, ev, dir));
-	if (ev->find[0] == '/' || (ev->find[0] == '.' && ev->find[1] == '/')
-		|| (!bs_str(ev->find, ft_strlen(ev->find) - 1, '.') && (dir = opendir(ev->find))))
+	if (ev->find[0] == '/' || (ev->find[0] == '.' && ev->find[1] == '/') ||
+	(!bs_str(ev->find, ft_strlen(ev->find) - 1, '.')
+		&& (dir = opendir(ev->find))))
 		return (auto_possibilities2(ac, dir, ev));
 	find_lwc = to_lwcase(ev->find);
 	if (pwd == 0)

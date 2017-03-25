@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/22 12:13:05 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/25 14:27:28 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ FILES 	=							\
 			redirection_fd			\
 			set_env					\
 			subshell				\
+			subshell2				\
 			$(TCAPS)/test			\
 			tilde					\
 			verif_quote				\

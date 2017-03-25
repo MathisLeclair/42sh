@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/25 12:42:09 by cosi             ###   ########.fr       */
+/*   Updated: 2017/03/25 14:03:20 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
-
-void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
-{
-	DIR			*dir;
-	t_dirent	*dirent;
-	int			i;
-	char		*str;
-
-	i = -1;
-	while (split_path[++i])
-		if ((dir = opendir(split_path[i])))
-		{
-			while ((dirent = readdir(dir)))
-			{
-				str = add_bs(ft_strdup(dirent->d_name));
-				if (strstr_bool(find, to_lwcase(str), 0))
-					add_str_to_dstr(ac, str);
-				free(str);
-			}
-			closedir(dir);
-		}
-}
 
 char	**ac_cmd(char *find, t_env *env)
 {
@@ -57,12 +35,22 @@ char	**ac_cmd(char *find, t_env *env)
 	return (ac);
 }
 
+void	ac_pwd2(char ***sug, t_dirent *td, int i, char *find)
+{
+	char		*tmp;
+
+	tmp = palloc(INPUT_SIZE);
+	*tmp = 0;
+	tmp = add_bs(ft_strcat(ft_strncat(tmp, find, i), td->d_name));
+	add_str_to_dstr(sug, tmp);
+	free(tmp);
+}
+
 char	**ac_pwd(char *find, char *str)
 {
 	DIR			*dir;
 	t_dirent	*td;
 	char		**sug;
-	char		*tmp;
 	int			i;
 
 	sug = palloc(sizeof(char *));
@@ -79,13 +67,7 @@ char	**ac_pwd(char *find, char *str)
 		if (strstr_bool(find + i, add_bs(to_lwcase(td->d_name)), 0)
 			&& (td->d_name[0] != '.' || bs_str(find, ft_strlen(find) - 1, '.'))
 			&& ft_strcmp(td->d_name, ".."))
-		{
-			tmp = palloc(INPUT_SIZE);
-			*tmp = 0;
-			tmp = add_bs(ft_strcat(ft_strncat(tmp, find, i), td->d_name));
-			add_str_to_dstr(&sug, tmp);
-			free(tmp);
-		}
+			ac_pwd2(&sug, td, i, find);
 	}
 	closedir(dir);
 	free(str);
@@ -94,32 +76,30 @@ char	**ac_pwd(char *find, char *str)
 
 void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 {
-	int		i;
-	int		len;
+	int		i[2];
 	char	**new;
 	char	*tmp;
 
-	len = 0;
-	while ((*ac)[len])
-		++len;
+	i[1] = 0;
+	while ((*ac)[i[1]])
+		++i[1];
 	find = add_bs(ft_strdup(find));
 	tmp = add_bs(ft_strdup(td->d_name));
 	if (strstr_bool(after_path, to_lwcase(tmp), 0) && td->d_name[0] != '.')
 	{
-		new = palloc(sizeof(char *) * (len + 2));
-		i = -1;
-		while ((*ac)[++i])
-			new[i] = (*ac)[i];
-		new[i] = malloc(ft_strlen(find) + ft_strlen(tmp) + 1);
-		new[i][0] = 0;
-		ft_strcat(new[i], find);
-		ft_strcat(new[i], tmp);
-		new[i + 1] = 0;
+		new = palloc(sizeof(char *) * (i[1] + 2));
+		i[0] = -1;
+		while ((*ac)[++i[0]])
+			new[i[0]] = (*ac)[i[0]];
+		new[i[0]] = malloc(ft_strlen(find) + ft_strlen(tmp) + 1);
+		new[i[0]][0] = 0;
+		ft_strcat(new[i[0]], find);
+		ft_strcat(new[i[0]], tmp);
+		new[i[0] + 1] = 0;
 		free(*ac);
 		*ac = new;
 	}
-	free(find);
-	free(tmp);
+	free2(find, tmp);
 	free(after_path);
 }
 

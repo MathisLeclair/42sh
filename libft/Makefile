@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/18 16:53:04 by mleclair         ###   ########.fr        #
+#    Updated: 2017/03/25 14:01:50 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ FILE =	free_swap \
 		ft_memdel \
 		ft_memmove \
 		ft_memset \
+		free2 \
 		ft_putchar \
 		ft_atoi_base_pr \
 		ft_putchar_fd \

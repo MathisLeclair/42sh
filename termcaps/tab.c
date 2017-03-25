@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 11:19:04 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/25 13:45:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	put_ac(t_var *var, int p)
 	}
 	ft_putstr(tmp);
 	free(tmp);
-	auto_prop(var, p);
+	auto_prop(var, p, -1);
 	while (var->i != i)
 	{
 		var->i > i ? ft_putstr(tgetstr("le", NULL)) :

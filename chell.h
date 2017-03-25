@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/24 17:42:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/25 14:27:12 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -449,13 +449,14 @@ void			parse(t_env *env, char **input);
 void			signblock();
 void			set_history(void);
 void			file_history(int i, int j, int k, int fd);
-void			auto_prop(t_var *var, int p);
+void			auto_prop(t_var *var, int p, int i);
 void			ft_join_spaces(char **tmp, int i);
 int				strstr_bool(char *find, char *search_in_lc, int i);
 void			bsquote(char **input);
 int				verif_par(char **str, int u, int t, int i);
 int				ver_dquote_t2(char *str);
 int				ver_sub_2(t_env *env, char **input);
+void			subshell2(t_env *env, int i, int l, char *input);
 int				ft_read2(int u, char **input, t_env *env);
 
 #endif

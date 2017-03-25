@@ -6,11 +6,33 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:01:14 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/25 11:45:45 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/25 13:53:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
+
+void	ft_ac_cmd_path(char **split_path, char *find, char ***ac)
+{
+	DIR			*dir;
+	t_dirent	*dirent;
+	int			i;
+	char		*str;
+
+	i = -1;
+	while (split_path[++i])
+		if ((dir = opendir(split_path[i])))
+		{
+			while ((dirent = readdir(dir)))
+			{
+				str = add_bs(ft_strdup(dirent->d_name));
+				if (strstr_bool(find, to_lwcase(str), 0))
+					add_str_to_dstr(ac, str);
+				free(str);
+			}
+			closedir(dir);
+		}
+}
 
 void	startfind(char **ac, t_env *env, int boolean, int i)
 {
