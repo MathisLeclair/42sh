@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:11:09 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/20 17:24:13 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/27 15:16:46 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*add_bs(char *str)
 		if (str[i] == '\\' || str[i] == ' ' || str[i] == '\t' || str[i] == '>'
 		|| str[i] == '<' || str[i] == '"' || str[i] == '\'' || str[i] == ';' ||
 		str[i] == '|' || str[i] == '&' || str[i] == '$' || str[i] == '*'
-		|| str[i] == '!')
+		|| str[i] == '!' || str[i] == '(' || str[i] == ')')
 		{
 			tmp = palloc(ft_strlen(str) + 2);
 			*tmp = 0;
