@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:55:44 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/12 12:51:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/27 11:20:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,10 @@ void	ft_fork(t_env *env, char **input)
 
 	getpwd(pwd);
 	t = 0;
+	env->booljob = 1;
 	env->i = fork();
 	if (env->i == 0)
-	{
-		env->booljob = 1;
 		ft_child(env, input, pwd);
-	}
 	else
 	{
 		if (waitpid(env->i, &status, WUNTRACED) == -1)
