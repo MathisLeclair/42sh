@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 19:16:47 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/22 19:33:38 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/27 16:17:11 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	reco_env(t_env *env, char **split, int j, int i)
 			while (env->input[k] != 'v')
 				++k;
 			s = ft_strstr(env->input + k, split[i]) - 1;
+			free(env->input);
 			env->input = ft_strdup((*s == '\'' || *s == '"') ? s : s + 1);
 			ft_reco_cmd(env, 0);
 			break ;
