@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:33:41 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/28 13:53:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/28 13:56:18 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,12 @@ void	paste(t_var *var)
 	i = ft_strlen(var->cpy);
 	while (i--)
 		add_car(var, 1, var->cpy[i]);
-	i = var->i;
 	while (var->i > 0)
 		left_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
 	ft_putstr(var->ret);
 	var->i = ft_strlen(var->ret);
 	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
-	while (var->i > i)
-		left_arrow(var);
 	var->selend = -1;
 	var->selstart = -1;
 }
