@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sel_desel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:35:14 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 18:51:08 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/29 18:57:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	desel(t_var *var)
 	ft_putstr(var->ret);
 	var->selmode = 0;
 	var->i = var->sovi;
+	var->lenligne = var->lenprompt + var->i;
 	var->sovi = 0;
 	var->selstart = -1;
 	var->selend = -1;
