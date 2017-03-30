@@ -6,47 +6,28 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:33:41 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/28 19:03:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/30 10:43:29 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../chell.h"
 
-// void	paste(t_var *var)
-// {
-// 	int i;
-
-// 	ft_putstr(var->cpy);
-// 	i = ft_strlen(var->cpy);
-// 	while (i--)
-// 		add_car(var, 1, var->cpy[i]);
-// 	var->i += ft_strlen(var->cpy);
-// 	i = var->i;
-// 	ft_putstr(tgetstr("cd", NULL));
-// 	ft_putstr(var->ret + var->i);
-// 	var->i = ft_strlen(var->ret);
-// 	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
-// 	while (var->i > i)
-// 		left_arrow(var);
-// 	var->selend = -1;
-// 	var->selstart = -1;
-// }
-
 void	paste(t_var *var)
 {
 	int i;
 
+	ft_putstr(var->cpy);
 	i = ft_strlen(var->cpy);
 	while (i--)
 		add_car(var, 1, var->cpy[i]);
-	while (var->i > 0)
-		left_arrow(var);
+	var->i += ft_strlen(var->cpy);
+	i = var->i;
 	ft_putstr(tgetstr("cd", NULL));
-	ft_putstr(var->ret);
+	ft_putstr(var->ret + var->i);
 	var->i = ft_strlen(var->ret);
-	var->lenligne = ft_strlen(var->ret) + var->lenprompt - 1;
-	if (var->lenligne % tgetnum("co") == 0)
-		ft_putstr(tgetstr("sf", NULL));
+	var->lenligne = ft_strlen(var->ret) + var->lenprompt;
+	while (var->i > i)
+		left_arrow(var);
 	var->selend = -1;
 	var->selstart = -1;
 }
