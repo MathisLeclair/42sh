@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/25 14:27:12 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/30 18:14:25 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,7 +395,7 @@ void			exclam(t_var *var);
 ** touch.c
 */
 
-void			touch(t_var *var);
+void			touch(t_var *var, t_ssprintf *prompt);
 void			touch5(t_var *var);
 
 /*

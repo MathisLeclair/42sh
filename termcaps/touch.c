@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/30 17:22:06 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/30 18:18:10 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	touch1(t_var *var, int *bg, int *i)
 	touch5(var);
 }
 
-void	touch(t_var *var)
+void	touch(t_var *var, t_ssprintf *prompt)
 {
 	int bg;
 	int i;
@@ -108,7 +108,10 @@ void	touch(t_var *var)
 		right_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
 	// bsquote(&var->ret);
-	if (ft_strchr(var->ret, '!'))
+	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
+		add_history(var->ret);
+	add_bs_q(&var->ret, -1, '\'');
+	while (ft_strchr(var->ret, '!'))
 		exclam(var);
 	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL));
