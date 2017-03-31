@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/30 18:26:40 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/31 18:32:59 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	add_bs_q(char **str, int i, char c)
 {
 	int		j;
 	int		k;
+	int		l;
 	char	*tmp;
 
 	while ((*str)[++i])
@@ -32,11 +33,12 @@ void	add_bs_q(char **str, int i, char c)
 				tmp[j++] = (*str)[i];
 			}
 			k = j;
+			l = i;
 			while ((*str)[i])
 				tmp[j++] = (*str)[i++];
 			tmp[j] = 0;
 			*str = ft_strjoinfree(*str, tmp, 3);
-			i += k;
+			i = k + l;
 		}
 }
 
