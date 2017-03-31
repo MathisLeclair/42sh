@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/31 15:17:35 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/31 15:30:06 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ void	verif_exlam(t_var *var)
 	int u;
 
 	i = -1;
+	u = 0;
 	while (var->ret[++i])
 	{
-		if (var->ret[i] == '\'')
+		if (bs_str(var->ret, i,'\''))
 			u = u == 0 ? 1 : 0;
-		if (var->ret[i] == '!' && u == 1)
-			ft_insertstr(var->ret, i - 1, "\\");
+		if (bs_str(var->ret, i, '!') && u == 1)
+			ft_insertstr(&var->ret, "\\", i - 1);
 	}
 }
 
@@ -69,6 +70,8 @@ void	exclam(t_var *var)
 	verif_exlam(var);
 	u = -1;
 	i = ft_strfind(var->ret, '!');
+	if (i == -1)
+		return ;
 	while (env()->history[++u])
 		;
 	j = i;
