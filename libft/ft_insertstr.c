@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 14:08:58 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/31 15:16:24 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/03/31 17:27:40 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	ft_insertstr(char **src, char *str, size_t n)
 	ft_strcat(new, ft_strsub(*src, 0, n + 1));
 	ft_strcat(new, str);
 	ft_strcat(new, *src + (n + 1));
-	*src = new;
+	free_swap(src, new);
 }
