@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/30 18:41:49 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/31 15:17:35 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,21 @@ void	exclam2(int *k, int *u, int *i, char **tmp)
 	}
 }
 
+void	verif_exlam(t_var *var)
+{
+	int i;
+	int u;
+
+	i = -1;
+	while (var->ret[++i])
+	{
+		if (var->ret[i] == '\'')
+			u = u == 0 ? 1 : 0;
+		if (var->ret[i] == '!' && u == 1)
+			ft_insertstr(var->ret, i - 1, "\\");
+	}
+}
+
 void	exclam(t_var *var)
 {
 	int		i;
@@ -51,6 +66,7 @@ void	exclam(t_var *var)
 	int		j;
 	char	*tmp;
 
+	verif_exlam(var);
 	u = -1;
 	i = ft_strfind(var->ret, '!');
 	while (env()->history[++u])

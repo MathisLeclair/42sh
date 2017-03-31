@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/30 18:18:10 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/03/30 19:15:47 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ void	touch(t_var *var, t_ssprintf *prompt)
 		right_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
 	// bsquote(&var->ret);
+	while (ft_strchr(var->ret, '!'))
+		exclam(var);
 	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
 		add_history(var->ret);
 	add_bs_q(&var->ret, -1, '\'');
-	while (ft_strchr(var->ret, '!'))
-		exclam(var);
 	write(1, "\n", 1);
 	ft_putstr(tgetstr("ei", NULL));
 }
