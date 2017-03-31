@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/24 17:51:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/30 18:26:40 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	add_bs_q(char **str, int i, char c)
 		{
 			k = 0;
 			j = 0;
-			tmp = palloc(INPUT_SIZE);
+			tmp = palloc(ft_strlen(*str) * 2 + 1);
 			tmp[j++] = (*str)[i];
 			(*str)[i] = 0;
 			while (!bs_str(*str, ++i, c) && (*str)[i])
@@ -112,7 +112,7 @@ int		verif_quote(char **str, int p, int quote)
 	pos = 0;
 	while ((*str)[++p])
 	{
-		if ((bs_str((*str), p, '\'') || bs_str((*str), p, '"')) && quote == 0 \
+		if ((bs_str((*str), p, '\'') || bs_str((*str), p, '"')) && quote == 0
 			&& dquote == 0)
 			pos = p;
 		if (bs_str((*str), p, '\'') && dquote == 0)
@@ -129,5 +129,5 @@ int		verif_quote(char **str, int p, int quote)
 	}
 	else
 		return (0);
-	return (0);
+	return (1);
 }
