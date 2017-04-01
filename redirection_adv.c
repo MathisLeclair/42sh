@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_adv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/24 17:43:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 17:35:16 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 static void	rd_delimiter(char **str)
 {
-	int i;
+	int		i;
+	int		len;
+	char	*tmp;
 
 	i = -1;
+	len = 0;
 	while ((*str)[++i] == ' ' || (*str)[i] == '<')
 		;
-	*str[0] = 0;
-	ft_strcat(*str, *str + i);
-	ft_strcat(*str, "\n");
+	while (ft_iswhitespace((*str)[i + ++len]) == 0)
+		;
+	tmp = ft_strsub(*str, i, (size_t)len);
+	free_swap(&(*str), ft_strjoin(tmp, "\n"));
+	free(tmp);
 }
 
 void		rd_here_doc2(t_env *env, int fd, int n)
@@ -55,7 +60,9 @@ void		rd_here_doc(t_env *env, int child, int fd)
 			env->inp1[ft_strlen(env->inp1) - 1] - 48);
 	if (n != -1)
 		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
+	printf("to delimit: %s\n", env->inp2);
 	rd_delimiter(&env->inp2);
+	printf("here-doc delimiter: %s\n", env->inp2);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600))
 	== -1)
 		error(-17, NULL, NULL);
