@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/30 18:42:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:00:09 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int		ft_read(t_env *env, char *input, int i, int u)
 		env->dir, PROMPT), 10);
 	if (ft_read2(u, &input, env) == 0)
 		return (0);
-	// add_bs_q(&input, -1, '\'');
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);
 	while (inputspl && inputspl[++i])
@@ -126,6 +125,7 @@ int		ft_read(t_env *env, char *input, int i, int u)
 		if (ft_strchr(env->input, '~'))
 			ft_tilde(&env->input, -1, 0);
 		tmp = ft_strdup(env->input);
+		bs_eol(env);
 		parse(env, &tmp);
 		free(tmp);
 		free(env->input);

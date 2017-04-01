@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/25 14:27:28 by mleclair         ###   ########.fr        #
+#    Updated: 2017/04/01 15:59:14 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ FILES 	=							\
 			pipe					\
 			getpwd					\
 			reco_cmd				\
+			bs_eol					\
 			cmd2					\
 			cmd3					\
 			$(TCAPS)/arrow			\

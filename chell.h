@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/31 16:47:53 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 15:58:56 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,12 @@ int				find_param(char **split, char *str);
 void			add_var_to_env(t_env *env, char *str);
 void			add_pair_to_env(t_env *env, char *key, char *val);
 void			suppr_var_env(t_env *env, char *str);
+
+/*
+** bs_eol.c
+*/
+
+void			bs_eol(t_env *env);
 
 /*
 **cmd_env.c
