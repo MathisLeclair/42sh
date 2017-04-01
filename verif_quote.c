@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 13:09:18 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 15:21:29 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	add_bs_q(char **str, int i, char c)
 			tmp = palloc(ft_strlen(*str) * 2 + 1);
 			tmp[j++] = (*str)[i];
 			(*str)[i] = 0;
+			l = i;
 			while (!bs_str(*str, ++i, c) && (*str)[i])
 			{
 				tmp[j++] = '\\';
 				tmp[j++] = (*str)[i];
 			}
 			k = j;
-			l = i;
 			while ((*str)[i])
 				tmp[j++] = (*str)[i++];
 			tmp[j] = 0;
