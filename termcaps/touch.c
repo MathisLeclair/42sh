@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 16:56:54 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/01 17:36:04 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,8 @@ void	touch(t_var *var, t_ssprintf *prompt)
 	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
-	while (ft_strchr(var->ret, '!'))
-		exclam(var);
-	remove_exlam(var);
+	while (exclam(var))
+		;
 	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
 		add_history(var->ret);
 	add_bs_q(&var->ret, -1, '\'', 0);

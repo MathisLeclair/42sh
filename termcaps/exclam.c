@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 16:56:55 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/01 17:35:52 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,46 +43,24 @@ void	exclam2(int *k, int *u, int *i, char **tmp)
 	}
 }
 
-void	remove_exlam(t_var *var)
+int		ft_strfound(char *str, char c)
 {
-	int i;
-	int u;
+	int		i;
+	char	done;
 
 	i = -1;
-	u = 0;
-	while (var->ret[++i])
+	done = 0;
+	while (str[++i])
 	{
-		if (bs_str(var->ret, i, '\''))
-			u = u == 0 ? 1 : 0;
-		if (var->ret[i] == '!' && var->ret[i - 1] == '\\' && u == 1)
-		{
-			var->ret[i - 1] = 0;
-			ft_strcat(var->ret, var->ret + i);
-			--i;
-		}
+		if (str[i] == '\'')
+			done = done == 0 ? 1 : 0;
+		if (str[i] == c && done == 0)
+			return (i);
 	}
+	return (-1);
 }
 
-void	verif_exlam(t_var *var)
-{
-	int i;
-	int u;
-
-	i = -1;
-	u = 0;
-	while (var->ret[++i])
-	{
-		if (bs_str(var->ret, i, '\''))
-			u = u == 0 ? 1 : 0;
-		if (var->ret[i] == '!' && u == 1)
-		{
-			ft_insertstr(&var->ret, "\\", i - 1);
-			++i;
-		}
-	}
-}
-
-void	exclam(t_var *var)
+int		exclam(t_var *var)
 {
 	int		i;
 	int		u;
@@ -91,10 +69,9 @@ void	exclam(t_var *var)
 	char	*tmp;
 
 	u = -1;
-	verif_exlam(var);
-	i = ft_strfind(var->ret, '!');
+	i = ft_strfound(var->ret, '!');
 	if (i == -1)
-		return ;
+		return (0);
 	while (env()->history[++u])
 		;
 	j = i;
@@ -108,4 +85,5 @@ void	exclam(t_var *var)
 	i = ft_strlen(env()->history[k]);
 	while (i-- > 7)
 		add_car(var, 1, (env()->history[k])[i]);
+	return (1);
 }

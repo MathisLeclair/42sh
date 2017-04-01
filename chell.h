@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 16:15:24 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/01 17:33:55 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,7 +395,7 @@ void			tabu(t_var *var, int *j);
 ** exlam.c
 */
 
-void			exclam(t_var *var);
+int				exclam(t_var *var);
 
 /*
 ** touch.c
@@ -403,12 +403,6 @@ void			exclam(t_var *var);
 
 void			touch(t_var *var, t_ssprintf *prompt);
 void			touch5(t_var *var);
-
-/*
-** exlam.c
-*/
-
-void			exclam(t_var *var);
 
 char			*termcaps(t_ssprintf *prompt, int i);
 void			add_history(char *str);
