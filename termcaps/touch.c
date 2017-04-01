@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/31 17:25:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 15:40:21 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	touch(t_var *var, t_ssprintf *prompt)
 	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
 	ft_putstr(tgetstr("cd", NULL));
-	// bsquote(&var->ret);
 	while (ft_strchr(var->ret, '!'))
 		exclam(var);
 	remove_exlam(var);
