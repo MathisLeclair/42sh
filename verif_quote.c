@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   verif_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 15:21:29 by cosi             ###   ########.fr       */
+/*   Updated: 2017/04/01 16:15:54 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
 
-void	add_bs_q(char **str, int i, char c)
+void	add_bs_q(char **str, int i, char c, int l)
 {
 	int		j;
 	int		k;
-	int		l;
 	char	*tmp;
 
 	while ((*str)[++i])

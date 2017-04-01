@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 15:58:56 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:15:24 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ void			ft_tilde(char **s, int i, char quote);
 */
 
 int				verif_quote(char **inp, int k, int quote);
-void			add_bs_q(char **str, int i, char c);
+void			add_bs_q(char **str, int i, char c, int l);
 
 /*
 ** double_array_sort.c
