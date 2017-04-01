@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/31 17:42:28 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 13:09:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	add_bs_q(char **str, int i, char c)
 {
 	int		j;
 	int		k;
+	int		l;
 	char	*tmp;
 
 	while ((*str)[++i])
@@ -32,11 +33,12 @@ void	add_bs_q(char **str, int i, char c)
 				tmp[j++] = (*str)[i];
 			}
 			k = j;
+			l = i;
 			while ((*str)[i])
 				tmp[j++] = (*str)[i++];
 			tmp[j] = 0;
 			*str = ft_strjoinfree(*str, tmp, 3);
-			i += k;
+			i = k + l;
 		}
 }
 
