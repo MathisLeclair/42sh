@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/30 19:15:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/31 17:25:25 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	touch(t_var *var, t_ssprintf *prompt)
 	// bsquote(&var->ret);
 	while (ft_strchr(var->ret, '!'))
 		exclam(var);
+	remove_exlam(var);
 	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
 		add_history(var->ret);
 	add_bs_q(&var->ret, -1, '\'');

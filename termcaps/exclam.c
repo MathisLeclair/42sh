@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/31 15:30:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/03/31 16:53:14 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ void	exclam2(int *k, int *u, int *i, char **tmp)
 	}
 }
 
+void	remove_exlam(t_var *var)
+{
+	int i;
+	int u;
+
+	i = -1;
+	u = 0;
+	while (var->ret[++i])
+	{
+		if (bs_str(var->ret, i,'\''))
+			u = u == 0 ? 1 : 0;
+		if (var->ret[i] == '!' && var->ret[i - 1] == '\\' && u == 1)
+		{
+			var->ret[i - 1] = 0;
+			ft_strcat(var->ret, var->ret + i);
+		}
+	}
+}
+
 void	verif_exlam(t_var *var)
 {
 	int i;
@@ -54,8 +73,11 @@ void	verif_exlam(t_var *var)
 	{
 		if (bs_str(var->ret, i,'\''))
 			u = u == 0 ? 1 : 0;
-		if (bs_str(var->ret, i, '!') && u == 1)
+		if (var->ret[i] == '!' && u == 1)
+		{
 			ft_insertstr(&var->ret, "\\", i - 1);
+			++i;
+		}
 	}
 }
 
@@ -67,8 +89,8 @@ void	exclam(t_var *var)
 	int		j;
 	char	*tmp;
 
-	verif_exlam(var);
 	u = -1;
+	verif_exlam(var);
 	i = ft_strfind(var->ret, '!');
 	if (i == -1)
 		return ;
