@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/03/31 15:21:01 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/04/01 17:10:49 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ FILE =	free_swap \
 		ft_isascii \
 		ft_isdigit \
 		ft_isprint \
+		ft_iswhitespace \
 		ft_itoa \
 		ft_lstadd \
 		ft_lstdel \
