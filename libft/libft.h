@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/31 15:21:14 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:54:57 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ int				ft_strfind(const char *s, int c);
 int				ft_power(long long int value, int power);
 char			bs_str(const char *str, int i, char c);
 void			ft_insertstr(char **src, char *str, size_t n);
+char			*ft_truestrchr(const char *s, int c);
 
 #endif

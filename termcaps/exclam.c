@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exclam.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 15:40:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:55:28 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	remove_exlam(t_var *var)
 		{
 			var->ret[i - 1] = 0;
 			ft_strcat(var->ret, var->ret + i);
+			--i;
 		}
 	}
 }
