@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 11:58:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/23 15:54:29 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 22:24:40 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int		ft_read2(int u, char **input, t_env *env)
 {
-	while ((u = verif_quote(input, -1, 0)) != 0)
+	if (env->bool1 == 1)
+	{
+		env->bool2 = 1;
+		free(input);
+		return (0);
+	}
+	while ((u = verif_quote(input, -1, 0, 0)) != 0)
 		if (u == -1)
 			return (0);
 	if (env->bool2 == 1 && !ft_read(env, *input, -1, 0))
