@@ -6,7 +6,7 @@
 /*   By: aridolfi <aridolfi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/04/01 17:35:16 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/01 17:54:06 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,15 @@ void		rd_here_doc2(t_env *env, int fd, int n)
 {
 	char		*buff;
 
-	while ((buff = ft_strjoin(termcaps(ft_sprintf("heredoc> "), 9), "\n")))
+	while (env->bool1 == 0 &&
+	(buff = ft_strjoin(termcaps(ft_sprintf("heredoc> "), 9), "\n")))
 	{
+		if (env->bool1 == 1)
+		{
+			env->bool2 = 1;
+			free(buff);
+			exit(env->lastret);
+		}
 		if (!ft_strcmp(buff, env->inp2))
 			break ;
 		write(fd, buff, ft_strlen(buff));
@@ -60,9 +67,7 @@ void		rd_here_doc(t_env *env, int child, int fd)
 			env->inp1[ft_strlen(env->inp1) - 1] - 48);
 	if (n != -1)
 		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
-	printf("to delimit: %s\n", env->inp2);
 	rd_delimiter(&env->inp2);
-	printf("here-doc delimiter: %s\n", env->inp2);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600))
 	== -1)
 		error(-17, NULL, NULL);
