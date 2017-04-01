@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/30 18:18:15 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:12:03 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ char	*termcaps(t_ssprintf *prompt, int u)
 	touch(var, prompt);
 	reset(var);
 	str = ft_strdup(var->ret);
-	// if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
-	// 	add_history(var->ret);
 	ft_bzero(prompt->buf, prompt->ret);
 	free(prompt);
 	initvar(var, 1, u);

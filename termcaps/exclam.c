@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 15:40:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 16:12:31 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	remove_exlam(t_var *var)
 	u = 0;
 	while (var->ret[++i])
 	{
-		if (bs_str(var->ret, i,'\''))
+		if (bs_str(var->ret, i, '\''))
 			u = u == 0 ? 1 : 0;
 		if (var->ret[i] == '!' && var->ret[i - 1] == '\\' && u == 1)
 		{
@@ -71,7 +71,7 @@ void	verif_exlam(t_var *var)
 	u = 0;
 	while (var->ret[++i])
 	{
-		if (bs_str(var->ret, i,'\''))
+		if (bs_str(var->ret, i, '\''))
 			u = u == 0 ? 1 : 0;
 		if (var->ret[i] == '!' && u == 1)
 		{
