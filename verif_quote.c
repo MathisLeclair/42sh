@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 16:15:54 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/01 22:22:20 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		complete_dquote(char **str, int pos)
 	return (0);
 }
 
-void	complete_quote(char **str, int pos)
+int		complete_quote(char **str, int pos)
 {
 	char *tmp;
 	char *tmp3;
@@ -95,18 +95,18 @@ void	complete_quote(char **str, int pos)
 			free(*str);
 			free(tmp);
 			*str = tmp3;
-			return ;
+			return (-1);
 		}
 		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, tmp3, 3);
 	}
 	free(*str);
 	*str = tmp;
+	return (1);
 }
 
-int		verif_quote(char **str, int p, int quote)
+int		verif_quote(char **str, int p, int quote, int dquote)
 {
-	int dquote;
 	int pos;
 
 	dquote = 0;
@@ -122,7 +122,7 @@ int		verif_quote(char **str, int p, int quote)
 			dquote = dquote == 1 ? 0 : 1;
 	}
 	if (quote == 1)
-		complete_quote(str, pos);
+		return (complete_quote(str, pos));
 	else if (dquote == 1)
 	{
 		if (complete_dquote(str, pos))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 17:38:45 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/01 19:55:30 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ void			ft_tilde(char **s, int i, char quote);
 ** verif_quote.c
 */
 
-int				verif_quote(char **inp, int k, int quote);
+int				verif_quote(char **str, int p, int quote, int dquote);
 void			add_bs_q(char **str, int i, char c, int l);
 
 /*
