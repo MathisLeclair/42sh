@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:36:23 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 16:36:46 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:52:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,21 @@ void	extracredir(t_env *e, int i, int j)
 int		isinquote(char *input, int i)
 {
 	int u;
+	int k;
+	int o;
 
-	u = 0;
-	while (input[i])
+	u = -1;
+	k = 0;
+	o = 0;
+	while (input[++u] && u < i)
 	{
-		--i;
-		if ((input[i] == '"' || input[i] == '\'') &&
-			((i > 1 && input[i - 1] != '\\') || i < 1))
-			u = -1;
+		if (input[u] == '"' && o == 0)
+			k = k == 1 ? 0 : 1;
+		if (input[u] == '\'' && k == 0)
+			o = o == 1 ? 0 : 1;
 	}
-	return (u);
+	if (k == 1 || u == 1)
+		return (-1);
+	else
+		return (0);
 }
