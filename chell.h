@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 19:55:30 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/02 18:14:02 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ void			rd_dupoutput(t_env *env, char n);
 
 void			rd_output(t_env *env, int a, int b, pid_t z);
 void			rd_output_apd(t_env *env, int a, pid_t b);
-void			rd_input(t_env *env);
+void			rd_input(t_env *env, int fd);
 
 /*
 ** pipe.c

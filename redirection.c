@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/03/21 16:33:21 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/02 18:14:15 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		rd_output_apd(t_env *env, int fd, pid_t child)
 ** Redirecting Input: command [n]< output.txt
 */
 
-void		rd_input2(t_env *env, char *n, int *fd)
+int			rd_input2(t_env *env, char *n, int *fd)
 {
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
 		*n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 :
@@ -89,29 +89,33 @@ void		rd_input2(t_env *env, char *n, int *fd)
 	if (*n != -1)
 		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
 	if (env->inp2[0] == '&')
-		return (rd_dupinput(env, *n));
+	{
+		rd_dupinput(env, *n);
+		return (0);
+	}
 	if ((*fd = open(env->inp2, O_RDONLY)) == -1)
 	{
 		error(-17, NULL, NULL);
-		return ((void)close(*fd));
+		close(*fd);
+		return (-1);
 	}
+	return(0);
 }
 
-void		rd_input(t_env *env)
+void		rd_input(t_env *env, int fd)
 {
 	pid_t		child;
-	int			fd;
 	char		n;
 	int			status;
 	char		**s;
 
 	child = -1;
-	fd = -1;
 	n = -1;
 	s = ft_strsplitquote(env->inp2, ' ', 1);
 	free_swap(&env->inp2, ft_strdup(s[0]));
 	free_double_array(s);
-	rd_input2(env, &n, &fd);
+	if (rd_input2(env, &n, &fd) == -1)
+		return ;
 	child = fork();
 	if ((int)child == -1)
 		error(-16, NULL, NULL);
