@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:32:34 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/18 13:32:55 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/03 19:46:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	shift_arrow_l(t_var *var)
 {
-	if (!var->ret[var->i])
+	if (!var->ret[var->i] && var->i != 0)
 		left_arrow(var);
 	while ((var->ret[var->i] == ' ' || var->ret[var->i] == '\t') && var->i > 0)
 		left_arrow(var);
