@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/04/02 18:14:15 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/04 18:51:22 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			rd_input2(t_env *env, char *n, int *fd)
 		close(*fd);
 		return (-1);
 	}
-	return(0);
+	return (0);
 }
 
 void		rd_input(t_env *env, int fd)
