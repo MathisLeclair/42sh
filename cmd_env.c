@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 19:16:47 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/27 16:17:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/04 18:05:39 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	reco_env_options(t_env *env, char **split, int *i)
 				return ;
 			}
 	}
-	if (c == 1 && (c = -1))
+	if (c == 1 && env->savev != NULL)
 	{
 		env->savev = env->ev;
 		env->ev = palloc(sizeof(char **));
