@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 19:16:47 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/04/05 11:56:37 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:18:03 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	reco_env_options(t_env *env, char **split, int *i)
 			}
 	}
 	if (env->savev == NULL)
-			env->savev = ft_cpy_double_array(env->ev);
+		env->savev = ft_cpy_double_array(env->ev);
 	if (c == 1)
 	{
 		free_double_array(env->ev);
