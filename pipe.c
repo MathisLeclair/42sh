@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 13:24:11 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/21 16:35:15 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/05 15:29:59 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 static void	frk_pipe(t_env *env)
 {
 	pid_t		child;
-	int			status;
 	int			fds[2];
 
 	child = -1;
@@ -41,7 +40,6 @@ static void	frk_pipe(t_env *env)
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
 	parse(env, &env->inp2);
-	wait(&status);
 }
 
 void		rd_pipe(t_env *env)
