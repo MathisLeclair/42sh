@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 16:57:48 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/06 15:59:39 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/06 16:01:33 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int				ft_isprint(int c);
 int				ft_iswhitespace(int c);
 char			*ft_itoa(int n);
 char			*ft_strjoinfree(char *s1, char *s2, int k);
-void			*ft_mepalloc(size_t size);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t num);
 void			*ft_memchr(const void *s, int c, size_t n);
 void			*palloc(size_t size);

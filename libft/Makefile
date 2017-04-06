@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/04/01 17:10:49 by aridolfi         ###   ########.fr        #
+#    Updated: 2017/04/06 16:01:58 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ FILE =	free_swap \
 		ft_lstiter \
 		ft_lstmap \
 		ft_lstnew \
-		ft_mepalloc \
+		palloc \
 		ft_memccpy \
 		ft_memchr \
 		ft_memcmp \

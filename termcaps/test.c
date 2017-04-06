@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 16:12:03 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/06 16:08:06 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ void	initterm(t_var *var)
 	var->term.c_cc[VTIME] = 0;
 }
 
+void	veroverload(char **str)
+{
+	if (ft_strlen(*str) > 4000)
+	{
+		error (-20, NULL, NULL);
+		*str = ft_strdup(" ");
+	}
+}
+
 char	*termcaps(t_ssprintf *prompt, int u)
 {
 	char			*str;
@@ -62,5 +71,6 @@ char	*termcaps(t_ssprintf *prompt, int u)
 	ft_bzero(prompt->buf, prompt->ret);
 	free(prompt);
 	initvar(var, 1, u);
+	veroverload(&str);
 	return (str);
 }
