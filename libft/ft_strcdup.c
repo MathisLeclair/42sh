@@ -18,7 +18,7 @@ char	*ft_strcdup(const char *src, int k)
 	int		i;
 
 	i = 0;
-	cpy = (char *)malloc(k + 1);
+	cpy = (char *)palloc(k + 1);
 	if (cpy == NULL)
 		return (NULL);
 	while (src[i] && i < k)

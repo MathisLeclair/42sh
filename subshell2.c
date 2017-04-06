@@ -20,7 +20,7 @@ void	subshell2(t_env *env, int i, int l, char *input)
 
 	i = ft_strcfind(input, '(');
 	l = ft_strfind(input + i, ')');
-	str = malloc(l);
+	str = palloc(l);
 	*str = 0;
 	ft_strncat(str, input + i + 1, l - 1);
 	child = fork();

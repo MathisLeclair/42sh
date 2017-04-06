@@ -29,9 +29,9 @@ char	*ft_strtrim(char const *s)
 	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
 		i++;
 	if (len != 0)
-		new = (char *)malloc(len - i + 1);
+		new = (char *)palloc(len - i + 1);
 	else
-		new = (char *)malloc(1);
+		new = (char *)palloc(1);
 	if (new == NULL)
 		return (NULL);
 	j = 0;

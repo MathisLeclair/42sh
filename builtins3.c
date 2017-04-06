@@ -59,7 +59,7 @@ void	gthash(char *str)
 
 	if (!env()->hash)
 	{
-		env()->hash = malloc(sizeof(char *) * 2);
+		env()->hash = palloc(sizeof(char *) * 2);
 		env()->hash[1] = 0;
 		env()->hash[0] = ft_strdup("hits\tcommand");
 	}

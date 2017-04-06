@@ -64,7 +64,7 @@ int		ft_d(va_list ap, int i, char c, char **str)
 	else
 		d = va_arg(ap, int);
 	tmp = ft_itoa_base((d > 0 ? d : -d), 10, (d > 0 ? 0 : 1));
-	*str = malloc(ft_strlen(tmp));
+	*str = palloc(ft_strlen(tmp));
 	**str = 0;
 	ft_strcat(*str, tmp);
 	free(tmp);
@@ -80,7 +80,7 @@ int		ft_p(va_list ap, int i, char c, char **str)
 int		ft_israndom(va_list ap, int i, char c, char **str)
 {
 	i = 42 * 42 / 42 - 42 + 42;
-	*str = malloc(2);
+	*str = palloc(2);
 	(*str)[0] = c;
 	(*str)[1] = '\0';
 	if (ap)

@@ -18,7 +18,7 @@ int		ft_c(va_list ap, int i, char c, char **str)
 
 	if (c == 'C' || i == 1)
 	{
-		*str = malloc(4);
+		*str = palloc(4);
 		conv(t = va_arg(ap, wint_t), *str);
 		if (t <= 0x7F)
 			return (1);
@@ -30,7 +30,7 @@ int		ft_c(va_list ap, int i, char c, char **str)
 			return (4);
 		return (-1);
 	}
-	*str = malloc(2);
+	*str = palloc(2);
 	*str[0] = (char)va_arg(ap, int);
 	(*str)[1] = '\0';
 	return (1);
@@ -56,7 +56,7 @@ int		ft_o(va_list ap, int i, char c, char **str)
 	else
 		d = va_arg(ap, unsigned int);
 	tmp = ft_itoa_base(d, 8, 0);
-	*str = malloc(ft_strlen(tmp));
+	*str = palloc(ft_strlen(tmp));
 	**str = 0;
 	ft_strcat(*str, tmp);
 	free(tmp);
@@ -81,7 +81,7 @@ int		ft_u(va_list ap, int i, char c, char **str)
 	else
 		d = va_arg(ap, unsigned int);
 	tmp = ft_itoa_base(d, 10, 0);
-	*str = malloc(ft_strlen(tmp));
+	*str = palloc(ft_strlen(tmp));
 	**str = 0;
 	ft_strcat(*str, tmp);
 	free(tmp);

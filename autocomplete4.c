@@ -15,7 +15,7 @@
 char	**auto_possibilities3(char **ac, t_env *ev, DIR *dir)
 {
 	ev->find = add_bs(ev->find);
-	ac = malloc(sizeof(char *) * 2);
+	ac = palloc(sizeof(char *) * 2);
 	ac[0] = ft_strdup(ft_strcat(ev->find, "/"));
 	ac[1] = 0;
 	closedir(dir);
@@ -73,7 +73,7 @@ char	*finder(char *input, int pos)
 	j = 0;
 	while (input[i] && !bs_str(input, i++, ' '))
 		++j;
-	find = malloc(j + 2);
+	find = palloc(j + 2);
 	find[j] = 0;
 	find[j + 1] = 0;
 	i = 0;

@@ -15,7 +15,7 @@
 int		ft_splus2(char **str, int k, char *tmp)
 {
 	(*str)[k] = '\0';
-	tmp = malloc(k + 2);
+	tmp = palloc(k + 2);
 	tmp = ft_memset(tmp, '\0', 2);
 	ft_strcat(tmp + 1, *str);
 	if ((*str)[ft_strlen(*str) - 1] == ' ' && --k)
@@ -35,7 +35,7 @@ int		ft_splus(int k, int i, int bool, char **str)
 		(*str)[0] = '+';
 	if (k == 1 && *str[0] >= '0' && *str[0] <= '9')
 	{
-		tmp = malloc(3);
+		tmp = palloc(3);
 		tmp[0] = '+';
 		tmp[1] = *str[0];
 		tmp[2] = '\0';
@@ -68,7 +68,7 @@ int		ft_smoncul(char *opt, char **str, int i)
 	size_t	k;
 	char	*tmp;
 
-	tmp = malloc(i + 2);
+	tmp = palloc(i + 2);
 	if (opt[ft_strlen(opt) - 1] == 'd' || opt[ft_strlen(opt) - 1] == 'i')
 	{
 		k = 0;

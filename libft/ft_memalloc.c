@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_mepalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+void	*ft_mepalloc(size_t size)
 {
 	void *truc;
 
-	truc = (void *)malloc(size);
+	truc = (void *)palloc(size);
 	if (truc == NULL)
 		return (NULL);
 	ft_memset(truc, 0, size);

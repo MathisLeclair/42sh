@@ -22,7 +22,7 @@ char	*ft_strjoinfree(char *s1, char *s2, int k)
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
 	lentotal = ft_strlen(s1) + ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (lentotal) + 1);
+	str = (char *)palloc(sizeof(char) * (lentotal) + 1);
 	if (str == NULL || s1 == NULL || s2 == NULL)
 		return (NULL);
 	i = -1;

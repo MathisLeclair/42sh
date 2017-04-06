@@ -34,12 +34,12 @@ int		ft_s2(char **str, va_list ap)
 	t = va_arg(ap, wchar_t *);
 	if (t == NULL)
 	{
-		*str = malloc(7);
+		*str = palloc(7);
 		**str = 0;
 		ft_strcat(*str, "(null)");
 		return (6);
 	}
-	*str = malloc((ft_wstrlen(t) + 1) * sizeof(wchar_t));
+	*str = palloc((ft_wstrlen(t) + 1) * sizeof(wchar_t));
 	ft_bzero(*str, (ft_wstrlen(t) + 1));
 	while (t[++i])
 	{
@@ -57,7 +57,7 @@ int		ft_s(va_list ap, int i, char c, char **str)
 		return (ft_s2(str, ap));
 	tmp = va_arg(ap, char *);
 	tmp == NULL ? tmp = "(null)" : 0;
-	*str = malloc(ft_strlen(tmp) + 1);
+	*str = palloc(ft_strlen(tmp) + 1);
 	i = -1;
 	while (tmp[++i])
 		(*str)[i] = tmp[i];

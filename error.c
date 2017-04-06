@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 13:26:58 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/06 15:58:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,4 @@ void			error(int i, char *str, char *str2)
 	}
 	else
 		error2(i, str);
-}
-
-void			*palloc(size_t size)
-{
-	void *ptr;
-
-	ptr = malloc(size);
-	if (ptr == NULL)
-		error2(-666, NULL);
-	return (ptr);
 }

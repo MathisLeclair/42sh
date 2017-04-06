@@ -29,7 +29,7 @@ char	*strresize(char *s, int len, int k)
 {
 	char	*tmp;
 
-	tmp = malloc(sizeof(char) * (k + len + 1));
+	tmp = palloc(sizeof(char) * (k + len + 1));
 	tmp[0] = 0;
 	ft_strcat(tmp, s);
 	free(s);
@@ -44,7 +44,7 @@ int		ft_print(char *str, int k, int bool)
 
 	if (buff == NULL)
 	{
-		buff = malloc(1);
+		buff = palloc(1);
 		buff[0] = 0;
 	}
 	if (bool == 1)

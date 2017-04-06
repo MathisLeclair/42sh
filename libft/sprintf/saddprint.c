@@ -29,7 +29,7 @@ char		*sstrresize(char *s, int len, int k)
 {
 	char	*tmp;
 
-	tmp = malloc(sizeof(char) * (k + len + 1));
+	tmp = palloc(sizeof(char) * (k + len + 1));
 	tmp[0] = 0;
 	ft_strcat(tmp, s);
 	free(s);
@@ -40,7 +40,7 @@ t_ssprintf	*machin(char *bu, int rt)
 {
 	t_ssprintf	*raturn;
 
-	raturn = malloc(sizeof(t_ssprintf));
+	raturn = palloc(sizeof(t_ssprintf));
 	raturn->buf = bu;
 	raturn->ret = rt;
 	return (raturn);
@@ -54,7 +54,7 @@ t_ssprintf	*ft_sprint(char *str, int k, int bool)
 
 	if (buff == NULL)
 	{
-		buff = malloc(1);
+		buff = palloc(1);
 		buff[0] = 0;
 	}
 	if (bool == 1)

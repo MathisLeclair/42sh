@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/26 17:16:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/01/13 12:18:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/06 15:57:10 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		ft_sprec(int i, int k, char c, char **str)
 		return (i);
 	else
 	{
-		tmp = malloc(k + neg + 1);
+		tmp = palloc(k + neg + 1);
 		ft_memset(tmp, '0', k + neg - 1);
 		while (i >= neg)
 			tmp[k-- + neg] = (*str)[i--];
@@ -70,7 +70,7 @@ int		ft_snumber(int k, int i, int bool, char **str)
 	if (i < 0)
 		i *= -1;
 	if (k < i)
-		tmp = malloc(i + 1);
+		tmp = palloc(i + 1);
 	else
 		return (k);
 	tmp = ft_memset(tmp, (bool == 1 ? '0' : ' '), i);
@@ -107,7 +107,7 @@ int		ft_sminus(int k, int i, int bool, char **str)
 		(*str)[0] = '0';
 		return (k);
 	}
-	tmp = malloc(k + 1);
+	tmp = palloc(k + 1);
 	if ((*str)[0] == '-')
 		tmp[0] = '-';
 	tmp[((*str)[0] == '-' ? 1 : 0)] = 0;

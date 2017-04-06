@@ -33,7 +33,7 @@ void	set_evloc2(t_env *e)
 	struct passwd	*truc;
 	char			*tmp;
 
-	buf = malloc(sizeof(struct stat));
+	buf = palloc(sizeof(struct stat));
 	add_var_to_env(e->loc, "HISTFILE=/private/tmp/.42sh_history");
 	add_var_to_env(e->loc, "HISTSIZE=500");
 	add_var_to_env(e->loc, "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
@@ -48,7 +48,7 @@ void	set_evloc2(t_env *e)
 	e->redir = NULL;
 	e->isoperand = 0;
 	set_history();
-	e->job = malloc(sizeof(t_job));
+	e->job = palloc(sizeof(t_job));
 	e->job->name = "shell";
 	e->job->pid = getpid();
 	set_e3(e);
@@ -59,11 +59,11 @@ void	set_evloc(t_env *e)
 	int		i;
 	char	*tmp;
 
-	e->loc = malloc(sizeof(t_env));
+	e->loc = palloc(sizeof(t_env));
 	i = 0;
 	while (e->ev[i])
 		++i;
-	e->loc->ev = malloc(sizeof(char *) * i + 1);
+	e->loc->ev = palloc(sizeof(char *) * i + 1);
 	e->loc->ev[i] = 0;
 	i = -1;
 	while (e->ev[++i])

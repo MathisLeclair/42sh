@@ -84,7 +84,7 @@ void	builtin_read(t_env *ev, char **split)
 	r = 0;
 	i = 1;
 	truc[0] = 0;
-	bufe = malloc(INPUT_SIZE);
+	bufe = palloc(INPUT_SIZE);
 	read(0, bufe, INPUT_SIZE);
 	if (split[1] && split[1][0] == '-' && split[1][1] == 'r')
 	{

@@ -18,9 +18,9 @@ void	set_history(void)
 	char	*tmp;
 	int		fd;
 
-	env()->history = malloc(sizeof(char *));
+	env()->history = palloc(sizeof(char *));
 	env()->history[0] = 0;
-	tmp = malloc(INPUT_SIZE);
+	tmp = palloc(INPUT_SIZE);
 	*tmp = 0;
 	if (find_param(env()->loc->ev, "HOME") != -1)
 		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev,
@@ -53,7 +53,7 @@ void	file_history(int i, int j, int k, int fd)
 	char	*tmp;
 	char	*num;
 
-	tmp = malloc(INPUT_SIZE);
+	tmp = palloc(INPUT_SIZE);
 	*tmp = 0;
 	if (find_param(env()->loc->ev, "HOME") != -1)
 		ft_strcat(ft_strcat(tmp, env()->ev[find_param(env()->ev,
@@ -65,7 +65,7 @@ void	file_history(int i, int j, int k, int fd)
 	i = i > 5000 ? i - 5000 : 0;
 	while (env()->history[i])
 	{
-		tmp = malloc(6);
+		tmp = palloc(6);
 		num = ft_itoa(j++);
 		k = -1;
 		while (++k < 5 - (int)ft_strlen(num))
@@ -79,7 +79,7 @@ void	file_history(int i, int j, int k, int fd)
 
 void	add_history2(char *tmp, int i, char **num)
 {
-	tmp = malloc(6);
+	tmp = palloc(6);
 	i = -1;
 	while (++i < 5 - (int)ft_strlen(*num))
 		tmp[i] = ' ';
@@ -102,7 +102,7 @@ void	add_history(char *str)
 	num = ft_itoa(i);
 	if (ft_strlen(num) < 5)
 		add_history2(tmp, i, &num);
-	tmp = malloc(ft_strlen(str) + ft_strlen(num) + 5);
+	tmp = palloc(ft_strlen(str) + ft_strlen(num) + 5);
 	*tmp = 0;
 	ft_strcat(tmp, num);
 	ft_strcat(tmp, "  ");

@@ -62,7 +62,7 @@ void	signblock(int i)
 {
 	sigset_t *set;
 
-	set = malloc(sizeof(sigset_t));
+	set = palloc(sizeof(sigset_t));
 	sigemptyset(set);
 	sigaddset(set, SIGTSTP);
 	if (i == 1)

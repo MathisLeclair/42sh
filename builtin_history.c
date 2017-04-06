@@ -30,7 +30,7 @@ void	history2(char **split, t_env *env)
 {
 	char	*tmp;
 
-	tmp = malloc(INPUT_SIZE);
+	tmp = palloc(INPUT_SIZE);
 	*tmp = 0;
 	if (split[1][1] == 'c')
 	{

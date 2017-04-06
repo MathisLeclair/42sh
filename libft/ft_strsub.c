@@ -18,7 +18,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	size_t	i;
 
 	i = 0;
-	str = malloc(len + 1);
+	str = palloc(len + 1);
 	if (str == NULL)
 		return (NULL);
 	while (i < len && s[start])

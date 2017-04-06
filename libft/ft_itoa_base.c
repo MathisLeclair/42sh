@@ -26,7 +26,7 @@ char	*ft_itoa_base(uintmax_t value, int base, char neg)
 	while (value > 0 && ++i)
 		value = value / base;
 	str = "0123456789ABCDEF";
-	slo = malloc(i + neg + 1);
+	slo = palloc(i + neg + 1);
 	slo[i + neg] = '\0';
 	slo[0] = '-';
 	while (i + neg && i--)

@@ -92,7 +92,7 @@ void	retvalue_into_loc(t_env *env, int i)
 	char *rmp2;
 
 	env->lastret = i;
-	tmp = malloc(300);
+	tmp = palloc(300);
 	tmp[0] = 0;
 	ft_strcat(tmp, "?=");
 	ft_strcat(tmp, rmp2 = ft_itoa(i));

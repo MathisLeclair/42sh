@@ -31,7 +31,7 @@ FILE =	free_swap \
 		ft_lstiter \
 		ft_lstmap \
 		ft_lstnew \
-		ft_memalloc \
+		ft_mepalloc \
 		ft_memccpy \
 		ft_memchr \
 		ft_memcmp \

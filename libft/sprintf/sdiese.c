@@ -16,7 +16,7 @@ char	*ft_s2long(int i, char **str)
 {
 	char *tmp;
 
-	tmp = malloc(i + 3);
+	tmp = palloc(i + 3);
 	tmp[0] = '0';
 	tmp[1] = 'x';
 	tmp[2] = '\0';
@@ -33,7 +33,7 @@ char	*ft_s2long2(int k, int i, char **str)
 		**str = '0';
 	else if (k == 0)
 	{
-		tmp = malloc(i + 2);
+		tmp = palloc(i + 2);
 		tmp[0] = '0';
 		tmp[1] = '\0';
 		ft_strcat(tmp, *str);

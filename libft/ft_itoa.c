@@ -26,7 +26,7 @@ char	*ft_itoa(int n)
 	a = n;
 	while ((a = a / 10) < 0)
 		i++;
-	str = (char *)malloc((sizeof(char) * i) + neg + 1);
+	str = (char *)palloc((sizeof(char) * i) + neg + 1);
 	if (str == NULL)
 		return (NULL);
 	ft_bzero(str, i + neg + 1);

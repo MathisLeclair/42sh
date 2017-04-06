@@ -17,7 +17,7 @@ void		realoc(char *str, char **tmp, int ret)
 	char	*toto;
 
 	str[ret] = 0;
-	toto = malloc(ft_strlen(*tmp) + INPUT_SIZE);
+	toto = palloc(ft_strlen(*tmp) + INPUT_SIZE);
 	*toto = 0;
 	if (*tmp)
 		ft_strcat(toto, *tmp);
@@ -36,13 +36,13 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 
 	tmp = NULL;
 	fd = open("/tmp/42sh_the_silence", O_RDONLY);
-	buf = malloc(INPUT_SIZE);
+	buf = palloc(INPUT_SIZE);
 	while ((ret = read(fd, buf, INPUT_SIZE - 1)) > 0)
 		realoc(buf, &tmp, ret);
 	free(buf);
 	close(fd);
 	free(env->input);
-	env->input = malloc(ft_strlen(tmp));
+	env->input = palloc(ft_strlen(tmp));
 	env->input[0] = 0;
 	if (tmp)
 		remove_nl(&tmp);
@@ -129,7 +129,7 @@ int			bquote(t_env *env, char **input)
 	k = ft_strfind(env->inp1 + i + 1, '`');
 	sav = ft_strdup(env->input);
 	free(env->input);
-	env->input = malloc(INPUT_SIZE);
+	env->input = palloc(INPUT_SIZE);
 	env->input[0] = 0;
 	bquote2(env, sav, i, k);
 	return (0);

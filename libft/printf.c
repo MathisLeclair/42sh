@@ -66,7 +66,7 @@ char		*ft_findpara(const char **str)
 		++j;
 	if ((*str)[j])
 		j++;
-	res = malloc(j + 1);
+	res = palloc(j + 1);
 	i = 0;
 	while (i < j)
 	{

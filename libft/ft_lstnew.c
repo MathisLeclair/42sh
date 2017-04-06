@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list *penis;
 
-	penis = (t_list *)malloc(sizeof(t_list));
+	penis = (t_list *)palloc(sizeof(t_list));
 	if (penis == NULL)
 		return (NULL);
 	if (content == NULL)
@@ -26,7 +26,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	}
 	else
 	{
-		penis->content = (void *)malloc(content_size);
+		penis->content = (void *)palloc(content_size);
 		if (penis->content == NULL)
 			return (NULL);
 		ft_memcpy(penis->content, content, content_size);

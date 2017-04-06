@@ -18,7 +18,7 @@ t_fun	*ft_stype(void)
 
 	if (fcts == NULL)
 	{
-		fcts = malloc(sizeof(t_fun *) * 14);
+		fcts = palloc(sizeof(t_fun *) * 14);
 		fcts[0] = ft_s;
 		fcts[1] = ft_d;
 		fcts[2] = ft_o;

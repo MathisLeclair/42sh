@@ -51,7 +51,7 @@ char		**ft_strsplit(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	nbw = ft_cnt_parts((const char *)s, c);
-	a = malloc(sizeof(char *) * (ft_cnt_parts((const char *)s, c) + 1));
+	a = palloc(sizeof(char *) * (ft_cnt_parts((const char *)s, c) + 1));
 	if (a == NULL)
 		return (NULL);
 	while (nbw--)

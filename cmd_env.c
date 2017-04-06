@@ -43,7 +43,7 @@ char	**ft_cpy_double_array(char **a)
 	i = -1;
 	while (a[++i])
 		;
-	b = malloc(sizeof(char*) * i + 1);
+	b = palloc(sizeof(char*) * i + 1);
 	b[i] = 0;
 	while (i--)
 		b[i] = ft_strdup(a[i]);

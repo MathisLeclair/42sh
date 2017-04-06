@@ -91,7 +91,7 @@ void	ac_target2(char *after_path, t_dirent *td, char *find, char ***ac)
 		i[0] = -1;
 		while ((*ac)[++i[0]])
 			new[i[0]] = (*ac)[i[0]];
-		new[i[0]] = malloc(ft_strlen(find) + ft_strlen(tmp) + 1);
+		new[i[0]] = palloc(ft_strlen(find) + ft_strlen(tmp) + 1);
 		new[i[0]][0] = 0;
 		ft_strcat(new[i[0]], find);
 		ft_strcat(new[i[0]], tmp);
