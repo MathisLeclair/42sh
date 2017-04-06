@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/06 16:08:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/06 17:44:23 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	veroverload(char **str)
 	if (ft_strlen(*str) > 4000)
 	{
 		error (-20, NULL, NULL);
+		free(*str);
 		*str = ft_strdup(" ");
 	}
 }
