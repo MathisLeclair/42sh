@@ -26,21 +26,28 @@ void	ft_replace(t_env *env, char *str, int sav, int i)
 	env->input = newinp;
 }
 
-int		ft_replacestr(t_env *env, int ret, int sav, int i)
+int		ft_replacestr(char *input, int ret, int sav, int i)
 {
 	char	str[INPUT_SIZE];
 	int		j;
+	t_env	*envi;
 
+	envi = env()->loc;
+	if (ret == -1)
+	{
+		envi = env();
+		ret = find_param(envi->ev, input);
+	}
 	*str = 0;
 	if (ret == -1)
-		ft_replace(env, "NoMatch", sav, i);
+		ft_replace(envi, "NoMatch", sav, i);
 	else
 	{
 		j = 0;
-		while (env->ev[ret][j] != '=')
+		while (envi->ev[ret][j] != '=')
 			++j;
-		ft_strcat(str, env->ev[ret] + j + 1);
-		ft_replace(env, str, sav, i);
+		ft_strcat(str, envi->ev[ret] + j + 1);
+		ft_replace(env(), str, sav, i);
 		return (sav + ft_strlen(str) - 1);
 	}
 	return (sav - 1);
@@ -65,7 +72,7 @@ void	ft_dollar(t_env *e, int i, char quote)
 				&& e->input[i] != '"' && e->input[i] != '\'' && ++k != -1)
 				str[k] = e->input[i];
 			str[k + 1] = '\0';
-			i = ft_replacestr(e, find_param(e->ev, str), sav, i);
+			i = ft_replacestr(str, find_param(e->loc->ev, str), sav, i);
 		}
 		if (e->input[i] == '"' && quote == 0)
 			quote = 1;

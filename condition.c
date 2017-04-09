@@ -173,27 +173,46 @@ void	add_to_block(t_cond *cond, t_env *env, char **split)
 void	exec_condition(t_env *env, t_cond *cond)
 {
 	t_cond	*block;
+	int		pid;
 
-	// ft_putendl("exec_condition 1");
-	block = cond->block;
-	while (block != NULL)
+	env->bool1 = 0;
+	while (env->bool1 == 0)
 	{
-		// ft_putendl("exec_condition 2");
-		if (block->type == IS_LINE)
+		if (cond->type == COND_IF || cond->type == COND_WHILE)
 		{
-			// ft_putendl("exec_condition 3.1");
-			parse(env, (char**)(&(block->content)));
-			// ft_putendl("exec_condition 4.1");
+			if ((pid = fork()) == 0)
+				exit(execve("/bin/test", cond->content, env->ev));
+			else
+			{
+				waitpid(pid, &pid, WUNTRACED);
+				// ft_printf("Out: %d\n", WEXITSTATUS(pid));
+				if (WEXITSTATUS(pid) != 0)
+					return ;
+			}
 		}
-		else
+		// ft_putendl("exec_condition 1");
+		block = cond->block;
+		while (block != NULL)
 		{
-			// ft_putendl("exec_condition 3.2");
-			exec_condition(env, block->content);
-			// ft_putendl("exec_condition 4.2");
+			// ft_putendl("exec_condition 2");
+			if (block->type == IS_LINE)
+			{
+				// ft_putendl("exec_condition 3.1");
+				parse(env, (char**)(&(block->content)));
+				// ft_putendl("exec_condition 4.1");
+			}
+			else
+			{
+				// ft_putendl("exec_condition 3.2");
+				exec_condition(env, block->content);
+				// ft_putendl("exec_condition 4.2");
+			}
+			block = block->block;
 		}
-		block = block->block;
+		// ft_putendl("exec_condition 5");
+		if (cond->type == COND_IF)
+			return ;
 	}
-	// ft_putendl("exec_condition 5");
 }
 
 void	handle_condition(t_env *env, char **split)
