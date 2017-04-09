@@ -65,6 +65,7 @@ typedef struct	s_env
 	char			**hash;
 	int				bool1;
 	int				bool2;
+	int				fdout;
 }				t_env;
 
 typedef struct	s_var
@@ -139,7 +140,7 @@ int				isinquote(char *input, int i);
 int				cmprevtruc(t_env *env, char **input);
 int				cmprev(char *str, char *tofind);
 void			extract_rd_output(t_env *env, char *input);
-void			extract_heredoc(t_env *env, char *input);
+void			extract_heredoc(t_env *env);
 int				parserror(t_env *env);
 
 /*

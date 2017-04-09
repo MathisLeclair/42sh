@@ -25,6 +25,7 @@ void	set_e3(t_env *e)
 	e->hash = NULL;
 	e->bool1 = 0;
 	e->bool2 = 0;
+	e->fdout = dup(1);
 }
 
 void	set_evloc2(t_env *e)

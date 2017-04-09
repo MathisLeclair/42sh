@@ -40,7 +40,7 @@ void	parse2(t_env *env, char **input, int i)
 	}
 	else if (cmprev(*input, "<<") != -1)
 	{
-		extract_heredoc(env, *input);
+		extract_heredoc(env);
 		rd_here_doc(env, -1, -1);
 	}
 	else if (cmprev(*input, ">") != -1 || cmprev(*input, ">>") != -1)

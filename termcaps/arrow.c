@@ -104,13 +104,13 @@ void	left_arrow(t_var *var)
 	--var->lenligne;
 	if (var->lenligne % tgetnum("co") == 0)
 	{
-		ft_putstr(tgetstr("up", NULL));
+		ft_putstr_fd(tgetstr("up", NULL), env()->fdout);
 		i = -1;
 		while (++i < tgetnum("co"))
-			ft_putstr(tgetstr("nd", NULL));
+			ft_putstr_fd(tgetstr("nd", NULL), env()->fdout);
 	}
 	else
-		ft_putstr(tgetstr("le", NULL));
+		ft_putstr_fd(tgetstr("le", NULL), env()->fdout);
 }
 
 void	right_arrow(t_var *var)
@@ -118,9 +118,9 @@ void	right_arrow(t_var *var)
 	if (var->i < (int)ft_strlen(var->ret))
 	{
 		if (var->lenligne % tgetnum("co") == 0)
-			ft_putstr(tgetstr("sf", NULL));
+			ft_putstr_fd(tgetstr("sf", NULL), env()->fdout);
 		else
-			ft_putstr(tgetstr("nd", NULL));
+			ft_putstr_fd(tgetstr("nd", NULL), env()->fdout);
 		++var->i;
 		++var->lenligne;
 	}

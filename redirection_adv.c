@@ -34,7 +34,7 @@ void		rd_here_doc2(t_env *env, int fd, int n)
 	char		*buff;
 
 	while (env->bool1 == 0 &&
-	(buff = ft_strjoin(termcaps(ft_sprintf("heredoc> "), 9), "\n")))
+	(buff = ft_strjoinfree(termcaps(ft_sprintf("heredoc> "), 9), "\n", 1)))
 	{
 		if (env->bool1 == 1)
 		{

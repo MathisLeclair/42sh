@@ -100,18 +100,18 @@ void	touch(t_var *var, t_ssprintf *prompt)
 	while (env()->history[bg])
 		++bg;
 	var->i = 0;
-	ft_putstr(tgetstr("im", NULL));
-	ft_putstr(tgetstr("bw", NULL));
+	ft_putstr_fd(tgetstr("im", NULL), env()->fdout);
+	ft_putstr_fd(tgetstr("bw", NULL), env()->fdout);
 	while (var->buff[0] != 10)
 		touch1(var, &bg, &i);
 	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
-	ft_putstr(tgetstr("cd", NULL));
+	ft_putstr_fd(tgetstr("cd", NULL), env()->fdout);
 	while (exclam(var))
 		;
 	if (var->ret[0] && ft_strcmp("\nhist-i-search : ", prompt->buf))
 		add_history(var->ret);
 	add_bs_q(&var->ret, -1, '\'', 0);
-	write(1, "\n", 1);
-	ft_putstr(tgetstr("ei", NULL));
+	write(env()->fdout, "\n", 1);
+	ft_putstr_fd(tgetstr("ei", NULL), env()->fdout);
 }

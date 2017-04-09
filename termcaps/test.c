@@ -20,14 +20,14 @@
 
 void	reset(t_var *var)
 {
-	ft_putstr(tgetstr("rs", NULL));
+	ft_putstr_fd(tgetstr("rs", NULL), env()->fdout);
 	if (tcgetattr(0, &var->term) == -1)
 		error(-6, 0, 0);
 	var->term.c_lflag = (ICANON | ECHO);
 	tcsetattr(0, 0, &var->term);
 	tcsetattr(0, 0, &var->termsav);
 	var->term = var->termsav;
-	ft_putstr(tgetstr("ei", NULL));
+	ft_putstr_fd(tgetstr("ei", NULL), env()->fdout);
 }
 
 void	initterm(t_var *var)
@@ -54,7 +54,7 @@ char	*termcaps(t_ssprintf *prompt, int u)
 	char			*str;
 	t_var			*var;
 
-	ft_putstr(prompt->buf);
+	ft_putstr_fd(prompt->buf, env()->fdout);
 	var = tvar();
 	initvar(var, 1, u);
 	if ((str = getenv("TERM")) == NULL)

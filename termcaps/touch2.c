@@ -30,19 +30,19 @@ void	touch5(t_var *var)
 	}
 	else if (var->buff[1] == 0 && ft_isprint(var->buff[0]))
 	{
-		write(1, &var->buff[0], 1);
+		write(env()->fdout, &var->buff[0], 1);
 		touch6(var);
 		if (var->lenligne % tgetnum("co") == 1)
-			ft_putstr(tgetstr("sf", NULL));
-		ft_putstr(tgetstr("cd", NULL));
-		ft_putstr(var->ret + var->i);
+			ft_putstr_fd(tgetstr("sf", NULL), env()->fdout);
+		ft_putstr_fd(tgetstr("cd", NULL), env()->fdout);
+		ft_putstr_fd(var->ret + var->i, env()->fdout);
 		if ((var->inputlen + var->lenprompt - 1) % tgetnum("co") == 0)
-			ft_putstr(" ");
+			ft_putstr_fd(" ", env()->fdout);
 		j = ft_strlen(var->ret + var->i);
 		while (j-- > 0)
-			ft_putstr(tgetstr("le", NULL));
+			ft_putstr_fd(tgetstr("le", NULL), env()->fdout);
 		if ((var->inputlen + var->lenprompt - 1) % tgetnum("co") == 0)
-			ft_putstr(tgetstr("le", NULL));
+			ft_putstr_fd(tgetstr("le", NULL), env()->fdout);
 	}
 	var->buff[1] = 0;
 	var->buff[2] = 0;

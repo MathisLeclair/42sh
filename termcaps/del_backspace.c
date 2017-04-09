@@ -21,15 +21,15 @@ void	deleteu(t_var *var)
 	if (var->del == 1)
 		var->del = 0;
 	rem_car(var);
-	ft_putstr(tgetstr("cd", NULL));
-	ft_putstr(var->ret + var->i);
+	ft_putstr_fd(tgetstr("cd", NULL), env()->fdout);
+	ft_putstr_fd(var->ret + var->i, env()->fdout);
 	j = ft_strlen(var->ret + var->i);
 	while (j-- > 0)
 		if ((var->lenligne + j) % tgetnum("co") == 0 &&
 			(var->inputlen + var->lenprompt) % tgetnum("co") == 2)
 			;
 		else
-			ft_putstr(tgetstr("le", NULL));
+			ft_putstr_fd(tgetstr("le", NULL), env()->fdout);
 	left_arrow(var);
 	right_arrow(var);
 	--var->inputlen;

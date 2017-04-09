@@ -92,24 +92,24 @@ void	extract_rd_output(t_env *env, char *input)
 	env->inp1 = ft_strdup(input);
 }
 
-void	extract_heredoc(t_env *env, char *input)
+void	extract_heredoc(t_env *env)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (input[i] && input[i] != '<')
+	while (env->input[i] && env->input[i] != '<')
 		++i;
 	j = i + 2;
-	while (input[j] == ' ' || input[j] == '\t')
+	while (env->input[j] == ' ' || env->input[j] == '\t')
 		++j;
-	while (ft_isalpha(input[j]))
+	while (ft_isalpha(env->input[j]))
 		++j;
 	free(env->inp2);
-	env->inp2 = ft_strcdup(input + i, j);
-	ft_remstr(input, i, j);
+	env->inp2 = ft_strcdup(env->input + i, j);
+	ft_remstr(env->input, i, j);
 	free(env->inp1);
-	env->inp1 = ft_strdup(input);
+	env->inp1 = ft_strdup(env->input);
 }
 
 int		parserror(t_env *env)
