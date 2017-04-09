@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 16:57:55 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/04/01 18:02:17 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define FALSE	0
 # define PROMPT "$\e[0;31m42sh\e[0m>"
+# define PROMPT_SIZE 10
 # define INPUT_SIZE 4096
 # define BUFF_SIZE 32
 
@@ -48,9 +49,13 @@ typedef struct	s_job
 # define COND_FOR 8
 
 # define PROMPT_IF "$\e[0;31mif\e[0m>"
+# define PROMPT_SIZE_IF 4
 # define PROMPT_WHILE "$\e[0;31mwhile\e[0m>"
+# define PROMPT_SIZE_WHILE 7
 # define PROMPT_FOR "$\e[0;31mfor\e[0m>"
+# define PROMPT_SIZE_FOR 5
 # define PROMPT_COND "$\e[0;31mcond?\e[0m>"
+# define PROMPT_SIZE_COND 7
 
 typedef struct	s_cond
 {
@@ -255,7 +260,7 @@ void			add_bs_q(char **str, int i, char c, int l);
 
 int				do_if_condition(t_env *env, char **split);
 void			handle_condition(t_env *env, char **split);
-
+void			destroy_condition(t_cond *cond);
 
 /*
 ** double_array_sort.c

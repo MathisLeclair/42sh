@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/01 11:36:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/01 18:29:01 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	ft_sig(int i)
 		ft_putstr(tgetstr("cd", NULL));
 		env()->i = 0;
 		env()->bool1 = 1;
+		if (env()->cond != NULL)
+			destroy_condition(env()->cond);
+		env()->cond = NULL;
 	}
 }
 
