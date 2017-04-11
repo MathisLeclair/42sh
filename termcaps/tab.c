@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:20:22 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/11 14:05:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/11 15:03:45 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void	tabu(t_var *var, int *j)
 
 	if (*j == 0)
 	{
+		free_double_array(var->ac);
+		free(var->arr);
+		var->arr = 0;
 		*j = 1;
 		var->ac = autocomplete(var->ret, var->i, env());
 		if (var->ac == NULL || var->ac[0] == 0)

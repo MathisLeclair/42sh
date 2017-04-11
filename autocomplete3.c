@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/11 14:12:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/11 17:28:04 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**ac_pwd(char *find, char *str, int i)
 	ft_strncat(ft_strcat(str, "/"), find, i);
 	if (!(dir = opendir(str)))
 		free(str);
-	if (!(dir = opendir(str)))
+	if (!dir)
 		return (sug);
 	while ((td = readdir(dir)))
 	{
