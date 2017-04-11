@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:12:06 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/25 14:03:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/11 14:12:47 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ void	ac_pwd2(char ***sug, t_dirent *td, int i, char *find)
 	free(tmp);
 }
 
-char	**ac_pwd(char *find, char *str)
+char	**ac_pwd(char *find, char *str, int i)
 {
 	DIR			*dir;
 	t_dirent	*td;
 	char		**sug;
-	int			i;
 
 	sug = palloc(sizeof(char *));
 	*sug = 0;
@@ -60,6 +59,8 @@ char	**ac_pwd(char *find, char *str)
 		--i;
 	getcwd(str, INPUT_SIZE);
 	ft_strncat(ft_strcat(str, "/"), find, i);
+	if (!(dir = opendir(str)))
+		free(str);
 	if (!(dir = opendir(str)))
 		return (sug);
 	while ((td = readdir(dir)))

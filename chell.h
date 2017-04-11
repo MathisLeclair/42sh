@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/02 18:14:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/11 14:12:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,7 +436,7 @@ void			ft_ac_cmd_build(char ***ac, char *find);
 void			ft_ac_cmd_path(char **split_path, char *find, char ***ac);
 char			**ac_cmd(char *find, t_env *env);
 void			ac_target2(char *a, t_dirent *td, char *f, char ***ac);
-char			**ac_pwd(char *find, char *str);
+char			**ac_pwd(char *find, char *str, int i);
 void			ac_target(char *find, char ***ac);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:13:00 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/25 13:46:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/11 14:13:08 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**auto_possibilities(char pwd, t_env *ev)
 	if (pwd == 0)
 		ac = ac_cmd(find_lwc, ev);
 	else
-		ac = ac_pwd(find_lwc, palloc(INPUT_SIZE));
+		ac = ac_pwd(find_lwc, palloc(INPUT_SIZE), 0);
 	free(find_lwc);
 	return (ac);
 }
