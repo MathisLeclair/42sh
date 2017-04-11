@@ -6,11 +6,18 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/06 16:04:07 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/11 14:52:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
+
+void			queu(char *str1, char *str2)
+{
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(str2, 2);
+	ft_putstr_fd("\n", 2);
+}
 
 static void		error3(int i)
 {
@@ -47,11 +54,9 @@ static void		error2(int i, char *str)
 		exit(EXIT_FAILURE);
 	}
 	else if (i == -9)
-		ft_putstr_fd(ft_sprintf("chell: cd: no such file or directory: %s\n", \
-								str)->buf, 2);
+		queu("chell: cd: no such file or directory: ", str);
 	else if (i == -10)
-		ft_putstr_fd(ft_sprintf("chell: cd: string not in pwd: %s\n", \
-								str)->buf, 2);
+		queu("chell: cd: string not in pwd: ", str);
 	else if (i == -11)
 		ft_putstr_fd("chell: No history to display\n", 2);
 	else if (i == -12)
@@ -71,16 +76,13 @@ void			error(int i, char *str, char *str2)
 	if (i == -1)
 		ft_putstr_fd("No such file or directory\n", 2);
 	else if (i == -2)
-		ft_putstr_fd(ft_sprintf("chell: command not found : %s\n", \
-								str)->buf, 2);
+		queu("chell: command not found: ", str);
 	else if (i == -3)
-		ft_putstr_fd(ft_sprintf("chell error\n")->buf, 2);
+		ft_putstr_fd("chell error\n", 2);
 	else if (i == -4)
-		ft_putstr_fd(ft_sprintf("chell: exec format error: %s\n", \
-								str)->buf, 2);
+		queu("chell: exec format error: ", str);
 	else if (i == -5)
-		ft_putstr_fd(ft_sprintf("chell: permission denied: %s\n", \
-								str)->buf, 2);
+		queu("chell: permission denied: ", str);
 	else if (i == -6)
 	{
 		ft_putstr_fd("\n", 2);
