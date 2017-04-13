@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/04/11 14:53:34 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/13 14:46:56 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_cd_regex(char **split, int k)
 		error(-10, split[1], NULL);
 	if (!sav)
 		return (NULL);
-	reg = palloc(ft_strlen(pwd + 4) + ft_strlen(split[2])	
+	reg = palloc(ft_strlen(pwd + 4) + ft_strlen(split[2])
 	- ft_strlen(split[1]) + 1);
 	while (pwd + 4 + ++k < sav)
 		reg[k] = pwd[4 + k];
