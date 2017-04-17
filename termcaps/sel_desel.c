@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:35:14 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/29 18:57:40 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/17 19:09:11 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	select_left(t_var *var)
 {
 	int i;
 
+	if (var->i == 0)
+		return ;
 	ft_putstr(tgetstr("mr", NULL));
 	write(1, var->ret + var->i, 1);
 	ft_putstr(tgetstr("me", NULL));
@@ -78,7 +80,7 @@ void	select_mode(t_var *var)
 	read(0, var->buff, 3);
 	var->selstart = var->selstart == -1 ? var->i : var->selstart;
 	var->selend = var->selend == -1 ? var->i : var->selend;
-	if (var->buff[0] == 68 && var->i == (int)ft_strlen(var->ret))
+	if (var->buff[0] == 68 && var->i == (int)ft_strlen(var->ret) && var->i != 0)
 		left_arrow(var);
 	else if (var->buff[0] == 68 && var->i > 0 &&
 		var->i < (int)ft_strlen(var->ret))
