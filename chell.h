@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/11 14:12:57 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/17 19:14:09 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_env
 	char			**hash;
 	int				bool1;
 	int				bool2;
+	int				bool3;
 	int				fdout;
 }				t_env;
 

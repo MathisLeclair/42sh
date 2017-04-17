@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:29:49 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 19:34:06 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/17 19:16:00 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	up_arrow(t_var *var, int *bg)
 {
 	char *tmp;
 
+	if (env()->bool3 == 1)
+		return ;
 	if (env()->history[*bg] == 0)
 	{
 		free_double_array(var->ac);
@@ -71,7 +73,7 @@ void	down_arrow(t_var *var, int *bg)
 {
 	char *tmp;
 
-	if (var->ac[0])
+	if (var->ac[0] && env()->bool3 == 0)
 	{
 		while (var->i != 0)
 			backspace(var);

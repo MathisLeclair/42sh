@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/04 18:36:10 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/17 19:14:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	set_e3(t_env *e)
 	e->hash = NULL;
 	e->bool1 = 0;
 	e->bool2 = 0;
+	e->bool3 = 0;
 	e->fdout = dup(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/04/11 12:10:09 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/17 19:15:10 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		rd_here_doc(t_env *env, int child, int fd)
 	int			status;
 
 	n = -1;
+	env->bool3 = 1;
 	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
 		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 :
 			env->inp1[ft_strlen(env->inp1) - 1] - 48);
@@ -79,6 +80,7 @@ void		rd_here_doc(t_env *env, int child, int fd)
 	wait(&status);
 	retvalue_into_loc(env, WEXITSTATUS(status));
 	close(fd);
+	env->bool3 = 0;
 }
 
 void		rd_here_string2(t_env *env, int fd, int n)
