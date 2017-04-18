@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/17 19:14:09 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/18 16:18:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -460,5 +460,6 @@ int				ver_dquote_t2(char *str);
 int				ver_sub_2(t_env *env, char **input);
 void			subshell2(t_env *env, int i, int l, char *input);
 int				ft_read2(int u, char **input, t_env *env);
+int				add_bs_q2(char **str, char c, int i);
 
 #endif

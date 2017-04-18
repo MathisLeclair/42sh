@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 22:22:20 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/04/18 16:21:30 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	add_bs_q(char **str, int i, char c, int l)
 	char	*tmp;
 
 	while ((*str)[++i])
-		if (bs_str(*str, i, c))
+		if (bs_str(*str, i, c) && add_bs_q2(str, c, i + 1) == 1)
 		{
 			k = 0;
 			j = 0;
@@ -116,9 +116,9 @@ int		verif_quote(char **str, int p, int quote, int dquote)
 		if ((bs_str((*str), p, '\'') || bs_str((*str), p, '"')) && quote == 0
 			&& dquote == 0)
 			pos = p;
-		if (bs_str((*str), p, '\'') && dquote == 0)
+		else if (bs_str((*str), p, '\'') && dquote == 0)
 			quote = quote == 1 ? 0 : 1;
-		if (bs_str((*str), p, '"') && quote == 0)
+		else if (bs_str((*str), p, '"') && quote == 0)
 			dquote = dquote == 1 ? 0 : 1;
 	}
 	if (quote == 1)

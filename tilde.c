@@ -6,11 +6,25 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:39:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/22 14:34:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/18 16:20:48 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
+
+int		add_bs_q2(char **str, char c, int i)
+{
+	int u;
+
+	u = -1;
+	while ((*str)[i] != c)
+	{
+		if ((*str)[i] == c)
+			u = 1;
+		++i;
+	}
+	return (u);
+}
 
 void	strreeplace(char **s, char *str, int start)
 {
