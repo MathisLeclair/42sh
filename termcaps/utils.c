@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:44:16 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/29 14:46:40 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/19 15:20:47 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	initvar(t_var *var, int i, int u)
 	var->ac = NULL;
 	var->arr = 0;
 	var->ret[0] = 0;
+	var->his = NULL;
 }
 
 void	add_car(t_var *var, int boule, char c)

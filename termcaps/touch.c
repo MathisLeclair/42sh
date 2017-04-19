@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 17:36:04 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/19 15:15:52 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	touch3(t_var *var, int *i, int *bg)
 		tabu(var, i);
 	else if (var->buff[0] == 27 && var->buff[2] == 65 && env()->history[0])
 		up_arrow(var, bg);
-	else if (var->buff[0] == 27 && var->buff[2] == 66 && var->ac)
+	else if (var->buff[0] == 27 && var->buff[2] == 66 && var->his)
 		down_arrow(var, bg);
 	else
 	{
@@ -43,10 +43,10 @@ void	touch3(t_var *var, int *i, int *bg)
 		var->arr = NULL;
 		while (env()->history[*bg])
 			++(*bg);
-		if (var->ac)
-			free_double_array(var->ac);
-		if (var->ac)
-			var->ac = NULL;
+		free_double_array(var->ac);
+		free_double_array(var->his);
+		var->ac = NULL;
+		var->his = NULL;
 		*i = 0;
 	}
 }

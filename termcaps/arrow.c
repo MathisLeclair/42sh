@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arrow.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:29:49 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/17 19:16:00 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/19 15:14:50 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ void	ft_asdf(t_var *var, int i, int *bg, int j)
 	char	*tmp;
 	char	*tmp2;
 
-	var->ac = palloc(sizeof(char *));
-	var->ac[0] = 0;
+	var->his = palloc(sizeof(char *));
+	var->his[0] = 0;
 	while (env()->history[++i])
 		if (ft_strstr(env()->history[i], var->ret))
-			add_str_to_dstr(&var->ac, env()->history[i] + 7);
+			add_str_to_dstr(&var->his, env()->history[i] + 7);
 	i = 0;
-	while (var->ac[i])
+	while (var->his[i])
 	{
-		tmp = ft_strdup(var->ac[i]);
+		tmp = ft_strdup(var->his[i]);
 		tmp2 = ft_strdup(var->ret);
 		if (!ft_strcmp_beg(tmp, tmp2))
 		{
-			free(var->ac[i]);
+			free(var->his[i]);
 			j = i;
-			while (var->ac[j++])
-				var->ac[j - 1] = var->ac[j];
+			while (var->his[j++])
+				var->his[j - 1] = var->his[j];
 		}
 		else
 			++i;
@@ -49,12 +49,12 @@ void	up_arrow(t_var *var, int *bg)
 		return ;
 	if (env()->history[*bg] == 0)
 	{
-		free_double_array(var->ac);
+		free_double_array(var->his);
 		ft_asdf(var, -1, bg, 0);
 	}
 	if (var->arr == NULL)
 		var->arr = ft_strdup(var->ret);
-	if (var->ac[0])
+	if (var->his[0])
 	{
 		while (var->i != 0)
 			backspace(var);
@@ -63,7 +63,7 @@ void	up_arrow(t_var *var, int *bg)
 		if (*bg > 0)
 			(*bg)--;
 		tmp = var->cpy;
-		var->cpy = var->ac[*bg];
+		var->cpy = var->his[*bg];
 		paste(var);
 		var->cpy = tmp;
 	}
@@ -73,15 +73,15 @@ void	down_arrow(t_var *var, int *bg)
 {
 	char *tmp;
 
-	if (var->ac[0] && env()->bool3 == 0)
+	if (var->his[0] && env()->bool3 == 0)
 	{
 		while (var->i != 0)
 			backspace(var);
 		while (var->ret[0])
 			deleteu(var);
-		if (var->ac[*bg])
+		if (var->his[*bg])
 			(*bg)++;
-		if (var->ac[*bg] == 0)
+		if (var->his[*bg] == 0)
 		{
 			tmp = var->cpy;
 			var->cpy = var->arr;
@@ -91,7 +91,7 @@ void	down_arrow(t_var *var, int *bg)
 		else
 		{
 			tmp = var->cpy;
-			var->cpy = var->ac[*bg];
+			var->cpy = var->his[*bg];
 			paste(var);
 			var->cpy = tmp;
 		}
