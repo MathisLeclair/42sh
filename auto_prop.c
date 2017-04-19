@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/04/19 16:15:55 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/19 16:20:36 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void			auto_prop(t_var *var, int p, int i)
 	i = m == -1 ? m : i;
 	i = i < -1 ? -1 : i;
 	ml[3] = 1;
-	while (var->ac[++i] && ml[3] / o + 2 < ml[1] - var->inputlen / tgetnum("co"))
+	while (var->ac[++i] && ml[3] / o + 2 < ml[1]
+		- var->inputlen / tgetnum("co"))
 		auto_prop_core(var, i, &ml, &tmp);
 	ft_printf("%s ", tmp);
 	var->i += 1;
