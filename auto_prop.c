@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/04/19 15:49:38 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/19 16:15:55 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			auto_prop(t_var *var, int p, int i)
 {
 	size_t		ml[4];
 	char		*tmp;
+	int o;
 	static int	m = -2;
 
 	m = (p == 1 ? -2 : m);
@@ -85,14 +86,13 @@ void			auto_prop(t_var *var, int p, int i)
 	while (var->ac[++i])
 		ml[0] = ft_strlen(var->ac[i]) > ml[0] ? ft_strlen(var->ac[i]) : ml[0];
 	m = m == i - 2 ? -1 : m + 1;
-	i = (i - m) * (int)ml[0] / tgetnum("co") + 2 < (int)ml[1] - var->inputlen /
-	tgetnum("co") ? i - ((int)ml[1] - 2) * (tgetnum("co") / (int)ml[0])
-	- var->inputlen / (int)ml[0] : m;
+	o = tgetnum("co") / ml[0];
+	i = (i - m) / o + 2 < (int)ml[1] - var->inputlen /
+	tgetnum("co") ? i - ((int)ml[1] - 2) * o - var->inputlen / (int)ml[0] : m;
 	i = m == -1 ? m : i;
 	i = i < -1 ? -1 : i;
 	ml[3] = 1;
-	while (var->ac[++i] && ml[3] * ml[0] / tgetnum("co") + 2 < (ml[1] -
-		var->inputlen / tgetnum("co")))
+	while (var->ac[++i] && ml[3] / o + 2 < ml[1] - var->inputlen / tgetnum("co"))
 		auto_prop_core(var, i, &ml, &tmp);
 	ft_printf("%s ", tmp);
 	var->i += 1;
