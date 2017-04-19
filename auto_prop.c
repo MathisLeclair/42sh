@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 18:56:27 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/04/19 16:20:36 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/19 16:21:16 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			auto_prop(t_var *var, int p, int i)
 {
 	size_t		ml[4];
 	char		*tmp;
-	int o;
+	int			o;
 	static int	m = -2;
 
 	m = (p == 1 ? -2 : m);
