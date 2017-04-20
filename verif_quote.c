@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 17:51:24 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/18 16:21:30 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/20 12:28:56 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ int		verif_quote(char **str, int p, int quote, int dquote)
 		if ((bs_str((*str), p, '\'') || bs_str((*str), p, '"')) && quote == 0
 			&& dquote == 0)
 			pos = p;
-		else if (bs_str((*str), p, '\'') && dquote == 0)
+		if (bs_str((*str), p, '\'') && dquote == 0)
 			quote = quote == 1 ? 0 : 1;
-		else if (bs_str((*str), p, '"') && quote == 0)
+		if (bs_str((*str), p, '"') && quote == 0)
 			dquote = dquote == 1 ? 0 : 1;
 	}
 	if (quote == 1)
