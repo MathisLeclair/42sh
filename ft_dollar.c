@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:39:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/17 13:01:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:44:42 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_replacestr(t_env *env, int ret, int sav, int i)
 
 	*str = 0;
 	if (ret == -1)
-		ft_replace(env, "", sav, i);
+		ft_replace(env, "NoMatch", sav, i);
 	else
 	{
 		j = 0;
