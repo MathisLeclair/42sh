@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/11 12:10:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:20:02 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int		ft_read(t_env *env, char *input, int i, int u)
 	env->bool2 = 0;
 	if (input == NULL)
 		input = termcaps(ft_sprintf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈',
-		env->dir, PROMPT), 10);
+		env->dir, PROMPT), 10, 0);
 	if (ft_read2(u, &input, env) == 0)
 		return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);

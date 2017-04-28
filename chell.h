@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/28 17:20:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:13:55 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct	s_var
 	int				lenligne;
 	long int		i;
 	int				sovi;
+	int				termlvl;
 	int				del;
 	int				selmode;
 	int				lenprompt;
@@ -379,7 +380,7 @@ void			end(t_var *var);
 t_var			*tvar(void);
 void			add_car(t_var *var, int boule, char c);
 void			rem_car(t_var *var);
-void			initvar(t_var *var, int i, int u);
+void			initvar(t_var *var, int i, int u, int k);
 void			replace_w(char *word, t_var *var);
 
 /*
@@ -407,7 +408,7 @@ int				exclam(t_var *var);
 void			touch(t_var *var, t_ssprintf *prompt);
 void			touch5(t_var *var);
 
-char			*termcaps(t_ssprintf *prompt, int i);
+char			*termcaps(t_ssprintf *prompt, int i, int k);
 void			add_history(char *str);
 void			reset(t_var *var);
 

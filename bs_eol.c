@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 15:52:12 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 16:40:31 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:18:53 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	bs_eol(t_env *env)
 
 	if (bs_str(env->input, ft_strlen(env->input) - 1, '\\'))
 	{
-		tmp = termcaps(ft_sprintf(">"), 1);
+		tmp = termcaps(ft_sprintf(">"), 1, 0);
 		env->input = ft_strjoinfree(env->input, tmp, 3);
 		while (bs_str(env->input, ft_strlen(env->input) - 1, '\\'))
 		{
-			tmp = termcaps(ft_sprintf(">"), 1);
+			tmp = termcaps(ft_sprintf(">"), 1, 0);
 			env->input = ft_strjoinfree(env->input, tmp, 3);
 		}
 		i = -1;

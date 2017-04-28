@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:59:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/19 15:20:32 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:14:05 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	veroverload(char **str)
 	}
 }
 
-char	*termcaps(t_ssprintf *prompt, int u)
+char	*termcaps(t_ssprintf *prompt, int u, int k)
 {
 	char			*str;
 	t_var			*var;
 
 	ft_putstr_fd(prompt->buf, env()->fdout);
 	var = tvar();
-	initvar(var, 1, u);
+	initvar(var, 1, u, k);
 	if ((str = getenv("TERM")) == NULL)
 		tgetent(NULL, "xterm-256color");
 	else
@@ -71,7 +71,7 @@ char	*termcaps(t_ssprintf *prompt, int u)
 	str = ft_strdup(var->ret);
 	ft_bzero(prompt->buf, prompt->ret);
 	free(prompt);
-	initvar(var, 1, u);
+	initvar(var, 1, u, 0);
 	veroverload(&str);
 	return (str);
 }

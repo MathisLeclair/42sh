@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 11:51:57 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/25 14:26:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:19:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		verif_par(char **str, int u, int t, int i)
 		return (0);
 	else
 	{
-		tmp = termcaps(ft_sprintf("subshell>"), 9);
+		tmp = termcaps(ft_sprintf("subshell>"), 9, 0);
 		if (env()->bool1 == 1)
 			return (verif_par2(str, tmp));
 		*str = ft_strjoinfree(*str, " ", 1);

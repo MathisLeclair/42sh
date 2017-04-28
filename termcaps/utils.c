@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:44:16 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/19 15:20:47 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:13:58 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_var	*tvar(void)
 	return (var);
 }
 
-void	initvar(t_var *var, int i, int u)
+void	initvar(t_var *var, int i, int u, int k)
 {
 	if (i == 1)
 		bzero(var->buff, 3);
@@ -59,6 +59,7 @@ void	initvar(t_var *var, int i, int u)
 	var->selend = -1;
 	var->inputlen = 0;
 	var->ac = NULL;
+	var->termlvl = k;
 	var->arr = 0;
 	var->ret[0] = 0;
 	var->his = NULL;
