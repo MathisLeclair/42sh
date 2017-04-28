@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/28 12:46:45 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:20:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		main(int ac, char **av, char **ev)
 {
 	set_env(env(), ev);
 	signal(SIGINT, ft_sig);
+	sig_init();
 	signal(SIGCONT, ft_sig);
 	signblock(1);
 	shlvl(env());

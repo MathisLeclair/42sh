@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/19 15:14:13 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/04/28 17:20:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,5 +462,6 @@ int				ver_sub_2(t_env *env, char **input);
 void			subshell2(t_env *env, int i, int l, char *input);
 int				ft_read2(int u, char **input, t_env *env);
 int				add_bs_q2(char **str, char c, int i);
+void			sig_init(void);
 
 #endif
