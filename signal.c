@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:05:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/28 18:21:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/28 18:55:41 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	sig_handler(int i)
 	{
 		ft_putstr(sig_tab(i));
 		ft_putstr("\n");
+		retvalue_into_loc(env(), i + 128);
 	}
 }
 
