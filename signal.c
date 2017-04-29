@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 17:05:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/29 14:36:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/29 16:28:20 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	sig_handler(int i)
 
 void	sig_init(void)
 {
-	signal(SIGQUIT, sig_handler);
+	// signal(SIGQUIT, sig_handler);
 	signal(SIGTSTP, sig_handler);
 	signal(SIGSTOP, sig_handler);
 	signal(SIGABRT, sig_handler);

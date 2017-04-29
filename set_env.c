@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/29 14:37:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/29 16:35:44 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_e3(t_env *e)
 	e->bool2 = 0;
 	e->bool3 = 0;
 	e->fdout = dup(1);
+	e->pid = getpid();
 }
 
 void	set_evloc2(t_env *e)
