@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/05/01 12:01:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 14:04:01 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ void	ft_cd(char **split, t_env *env, char *reg, char *oldpwd)
 		if (!(reg = ft_cd_regex(split, -1)))
 			return (free(oldpwd));
 		if (chdir(reg) == -1)
-			return (error(-9, reg, oldpwd));
+		{
+			error(-9, reg, oldpwd);
+			if (reg)
+				free(reg);
+			return ;
+		}
 		free(reg);
 	}
 	else if (split[1])
