@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/01 15:50:45 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 17:11:30 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	parse2(t_env *env, char **input, int i)
 		rd_pipe(env);
 	else if (cmprev(*input, "<<<") != -1)
 		rd_here_string(env, -1, -1, -1);
-	else if (cmprev(*input, "<") != -1)
-	{
-		extract_rd_output(env, env->input);
-		rd_input(env, -1);
-	}
 	else if (cmprev(*input, "<<") != -1)
 	{
 		extract_heredoc(env);
 		rd_here_doc(env, -1, -1);
+	}
+	else if (cmprev(*input, "<") != -1)
+	{
+		extract_rd_output(env, env->input);
+		rd_input(env, -1);
 	}
 	else if (cmprev(*input, ">") != -1 || cmprev(*input, ">>") != -1)
 		parse3(env, i);
