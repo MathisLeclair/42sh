@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 13:24:11 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/29 16:41:37 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/30 19:02:06 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ void		rd_pipe(t_env *env)
 		env->isoperand = 1;
 		frk_pipe(env);
 		env->isoperand = 0;
-		if ((int)getpgid(0) == env->pid)
-			exit(0);
-		kill(0, SIGQUIT);
+		exit(0);
 	}
 	wait(&status);
 	retvalue_into_loc(env, WEXITSTATUS(status));

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/02 15:51:51 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/04/30 18:59:07 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,36 @@ int		cmprevtruc(t_env *env, char **input)
 	return (0);
 }
 
-int		cmprev(char *str, char *tofind)
+int		bs_strstr(char *big, char *little)
 {
 	int i;
-	int k;
+	int j;
 
-	i = ft_strlen(str);
-	if (i < (int)ft_strlen(tofind))
-		return (-1);
-	while (str[--i])
+	i = -1;
+	while (++i < (int)ft_strlen(big) - (int)ft_strlen(little))
 	{
-		k = ft_strlen(tofind);
-		while (k - 1 >= 0 && i >= 0 && bs_str(str, i, tofind[k - 1])
-			&& isinquote(str, i) == 0)
+		j = -1;
+		while (++j != -1)
 		{
-			--k;
-			--i;
-		}
-		if (k == 0 && ft_strchr(tofind, str[i]) == 0)
-		{
-			env()->inp1 = ft_strcdup(str, i + 1);
-			env()->inp2 = ft_strdup(str + ft_strlen(tofind) + i + 1);
-			return (i);
+			if (bs_str(big, i + j, little[j]) == 0)
+				break ;
+			if (j == (int)ft_strlen(little) - 1)
+				return (i);
 		}
 	}
 	return (-1);
+}
+
+int		cmprev(char *str, char *tofind)
+{
+	int cut;
+
+	cut = bs_strstr(str, tofind);
+	if (cut == -1)
+		return (-1);
+	env()->inp1 = ft_strsub(str, 0, cut);
+	env()->inp2 = ft_strdup(str + cut + ft_strlen(tofind));
+	return (1);
 }
 
 void	extract_rd_output(t_env *env, char *input)
