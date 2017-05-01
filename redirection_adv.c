@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/04/28 18:19:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:09:20 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ void		rd_here_string(t_env *env, int fd, int n, pid_t child)
 			env->inp1[ft_strlen(env->inp1) - 1] - 48);
 	if (n != -1)
 		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
-	s = ft_strsplitquote(env->inp2, ' ', 1);
+	if ((s = ft_strsplitquote(env->inp2, ' ', 1)) && !s[0])
+		return (free(s));
 	ft_suppr_quotes(s, 0, 0);
 	free_swap(&env->inp2, ft_strdup(s[0]));
 	free_double_array(s);

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/28 18:18:29 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 14:56:47 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,7 @@ int			bquote(t_env *env, char **input)
 	env->input = palloc(INPUT_SIZE);
 	env->input[0] = 0;
 	bquote2(env, sav, i, k);
+	free(*input);
+	*input = ft_strdup(env->input);
 	return (0);
 }

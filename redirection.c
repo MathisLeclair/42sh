@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/01 12:16:36 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:08:02 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void		rd_output(t_env *env, int fd, int n, pid_t child)
 
 	if (ft_isdigit(*(env->redir)))
 		n = *(env->redir) - 48;
-	s = ft_strsplitquote(env->redir + (n == -1 ? 1 : 2), ' ', 1);
+	if((s = ft_strsplitquote(env->redir + (n == -1 ? 1 : 2), ' ', 1)) && !s[0])
+		return (free(s));
 	free_swap(&env->redir, ft_strdup(s[0]));
 	free_double_array(s);
 	if (env->redir[0] == '&')
@@ -111,7 +112,8 @@ void		rd_input(t_env *env, int fd)
 
 	child = -1;
 	n = -1;
-	s = ft_strsplitquote(env->inp2, ' ', 1);
+	if((s = ft_strsplitquote(env->inp2, ' ', 1)) && !s[0])
+		return (free(s));
 	free_swap(&env->inp2, ft_strdup(s[0]));
 	free_double_array(s);
 	if (rd_input2(env, &n, &fd) == -1)
