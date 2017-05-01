@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/29 16:35:40 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 12:34:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,5 +465,6 @@ void			subshell2(t_env *env, int i, int l, char *input);
 int				ft_read2(int u, char **input, t_env *env);
 int				add_bs_q2(char **str, char c, int i);
 void			sig_init(void);
+int				bs_strstr(char *big, char *little);
 
 #endif

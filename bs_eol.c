@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 15:52:12 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/28 18:18:53 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 12:33:55 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,24 @@ void	bs_eol(t_env *env)
 			if (bs_str(env->input, i, '\\'))
 				env->input[i] = '\n';
 	}
+}
+
+int		bs_strstr(char *big, char *little)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < (int)ft_strlen(big) - (int)ft_strlen(little))
+	{
+		j = -1;
+		while (++j != -1)
+		{
+			if (bs_str(big, i + j, little[j]) == 0)
+				break ;
+			if (j == (int)ft_strlen(little) - 1)
+				return (i);
+		}
+	}
+	return (-1);
 }

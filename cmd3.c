@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/30 18:59:07 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 12:33:51 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,6 @@ int		cmprevtruc(t_env *env, char **input)
 		}
 	}
 	return (0);
-}
-
-int		bs_strstr(char *big, char *little)
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < (int)ft_strlen(big) - (int)ft_strlen(little))
-	{
-		j = -1;
-		while (++j != -1)
-		{
-			if (bs_str(big, i + j, little[j]) == 0)
-				break ;
-			if (j == (int)ft_strlen(little) - 1)
-				return (i);
-		}
-	}
-	return (-1);
 }
 
 int		cmprev(char *str, char *tofind)
