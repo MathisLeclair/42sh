@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 16:11:09 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/27 15:16:46 by cosi             ###   ########.fr       */
+/*   Updated: 2017/05/01 16:19:56 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ char	*add_bs(char *str)
 			tmp[i] = '\\';
 			tmp[i + 1] = 0;
 			ft_strcat(tmp, str + i);
-			if (str[i + 1])
-				++i;
+			++i;
 			free(str);
 			str = tmp;
 		}
