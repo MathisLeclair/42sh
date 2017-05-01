@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/01 14:57:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:14:55 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	parse3(t_env *env, int i)
 
 void	parse2(t_env *env, char **input, int i)
 {
+	if (verredir(env) == -1)
+		return ;
 	if (cmprevtruc(env, input))
 		;
 	else if (cmprev(*input, "|") != -1)

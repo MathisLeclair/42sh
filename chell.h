@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/01 12:34:17 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:18:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -466,5 +466,6 @@ int				ft_read2(int u, char **input, t_env *env);
 int				add_bs_q2(char **str, char c, int i);
 void			sig_init(void);
 int				bs_strstr(char *big, char *little);
+int				verredir(t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/01 15:08:02 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:17:38 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@
 ** Redirecting Output: command [n]> output.txt
 **					   command [n]>| output.txt
 */
+
+int			verredir(t_env *env)
+{
+	int i;
+
+	i = 0;
+	while (env->input[i++])
+	{
+		if (env->input[i] == '>')
+			if (env->input[i + 1] && env->input[i + 1] == '>')
+				if (env->input[i + 2] && env->input[i + 2] == '>')
+				{
+					error(-15, NULL, NULL);
+					return (-1);
+				}
+	}
+	return (0);
+}
 
 void		rd_output(t_env *env, int fd, int n, pid_t child)
 {
