@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/16 11:45:25 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 14:25:49 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,19 @@ void	builtin_read(t_env *ev, char **split)
 		add_var_to_env(ev->loc, split[i]);
 		truc[0] = 0;
 	}
+}
+
+void	ft_echo(char **split)
+{
+	int i;
+
+	i = 0;
+	while (split[++i])
+	{
+		ft_putstr(split[i]);
+		if (split[i + 1])
+			ft_putchar(' ');
+	}
+	ft_putchar('\n');
+	retvalue_into_loc(env(), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/05/01 14:11:57 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 14:25:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,19 +109,4 @@ void	ft_cd(char **split, t_env *env, char *reg, char *oldpwd)
 		return (error(-8, NULL, oldpwd));
 	ft_newpwd(env, oldpwd);
 	free(oldpwd);
-}
-
-void	ft_echo(char **split)
-{
-	int i;
-
-	i = 0;
-	while (split[++i])
-	{
-		ft_putstr(split[i]);
-		if (split[i + 1])
-			ft_putchar(' ');
-	}
-	ft_putchar('\n');
-	retvalue_into_loc(env(), 0);
 }
