@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/05/01 14:04:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 14:11:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,24 @@ void	ft_newpwd(t_env *env, char *oldpwd)
 	env->dir = ft_strdup((pwd[i + 1] == 0 ? 0 : 1) + pwd + i);
 }
 
+int		ft_cd2(char **split, char *reg, char *oldpwd)
+{
+	if (!(reg = ft_cd_regex(split, -1)))
+	{
+		free(oldpwd);
+		return (1);
+	}
+	if (chdir(reg) == -1)
+	{
+		error(-9, reg, oldpwd);
+		if (reg)
+			free(reg);
+		return (1);
+	}
+	free(reg);
+	return (0);
+}
+
 void	ft_cd(char **split, t_env *env, char *reg, char *oldpwd)
 {
 	getpwd(oldpwd);
@@ -79,16 +97,8 @@ void	ft_cd(char **split, t_env *env, char *reg, char *oldpwd)
 	}
 	else if (split[1] && split[2])
 	{
-		if (!(reg = ft_cd_regex(split, -1)))
-			return (free(oldpwd));
-		if (chdir(reg) == -1)
-		{
-			error(-9, reg, oldpwd);
-			if (reg)
-				free(reg);
+		if (ft_cd2(split, reg, oldpwd))
 			return ;
-		}
-		free(reg);
 	}
 	else if (split[1])
 	{
