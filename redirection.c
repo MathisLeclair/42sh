@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/01 15:19:21 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:53:54 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			verredir(t_env *env)
 	int i;
 
 	i = 0;
-	while (env->input[i++])
+	while (env->input[i])
 	{
 		if (env->input[i] == '>')
 			if (env->input[i + 1] && env->input[i + 1] == '>')
@@ -31,6 +31,7 @@ int			verredir(t_env *env)
 					error(-15, NULL, NULL);
 					return (-1);
 				}
+		i++;
 	}
 	return (0);
 }
