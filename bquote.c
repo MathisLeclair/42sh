@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/01 14:56:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/02 14:25:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	free(buf);
 	close(fd);
 	free(env->input);
-	env->input = palloc(ft_strlen(tmp));
+	env->input = palloc(ft_strlen(tmp) + ft_strlen(sav));
 	env->input[0] = 0;
+	env->input[ft_strlen(tmp) + ft_strlen(sav)] = 0;
 	if (tmp)
 		remove_nl(&tmp);
 	ft_strncat(env->input, sav, i);
