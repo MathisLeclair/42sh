@@ -14,9 +14,6 @@
 
 int		ft_reco_cmd4(t_env *env, char **split)
 {
-	int i;
-
-	i = -1;
 	if (ft_strcmp(split[0], "local") == 0)
 		print_split(env->loc->ev);
 	else if (ft_strcmp(split[0], "aperture") == 0)

@@ -484,7 +484,7 @@ char			**auto_possibilities(char pwd, t_env *ev);
 char			*finder(char *input, int pos);
 char			ft_strcmp_beg(char *str1, char *str2);
 
-void			parse(t_env *env, char **input);
+void			parse(t_env *env, char **input, int do2);
 void			signblock();
 void			set_history(void);
 void			file_history(int i, int j, int k, int fd);

@@ -67,13 +67,13 @@ char	*join_split(char **split, char *glue)
 	return (str);
 }
 
-void	new_condition(int type, t_env *env, char **split)
+void	new_condition(int type, t_env *env, char *input)
 {
 	t_cond	*cond;
 
 	cond = palloc(sizeof(t_cond));
 	cond->type = type;
-	cond->content = dup_split(split);
+	cond->content = ft_strdup(input);
 	cond->block = NULL;
 	cond->has_block = 1;
 	// ENV CURRENT CONDITION IS MODIFIED HERE!!!
@@ -107,24 +107,19 @@ void	destroy_condition(t_cond *cond)
 		block = block->block;
 		free(tmp);
 	}
-	free_double_array(cond->content);
+	free(cond->content);
 	free(cond);
 }
 
-int		do_if_condition(t_env *env, char **split)
+int		do_if_condition(t_env *env, char *input)
 {
-	char	**split_plus;
-
 	// ft_putendl("do_if_condition 1");
-	split_plus = split;
-	if (split_plus[0] != NULL)
-		split_plus++;
-	if (!ft_strcmp(split[0], "if"))
-		new_condition(COND_IF, env, split_plus);
-	else if (!ft_strcmp(split[0], "while"))
-		new_condition(COND_WHILE, env, split_plus);
-	else if (!ft_strcmp(split[0], "for"))
-		new_condition(COND_FOR, env, split_plus);
+	if (!ft_strncmp(input, "if ", 3))
+		new_condition(COND_IF, env, input);
+	else if (!ft_strncmp(input, "while ", 6))
+		new_condition(COND_WHILE, env, input);
+	else if (!ft_strncmp(input, "for ", 4))
+		new_condition(COND_FOR, env, input);
 	else
 	{
 		// ft_putendl("do_if_condition 2.1");
@@ -173,6 +168,8 @@ void	add_to_block(t_cond *cond, t_env *env, char **split)
 void	exec_condition(t_env *env, t_cond *cond)
 {
 	t_cond	*block;
+	char	*tmp;
+	char	**content;
 	int		pid;
 
 	env->bool1 = 0;
@@ -181,7 +178,14 @@ void	exec_condition(t_env *env, t_cond *cond)
 		if (cond->type == COND_IF || cond->type == COND_WHILE)
 		{
 			if ((pid = fork()) == 0)
-				exit(execve("/bin/test", cond->content, env->ev));
+			{
+				tmp = ft_strdup(cond->content);
+				parse(env, &tmp, 0);
+				free(tmp);
+				content = ft_split_input(env->input);
+				exit(execve("/bin/test", content, env->ev));
+				free_double_array(content);
+			}
 			else
 			{
 				waitpid(pid, &pid, WUNTRACED);
@@ -198,7 +202,7 @@ void	exec_condition(t_env *env, t_cond *cond)
 			if (block->type == IS_LINE)
 			{
 				// ft_putendl("exec_condition 3.1");
-				parse(env, (char**)(&(block->content)));
+				parse(env, (char**)(&(block->content)), 1);
 				// ft_putendl("exec_condition 4.1");
 			}
 			else
@@ -243,16 +247,3 @@ void	handle_condition(t_env *env, char **split)
 	}
 	// ft_putendl("handle_condition 5");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

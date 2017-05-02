@@ -6,11 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/05/01 17:11:30 by mleclair         ###   ########.fr       */
-=======
 /*   Updated: 2017/04/01 18:01:28 by tgauvrit         ###   ########.fr       */
->>>>>>> Shellscript loops working
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +25,7 @@ void	parse3(t_env *env, int i)
 	env->redir = NULL;
 }
 
-void	parse2(t_env *env, char **input, int i)
+void	parse2(t_env *env, char **input)
 {
 	if (verredir(env) == -1)
 		return ;
@@ -50,16 +46,13 @@ void	parse2(t_env *env, char **input, int i)
 		rd_input(env, -1);
 	}
 	else if (cmprev(*input, ">") != -1 || cmprev(*input, ">>") != -1)
-		parse3(env, i);
+		parse3(env, -1);
 	else
 		ft_reco_cmd(env, 0);
 }
 
-void	parse(t_env *env, char **input)
+void	parse(t_env *env, char **input, int do2)
 {
-	int		i;
-
-	i = -1;
 	free(env->input);
 	env->input = ft_strdup(*input);
 	while (ft_strchr(env->input, '`') != 0)
@@ -77,7 +70,8 @@ void	parse(t_env *env, char **input)
 			return ;
 	if (env->bool2 == 1 && !ft_read(env, ft_strdup(*input), -1, 0))
 		return ;
-	parse2(env, input, i);
+	if (do2)
+		parse2(env, input);
 	if (env->inp1)
 		ft_strdel(&env->inp1);
 	if (env->inp2)
@@ -165,7 +159,7 @@ int		ft_read(t_env *env, char *input, int i, int u)
 		bs_eol(env);
 		tmp = ft_strdup(env->input);
 		if (env->cond == NULL)
-			parse(env, &tmp);
+			parse(env, &tmp, 1);
 		else
 			handle_condition(env, ft_split_input(env->input));
 		free(tmp);
