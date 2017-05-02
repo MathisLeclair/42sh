@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/04/28 17:20:54 by mleclair         ###   ########.fr        #
+#    Updated: 2017/05/02 14:52:25 by aridolfi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ FILES 	=							\
 			$(TCAPS)/tab			\
 			$(TCAPS)/touch			\
 			$(TCAPS)/touch2			\
-			$(TCAPS)/exclam			
+			$(TCAPS)/exclam
 
 OBJ  := 	$(addsuffix .o, $(FILES))
 
@@ -133,7 +133,7 @@ $(NAME)			: 	$(OBJP)
 					@echo "|                           libft                           |"
 					@make -C $(LIBDIR)
 					@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBDIR) -lft -lncurses -I. -I./$(TCAPS) -I$HOME/.brew/include
-					@echo "|                            FIN                            |"
+					@echo "|                        CAKE DONE !                        |"
 					@echo "-------------------------------------------------------------"
 					@cat cake-v2.ascii
 					@echo ""
@@ -152,6 +152,9 @@ fclean			: 	clean
 					@make fclean -C $(LIBDIR)
 
 # Miscellaneous rules
+norm			:
+					@norminette **/*.[ch] | grep -B 1 Error || echo "norme OK"
+
 ascii			:
 					@echo "-------------------------------------------------------------"
 					@echo "|                  Debut de la compilation                  |"
@@ -159,7 +162,7 @@ ascii			:
 					@echo "|                           42sh                            |"
 					@echo "|                     sub compilation :                     |"
 					@echo "|                           libft                           |"
-					@echo "|                            FIN                            |"
+					@echo "|                        CAKE DONE !                        |"
 					@echo "-------------------------------------------------------------"
 					@cat cake-v2.ascii
 					@echo ""
