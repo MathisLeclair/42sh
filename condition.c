@@ -41,31 +41,31 @@
 // 	return (new);
 // }
 
-// char	*join_split(char **split, char *glue)
-// {
-// 	size_t	size;
-// 	char	*str;
-// 	char	**tmp;
+char	*join_split(char **split, char *glue)
+{
+	size_t	size;
+	char	*str;
+	char	**tmp;
 
 	// ft_putendl_fd("join_split 1", env()->fdout);
-// 	size = 0;
-// 	tmp = split - 1;
-// 	while (*(++tmp) != NULL)
-// 		size += ft_strlen(*tmp) + ft_strlen(glue);
+	size = 0;
+	tmp = split - 1;
+	while (*(++tmp) != NULL)
+		size += ft_strlen(*tmp) + ft_strlen(glue);
 	// ft_putendl_fd("join_split 2", env()->fdout);
-// 	str = palloc(sizeof(char) * (size + 1));
-// 	str[0] = '\0';
-// 	tmp = split - 1;
+	str = palloc(sizeof(char) * (size + 1));
+	str[0] = '\0';
+	tmp = split - 1;
 	// ft_putendl_fd("join_split 3", env()->fdout);
-// 	while (*(++tmp) != NULL)
-// 	{
-// 		ft_strcat(str, *tmp);
-// 		ft_strcat(str, glue);
-// 	}
-// 	str[size - 1] = '\0';
+	while (*(++tmp) != NULL)
+	{
+		ft_strcat(str, *tmp);
+		ft_strcat(str, glue);
+	}
+	str[size - 1] = '\0';
 	// ft_putendl_fd("join_split 4", env()->fdout);
-// 	return (str);
-// }
+	return (str);
+}
 
 void	new_condition(int type, t_env *env, char *input)
 {
@@ -118,7 +118,7 @@ int		do_if_condition(t_env *env, char *input)
 		new_condition(COND_IF, env, input);
 	else if (!ft_strncmp(input, "while ", 6))
 		new_condition(COND_WHILE, env, input);
-	else if (!ft_strncmp(input, "for ", 4))
+	else if (!ft_strncmp(input, "for ", 4) && ft_strstr(input, " in ") != NULL)
 		new_condition(COND_FOR, env, input);
 	else
 	{
@@ -171,6 +171,7 @@ void	exec_condition(t_env *env, t_cond *cond)
 	char	*tmp;
 	char	**content;
 	int		pid;
+	char	*var_add_group[3];
 
 	env->bool1 = 0;
 	while (env->bool1 == 0)
@@ -193,6 +194,28 @@ void	exec_condition(t_env *env, t_cond *cond)
 				if (WEXITSTATUS(pid) != 0)
 					return ;
 			}
+		}
+		else if (cond->type == COND_FOR)
+		{
+			content = ft_split_input(cond->content);
+			if (content[0] == NULL || content[1] == NULL || content[2] == NULL
+				|| ft_strcmp(content[0], "for") || !ft_strlen(content[1]) || ft_strcmp(content[2], "in"))
+			{
+				error(-4, "for condition format error", NULL);
+				return ;
+			}
+			if (content[3] == NULL)
+				return ;
+			var_add_group[0] = content[1];
+			var_add_group[1] = content[3];
+			var_add_group[2] = NULL;
+			tmp = join_split(var_add_group, "=");
+			add_var_to_env(env->loc, tmp);
+			free(tmp);
+			content[3][0] = '\0';
+			free(cond->content);
+			cond->content = join_split(content, " ");
+			free_double_array(content);
 		}
 		// ft_putendl_fd("exec_condition 1", env->fdout);
 		block = cond->block;
