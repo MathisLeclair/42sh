@@ -27,13 +27,13 @@ void	oprt_and(t_env *env)
 		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
-		parse(env, &env->inp1);
+		parse(env, &env->inp1, 1);
 		exit(env->lastret);
 	}
 	waitpid(child, &status, 0);
 	if (WEXITSTATUS(status) == 0)
 	{
-		parse(env, &env->inp2);
+		parse(env, &env->inp2, 1);
 		retvalue_into_loc(env, env->lastret);
 	}
 	else
@@ -55,13 +55,13 @@ void	oprt_or(t_env *env)
 		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 	{
-		parse(env, &env->inp1);
+		parse(env, &env->inp1, 1);
 		exit(env->lastret);
 	}
 	waitpid(child, &status, 0);
 	if (WEXITSTATUS(status) != 0)
 	{
-		parse(env, &env->inp2);
+		parse(env, &env->inp2, 1);
 		env->isoperand = 0;
 		retvalue_into_loc(env, env->lastret);
 	}

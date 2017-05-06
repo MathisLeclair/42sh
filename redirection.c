@@ -57,7 +57,7 @@ void		rd_output(t_env *env, int fd, int n, pid_t child)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDOUT_FILENO : (int)n));
-		parse(env, &env->input);
+		parse(env, &env->input, 1);
 		exit(env->lastret);
 	}
 	close(fd);
@@ -89,7 +89,7 @@ void		rd_output_apd(t_env *env, int fd, pid_t child)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDOUT_FILENO : (int)n));
-		parse(env, &env->input);
+		parse(env, &env->input, 1);
 		exit(env->lastret);
 	}
 	close(fd);
@@ -143,7 +143,7 @@ void		rd_input(t_env *env, int fd)
 	else if ((int)child == 0)
 	{
 		dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-		parse(env, &env->inp1);
+		parse(env, &env->inp1, 1);
 		exit(env->lastret);
 	}
 	close(fd);

@@ -76,7 +76,7 @@ void		bquote2(t_env *env, char *sav, int i, int k)
 	else if ((int)child == 0)
 	{
 		dup2(fd, STDOUT_FILENO);
-		parse(env, &env->input);
+		parse(env, &env->input, 1);
 		exit(EXIT_SUCCESS);
 	}
 	close(fd);

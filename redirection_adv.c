@@ -52,7 +52,7 @@ void		rd_here_doc2(t_env *env, int fd, int n)
 		error(-17, NULL, NULL);
 	unlink("/tmp/42sh-the-silence");
 	dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-	parse(env, &env->inp1);
+	parse(env, &env->inp1, 1);
 	exit(env->lastret);
 }
 
@@ -91,7 +91,7 @@ void		rd_here_string2(t_env *env, int fd, int n)
 		error(-17, NULL, NULL);
 	unlink("/tmp/42sh-the-silence");
 	dup2(fd, (n == -1 ? STDIN_FILENO : (int)n));
-	parse(env, &env->inp1);
+	parse(env, &env->inp1, 1);
 	ft_putchar('\n');
 	exit(env->lastret);
 }

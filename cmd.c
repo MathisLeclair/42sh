@@ -158,10 +158,12 @@ int		ft_read(t_env *env, char *input, int i, int u)
 			ft_tilde(&env->input, -1, 0);
 		bs_eol(env);
 		tmp = ft_strdup(env->input);
-		if (env->cond == NULL)
-			parse(env, &tmp, 1);
+		if (env->cond != NULL)
+			handle_condition(env, env->input);
+		else if (do_if_condition(env, env->input))
+			;
 		else
-			handle_condition(env, ft_split_input(env->input));
+			parse(env, &tmp, 1);
 		free(tmp);
 		free(env->input);
 		env->input = NULL;

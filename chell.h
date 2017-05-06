@@ -258,8 +258,8 @@ void			add_bs_q(char **str, int i, char c, int l);
 ** condition.c
 */
 
-int				do_if_condition(t_env *env, char **split);
-void			handle_condition(t_env *env, char **split);
+int				do_if_condition(t_env *env, char *input);
+void			handle_condition(t_env *env, char *input);
 void			destroy_condition(t_cond *cond);
 
 /*

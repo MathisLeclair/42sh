@@ -24,7 +24,7 @@ int		ft_read2(int u, char **input, t_env *env)
 	while ((u = verif_quote(input, -1, 0, 0)) != 0)
 		if (u == -1)
 		{
-			parse(env, input);
+			parse(env, input, 1);
 			free(*input);
 			return (0);
 		}

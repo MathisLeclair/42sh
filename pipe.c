@@ -34,12 +34,12 @@ static void	frk_pipe(t_env *env)
 	{
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[0]);
-		parse(env, &env->inp1);
+		parse(env, &env->inp1, 1);
 		exit(env->lastret);
 	}
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
-	parse(env, &env->inp2);
+	parse(env, &env->inp2, 1);
 }
 
 void		rd_pipe(t_env *env)
