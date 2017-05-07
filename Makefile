@@ -6,7 +6,7 @@
 #    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/04/01 16:54:07 by tgauvrit         ###   ########.fr        #
+#    Updated: 2017/05/07 15:13:00 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ FILES 	=							\
 			cmd2					\
 			cmd3					\
 			condition				\
+			condition2				\
+			hijack_prompt			\
 			$(TCAPS)/arrow			\
 			$(TCAPS)/copy_paste		\
 			$(TCAPS)/ctrl_r			\

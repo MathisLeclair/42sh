@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/01 18:02:17 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/05/07 15:10:53 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,14 @@ void			handle_condition(t_env *env, char *input);
 void			destroy_condition(t_cond *cond);
 
 /*
+** condition2.c
+*/
+
+char			*join_split(char **split, char *glue);
+void			new_condition(int type, t_env *env, char *input);
+void			destroy_condition(t_cond *cond);
+
+/*
 ** double_array_sort.c
 */
 
@@ -501,5 +509,12 @@ int				add_bs_q2(char **str, char c, int i);
 void			sig_init(void);
 int				bs_strstr(char *big, char *little);
 int				verredir(t_env *env);
+
+/*
+** hijack_prompt.c
+*/
+
+t_ssprintf		*hijack_prompt(t_env *env);
+int				hijack_prompt_size(t_env *env);
 
 #endif

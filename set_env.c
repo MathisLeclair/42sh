@@ -14,6 +14,7 @@
 
 void	set_e3(t_env *e)
 {
+	e->input = NULL;
 	e->job->status = NULL;
 	e->job->stat = 0;
 	e->job->next = NULL;
@@ -109,7 +110,6 @@ void	set_env(t_env *env, char **ev)
 
 	i = 0;
 	env->i = 1;
-	env->input = NULL;
 	env->path = NULL;
 	env->history = NULL;
 	env->cond = NULL;

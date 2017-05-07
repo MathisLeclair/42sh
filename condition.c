@@ -6,68 +6,11 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:11:54 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/04/01 18:03:12 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/05/07 15:10:29 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
-
-char	*join_split(char **split, char *glue)
-{
-	size_t	size;
-	char	*str;
-	char	**tmp;
-	size = 0;
-	tmp = split - 1;
-	while (*(++tmp) != NULL)
-		size += ft_strlen(*tmp) + ft_strlen(glue);
-	str = palloc(sizeof(char) * (size + 1));
-	str[0] = '\0';
-	tmp = split - 1;
-	while (*(++tmp) != NULL)
-	{
-		ft_strcat(str, *tmp);
-		ft_strcat(str, glue);
-	}
-	str[size - 1] = '\0';
-	return (str);
-}
-
-void	new_condition(int type, t_env *env, char *input)
-{
-	t_cond	*cond;
-
-	cond = palloc(sizeof(t_cond));
-	cond->type = type;
-	cond->content = ft_strdup(input);
-	cond->block = NULL;
-	cond->has_block = 1;
-	cond->parent = env->cond;
-	env->cond = cond;
-}
-
-void	destroy_condition(t_cond *cond)
-{
-	t_cond	*block;
-	t_cond	*tmp;
-	block = cond->block;
-	while (block != NULL)
-	{
-		if (block->type == IS_LINE)
-		{
-			free(block->content);
-		}
-		else
-		{
-			destroy_condition(block->content);
-		}
-		tmp = block;
-		block = block->block;
-		free(tmp);
-	}
-	free(cond->content);
-	free(cond);
-}
 
 int		do_if_condition(t_env *env, char *input)
 {
@@ -98,6 +41,7 @@ t_cond	*new_block_part(int type, void *content)
 void	add_to_block(t_cond *cond, t_env *env, char *input)
 {
 	t_cond	*block;
+
 	block = cond;
 	while (block->block != NULL)
 		block = block->block;
@@ -144,7 +88,8 @@ void	exec_condition(t_env *env, t_cond *cond)
 		{
 			content = ft_split_input(cond->content);
 			if (content[0] == NULL || content[1] == NULL || content[2] == NULL
-				|| ft_strcmp(content[0], "for") || !ft_strlen(content[1]) || ft_strcmp(content[2], "in"))
+				|| ft_strcmp(content[0], "for") || !ft_strlen(content[1])
+				|| ft_strcmp(content[2], "in"))
 			{
 				error(-4, "for condition format error", NULL);
 				return ;
@@ -189,7 +134,6 @@ void	handle_condition(t_env *env, char *input)
 		cond->has_block = 0;
 	else if (cond->block == NULL && ft_strncmp(input, "do ", 3) == 0)
 		input = input + 3;
-
 	if (ft_strcmp(input, "done") == 0)
 		cond->has_block = 0;
 	else
