@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/07 18:08:36 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/07 18:44:24 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		ft_read(t_env *env, char *input, int i, int u)
 	char	*tmp;
 
 	ft_read3(&input, env);
-	if (ft_read2(u, &input, env) == 0)
+ 	if (ft_read2(u, &input, env) == 0)
 		return (0);
 	inputspl = ft_strsplitquote(input, ';', 0);
 	free(input);

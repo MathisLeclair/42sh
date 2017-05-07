@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 13:24:11 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/30 19:02:06 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/07 18:43:52 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		rd_pipe(t_env *env)
 	}
 	else if ((int)child == 0)
 	{
+		env->booljob = 1;
 		env->isoperand = 1;
 		frk_pipe(env);
 		env->isoperand = 0;
