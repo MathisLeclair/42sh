@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 13:24:11 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/07 18:43:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/07 18:59:45 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	frk_pipe(t_env *env)
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[1]);
 	parse(env, &env->inp2, 1);
+	waitpid(child, NULL, 0);
 }
 
 void		rd_pipe(t_env *env)

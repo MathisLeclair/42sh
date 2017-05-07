@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:46:09 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/28 18:14:17 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/07 18:53:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	control_r(t_var *var, char *tmp, char *tmp2, int j)
 	int			i;
 
 	if (var->termlvl > 0)
-		return ;
+		return (free2(tmp, tmp2));
 	if (var->cpy)
 		tmp2 = ft_strdup(var->cpy);
 	truc = palloc(sizeof(t_ssprintf));
