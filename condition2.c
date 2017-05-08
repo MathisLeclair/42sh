@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 15:08:14 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/05/07 17:16:27 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 16:28:28 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,9 @@ void	destroy_condition(t_cond *cond)
 	while (block != NULL)
 	{
 		if (block->type == IS_LINE)
-		{
 			free(block->content);
-		}
 		else
-		{
 			destroy_condition(block->content);
-		}
 		tmp = block;
 		block = block->block;
 		free(tmp);
