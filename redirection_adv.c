@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_adv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/01 16:49:19 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 17:14:49 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void		rd_here_doc(t_env *env, int child, int fd)
 		error(-16, NULL, NULL);
 	else if ((int)child == 0)
 		rd_here_doc2(env, fd, n);
+	env->boolthing = child;
 	wait(&status);
 	retvalue_into_loc(env, WEXITSTATUS(status));
 	close(fd);
