@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/07 16:34:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 14:02:03 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct	s_var
 	int				termlvl;
 	int				del;
 	int				selmode;
+	int				bg;
 	int				lenprompt;
 	int				selstart;
 	int				selend;

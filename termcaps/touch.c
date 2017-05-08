@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 14:32:07 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/19 15:15:52 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/08 14:02:18 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,17 @@ void	touch1(t_var *var, int *bg, int *i)
 
 void	touch(t_var *var, t_ssprintf *prompt)
 {
-	int bg;
 	int i;
 
 	i = 0;
-	bg = 0;
-	while (env()->history[bg])
-		++bg;
+	var->bg = 0;
+	while (env()->history[var->bg])
+		++var->bg;
 	var->i = 0;
 	ft_putstr_fd(tgetstr("im", NULL), env()->fdout);
 	ft_putstr_fd(tgetstr("bw", NULL), env()->fdout);
 	while (var->buff[0] != 10)
-		touch1(var, &bg, &i);
+		touch1(var, &var->bg, &i);
 	while (var->i != (int)ft_strlen(var->ret))
 		right_arrow(var);
 	ft_putstr_fd(tgetstr("cd", NULL), env()->fdout);

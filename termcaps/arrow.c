@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arrow.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:29:49 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/19 15:14:50 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/08 14:05:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	up_arrow(t_var *var, int *bg)
 	}
 	if (var->arr == NULL)
 		var->arr = ft_strdup(var->ret);
-	if (var->his[0])
+	if (var->his && var->his[0])
 	{
 		while (var->i != 0)
 			backspace(var);

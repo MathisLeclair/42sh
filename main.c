@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/07 18:37:36 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 14:23:19 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ void	ft_sig(int i)
 {
 	if (env()->boolthing != 0)
 		kill(env()->boolthing, SIGKILL);
-	else if (env()->booljob == 0)
+	else if (env()->booljob == 0 && getpid() == ft_atoi(env()->loc->ev[find_param(env()->loc->ev, "UID=")] + 4))
 	{
 		i = tvar()->i;
+		free_double_array(tvar()->his);
+		free(tvar()->arr);
 		initvar(tvar(), 0, 10, 0);
 		write(1, "\n", 1);
 		ft_printf("\e[1;32m%C\e[0;m \e[1;36m%s \e[0m%s", L'✈', env()->dir,

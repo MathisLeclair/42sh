@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:44:16 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/04 18:15:55 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 14:02:32 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ void	initvar(t_var *var, int i, int u, int k)
 	var->selmode = 0;
 	var->selstart = -1;
 	var->selend = -1;
+	var->bg = 0;
 	var->inputlen = 0;
 	var->ac = NULL;
 	var->termlvl = k;
-	var->arr = 0;
+	var->arr = NULL;
 	var->ret[0] = 0;
 	var->his = NULL;
 }
