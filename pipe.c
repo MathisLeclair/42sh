@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 13:24:11 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/08 15:21:05 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 17:19:56 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	frk_left(t_env *env, int *fds, int *st)
 	exit(env->lastret);
 }
 
-void		rd_pipe2(int *frk, int *fds, int *st, t_env *env)
+void	rd_pipe2(int *frk, int *fds, int *st, t_env *env)
 {
 	if ((frk[0] = fork()) == -1)
 	{
@@ -45,7 +45,7 @@ void		rd_pipe2(int *frk, int *fds, int *st, t_env *env)
 	}
 	else if (frk[0] == 0)
 		frk_right(env, fds, st);
-	if ((frk[1] =  fork()) == -1)
+	if ((frk[1] = fork()) == -1)
 	{
 		error(-16, NULL, NULL);
 		exit(EXIT_FAILURE);
@@ -54,7 +54,7 @@ void		rd_pipe2(int *frk, int *fds, int *st, t_env *env)
 		frk_left(env, fds, st);
 }
 
-void		rd_pipe(t_env *env)
+void	rd_pipe(t_env *env)
 {
 	int fds[2];
 	int st[2];
