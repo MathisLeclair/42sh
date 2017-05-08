@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 17:13:46 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/08 16:57:17 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 17:17:11 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,12 @@ void	exec_condition4(t_cond *block, t_env *env)
 		free(tmp);
 	}
 	else
+	{
+		tmp = ft_strdup(((t_cond*)block->content)->content);
 		exec_condition(env, block->content);
+		free(((t_cond*)block->content)->content);
+		((t_cond*)block->content)->content = tmp;
+	}
 }
 
 void	exec_condition(t_env *env, t_cond *cond)
