@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:11:54 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/05/08 16:49:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/08 17:36:12 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	handle_condition(t_env *env, char *input)
 		cond->has_block = 0;
 	else if (cond->block == NULL && (ft_strncmp(input, "do ", 3) == 0
 		|| ft_strcmp(input, "do") == 0))
-		input = input + 3;
+		input = input + 2;
 	if (ft_strcmp(input, "done") == 0)
 		cond->has_block = 0;
 	else
