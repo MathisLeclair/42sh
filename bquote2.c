@@ -6,18 +6,26 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 11:58:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/07 16:35:41 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/09 20:28:11 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
 
-void	ft_read3(char **input, t_env *env)
+int		ft_read3(char **input, t_env *env)
 {
 	env->bool1 = 0;
 	env->bool2 = 0;
 	if (*input == NULL)
 		*input = termcaps(hijack_prompt(env), hijack_prompt_size(env), 0);
+	if (ft_read2(0, input, env) == 0)
+		return (0);
+	bsquote(input);
+	env->input = ft_strdup(*input);
+	while (ft_strchr(*input, '`') != 0)
+		if (bquote(env, input) == -1)
+			return (-1);
+	return (1);
 }
 
 int		ft_read2(int u, char **input, t_env *env)

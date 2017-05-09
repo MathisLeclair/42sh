@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:34:17 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/11 14:52:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/09 20:12:51 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void			queu(char *str1, char *str2)
 static void		error3(int i)
 {
 	if (i == -13)
-	{
-		ft_remstr(tvar()->ret, 0, ft_strlen(tvar()->ret));
 		ft_putstr_fd("\nchell: No such event\n", 2);
-	}
 	else if (i == -14)
 		ft_putstr_fd("exit: take only 1 numeric argument.\n", 2);
 	else if (i == -15)

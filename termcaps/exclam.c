@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/07 14:31:01 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/09 20:18:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	exclam2(int *k, int *u, int *i, char **tmp)
 		while (ft_isdigit(tvar()->ret[++*u]))
 			;
 		*k = ft_atoi(tvar()->ret + *i + 1);
-		if (*u > 100000 || k > u)
+		if (*u > 100000 || *k > *u || *k < 0)
 		{
+			*k = -1;
 			error(-13, NULL, NULL);
 			return ;
 		}
@@ -75,13 +76,15 @@ int		exclam(t_var *var)
 	while (env()->history[++u])
 		;
 	j = i;
-	while (var->ret[j] && var->ret[j] != ' ')
+	while (var->ret[j] && var->ret[j] != ' ' && var->ret[j] != '\t')
 		++j;
 	tmp = ft_strcdup(var->ret + i, j - i);
 	exclam2(&k, &u, &i, &tmp);
 	free(tmp);
 	ft_remstr(var->ret, i, j);
 	var->i = i;
+	if (k == -1)
+		return (1);
 	i = ft_strlen(env()->history[k]);
 	while (i-- > 7)
 		add_car(var, 1, (env()->history[k])[i]);

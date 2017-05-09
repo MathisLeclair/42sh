@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/09 18:29:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/09 20:26:15 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -524,8 +524,9 @@ void			sig_init(void);
 int				bs_strstr(char *big, char *little);
 int				verredir(t_env *env);
 int				is_file(char *path);
-void			ft_read3(char **input, t_env *env);
+int				ft_read3(char **input, t_env *env);
 void			exec_condition(t_env *env, t_cond *cond);
+void			initterm(t_var *var);
 
 /*
 ** hijack_prompt.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/08 17:19:29 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/09 20:28:57 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,7 @@ void	parse2(t_env *env, char **input)
 void	parse(t_env *env, char **input, int do2)
 {
 	free(env->input);
-	bsquote(input);
 	env->input = ft_strdup(*input);
-	while (ft_strchr(env->input, '`') != 0)
-		if (bquote(env, input) == -1)
-			return ;
 	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0))
 		|| env->input == NULL)
 		return ;
@@ -111,11 +107,11 @@ int		ft_read(t_env *env, char *input, int i, int u)
 	char	**inputspl;
 	char	*tmp;
 
-	ft_read3(&input, env);
-	if (ft_read2(u, &input, env) == 0)
-		return (0);
+	u = ft_read3(&input, env);
+	if (u == 0 || u == -1)
+		return (u);
 	inputspl = ft_strsplitquote(input, ';', 0);
-	free(input);
+	free2(input, env->input);
 	while (inputspl && inputspl[++i])
 	{
 		env->input = ft_strdup(inputspl[i]);
