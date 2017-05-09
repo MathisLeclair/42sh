@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/08 14:02:03 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:05:34 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,14 @@ void			add_local(t_env *env, char **split);
 void			builtin_hash(t_env *env, char **split);
 void			gthash(char *str);
 char			*isbin(char *str);
+
+/*
+** builtin4.c
+*/
+
+int				ft_cd_l2(char **split, char *pwd, struct stat *s, char *opwd);
+int				ft_cd2(char **split, char *reg, char *oldpwd);
+void			ft_newpwd(t_env *env, char *oldpwd);
 
 /*
 ** builtin_history.c
