@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:40:58 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/05/09 18:05:44 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:30:23 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int		ft_cd3(char **split, t_env *e, char *oldpwd)
 	{
 		if (!split[2] && chdir(e->ev[find_param(e->ev, "HOME")] + 5) == -1)
 			error(-8, NULL, oldpwd);
-		else if (chdir(split[2]) == -1)
-			error(-1, NULL, oldpwd);
+		else if (split[2] && chdir(split[2]) == -1)
+			return (ft_cd_mini(oldpwd));
 		return (0);
 	}
 	else if (split[1][1] == 'L' && !split[1][2])

@@ -6,11 +6,17 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:02:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/09 18:05:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:29:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chell.h"
+
+int		ft_cd_mini(char *oldpwd)
+{
+	error(-1, NULL, oldpwd);
+	return (1);
+}
 
 char	*ft_cd_regex(char **split, int k)
 {
