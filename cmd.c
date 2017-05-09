@@ -58,13 +58,13 @@ void	parse(t_env *env, char **input, int do2)
 	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0))
 		|| env->input == NULL)
 		return ;
-	if (ft_strchr(env->input, '$'))
-		ft_dollar(env, -1, 0);
 	if (parserror(env) == -1)
 		return ;
 	if (ft_strfind(*input, '(') != -1 || ft_strfind(*input, ')') != -1)
 		if (subshell(env, input) == -1)
 			return ;
+	if (ft_strchr(env->input, '$'))
+		ft_dollar(env, -1, 0);
 	if (env->bool2 == 1 && !ft_read(env, ft_strdup(*input), -1, 0))
 		return ;
 	if (do2)
