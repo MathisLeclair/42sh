@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bs_eol.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 15:52:12 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:01:37 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:18:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	bs_eol(t_env *env)
 
 int		bs_strstr(char *big, char *little)
 {
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 	char	quote;
 
 	i = -1;

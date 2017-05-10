@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/09 20:18:31 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:20:04 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@ int		ft_strfound(char *str, char c)
 	return (-1);
 }
 
-int		exclam(t_var *var)
+int		exclam(t_var *var, int u)
 {
 	int		i;
-	int		u;
 	int		k;
 	int		j;
 	char	*tmp;
 
-	u = -1;
 	i = ft_strfound(var->ret, '!');
 	if (i == -1)
 		return (0);
