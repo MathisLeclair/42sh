@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:46:53 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:55:42 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,22 @@ int		cmprevtruc(t_env *env, char **input)
 {
 	int i;
 
-	i = ft_strlen(*input);
-	if (i <= 2)
-		return (0);
-	while ((*input)[--i])
+	if (bs_strstr(*input, "&&") != -1 || bs_strstr(*input, "||") != -1)
 	{
-		if (bs_strstr(*input, "&&") != -1 || bs_strstr(*input, "||") != -1)
+		i = bs_strstr(*input, "&&") > bs_strstr(*input, "||") ?
+		bs_strstr(*input, "||") : bs_strstr(*input, "&&");
+		i = i == -1 ? bs_strstr(*input, "&&") + 1 : i + 1;
+		env->inp1 = ft_strcdup((*input), i - 1);
+		env->inp2 = ft_strdup((*input) + i + 1);
+		if ((*input)[i] == '&')
 		{
-			env->inp1 = ft_strcdup((*input), i - 1);
-			env->inp2 = ft_strdup((*input) + i + 1);
-			if ((*input)[i] == '&')
-			{
-				oprt_and(env);
-				return (1);
-			}
-			else
-			{
-				oprt_or(env);
-				return (1);
-			}
+			oprt_and(env);
+			return (1);
+		}
+		else
+		{
+			oprt_or(env);
+			return (1);
 		}
 	}
 	return (0);
