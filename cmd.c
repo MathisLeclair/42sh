@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 12:48:22 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 16:51:29 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	bsquote(char **input)
 		if ((bs_str(*input, i, '(') || bs_str(*input, i, ')') ||
 			bs_str(*input, i, '!') || bs_str(*input, i, '$') ||
 			bs_str(*input, i, '~') || bs_str(*input, i, '<') ||
-			bs_str(*input, i, '>')) && u == 1)
+			bs_str(*input, i, '>') || bs_str(*input, i, '`')) && u == 1)
 		{
 			tmp = ft_strnew(ft_strlen(*input) * 2);
 			ft_strncat(tmp, *input, i);

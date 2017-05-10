@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bquote.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/26 16:12:42 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 12:49:08 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 16:41:40 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ void		bquote3(t_env *env, char *sav, int i, int k)
 	free(env->input);
 	env->input = palloc(ft_strlen(tmp) + ft_strlen(sav));
 	env->input[0] = 0;
-	env->input[ft_strlen(tmp) + ft_strlen(sav)] = 0;
-	if (tmp)
-		remove_nl(&tmp);
+	if (tmp && tmp[ft_strlen(tmp) - 1] == '\n')
+		tmp[ft_strlen(tmp) - 1] = 0;
 	ft_strncat(env->input, sav, i);
 	if (tmp)
 		ft_strcat(env->input, tmp);
@@ -133,8 +132,8 @@ int			bquote(t_env *env, char **input)
 	env->input = palloc(INPUT_SIZE);
 	env->input[0] = 0;
 	bquote2(env, sav, i, k);
-	free(*input);
+	free2(*input, env->inp1);
 	*input = ft_strdup(env->input);
-	printf("input=%s\n", *input);
+	env->inp1 = NULL;
 	return (0);
 }
