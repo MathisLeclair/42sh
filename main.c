@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:12:03 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:14:27 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		main(int ac, char **av, char **ev)
 {
 	int i;
 
-	i = -1;
+	i = 0;
 	while(av[++i])
 		if (ft_strstr(av[i], "/dev"))
 			return (0);
