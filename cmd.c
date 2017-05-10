@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/09 20:28:57 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 12:48:22 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ void	bsquote(char **input)
 			u = (u == 1 ? 0 : 1);
 		if ((bs_str(*input, i, '(') || bs_str(*input, i, ')') ||
 			bs_str(*input, i, '!') || bs_str(*input, i, '$') ||
-			bs_str(*input, i, '~')) && u == 1)
+			bs_str(*input, i, '~') || bs_str(*input, i, '<') ||
+			bs_str(*input, i, '>')) && u == 1)
 		{
-			tmp = ft_strnew(ft_strlen(*input));
+			tmp = ft_strnew(ft_strlen(*input) * 2);
 			ft_strncat(tmp, *input, i);
 			ft_strcat(tmp, "\\");
 			ft_strcat(tmp, *input + i);

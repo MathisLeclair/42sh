@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/22 11:58:01 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/09 20:28:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 12:32:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		ft_read3(char **input, t_env *env)
 	while (ft_strchr(*input, '`') != 0)
 		if (bquote(env, input) == -1)
 			return (-1);
+	veroverload(input);
 	return (1);
 }
 
