@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:21:35 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:22:29 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,8 @@ int		main(int ac, char **av, char **ev)
 {
 	int i;
 
-<<<<<<< HEAD
-	i = -1;
-	while (av[++i])
-=======
 	i = 0;
 	while(av[++i])
->>>>>>> 1cf98632ad7d103e980ab44ef8d9fd5b1ef45d4a
 		if (ft_strstr(av[i], "/dev"))
 			return (0);
 	set_env(env(), ev);
