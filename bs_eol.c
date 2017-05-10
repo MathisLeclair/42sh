@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 15:52:12 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:18:31 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 18:05:27 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int		bs_strstr(char *big, char *little)
 	quote = 0;
 	while (++i < (int)ft_strlen(big) - (int)ft_strlen(little))
 	{
-		if (bs_str(big, i, '"'))
-			quote = quote == 1 ? 0 : 1;
-		if (quote == 1)
+		if (bs_str(big, i, '"') || bs_str(big, i, '\''))
+			quote = quote != 0 ? 0 : big[i];
+		if (quote)
 			continue ;
 		j = -1;
 		while (++j != -1)
