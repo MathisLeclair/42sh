@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 12:47:52 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:46:53 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int		cmprevtruc(t_env *env, char **input)
 		return (0);
 	while ((*input)[--i])
 	{
-		if (((*input)[i] == '&' && (*input)[i - 1] == '&') ||
-			((*input)[i] == '|' && (*input)[i - 1] == '|'))
+		if (bs_strstr(*input, "&&") != -1 || bs_strstr(*input, "||") != -1)
 		{
 			env->inp1 = ft_strcdup((*input), i - 1);
 			env->inp2 = ft_strdup((*input) + i + 1);
