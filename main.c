@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/08 17:17:51 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/10 17:12:03 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ void	signblock(int i)
 
 int		main(int ac, char **av, char **ev)
 {
+	int i;
+
+	i = -1;
+	while(av[++i])
+		if (ft_strstr(av[i], "/dev"))
+			return (0);
 	set_env(env(), ev);
 	signal(SIGINT, ft_sig);
 	signal(SIGCONT, ft_sig);
