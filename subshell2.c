@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 14:26:26 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/28 18:19:22 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/12 14:41:35 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	subshell2(t_env *env, int i, int l, char *input)
 	child = fork();
 	if (child == 0)
 	{
+		free(env->input);
 		ft_read(env, str, -1, 0);
 		exit(env->lastret);
 	}
