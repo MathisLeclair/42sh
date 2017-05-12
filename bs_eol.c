@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 15:52:12 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 18:05:27 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/12 14:26:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	bs_eol(t_env *env)
 		i = -1;
 		while (env->input[++i])
 			if (bs_str(env->input, i, '\\'))
-				env->input[i] = '\n';
+				env->input[i] = ' ';
 	}
 }
 

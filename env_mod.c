@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 15:10:15 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/08 17:45:55 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/12 14:27:20 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	add_var_to_env(t_env *env, char *str)
 	char	**new_env;
 
 	i = find_param(env->ev, str);
-	if (i == -1 && !(j = 0) && ft_isalpha(str[0]))
+	if (i == -1 && !(j = 0) && (ft_isalpha(str[0]) || str[0] == '?'))
 	{
 		while (str[j] && str[j] != '=')
 			++j;
