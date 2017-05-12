@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 11:45:37 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/11 20:29:19 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/12 17:30:40 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	history2(char **split, t_env *env)
 	if (split[1][1] == 'c')
 	{
 		if (find_param(env->ev, "HOME") == -1)
+		{
+			free_double_array(env->history);
+			set_history();
 			return (free(tmp));
+		}
 		free_double_array(env->history);
 		ft_strcat(ft_strcat(tmp, env->ev[find_param(env->ev, "HOME")]
 		+ 5), "/.42shistory");
