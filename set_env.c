@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/03/27 19:29:39 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/05/12 14:59:45 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	set_e3(t_env *e)
 	e->lastret = 0;
 	e->hash = NULL;
 	e->bool1 = 0;
+	e->inp1 = NULL;
+	e->inp2 = NULL;
 	e->bool2 = 0;
 	e->bool3 = 0;
 	e->fdout = dup(1);
