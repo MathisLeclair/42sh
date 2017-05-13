@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/12 14:26:56 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/14 00:40:57 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int		cmprevtruc(t_env *env, char **input)
 
 	if (bs_strstr(*input, "&&") != -1 || bs_strstr(*input, "||") != -1)
 	{
-		i = bs_strstr(*input, "&&") > bs_strstr(*input, "||") ?
-		bs_strstr(*input, "||") : bs_strstr(*input, "&&");
-		i = i == -1 ? bs_strstr(*input, "||") + 1 : i + 1;
+		i = bs_strstr(*input, "&&") == -1 || (bs_strstr(*input, "||") != -1
+		&& bs_strstr(*input, "||") < bs_strstr(*input, "&&")) ?
+		bs_strstr(*input, "||") + 1 : bs_strstr(*input, "&&") + 1;
+		free2(env->inp1, env->inp2);
 		env->inp1 = ft_strcdup((*input), i - 1);
 		env->inp2 = ft_strdup((*input) + i + 1);
 		if ((*input)[i] == '&')
