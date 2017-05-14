@@ -6,7 +6,7 @@
 /*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/14 01:13:19 by cosi             ###   ########.fr       */
+/*   Updated: 2017/05/14 07:33:48 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void	parse2(t_env *env, char **input)
 
 void	parse(t_env *env, char **input, int do2)
 {
-	free(env->input);
-	env->input = ft_strdup(*input);
+	if (env->input != *input)
+	{
+		free(env->input);
+		env->input = ft_strdup(*input);
+	}
 	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0))
 		|| env->input == NULL)
 		return ;

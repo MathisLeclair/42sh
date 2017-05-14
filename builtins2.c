@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/04 18:47:47 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/14 07:39:51 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,17 @@ void	builtin_read(t_env *ev, char **split)
 void	ft_echo(char **split)
 {
 	int i;
+	int j;
 
 	i = 0;
 	if (split[1] && split[1][0] == '-' && split[1][1] == 'n')
 		i = 1;
 	while (split[++i])
 	{
+		j = -1;
+		while (split[i][++j])
+			if (split[i][j] == '\n')
+				split[i][j] = ' ';
 		ft_putstr(split[i]);
 		if (split[i + 1])
 			ft_putchar(' ');
