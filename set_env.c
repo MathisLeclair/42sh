@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/12 14:59:45 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/14 08:34:28 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	set_evloc(t_env *e)
 	i = 0;
 	while (e->ev[i])
 		++i;
-	e->loc->ev = palloc(sizeof(char *) * i + 1);
+	e->loc->ev = palloc(sizeof(char *) * (i + 1));
 	e->loc->ev[i] = 0;
 	i = -1;
 	while (e->ev[++i])
