@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:03:36 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/14 07:39:51 by cosi             ###   ########.fr       */
+/*   Updated: 2017/05/14 14:25:42 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,28 +78,29 @@ void	builtin_read(t_env *ev, char **split)
 {
 	char	*bufe;
 	char	truc[INPUT_SIZE];
-	int		r;
-	int		i;
+	int		r[2];
 
-	r = 0;
-	i = 1;
-	truc[0] = 0;
-	bufe = palloc(INPUT_SIZE);
+	r[0] = 0;
+	r[1] = 1;
+	ft_bzero(truc, INPUT_SIZE);
+	bufe = ft_strnew(INPUT_SIZE);
 	read(0, bufe, INPUT_SIZE);
 	if (split[1] && split[1][0] == '-' && split[1][1] == 'r')
-	{
-		r = 1;
+		r[0] = 1;
+	if (split[1] && split[1][0] == '-' && split[1][1] == 'r')
 		builtin_read2(bufe);
-	}
-	i = r == 1 ? 2 : 1;
-	while (split[++r])
+	r[1] = r[0] == 1 ? 1 : 0;
+	while (split[++r[1]])
 	{
-		ft_strcat(truc, split[i]);
+		ft_strcat(truc, split[r[1]]);
 		ft_strcat(truc, "=");
 		ft_strcat(truc, bufe);
-		add_var_to_env(ev->loc, split[i]);
-		truc[0] = 0;
+		if (truc[ft_strlen(truc) - 1] == '\n')
+			truc[ft_strlen(truc) - 1] = 0;
+		add_var_to_env(ev->loc, truc);
+		ft_bzero(truc, INPUT_SIZE);
 	}
+	free(bufe);
 }
 
 void	ft_echo(char **split)
