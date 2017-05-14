@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_adv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/08 17:14:49 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/14 14:41:08 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		rd_here_doc(t_env *env, int child, int fd)
 	rd_delimiter(&env->inp2);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600))
 	== -1)
-		error(-17, NULL, NULL);
+		return (error(-17, NULL, NULL));
 	child = fork();
 	if ((int)child == -1)
 		error(-16, NULL, NULL);
