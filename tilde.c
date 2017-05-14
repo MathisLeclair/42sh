@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 13:39:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/18 16:20:48 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/14 08:49:23 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		add_bs_q2(char **str, char c, int i)
 	int u;
 
 	u = -1;
-	while ((*str)[i] != c)
+	while ((*str)[i] && (*str)[i] != c)
 	{
 		if ((*str)[i] == c)
 			u = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplitquote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/03/17 17:31:03 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/14 08:37:19 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char		**ft_strsplitquote(char const *s, char c, char t)
 	input = ft_tab_space(s, t);
 	sv = input;
 	nbw = ft_cnt_parts(input, c);
-	a = palloc(sizeof(char *) * nbw + 1);
+	a = palloc(sizeof(char *) * (nbw + 1));
 	i[1] = 0;
 	while (nbw-- && ++i[0] != -1)
 	{

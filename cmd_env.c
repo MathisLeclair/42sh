@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 19:16:47 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/04/05 16:18:03 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/14 08:38:51 by cosi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**ft_cpy_double_array(char **a)
 	i = -1;
 	while (a[++i])
 		;
-	b = palloc(sizeof(char*) * i + 1);
+	b = palloc(sizeof(char*) * (i + 1));
 	b[i] = 0;
 	while (i--)
 		b[i] = ft_strdup(a[i]);
