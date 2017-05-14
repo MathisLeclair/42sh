@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/14 01:17:31 by cosi             ###   ########.fr       */
+/*   Updated: 2017/05/14 13:17:20 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		cmprevtruc(t_env *env, char **input)
 	if (bs_strstr(*input, "&&") != -1 || bs_strstr(*input, "||") != -1)
 	{
 		while (i >= 0 && ((*input)[i] != '&' || (*input)[i - 1] != '&')
-			&& ((*input)[i] != '|' || (*input)[i -1] != '|'))
+			&& ((*input)[i] != '|' || (*input)[i - 1] != '|'))
 			--i;
 		free2(env->inp1, env->inp2);
 		env->inp1 = ft_strcdup((*input), i - 1);
