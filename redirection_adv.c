@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/15 15:32:09 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:59:03 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,20 @@ void		rd_here_doc2(t_env *env, int fd, int n)
 	exit(env->lastret);
 }
 
-void		rd_here_doc(t_env *env, int child, int fd)
+void		rd_here_doc(t_env *e, int child, int fd)
 {
 	char		n;
 	int			status;
 
 	n = -1;
-	env->bool3 = 1;
-	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
-		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 :
-			env->inp1[ft_strlen(env->inp1) - 1] - 48);
+	e->bool3 = 1;
+	if (ft_isdigit(e->inp1[ft_strlen(e->inp1) > 0 ? ft_strlen(e->inp1) - 1 : 0]))
+		if ((n = 0) && ft_strlen(e->inp1) > 1)
+			n = (e->inp1[ft_strlen(e->inp1) - 2] == '\\' ? -1 :
+			e->inp1[ft_strlen(e->inp1) - 1] - 48);
 	if (n != -1)
-		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
-	rd_delimiter(&env->inp2);
+		e->inp1[ft_strlen(e->inp1) - 1] = '\0';
+	rd_delimiter(&e->inp2);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600))
 	== -1)
 		return (error(-17, NULL, NULL));
@@ -76,12 +77,12 @@ void		rd_here_doc(t_env *env, int child, int fd)
 	if ((int)child == -1)
 		error(-16, NULL, NULL);
 	else if ((int)child == 0)
-		rd_here_doc2(env, fd, n);
-	env->boolthing = child;
+		rd_here_doc2(e, fd, n);
+	e->boolthing = child;
 	wait(&status);
-	retvalue_into_loc(env, WEXITSTATUS(status));
+	retvalue_into_loc(e, WEXITSTATUS(status));
 	close(fd);
-	env->bool3 = 0;
+	e->bool3 = 0;
 }
 
 void		rd_here_string2(t_env *env, int fd, int n)
@@ -97,20 +98,22 @@ void		rd_here_string2(t_env *env, int fd, int n)
 	exit(env->lastret);
 }
 
-void		rd_here_string(t_env *env, int fd, int n, pid_t child)
+void		rd_here_string(t_env *e, int fd, int n, pid_t child)
 {
 	char		**s;
 	int			status;
 
-	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
-		n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 :
-			env->inp1[ft_strlen(env->inp1) - 1] - 48);
+	if (ft_isdigit(e->inp1[ft_strlen(e->inp1) > 0
+		? ft_strlen(e->inp1) - 1 : 0]))
+		if ((n = 0) && ft_strlen(e->inp1) > 1)
+			n = (e->inp1[ft_strlen(e->inp1) - 2] == '\\' ? -1
+			: e->inp1[ft_strlen(e->inp1) - 1] - 48);
 	if (n != -1)
-		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
-	if ((s = ft_strsplitquote(env->inp2, ' ', 1)) && !s[0])
+		e->inp1[ft_strlen(e->inp1) - 1] = '\0';
+	if ((s = ft_strsplitquote(e->inp2, ' ', 1)) && !s[0])
 		return (free(s));
 	ft_suppr_quotes(s, 0, 0);
-	free_swap(&env->inp2, ft_strdup(s[0]));
+	free_swap(&e->inp2, ft_strdup(s[0]));
 	free_double_array(s);
 	if ((fd = open("/tmp/42sh-the-silence", O_WRONLY | O_CREAT | O_TRUNC, 0600))
 	== -1)
@@ -119,8 +122,8 @@ void		rd_here_string(t_env *env, int fd, int n, pid_t child)
 	if ((int)child == -1)
 		error(-16, NULL, NULL);
 	else if ((int)child == 0)
-		rd_here_string2(env, fd, n);
+		rd_here_string2(e, fd, n);
 	wait(&status);
-	retvalue_into_loc(env, WEXITSTATUS(status));
+	retvalue_into_loc(e, WEXITSTATUS(status));
 	close(fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/01 15:53:54 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:53:15 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,11 @@ void		rd_output_apd(t_env *env, int fd, pid_t child)
 
 int			rd_input2(t_env *env, char *n, int *fd)
 {
-	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) - 1]))
-		*n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1 :
-			env->inp1[ft_strlen(env->inp1) - 1] - 48);
+	if (ft_isdigit(env->inp1[ft_strlen(env->inp1) > 0
+		? ft_strlen(env->inp1) - 1 : 0]))
+		if ((*n = 0) && ft_strlen(env->inp1) > 1)
+			*n = (env->inp1[ft_strlen(env->inp1) - 2] == '\\' ? -1
+				: env->inp1[ft_strlen(env->inp1) - 1] - 48);
 	if (*n != -1)
 		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
 	if (env->inp2[0] == '&')
