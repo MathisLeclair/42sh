@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exclam.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:08:29 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:20:04 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/15 16:56:28 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ void	exclam2(int *k, int *u, int *i, char **tmp)
 		*k = (env()->history[*u] == NULL ? *u - 1 : *u);
 	else
 	{
-		while (ft_isdigit(tvar()->ret[++*u]))
-			;
 		*k = ft_atoi(tvar()->ret + *i + 1);
-		if (*u > 100000 || *k > *u || *k < 0)
+		if (*u > 100000 || *k >= *u || *k < 0)
 		{
 			*k = -1;
 			error(-13, NULL, NULL);
