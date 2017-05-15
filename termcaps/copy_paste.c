@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_paste.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:33:41 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/04 17:27:55 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/15 17:22:24 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	copy(t_var *var, int p)
 		++i;
 	while (i <= var->selend)
 		var->cpy[j++] = var->ret[i++];
-	var->cpy[i + 1] = 0;
+	var->cpy[j + 1] = 0;
 	if (p != 1 && var->cpy[0])
 		desel(var);
 }
