@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_adv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/14 14:41:08 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:32:09 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	rd_delimiter(char **str)
 	len = 0;
 	while ((*str)[++i] == ' ' || (*str)[i] == '<')
 		;
-	while (ft_iswhitespace((*str)[i + ++len]) == 0)
+	while ((*str)[i + ++len] && ft_iswhitespace((*str)[i + len]) == 0)
 		;
 	tmp = ft_strsub(*str, i, (size_t)len);
 	free_swap(&(*str), ft_strjoin(tmp, "\n"));
