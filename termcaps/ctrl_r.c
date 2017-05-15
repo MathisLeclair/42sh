@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_r.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:46:09 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/07 18:53:40 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/15 17:18:36 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,18 @@ void	control_r(t_var *var, char *tmp, char *tmp2, int j)
 	char		*str;
 	t_ssprintf	*truc;
 	int			i;
+	char		*tmp3;
 
 	if (var->termlvl > 0)
 		return (free2(tmp, tmp2));
 	if (var->cpy)
 		tmp2 = ft_strdup(var->cpy);
 	truc = palloc(sizeof(t_ssprintf));
-	truc->buf = ft_strdup("\nhist-i-search : ");
+	tmp3 = ft_strdup("\nhist-i-search : ");
+	truc->buf = tmp3;
 	truc->ret = ft_strlen("\nhist-i-search : ");
 	str = termcaps(truc, 16, 1);
-	free(truc->buf);
+	free(tmp3);
 	control_r3(str, j);
 	initvar(var, 1, 10, 0);
 	ft_putstr(tgetstr("cd", NULL));
