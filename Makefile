@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/05/09 18:06:24 by mleclair         ###   ########.fr        #
+#    Updated: 2017/05/16 12:27:33 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,7 +123,7 @@ LOG_WHITE		= \033[1;37m
 # Main rules
 all				: 	$(OBJDIR) $(NAME)
 
-re				: 	fclean all
+re				: 	fclean all clean re
 
 # Compilation rules
 $(OBJDIR)		:
@@ -156,22 +156,3 @@ clean			:
 fclean			: 	clean
 					@rm -f $(NAME)
 					@make fclean -C $(LIBDIR)
-
-# Miscellaneous rules
-norm			:
-					@norminette **/*.[ch] | grep -B 1 Error || echo "norme OK"
-
-ascii			:
-					@echo "-------------------------------------------------------------"
-					@echo "|                  Debut de la compilation                  |"
-					@echo "|                         Ecole 42                          |"
-					@echo "|                           42sh                            |"
-					@echo "|                     sub compilation :                     |"
-					@echo "|                           libft                           |"
-					@echo "|                        CAKE DONE !                        |"
-					@echo "-------------------------------------------------------------"
-					@cat cake-v2.ascii
-					@echo ""
-					@echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-
-# **************************************************************************** #
