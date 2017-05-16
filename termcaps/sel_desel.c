@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 13:35:14 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/17 19:09:11 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/16 14:33:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	select_left(t_var *var)
 	if ((var->i + var->lenprompt) % tgetnum("co") != 0)
 		ft_putstr(tgetstr("le", NULL));
 	var->i -= 1;
-	if (var->i + var->lenprompt % tgetnum("co") == 0)
+	if ((var->i + var->lenprompt) % tgetnum("co") == 0)
 	{
 		ft_putstr(tgetstr("up", NULL));
 		i = -1;
