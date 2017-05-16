@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/05/16 12:27:33 by mleclair         ###   ########.fr        #
+#    Updated: 2017/05/16 12:28:14 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,7 +114,7 @@ LOG_WHITE		= \033[1;37m
 
 # Bonus
 
-.PHONY			:	clean fclean
+.PHONY			:	clean fclean re all
 
 # **************************************************************************** #
 
@@ -123,7 +123,7 @@ LOG_WHITE		= \033[1;37m
 # Main rules
 all				: 	$(OBJDIR) $(NAME)
 
-re				: 	fclean all clean re
+re				: 	fclean all
 
 # Compilation rules
 $(OBJDIR)		:
