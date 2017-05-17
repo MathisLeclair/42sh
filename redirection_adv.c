@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_adv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:55:38 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/15 15:59:03 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:22:00 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		rd_here_doc(t_env *e, int child, int fd)
 
 	n = -1;
 	e->bool3 = 1;
-	if (ft_isdigit(e->inp1[ft_strlen(e->inp1) > 0 ? ft_strlen(e->inp1) - 1 : 0]))
+	if (ft_isdigit(e->inp1[ft_strlen(e->inp1) ? ft_strlen(e->inp1) - 1 : 0]))
 		if ((n = 0) && ft_strlen(e->inp1) > 1)
 			n = (e->inp1[ft_strlen(e->inp1) - 2] == '\\' ? -1 :
 			e->inp1[ft_strlen(e->inp1) - 1] - 48);
@@ -103,8 +103,7 @@ void		rd_here_string(t_env *e, int fd, int n, pid_t child)
 	char		**s;
 	int			status;
 
-	if (ft_isdigit(e->inp1[ft_strlen(e->inp1) > 0
-		? ft_strlen(e->inp1) - 1 : 0]))
+	if (ft_isdigit(e->inp1[ft_strlen(e->inp1) ? ft_strlen(e->inp1) - 1 : 0]))
 		if ((n = 0) && ft_strlen(e->inp1) > 1)
 			n = (e->inp1[ft_strlen(e->inp1) - 2] == '\\' ? -1
 			: e->inp1[ft_strlen(e->inp1) - 1] - 48);
