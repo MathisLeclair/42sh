@@ -26,6 +26,8 @@
 -Cd
 -Read
 -History
+-Alias
+
 ```
 
 **Autre :**
@@ -52,6 +54,7 @@ Gestion des File descriptor
 ```
             - Aperture
             - Patate
+			- Alias
 ```
 
 ## Shellscript
@@ -114,6 +117,8 @@ COMMAND3
 ...
 done
 </pre>
+
+**.chellrc**
 
 **Conditions**
 
