@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   condition.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:11:54 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/05/08 17:51:54 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2017/05/17 13:52:46 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	handle_condition(t_env *env, char *input)
 {
 	t_cond	*cond;
 
+	env->booljob = 0;
 	cond = env->cond;
 	if (cond->block == NULL && ft_strncmp(input, "do ", 3) != 0
 		&& ft_strcmp(input, "do") != 0)
