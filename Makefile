@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/05/16 14:50:52 by mleclair         ###   ########.fr        #
+#    Updated: 2017/05/17 14:09:22 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ FILES 	=							\
 			cmd						\
 			double_array_sort 		\
 			is_file					\
+			handle_chellrc			\
 			env_mod					\
 			error					\
 			fork					\

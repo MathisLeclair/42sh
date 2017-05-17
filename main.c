@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:22:53 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:07:07 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int		main(int ac, char **av, char **ev)
 	signblock(1);
 	shlvl(env());
 	handle_file(ac, av, env());
+	handle_chellrc(env());
 	env()->name = ft_strdup(av[0]);
 	while (1)
 		if ((ft_read(env(), NULL, -1, 0)) == 0)

@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/10 17:19:57 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/17 14:06:59 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -527,6 +527,7 @@ int				ft_read3(char **input, t_env *env);
 void			exec_condition(t_env *env, t_cond *cond);
 void			initterm(t_var *var);
 void			veroverload(char **str);
+void			handle_chellrc(t_env *env);
 
 /*
 ** hijack_prompt.c
