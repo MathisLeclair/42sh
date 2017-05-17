@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/17 14:06:59 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/17 15:56:26 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct	s_env
 	char			*find;
 	char			*redir;
 	char			*inp1;
+	char			**alias;
 	char			*inp2;
 	char			*name;
 	int				lastret;
@@ -500,6 +501,12 @@ void			ac_target(char *find, char ***ac);
 char			**auto_possibilities(char pwd, t_env *ev);
 char			*finder(char *input, int pos);
 char			ft_strcmp_beg(char *str1, char *str2);
+
+/*
+** builtin_alias.c
+*/
+
+void			alias(t_env *env, char **split);
 
 /*
 ** to order:

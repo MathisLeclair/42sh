@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:31:37 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/14 13:13:38 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/17 15:57:31 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int		ft_reco_cmd3(t_env *env, char **split)
 		builtin_export(env, split);
 	else if (ft_strcmp(split[0], "hash") == 0)
 		builtin_hash(env, split);
+	else if (ft_strcmp(split[0], "alias") == 0)
+		alias(env, split);
 	else if (ft_strfind(split[0], '=') != -1)
 		add_local(env, split);
 	else

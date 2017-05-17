@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/14 08:34:28 by cosi             ###   ########.fr       */
+/*   Updated: 2017/05/17 16:14:35 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	set_e3(t_env *e)
 	e->bool3 = 0;
 	e->fdout = dup(1);
 	e->pid = getpid();
+	e->alias = malloc(sizeof(char *) * 2);
+	ft_bzero(e->alias, sizeof(char *) * 2);
 }
 
 void	set_evloc2(t_env *e)

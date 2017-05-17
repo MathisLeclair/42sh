@@ -6,7 +6,7 @@
 #    By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/12 19:21:21 by mleclair          #+#    #+#              #
-#    Updated: 2017/05/17 14:09:22 by mleclair         ###   ########.fr        #
+#    Updated: 2017/05/17 16:16:10 by mleclair         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ FILES 	=							\
 			autocomplete4			\
 			bquote					\
 			builtins				\
+			builtin_alias			\
 			builtins4				\
 			builtins2				\
 			cmd_env					\
