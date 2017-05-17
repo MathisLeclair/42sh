@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/17 15:56:26 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/17 18:55:13 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,12 @@ void			ft_sig(int i);
 */
 
 int				get_next_line(const int fd, char **line);
+
+/*
+** alias.c
+*/
+
+void			sh_alias(t_env *env);
 
 /*
 ** ft_cmpspec.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 13:28:38 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/15 15:58:23 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/17 19:12:17 by aridolfi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	parse(t_env *env, char **input, int do2)
 		free(env->input);
 		env->input = ft_strdup(*input);
 	}
+	sh_alias(env);
 	if ((env->bool2 == 1 && !ft_read(env, env->input, -1, 0))
 		|| env->input == NULL)
 		return ;
