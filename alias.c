@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 14:06:03 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/18 18:16:18 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/18 18:18:44 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static char	already_used(int i)
 			return (0);
 		j++;
 	}
-	tmp = palloc(sizeof(int) * j + 2);
+	tmp = palloc(sizeof(int) * (j + 2));
 	tmp[j] = i;
 	tmp[j + 1] = 0;
 	i = -1;
