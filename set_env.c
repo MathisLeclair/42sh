@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 17:47:40 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/17 16:14:35 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/18 17:47:56 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	set_e3(t_env *e)
 	e->pid = getpid();
 	e->alias = malloc(sizeof(char *) * 2);
 	ft_bzero(e->alias, sizeof(char *) * 2);
+	e->ints = palloc(sizeof(int));
+	e->ints[0] = 0;
 }
 
 void	set_evloc2(t_env *e)

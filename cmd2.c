@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:36:23 by mleclair          #+#    #+#             */
-/*   Updated: 2017/04/02 15:52:28 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/18 17:35:29 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	**ft_split_input(char *input)
 	int		i;
 	char	**a;
 
-	i = -1;
 	a = ft_strsplitquote(input, ' ', 1);
 	i = -1;
 	while (a[++i])
