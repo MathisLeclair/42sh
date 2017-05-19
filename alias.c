@@ -6,7 +6,7 @@
 /*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 14:06:03 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/19 16:41:00 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/19 17:20:29 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ static int	rplc_alias(t_env *env, char **split, int i)
 			j = 0;
 			while (ft_iswhitespace(env->input[j]))
 				++j;
-
-			ft_remstr(env->input, j, j + ft_wlen(env->input, ' '));
+			ft_remstr(env->input, j, j + ft_wlen(env->input + j, ' '));
 			free_swap(&(env->input), ft_strjoin(split_alias[1], env->input));
-
 			free_double_array(split_alias);
 			return (i + 1);
 		}
