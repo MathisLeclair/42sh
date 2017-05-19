@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:39:32 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/14 13:17:20 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/19 18:12:07 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		cmprev(char *str, char *tofind)
 	cut = bs_strstr(str, tofind);
 	if (cut == -1)
 		return (-1);
+	free2(env()->inp1, env()->inp2);
 	env()->inp1 = ft_strsub(str, 0, cut);
 	env()->inp2 = ft_strdup(str + cut + ft_strlen(tofind));
 	return (1);

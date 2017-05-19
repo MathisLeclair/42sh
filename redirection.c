@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 12:54:31 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/15 15:53:15 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/19 17:48:03 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,6 @@ int			rd_input2(t_env *env, char *n, int *fd)
 				: env->inp1[ft_strlen(env->inp1) - 1] - 48);
 	if (*n != -1)
 		env->inp1[ft_strlen(env->inp1) - 1] = '\0';
-	if (env->inp2[0] == '&')
-	{
-		rd_dupinput(env, *n);
-		return (0);
-	}
 	if ((*fd = open(env->inp2, O_RDONLY)) == -1)
 	{
 		error(-17, NULL, NULL);

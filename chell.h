@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/29 16:36:54 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/19 16:40:45 by bfrochot         ###   ########.fr       */
+/*   Updated: 2017/05/19 17:48:07 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,7 +344,6 @@ void			rd_here_string(t_env *env, int a, int b, pid_t x);
 ** redirection_fd.c
 */
 
-void			rd_dupinput(t_env *env, char n);
 void			rd_dupoutput(t_env *env, char n);
 
 /*
