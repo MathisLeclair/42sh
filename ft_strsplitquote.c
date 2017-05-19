@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplitquote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cosi <cosi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 16:58:49 by bfrochot          #+#    #+#             */
-/*   Updated: 2017/05/14 08:37:19 by cosi             ###   ########.fr       */
+/*   Updated: 2017/05/19 16:40:58 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_cnt_parts(const char *s, char c)
 	return (nw);
 }
 
-static int	ft_wlen(const char *s, char c)
+int			ft_wlen(const char *s, char c)
 {
 	int	l;
 	int	done;

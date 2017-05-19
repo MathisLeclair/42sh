@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bfrochot <bfrochot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 14:06:03 by aridolfi          #+#    #+#             */
-/*   Updated: 2017/05/19 13:28:23 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/19 16:41:00 by bfrochot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static char	**parse_alias(char *str_alias)
 static int	rplc_alias(t_env *env, char **split, int i)
 {
 	int		j;
-	char	*tmp;
 	char	**split_alias;
 
 	while (env->alias[i])
@@ -39,11 +38,10 @@ static int	rplc_alias(t_env *env, char **split, int i)
 			j = 0;
 			while (ft_iswhitespace(env->input[j]))
 				++j;
-			tmp = ft_strcdup(env->input, j);
-			free_swap(&tmp, ft_strjoin(tmp, split_alias[1]));
-			free_swap(&tmp, ft_strjoin(tmp, env->input + j
-			+ ft_strlen(split_alias[0])));
-			free_swap(&(env->input), tmp);
+
+			ft_remstr(env->input, j, j + ft_wlen(env->input, ' '));
+			free_swap(&(env->input), ft_strjoin(split_alias[1], env->input));
+
 			free_double_array(split_alias);
 			return (i + 1);
 		}
