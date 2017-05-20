@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_chellrc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:20:45 by tgauvrit          #+#    #+#             */
-/*   Updated: 2017/05/17 21:10:48 by aridolfi         ###   ########.fr       */
+/*   Updated: 2017/05/20 15:09:17 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void		handle_chellrc(t_env *env)
 	char	*tmp;
 	char	*input;
 
+	if (find_param(env->ev, "HOME") == -1)
+		return ;
 	tmp = ft_strdup(env->ev[find_param(env->ev, "HOME")] + 5);
 	tmp = ft_strjoinfree(tmp, "/.chellrc", 1);
 	if ((fd = open(tmp, O_RDONLY)) < 0)

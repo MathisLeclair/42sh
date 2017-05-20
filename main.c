@@ -6,7 +6,7 @@
 /*   By: mleclair <mleclair@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:16:33 by mleclair          #+#    #+#             */
-/*   Updated: 2017/05/17 14:07:07 by mleclair         ###   ########.fr       */
+/*   Updated: 2017/05/20 15:08:45 by mleclair         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_sig(int i)
 	{
 		i = tvar()->i;
 		free_double_array(tvar()->his);
+		free_double_array(tvar()->ac);
 		free(tvar()->arr);
 		initvar(tvar(), 0, 10, 0);
 		write(1, "\n", 1);
